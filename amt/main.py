@@ -5,12 +5,15 @@ import pandas as pd
 import wave
 from scipy.fftpack import fft
 
+print("### AMT ###")
+
 bitFile = "/home/xilinx/pynq/overlays/base/base.bit"
 myWavFile = "input.wav"
 
 if __name__ == "__main__":
 
     # Init overlay
+    print("Initializing system...")
     base = BaseOverlay(bitFile)
 
     # Init pAudio settings
@@ -20,16 +23,13 @@ if __name__ == "__main__":
     pAudio.bypass(seconds=5)
 
     while True:
-
+        print("\n##########################################\n")
         # Record and save into file 
-        print("Recording start")
-        pAudio.record(5)
+        pAudio.record(0.5)
         pAudio.save(myWavFile)
-        print("Recording end")
+        # print("Recording end")
 
-        # Play the wav file 
-        pAudio.load(myWavFile)
-        pAudio.play()
+        # How to not save data into wav file? 
 
         # Get the wavefile
         wav_path = myWavFile
