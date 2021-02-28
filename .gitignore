@@ -1,3 +1,14 @@
+# Visual Code 
 *.code-workspace
+
+# Linux env
 *.dat
+
+# Secret stuff
 secrets.json
+
+# Audio files
+*.wav
+
+# Logs
+*.log
