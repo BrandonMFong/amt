@@ -4,6 +4,12 @@
 [System.Object[]]$jsonReader = Get-Content $secretsFile|ConvertFrom-Json;
 [string]$logPath = $PSScriptRoot + "\sftp.log"
 
+# Remove the .dat file 
+if(Test-Path ".\amt\*.dat")
+{
+  Remove-Item ".\amt\*.dat"
+}
+
 & "$($jsonReader.WinSCPPath)" `
   /log=$logPath /ini=nul `
   /command `
