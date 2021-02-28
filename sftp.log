@@ -1,0 +1,623 @@
+. 2021-02-28 12:55:47.651 --------------------------------------------------------------------------
+. 2021-02-28 12:55:47.651 WinSCP Version 5.17.7 (Build 10640) (OS 10.0.18363 - Windows 10 Home)
+. 2021-02-28 12:55:47.651 Configuration: nul
+. 2021-02-28 12:55:47.651 Log level: Normal
+. 2021-02-28 12:55:47.651 Local account: KAMANTA\BrandonMFong
+. 2021-02-28 12:55:47.651 Working directory: B:\COLLEGE\Thesis\Source2
+. 2021-02-28 12:55:47.651 Process ID: 5680
+. 2021-02-28 12:55:47.651 Command-line: "C:\Program Files (x86)\WinSCP\WinSCP.exe" /console=5.17.7 /consoleinstance=_9540_811 "/log=B:\COLLEGE\Thesis\Source2\sftp.log" "/ini=nul" "/command" "open sftp://xilinx:***@192.168.2.99/ -hostkey=""ssh-ed25519 255 Ar2+h5ZV4JYSIOh21xf6yzHMqZFq9loxKvv4X9yGJ5M=""" "lcd B:\COLLEGE\Thesis\Source2" "cd /home/xilinx/Brando/sources/repo" "put amt" "exit"
+. 2021-02-28 12:55:47.651 Time zone: Current: GMT-8, Standard: GMT-8 (Pacific Standard Time), DST: GMT-7 (Pacific Daylight Time), DST Start: 3/14/2021, DST End: 11/7/2021
+. 2021-02-28 12:55:47.651 Login time: Sunday, February 28, 2021 12:55:47 PM
+. 2021-02-28 12:55:47.651 --------------------------------------------------------------------------
+. 2021-02-28 12:55:47.651 Script: Retrospectively logging previous script records:
+> 2021-02-28 12:55:47.651 Script: open sftp://xilinx:***@192.168.2.99/ -hostkey="ssh-ed25519 255 Ar2+h5ZV4JYSIOh21xf6yzHMqZFq9loxKvv4X9yGJ5M="
+. 2021-02-28 12:55:47.651 --------------------------------------------------------------------------
+. 2021-02-28 12:55:47.651 Session name: xilinx@192.168.2.99 (Ad-Hoc site)
+. 2021-02-28 12:55:47.651 Host name: 192.168.2.99 (Port: 22)
+. 2021-02-28 12:55:47.651 User name: xilinx (Password: Yes, Key file: No, Passphrase: No)
+. 2021-02-28 12:55:47.651 Tunnel: No
+. 2021-02-28 12:55:47.651 Transfer Protocol: SFTP
+. 2021-02-28 12:55:47.651 Ping type: Off, Ping interval: 30 sec; Timeout: 15 sec
+. 2021-02-28 12:55:47.651 Disable Nagle: No
+. 2021-02-28 12:55:47.651 Proxy: None
+. 2021-02-28 12:55:47.651 Send buffer: 262144
+. 2021-02-28 12:55:47.651 SSH protocol version: 2; Compression: No
+. 2021-02-28 12:55:47.651 Bypass authentication: No
+. 2021-02-28 12:55:47.651 Try agent: Yes; Agent forwarding: No; TIS/CryptoCard: No; KI: Yes; GSSAPI: Yes
+. 2021-02-28 12:55:47.651 GSSAPI: Forwarding: No; Libs: gssapi32,sspi,custom; Custom: 
+. 2021-02-28 12:55:47.651 Ciphers: aes,chacha20,blowfish,3des,WARN,arcfour,des; Ssh2DES: No
+. 2021-02-28 12:55:47.651 KEX: ecdh,dh-gex-sha1,dh-group14-sha1,rsa,WARN,dh-group1-sha1
+. 2021-02-28 12:55:47.651 SSH Bugs: Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto
+. 2021-02-28 12:55:47.651 Simple channel: Yes
+. 2021-02-28 12:55:47.651 Return code variable: Autodetect; Lookup user groups: Auto
+. 2021-02-28 12:55:47.651 Shell: default
+. 2021-02-28 12:55:47.651 EOL: LF, UTF: Auto
+. 2021-02-28 12:55:47.651 Clear aliases: Yes, Unset nat.vars: Yes, Resolve symlinks: Yes; Follow directory symlinks: No
+. 2021-02-28 12:55:47.651 LS: ls -la, Ign LS warn: Yes, Scp1 Comp: No; Exit code 1 is error: No
+. 2021-02-28 12:55:47.651 SFTP Bugs: Auto,Auto
+. 2021-02-28 12:55:47.651 SFTP Server: default
+. 2021-02-28 12:55:47.651 Local directory: default, Remote directory: home, Update: Yes, Cache: Yes
+. 2021-02-28 12:55:47.651 Cache directory changes: Yes, Permanent: Yes
+. 2021-02-28 12:55:47.651 Recycle bin: Delete to: No, Overwritten to: No, Bin path: 
+. 2021-02-28 12:55:47.651 DST mode: Unix
+. 2021-02-28 12:55:47.651 --------------------------------------------------------------------------
+. 2021-02-28 12:55:47.651 Looking up host "192.168.2.99" for SSH connection
+. 2021-02-28 12:55:47.651 Connecting to 192.168.2.99 port 22
+. 2021-02-28 12:55:47.651 We claim version: SSH-2.0-WinSCP_release_5.17.7
+. 2021-02-28 12:55:47.714 Remote version: SSH-2.0-OpenSSH_7.6p1 Ubuntu-4
+. 2021-02-28 12:55:47.714 Using SSH protocol version 2
+. 2021-02-28 12:55:47.714 Have a known host key of type ssh-ed25519
+. 2021-02-28 12:55:47.714 Doing ECDH key exchange with curve Curve25519 and hash SHA-256
+. 2021-02-28 12:55:47.844 Server also has ecdsa-sha2-nistp256/ssh-rsa host keys, but we don't know any of them
+. 2021-02-28 12:55:47.844 Host key fingerprint is:
+. 2021-02-28 12:55:47.844 ssh-ed25519 255 4f:99:f8:bc:0c:99:f5:13:c7:83:dd:33:57:db:f1:11 Ar2+h5ZV4JYSIOh21xf6yzHMqZFq9loxKvv4X9yGJ5M=
+. 2021-02-28 12:55:47.844 Host key matches configured key fingerprint
+. 2021-02-28 12:55:47.844 Initialised AES-256 SDCTR (AES-NI accelerated) outbound encryption
+. 2021-02-28 12:55:47.844 Initialised HMAC-SHA-256 outbound MAC algorithm
+. 2021-02-28 12:55:47.844 Initialised AES-256 SDCTR (AES-NI accelerated) inbound encryption
+. 2021-02-28 12:55:47.844 Initialised HMAC-SHA-256 inbound MAC algorithm
+! 2021-02-28 12:55:47.844 Using username "xilinx".
+. 2021-02-28 12:55:47.844 Server offered these authentication methods: publickey,password
+. 2021-02-28 12:55:47.844 Prompt (password, "SSH password", <no instructions>, "&Password: ")
+. 2021-02-28 12:55:47.844 Using stored password.
+. 2021-02-28 12:55:47.844 Sent password
+. 2021-02-28 12:55:48.016 Access granted
+. 2021-02-28 12:55:48.016 Opening main session channel
+. 2021-02-28 12:55:49.226 Opened main channel
+. 2021-02-28 12:55:49.226 Started a shell/command
+. 2021-02-28 12:55:49.226 --------------------------------------------------------------------------
+. 2021-02-28 12:55:49.226 Using SFTP protocol.
+. 2021-02-28 12:55:49.226 Doing startup conversation with host.
+> 2021-02-28 12:55:49.226 Type: SSH_FXP_INIT, Size: 5, Number: -1
+< 2021-02-28 12:55:49.242 Type: SSH_FXP_VERSION, Size: 150, Number: -1
+. 2021-02-28 12:55:49.242 SFTP version 3 negotiated.
+. 2021-02-28 12:55:49.242 Unknown server extension posix-rename@openssh.com="1"
+. 2021-02-28 12:55:49.242 Supports statvfs@openssh.com extension version "2"
+. 2021-02-28 12:55:49.242 Unknown server extension fstatvfs@openssh.com="2"
+. 2021-02-28 12:55:49.242 Supports hardlink@openssh.com extension version "1"
+. 2021-02-28 12:55:49.242 Unknown server extension fsync@openssh.com="1"
+. 2021-02-28 12:55:49.242 We believe the server has signed timestamps bug
+. 2021-02-28 12:55:49.242 We will use UTF-8 strings until server sends an invalid UTF-8 string as with SFTP version 3 and older UTF-8 strings are not mandatory
+. 2021-02-28 12:55:49.242 Limiting packet size to OpenSSH sftp-server limit of 262148 bytes
+. 2021-02-28 12:55:49.242 Getting current directory name.
+. 2021-02-28 12:55:49.242 Getting real path for '.'
+> 2021-02-28 12:55:49.242 Type: SSH_FXP_REALPATH, Size: 10, Number: 16
+< 2021-02-28 12:55:49.242 Type: SSH_FXP_NAME, Size: 45, Number: 16
+. 2021-02-28 12:55:49.242 Real path is '/home/xilinx'
+. 2021-02-28 12:55:49.242 Startup conversation with host finished.
+< 2021-02-28 12:55:49.242 Script: Active session: [1] xilinx@192.168.2.99
+> 2021-02-28 12:55:49.242 Script: lcd B:\COLLEGE\Thesis\Source2
+< 2021-02-28 12:55:49.242 Script: B:\COLLEGE\Thesis\Source2
+> 2021-02-28 12:55:49.242 Script: cd /home/xilinx/Brando/sources/repo
+. 2021-02-28 12:55:49.242 Changing directory to "/home/xilinx/Brando/sources/repo".
+. 2021-02-28 12:55:49.242 Getting real path for '/home/xilinx/Brando/sources/repo'
+> 2021-02-28 12:55:49.242 Type: SSH_FXP_REALPATH, Size: 41, Number: 272
+< 2021-02-28 12:55:49.242 Type: SSH_FXP_NAME, Size: 85, Number: 272
+. 2021-02-28 12:55:49.242 Real path is '/home/xilinx/Brando/sources/repo'
+. 2021-02-28 12:55:49.242 Trying to open directory "/home/xilinx/Brando/sources/repo".
+> 2021-02-28 12:55:49.242 Type: SSH_FXP_LSTAT, Size: 41, Number: 519
+< 2021-02-28 12:55:49.242 Type: SSH_FXP_ATTRS, Size: 37, Number: 519
+. 2021-02-28 12:55:49.242 Getting current directory name.
+< 2021-02-28 12:55:49.242 Script: /home/xilinx/Brando/sources/repo
+> 2021-02-28 12:55:49.257 Script: put amt
+. 2021-02-28 12:55:49.257 Copying 1 files/directories to remote directory "/home/xilinx/Brando/sources/repo"
+. 2021-02-28 12:55:49.257   PrTime: Yes; PrRO: No; Rght: rw-r--r--; PrR: No (No); FnCs: N; RIC: 0100; Resume: S (102400); CalcS: No; Mask: 
+. 2021-02-28 12:55:49.257   TM: B; ClAr: No; RemEOF: No; RemBOM: No; CPS: 0; NewerOnly: No; EncryptNewFiles: Yes; ExcludeHiddenFiles: No; ExcludeEmptyDirectories: No; InclM: ; ResumeL: 0
+. 2021-02-28 12:55:49.257   AscM: *.*html; *.htm; *.txt; *.php; *.php3; *.cgi; *.c; *.cpp; *.h; *.pas; *.bas; *.tex; *.pl; *.js; .htaccess; *.xtml; *.css; *.cfg; *.ini; *.sh; *.xml
+. 2021-02-28 12:55:49.257 Getting real path for '/home/xilinx/Brando/sources/repo'
+> 2021-02-28 12:55:49.257 Type: SSH_FXP_REALPATH, Size: 41, Number: 784
+< 2021-02-28 12:55:49.257 Type: SSH_FXP_NAME, Size: 85, Number: 784
+. 2021-02-28 12:55:49.257 Real path is '/home/xilinx/Brando/sources/repo'
+. 2021-02-28 12:55:49.257 File: 'amt' [2021-02-28T20:53:07.065Z] [0]
+. 2021-02-28 12:55:49.257 Listing file "/home/xilinx/Brando/sources/repo/amt".
+> 2021-02-28 12:55:49.257 Type: SSH_FXP_LSTAT, Size: 45, Number: 1031
+< 2021-02-28 12:55:49.257 Type: SSH_FXP_ATTRS, Size: 37, Number: 1031
+. 2021-02-28 12:55:49.257 amt;D;0;2020-10-19T16:26:57.000Z;3;"" [1000];"" [1000];rwxrwxr-x;0
+. 2021-02-28 12:55:49.257 File: 'amt\main.py' [2021-02-28T20:55:42.349Z] [241]
+. 2021-02-28 12:55:49.257 Copying "amt\main.py" to remote directory started.
+. 2021-02-28 12:55:49.257 Binary transfer mode selected.
+. 2021-02-28 12:55:49.257 Opening remote file.
+> 2021-02-28 12:55:49.257 Type: SSH_FXP_OPEN, Size: 69, Number: 1283
+< 2021-02-28 12:55:49.257 Type: SSH_FXP_HANDLE, Size: 13, Number: 1283
+> 2021-02-28 12:55:49.257 Type: SSH_FXP_WRITE, Size: 266, Number: 1798
+> 2021-02-28 12:55:49.257 Type: SSH_FXP_CLOSE, Size: 13, Number: 2052
+> 2021-02-28 12:55:49.257 Type: SSH_FXP_SETSTAT, Size: 65, Number: 1545
+< 2021-02-28 12:55:49.273 Type: SSH_FXP_STATUS, Size: 24, Number: 1798
+< 2021-02-28 12:55:49.273 Status code: 0
+< 2021-02-28 12:55:49.273 Type: SSH_FXP_STATUS, Size: 24, Number: 2052
+< 2021-02-28 12:55:49.273 Status code: 0
+. 2021-02-28 12:55:49.273 Preserving timestamp [2021-02-28T20:55:42.000Z]
+< 2021-02-28 12:55:49.273 Type: SSH_FXP_STATUS, Size: 24, Number: 1545
+< 2021-02-28 12:55:49.273 Status code: 0
+. 2021-02-28 12:55:49.273 Transfer done: 'amt\main.py' => '/home/xilinx/Brando/sources/repo/amt/main.py' [241]
+. 2021-02-28 12:55:49.273 File: 'amt\sds_trace_data.dat' [2020-10-19T16:28:04.000Z] [32]
+. 2021-02-28 12:55:49.273 Copying "amt\sds_trace_data.dat" to remote directory started.
+. 2021-02-28 12:55:49.273 Binary transfer mode selected.
+. 2021-02-28 12:55:49.273 Opening remote file.
+> 2021-02-28 12:55:49.273 Type: SSH_FXP_OPEN, Size: 80, Number: 2307
+< 2021-02-28 12:55:49.273 Type: SSH_FXP_STATUS, Size: 34, Number: 2307
+< 2021-02-28 12:55:49.273 Status code: 3, Message: 2307, Server: Permission denied, Language:  
+> 2021-02-28 12:55:49.273 Type: SSH_FXP_LSTAT, Size: 64, Number: 2567
+< 2021-02-28 12:55:49.273 Type: SSH_FXP_ATTRS, Size: 37, Number: 2567
+* 2021-02-28 12:55:49.273 (ETerminal) Permission denied.
+* 2021-02-28 12:55:49.273 Error code: 3
+* 2021-02-28 12:55:49.273 Error message from server: Permission denied
+. 2021-02-28 12:55:49.273 Asking user:
+. 2021-02-28 12:55:49.273 Cannot overwrite remote file '/home/xilinx/Brando/sources/repo/amt/sds_trace_data.dat'.$$
+. 2021-02-28 12:55:49.273  
+. 2021-02-28 12:55:49.273 Press 'Delete' to delete the file and create new one instead of overwriting it.$$ ("Permission denied.
+. 2021-02-28 12:55:49.273 Error code: 3
+. 2021-02-28 12:55:49.273 Error message from server: Permission denied")
+< 2021-02-28 12:55:49.273 Script: Cannot overwrite remote file '/home/xilinx/Brando/sources/repo/amt/sds_trace_data.dat'.
+< 2021-02-28 12:55:49.273 Script: Permission denied.
+< 2021-02-28 12:55:49.273 Error code: 3
+< 2021-02-28 12:55:49.273 Error message from server: Permission denied
+* 2021-02-28 12:55:49.273 (ESkipFile) Cannot overwrite remote file '/home/xilinx/Brando/sources/repo/amt/sds_trace_data.dat'.$$
+* 2021-02-28 12:55:49.273  
+* 2021-02-28 12:55:49.273 Press 'Delete' to delete the file and create new one instead of overwriting it.$$
+* 2021-02-28 12:55:49.273 Permission denied.
+* 2021-02-28 12:55:49.273 Error code: 3
+* 2021-02-28 12:55:49.273 Error message from server: Permission denied
+. 2021-02-28 12:55:49.273 Copying finished: Transferred: 241, Elapsed: 0:00:00, CPS: 0/s
+. 2021-02-28 12:55:49.273 Script: Failed
+. 2021-02-28 12:55:49.273 Script: Exit code: 1
+. 2021-02-28 12:55:49.273 Closing connection.
+. 2021-02-28 12:55:49.273 Sending special code: 1
+. 2021-02-28 12:55:49.273 Session sent command exit status 0
+. 2021-02-28 12:55:49.273 Main session channel closed
+. 2021-02-28 12:55:49.273 All channels closed
+. 2021-02-28 12:56:35.420 --------------------------------------------------------------------------
+. 2021-02-28 12:56:35.420 WinSCP Version 5.17.7 (Build 10640) (OS 10.0.18363 - Windows 10 Home)
+. 2021-02-28 12:56:35.420 Configuration: nul
+. 2021-02-28 12:56:35.421 Log level: Normal
+. 2021-02-28 12:56:35.421 Local account: KAMANTA\BrandonMFong
+. 2021-02-28 12:56:35.421 Working directory: B:\COLLEGE\Thesis\Source2
+. 2021-02-28 12:56:35.421 Process ID: 17280
+. 2021-02-28 12:56:35.421 Command-line: "C:\Program Files (x86)\WinSCP\WinSCP.exe" /console=5.17.7 /consoleinstance=_20648_331 "/log=B:\COLLEGE\Thesis\Source2\sftp.log" "/ini=nul" "/command" "open sftp://xilinx:***@192.168.2.99/ -hostkey=""ssh-ed25519 255 Ar2+h5ZV4JYSIOh21xf6yzHMqZFq9loxKvv4X9yGJ5M=""" "lcd B:\COLLEGE\Thesis\Source2" "cd /home/xilinx/Brando/sources/repo" "put amt" "exit"
+. 2021-02-28 12:56:35.421 Time zone: Current: GMT-8, Standard: GMT-8 (Pacific Standard Time), DST: GMT-7 (Pacific Daylight Time), DST Start: 3/14/2021, DST End: 11/7/2021
+. 2021-02-28 12:56:35.421 Login time: Sunday, February 28, 2021 12:56:35 PM
+. 2021-02-28 12:56:35.421 --------------------------------------------------------------------------
+. 2021-02-28 12:56:35.422 Script: Retrospectively logging previous script records:
+> 2021-02-28 12:56:35.422 Script: open sftp://xilinx:***@192.168.2.99/ -hostkey="ssh-ed25519 255 Ar2+h5ZV4JYSIOh21xf6yzHMqZFq9loxKvv4X9yGJ5M="
+. 2021-02-28 12:56:35.422 --------------------------------------------------------------------------
+. 2021-02-28 12:56:35.422 Session name: xilinx@192.168.2.99 (Ad-Hoc site)
+. 2021-02-28 12:56:35.422 Host name: 192.168.2.99 (Port: 22)
+. 2021-02-28 12:56:35.422 User name: xilinx (Password: Yes, Key file: No, Passphrase: No)
+. 2021-02-28 12:56:35.422 Tunnel: No
+. 2021-02-28 12:56:35.422 Transfer Protocol: SFTP
+. 2021-02-28 12:56:35.422 Ping type: Off, Ping interval: 30 sec; Timeout: 15 sec
+. 2021-02-28 12:56:35.422 Disable Nagle: No
+. 2021-02-28 12:56:35.422 Proxy: None
+. 2021-02-28 12:56:35.422 Send buffer: 262144
+. 2021-02-28 12:56:35.422 SSH protocol version: 2; Compression: No
+. 2021-02-28 12:56:35.422 Bypass authentication: No
+. 2021-02-28 12:56:35.422 Try agent: Yes; Agent forwarding: No; TIS/CryptoCard: No; KI: Yes; GSSAPI: Yes
+. 2021-02-28 12:56:35.422 GSSAPI: Forwarding: No; Libs: gssapi32,sspi,custom; Custom: 
+. 2021-02-28 12:56:35.422 Ciphers: aes,chacha20,blowfish,3des,WARN,arcfour,des; Ssh2DES: No
+. 2021-02-28 12:56:35.422 KEX: ecdh,dh-gex-sha1,dh-group14-sha1,rsa,WARN,dh-group1-sha1
+. 2021-02-28 12:56:35.422 SSH Bugs: Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto
+. 2021-02-28 12:56:35.422 Simple channel: Yes
+. 2021-02-28 12:56:35.422 Return code variable: Autodetect; Lookup user groups: Auto
+. 2021-02-28 12:56:35.422 Shell: default
+. 2021-02-28 12:56:35.422 EOL: LF, UTF: Auto
+. 2021-02-28 12:56:35.422 Clear aliases: Yes, Unset nat.vars: Yes, Resolve symlinks: Yes; Follow directory symlinks: No
+. 2021-02-28 12:56:35.422 LS: ls -la, Ign LS warn: Yes, Scp1 Comp: No; Exit code 1 is error: No
+. 2021-02-28 12:56:35.422 SFTP Bugs: Auto,Auto
+. 2021-02-28 12:56:35.422 SFTP Server: default
+. 2021-02-28 12:56:35.422 Local directory: default, Remote directory: home, Update: Yes, Cache: Yes
+. 2021-02-28 12:56:35.422 Cache directory changes: Yes, Permanent: Yes
+. 2021-02-28 12:56:35.422 Recycle bin: Delete to: No, Overwritten to: No, Bin path: 
+. 2021-02-28 12:56:35.422 DST mode: Unix
+. 2021-02-28 12:56:35.422 --------------------------------------------------------------------------
+. 2021-02-28 12:56:35.423 Looking up host "192.168.2.99" for SSH connection
+. 2021-02-28 12:56:35.423 Connecting to 192.168.2.99 port 22
+. 2021-02-28 12:56:35.426 We claim version: SSH-2.0-WinSCP_release_5.17.7
+. 2021-02-28 12:56:35.473 Remote version: SSH-2.0-OpenSSH_7.6p1 Ubuntu-4
+. 2021-02-28 12:56:35.473 Using SSH protocol version 2
+. 2021-02-28 12:56:35.473 Have a known host key of type ssh-ed25519
+. 2021-02-28 12:56:35.473 Doing ECDH key exchange with curve Curve25519 and hash SHA-256
+. 2021-02-28 12:56:35.598 Server also has ecdsa-sha2-nistp256/ssh-rsa host keys, but we don't know any of them
+. 2021-02-28 12:56:35.598 Host key fingerprint is:
+. 2021-02-28 12:56:35.598 ssh-ed25519 255 4f:99:f8:bc:0c:99:f5:13:c7:83:dd:33:57:db:f1:11 Ar2+h5ZV4JYSIOh21xf6yzHMqZFq9loxKvv4X9yGJ5M=
+. 2021-02-28 12:56:35.598 Host key matches configured key fingerprint
+. 2021-02-28 12:56:35.598 Initialised AES-256 SDCTR (AES-NI accelerated) outbound encryption
+. 2021-02-28 12:56:35.598 Initialised HMAC-SHA-256 outbound MAC algorithm
+. 2021-02-28 12:56:35.598 Initialised AES-256 SDCTR (AES-NI accelerated) inbound encryption
+. 2021-02-28 12:56:35.598 Initialised HMAC-SHA-256 inbound MAC algorithm
+! 2021-02-28 12:56:35.598 Using username "xilinx".
+. 2021-02-28 12:56:35.598 Server offered these authentication methods: publickey,password
+. 2021-02-28 12:56:35.598 Prompt (password, "SSH password", <no instructions>, "&Password: ")
+. 2021-02-28 12:56:35.598 Using stored password.
+. 2021-02-28 12:56:35.598 Sent password
+. 2021-02-28 12:56:35.786 Access granted
+. 2021-02-28 12:56:35.786 Opening main session channel
+. 2021-02-28 12:56:36.990 Opened main channel
+. 2021-02-28 12:56:36.990 Started a shell/command
+. 2021-02-28 12:56:36.990 --------------------------------------------------------------------------
+. 2021-02-28 12:56:36.990 Using SFTP protocol.
+. 2021-02-28 12:56:36.990 Doing startup conversation with host.
+> 2021-02-28 12:56:36.990 Type: SSH_FXP_INIT, Size: 5, Number: -1
+< 2021-02-28 12:56:37.006 Type: SSH_FXP_VERSION, Size: 150, Number: -1
+. 2021-02-28 12:56:37.006 SFTP version 3 negotiated.
+. 2021-02-28 12:56:37.006 Unknown server extension posix-rename@openssh.com="1"
+. 2021-02-28 12:56:37.006 Supports statvfs@openssh.com extension version "2"
+. 2021-02-28 12:56:37.006 Unknown server extension fstatvfs@openssh.com="2"
+. 2021-02-28 12:56:37.006 Supports hardlink@openssh.com extension version "1"
+. 2021-02-28 12:56:37.006 Unknown server extension fsync@openssh.com="1"
+. 2021-02-28 12:56:37.006 We believe the server has signed timestamps bug
+. 2021-02-28 12:56:37.006 We will use UTF-8 strings until server sends an invalid UTF-8 string as with SFTP version 3 and older UTF-8 strings are not mandatory
+. 2021-02-28 12:56:37.006 Limiting packet size to OpenSSH sftp-server limit of 262148 bytes
+. 2021-02-28 12:56:37.006 Getting current directory name.
+. 2021-02-28 12:56:37.006 Getting real path for '.'
+> 2021-02-28 12:56:37.006 Type: SSH_FXP_REALPATH, Size: 10, Number: 16
+< 2021-02-28 12:56:37.006 Type: SSH_FXP_NAME, Size: 45, Number: 16
+. 2021-02-28 12:56:37.006 Real path is '/home/xilinx'
+. 2021-02-28 12:56:37.006 Startup conversation with host finished.
+< 2021-02-28 12:56:37.006 Script: Active session: [1] xilinx@192.168.2.99
+> 2021-02-28 12:56:37.006 Script: lcd B:\COLLEGE\Thesis\Source2
+< 2021-02-28 12:56:37.006 Script: B:\COLLEGE\Thesis\Source2
+> 2021-02-28 12:56:37.006 Script: cd /home/xilinx/Brando/sources/repo
+. 2021-02-28 12:56:37.006 Changing directory to "/home/xilinx/Brando/sources/repo".
+. 2021-02-28 12:56:37.006 Getting real path for '/home/xilinx/Brando/sources/repo'
+> 2021-02-28 12:56:37.006 Type: SSH_FXP_REALPATH, Size: 41, Number: 272
+< 2021-02-28 12:56:37.006 Type: SSH_FXP_NAME, Size: 85, Number: 272
+. 2021-02-28 12:56:37.006 Real path is '/home/xilinx/Brando/sources/repo'
+. 2021-02-28 12:56:37.006 Trying to open directory "/home/xilinx/Brando/sources/repo".
+> 2021-02-28 12:56:37.006 Type: SSH_FXP_LSTAT, Size: 41, Number: 519
+< 2021-02-28 12:56:37.006 Type: SSH_FXP_ATTRS, Size: 37, Number: 519
+. 2021-02-28 12:56:37.006 Getting current directory name.
+< 2021-02-28 12:56:37.006 Script: /home/xilinx/Brando/sources/repo
+> 2021-02-28 12:56:37.006 Script: put amt
+. 2021-02-28 12:56:37.006 Copying 1 files/directories to remote directory "/home/xilinx/Brando/sources/repo"
+. 2021-02-28 12:56:37.006   PrTime: Yes; PrRO: No; Rght: rw-r--r--; PrR: No (No); FnCs: N; RIC: 0100; Resume: S (102400); CalcS: No; Mask: 
+. 2021-02-28 12:56:37.006   TM: B; ClAr: No; RemEOF: No; RemBOM: No; CPS: 0; NewerOnly: No; EncryptNewFiles: Yes; ExcludeHiddenFiles: No; ExcludeEmptyDirectories: No; InclM: ; ResumeL: 0
+. 2021-02-28 12:56:37.006   AscM: *.*html; *.htm; *.txt; *.php; *.php3; *.cgi; *.c; *.cpp; *.h; *.pas; *.bas; *.tex; *.pl; *.js; .htaccess; *.xtml; *.css; *.cfg; *.ini; *.sh; *.xml
+. 2021-02-28 12:56:37.006 Getting real path for '/home/xilinx/Brando/sources/repo'
+> 2021-02-28 12:56:37.006 Type: SSH_FXP_REALPATH, Size: 41, Number: 784
+< 2021-02-28 12:56:37.006 Type: SSH_FXP_NAME, Size: 85, Number: 784
+. 2021-02-28 12:56:37.006 Real path is '/home/xilinx/Brando/sources/repo'
+. 2021-02-28 12:56:37.006 File: 'amt' [2021-02-28T20:56:32.915Z] [0]
+. 2021-02-28 12:56:37.021 Listing file "/home/xilinx/Brando/sources/repo/amt".
+> 2021-02-28 12:56:37.021 Type: SSH_FXP_LSTAT, Size: 45, Number: 1031
+< 2021-02-28 12:56:37.021 Type: SSH_FXP_ATTRS, Size: 37, Number: 1031
+. 2021-02-28 12:56:37.021 amt;D;0;2020-10-19T16:26:57.000Z;3;"" [1000];"" [1000];rwxrwxr-x;0
+. 2021-02-28 12:56:37.021 File: 'amt\main.py' [2021-02-28T20:55:42.349Z] [241]
+. 2021-02-28 12:56:37.021 Copying "amt\main.py" to remote directory started.
+. 2021-02-28 12:56:37.021 Binary transfer mode selected.
+. 2021-02-28 12:56:37.021 Opening remote file.
+> 2021-02-28 12:56:37.021 Type: SSH_FXP_OPEN, Size: 69, Number: 1283
+< 2021-02-28 12:56:37.021 Type: SSH_FXP_HANDLE, Size: 13, Number: 1283
+> 2021-02-28 12:56:37.021 Type: SSH_FXP_WRITE, Size: 266, Number: 1798
+> 2021-02-28 12:56:37.021 Type: SSH_FXP_CLOSE, Size: 13, Number: 2052
+> 2021-02-28 12:56:37.021 Type: SSH_FXP_SETSTAT, Size: 65, Number: 1545
+< 2021-02-28 12:56:37.021 Type: SSH_FXP_STATUS, Size: 24, Number: 1798
+< 2021-02-28 12:56:37.021 Status code: 0
+< 2021-02-28 12:56:37.021 Type: SSH_FXP_STATUS, Size: 24, Number: 2052
+< 2021-02-28 12:56:37.021 Status code: 0
+. 2021-02-28 12:56:37.021 Preserving timestamp [2021-02-28T20:55:42.000Z]
+< 2021-02-28 12:56:37.021 Type: SSH_FXP_STATUS, Size: 24, Number: 1545
+< 2021-02-28 12:56:37.021 Status code: 0
+. 2021-02-28 12:56:37.021 Transfer done: 'amt\main.py' => '/home/xilinx/Brando/sources/repo/amt/main.py' [241]
+. 2021-02-28 12:56:37.021 Copying finished: Transferred: 241, Elapsed: 0:00:00, CPS: 0/s
+> 2021-02-28 12:56:37.021 Script: exit
+. 2021-02-28 12:56:37.021 Script: Exit code: 0
+. 2021-02-28 12:56:37.021 Closing connection.
+. 2021-02-28 12:56:37.021 Sending special code: 1
+. 2021-02-28 12:56:37.021 Session sent command exit status 0
+. 2021-02-28 12:56:37.021 Main session channel closed
+. 2021-02-28 12:56:37.037 All channels closed
+. 2021-02-28 13:03:18.245 --------------------------------------------------------------------------
+. 2021-02-28 13:03:18.245 WinSCP Version 5.17.7 (Build 10640) (OS 10.0.18363 - Windows 10 Home)
+. 2021-02-28 13:03:18.245 Configuration: nul
+. 2021-02-28 13:03:18.245 Log level: Normal
+. 2021-02-28 13:03:18.245 Local account: KAMANTA\BrandonMFong
+. 2021-02-28 13:03:18.245 Working directory: B:\COLLEGE\Thesis\Source2
+. 2021-02-28 13:03:18.245 Process ID: 5696
+. 2021-02-28 13:03:18.245 Command-line: "C:\Program Files (x86)\WinSCP\WinSCP.exe" /console=5.17.7 /consoleinstance=_1392_681 "/log=B:\COLLEGE\Thesis\Source2\sftp.log" "/ini=nul" "/command" "open sftp://xilinx:***@192.168.2.99/ -hostkey=""ssh-ed25519 255 Ar2+h5ZV4JYSIOh21xf6yzHMqZFq9loxKvv4X9yGJ5M=""" "lcd B:\COLLEGE\Thesis\Source2" "cd /home/xilinx/Brando/sources/repo" "put amt" "exit"
+. 2021-02-28 13:03:18.245 Time zone: Current: GMT-8, Standard: GMT-8 (Pacific Standard Time), DST: GMT-7 (Pacific Daylight Time), DST Start: 3/14/2021, DST End: 11/7/2021
+. 2021-02-28 13:03:18.245 Login time: Sunday, February 28, 2021 1:03:18 PM
+. 2021-02-28 13:03:18.245 --------------------------------------------------------------------------
+. 2021-02-28 13:03:18.245 Script: Retrospectively logging previous script records:
+> 2021-02-28 13:03:18.245 Script: open sftp://xilinx:***@192.168.2.99/ -hostkey="ssh-ed25519 255 Ar2+h5ZV4JYSIOh21xf6yzHMqZFq9loxKvv4X9yGJ5M="
+. 2021-02-28 13:03:18.245 --------------------------------------------------------------------------
+. 2021-02-28 13:03:18.245 Session name: xilinx@192.168.2.99 (Ad-Hoc site)
+. 2021-02-28 13:03:18.245 Host name: 192.168.2.99 (Port: 22)
+. 2021-02-28 13:03:18.245 User name: xilinx (Password: Yes, Key file: No, Passphrase: No)
+. 2021-02-28 13:03:18.245 Tunnel: No
+. 2021-02-28 13:03:18.245 Transfer Protocol: SFTP
+. 2021-02-28 13:03:18.245 Ping type: Off, Ping interval: 30 sec; Timeout: 15 sec
+. 2021-02-28 13:03:18.245 Disable Nagle: No
+. 2021-02-28 13:03:18.245 Proxy: None
+. 2021-02-28 13:03:18.245 Send buffer: 262144
+. 2021-02-28 13:03:18.245 SSH protocol version: 2; Compression: No
+. 2021-02-28 13:03:18.245 Bypass authentication: No
+. 2021-02-28 13:03:18.245 Try agent: Yes; Agent forwarding: No; TIS/CryptoCard: No; KI: Yes; GSSAPI: Yes
+. 2021-02-28 13:03:18.245 GSSAPI: Forwarding: No; Libs: gssapi32,sspi,custom; Custom: 
+. 2021-02-28 13:03:18.245 Ciphers: aes,chacha20,blowfish,3des,WARN,arcfour,des; Ssh2DES: No
+. 2021-02-28 13:03:18.245 KEX: ecdh,dh-gex-sha1,dh-group14-sha1,rsa,WARN,dh-group1-sha1
+. 2021-02-28 13:03:18.245 SSH Bugs: Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto
+. 2021-02-28 13:03:18.245 Simple channel: Yes
+. 2021-02-28 13:03:18.245 Return code variable: Autodetect; Lookup user groups: Auto
+. 2021-02-28 13:03:18.245 Shell: default
+. 2021-02-28 13:03:18.245 EOL: LF, UTF: Auto
+. 2021-02-28 13:03:18.245 Clear aliases: Yes, Unset nat.vars: Yes, Resolve symlinks: Yes; Follow directory symlinks: No
+. 2021-02-28 13:03:18.245 LS: ls -la, Ign LS warn: Yes, Scp1 Comp: No; Exit code 1 is error: No
+. 2021-02-28 13:03:18.245 SFTP Bugs: Auto,Auto
+. 2021-02-28 13:03:18.245 SFTP Server: default
+. 2021-02-28 13:03:18.245 Local directory: default, Remote directory: home, Update: Yes, Cache: Yes
+. 2021-02-28 13:03:18.245 Cache directory changes: Yes, Permanent: Yes
+. 2021-02-28 13:03:18.245 Recycle bin: Delete to: No, Overwritten to: No, Bin path: 
+. 2021-02-28 13:03:18.245 DST mode: Unix
+. 2021-02-28 13:03:18.245 --------------------------------------------------------------------------
+. 2021-02-28 13:03:18.245 Looking up host "192.168.2.99" for SSH connection
+. 2021-02-28 13:03:18.245 Connecting to 192.168.2.99 port 22
+. 2021-02-28 13:03:18.245 We claim version: SSH-2.0-WinSCP_release_5.17.7
+. 2021-02-28 13:03:18.308 Remote version: SSH-2.0-OpenSSH_7.6p1 Ubuntu-4
+. 2021-02-28 13:03:18.308 Using SSH protocol version 2
+. 2021-02-28 13:03:18.308 Have a known host key of type ssh-ed25519
+. 2021-02-28 13:03:18.308 Doing ECDH key exchange with curve Curve25519 and hash SHA-256
+. 2021-02-28 13:03:18.433 Server also has ecdsa-sha2-nistp256/ssh-rsa host keys, but we don't know any of them
+. 2021-02-28 13:03:18.433 Host key fingerprint is:
+. 2021-02-28 13:03:18.433 ssh-ed25519 255 4f:99:f8:bc:0c:99:f5:13:c7:83:dd:33:57:db:f1:11 Ar2+h5ZV4JYSIOh21xf6yzHMqZFq9loxKvv4X9yGJ5M=
+. 2021-02-28 13:03:18.433 Host key matches configured key fingerprint
+. 2021-02-28 13:03:18.433 Initialised AES-256 SDCTR (AES-NI accelerated) outbound encryption
+. 2021-02-28 13:03:18.433 Initialised HMAC-SHA-256 outbound MAC algorithm
+. 2021-02-28 13:03:18.433 Initialised AES-256 SDCTR (AES-NI accelerated) inbound encryption
+. 2021-02-28 13:03:18.433 Initialised HMAC-SHA-256 inbound MAC algorithm
+! 2021-02-28 13:03:18.433 Using username "xilinx".
+. 2021-02-28 13:03:18.433 Server offered these authentication methods: publickey,password
+. 2021-02-28 13:03:18.433 Prompt (password, "SSH password", <no instructions>, "&Password: ")
+. 2021-02-28 13:03:18.433 Using stored password.
+. 2021-02-28 13:03:18.433 Sent password
+. 2021-02-28 13:03:18.605 Access granted
+. 2021-02-28 13:03:18.605 Opening main session channel
+. 2021-02-28 13:03:19.846 Opened main channel
+. 2021-02-28 13:03:19.846 Started a shell/command
+. 2021-02-28 13:03:19.846 --------------------------------------------------------------------------
+. 2021-02-28 13:03:19.846 Using SFTP protocol.
+. 2021-02-28 13:03:19.846 Doing startup conversation with host.
+> 2021-02-28 13:03:19.846 Type: SSH_FXP_INIT, Size: 5, Number: -1
+< 2021-02-28 13:03:19.861 Type: SSH_FXP_VERSION, Size: 150, Number: -1
+. 2021-02-28 13:03:19.861 SFTP version 3 negotiated.
+. 2021-02-28 13:03:19.861 Unknown server extension posix-rename@openssh.com="1"
+. 2021-02-28 13:03:19.861 Supports statvfs@openssh.com extension version "2"
+. 2021-02-28 13:03:19.861 Unknown server extension fstatvfs@openssh.com="2"
+. 2021-02-28 13:03:19.861 Supports hardlink@openssh.com extension version "1"
+. 2021-02-28 13:03:19.861 Unknown server extension fsync@openssh.com="1"
+. 2021-02-28 13:03:19.861 We believe the server has signed timestamps bug
+. 2021-02-28 13:03:19.861 We will use UTF-8 strings until server sends an invalid UTF-8 string as with SFTP version 3 and older UTF-8 strings are not mandatory
+. 2021-02-28 13:03:19.861 Limiting packet size to OpenSSH sftp-server limit of 262148 bytes
+. 2021-02-28 13:03:19.861 Getting current directory name.
+. 2021-02-28 13:03:19.861 Getting real path for '.'
+> 2021-02-28 13:03:19.861 Type: SSH_FXP_REALPATH, Size: 10, Number: 16
+< 2021-02-28 13:03:19.861 Type: SSH_FXP_NAME, Size: 45, Number: 16
+. 2021-02-28 13:03:19.861 Real path is '/home/xilinx'
+. 2021-02-28 13:03:19.861 Startup conversation with host finished.
+< 2021-02-28 13:03:19.861 Script: Active session: [1] xilinx@192.168.2.99
+> 2021-02-28 13:03:19.861 Script: lcd B:\COLLEGE\Thesis\Source2
+< 2021-02-28 13:03:19.861 Script: B:\COLLEGE\Thesis\Source2
+> 2021-02-28 13:03:19.861 Script: cd /home/xilinx/Brando/sources/repo
+. 2021-02-28 13:03:19.861 Changing directory to "/home/xilinx/Brando/sources/repo".
+. 2021-02-28 13:03:19.861 Getting real path for '/home/xilinx/Brando/sources/repo'
+> 2021-02-28 13:03:19.861 Type: SSH_FXP_REALPATH, Size: 41, Number: 272
+< 2021-02-28 13:03:19.861 Type: SSH_FXP_NAME, Size: 85, Number: 272
+. 2021-02-28 13:03:19.861 Real path is '/home/xilinx/Brando/sources/repo'
+. 2021-02-28 13:03:19.861 Trying to open directory "/home/xilinx/Brando/sources/repo".
+> 2021-02-28 13:03:19.861 Type: SSH_FXP_LSTAT, Size: 41, Number: 519
+< 2021-02-28 13:03:19.861 Type: SSH_FXP_ATTRS, Size: 37, Number: 519
+. 2021-02-28 13:03:19.861 Getting current directory name.
+< 2021-02-28 13:03:19.861 Script: /home/xilinx/Brando/sources/repo
+> 2021-02-28 13:03:19.861 Script: put amt
+. 2021-02-28 13:03:19.861 Copying 1 files/directories to remote directory "/home/xilinx/Brando/sources/repo"
+. 2021-02-28 13:03:19.861   PrTime: Yes; PrRO: No; Rght: rw-r--r--; PrR: No (No); FnCs: N; RIC: 0100; Resume: S (102400); CalcS: No; Mask: 
+. 2021-02-28 13:03:19.861   TM: B; ClAr: No; RemEOF: No; RemBOM: No; CPS: 0; NewerOnly: No; EncryptNewFiles: Yes; ExcludeHiddenFiles: No; ExcludeEmptyDirectories: No; InclM: ; ResumeL: 0
+. 2021-02-28 13:03:19.861   AscM: *.*html; *.htm; *.txt; *.php; *.php3; *.cgi; *.c; *.cpp; *.h; *.pas; *.bas; *.tex; *.pl; *.js; .htaccess; *.xtml; *.css; *.cfg; *.ini; *.sh; *.xml
+. 2021-02-28 13:03:19.861 Getting real path for '/home/xilinx/Brando/sources/repo'
+> 2021-02-28 13:03:19.861 Type: SSH_FXP_REALPATH, Size: 41, Number: 784
+< 2021-02-28 13:03:19.861 Type: SSH_FXP_NAME, Size: 85, Number: 784
+. 2021-02-28 13:03:19.861 Real path is '/home/xilinx/Brando/sources/repo'
+. 2021-02-28 13:03:19.861 File: 'amt' [2021-02-28T20:56:32.915Z] [0]
+. 2021-02-28 13:03:19.877 Listing file "/home/xilinx/Brando/sources/repo/amt".
+> 2021-02-28 13:03:19.877 Type: SSH_FXP_LSTAT, Size: 45, Number: 1031
+< 2021-02-28 13:03:19.877 Type: SSH_FXP_ATTRS, Size: 37, Number: 1031
+. 2021-02-28 13:03:19.877 amt;D;0;2020-10-19T16:26:57.000Z;3;"" [1000];"" [1000];rwxrwxr-x;0
+. 2021-02-28 13:03:19.877 File: 'amt\main.py' [2021-02-28T20:55:42.349Z] [241]
+. 2021-02-28 13:03:19.877 Copying "amt\main.py" to remote directory started.
+. 2021-02-28 13:03:19.877 Binary transfer mode selected.
+. 2021-02-28 13:03:19.877 Opening remote file.
+> 2021-02-28 13:03:19.877 Type: SSH_FXP_OPEN, Size: 69, Number: 1283
+< 2021-02-28 13:03:19.877 Type: SSH_FXP_HANDLE, Size: 13, Number: 1283
+> 2021-02-28 13:03:19.877 Type: SSH_FXP_WRITE, Size: 266, Number: 1798
+> 2021-02-28 13:03:19.877 Type: SSH_FXP_CLOSE, Size: 13, Number: 2052
+> 2021-02-28 13:03:19.877 Type: SSH_FXP_SETSTAT, Size: 65, Number: 1545
+< 2021-02-28 13:03:19.877 Type: SSH_FXP_STATUS, Size: 24, Number: 1798
+< 2021-02-28 13:03:19.877 Status code: 0
+< 2021-02-28 13:03:19.877 Type: SSH_FXP_STATUS, Size: 24, Number: 2052
+< 2021-02-28 13:03:19.877 Status code: 0
+. 2021-02-28 13:03:19.877 Preserving timestamp [2021-02-28T20:55:42.000Z]
+< 2021-02-28 13:03:19.877 Type: SSH_FXP_STATUS, Size: 24, Number: 1545
+< 2021-02-28 13:03:19.877 Status code: 0
+. 2021-02-28 13:03:19.877 Transfer done: 'amt\main.py' => '/home/xilinx/Brando/sources/repo/amt/main.py' [241]
+. 2021-02-28 13:03:19.877 Copying finished: Transferred: 241, Elapsed: 0:00:00, CPS: 0/s
+> 2021-02-28 13:03:19.877 Script: exit
+. 2021-02-28 13:03:19.877 Script: Exit code: 0
+. 2021-02-28 13:03:19.877 Closing connection.
+. 2021-02-28 13:03:19.877 Sending special code: 1
+. 2021-02-28 13:03:19.877 Session sent command exit status 0
+. 2021-02-28 13:03:19.877 Main session channel closed
+. 2021-02-28 13:03:19.877 All channels closed
+. 2021-02-28 13:04:21.124 --------------------------------------------------------------------------
+. 2021-02-28 13:04:21.124 WinSCP Version 5.17.7 (Build 10640) (OS 10.0.18363 - Windows 10 Home)
+. 2021-02-28 13:04:21.124 Configuration: nul
+. 2021-02-28 13:04:21.124 Log level: Normal
+. 2021-02-28 13:04:21.124 Local account: KAMANTA\BrandonMFong
+. 2021-02-28 13:04:21.124 Working directory: B:\COLLEGE\Thesis\Source2
+. 2021-02-28 13:04:21.124 Process ID: 19220
+. 2021-02-28 13:04:21.124 Command-line: "C:\Program Files (x86)\WinSCP\WinSCP.exe" /console=5.17.7 /consoleinstance=_18580_113 "/log=B:\COLLEGE\Thesis\Source2\sftp.log" "/ini=nul" "/command" "open sftp://xilinx:***@192.168.2.99/ -hostkey=""ssh-ed25519 255 Ar2+h5ZV4JYSIOh21xf6yzHMqZFq9loxKvv4X9yGJ5M=""" "cd /home/xilinx/Brando/sources/repo" "lcd B:\COLLEGE\Thesis\Source2" "get *" "exit"
+. 2021-02-28 13:04:21.124 Time zone: Current: GMT-8, Standard: GMT-8 (Pacific Standard Time), DST: GMT-7 (Pacific Daylight Time), DST Start: 3/14/2021, DST End: 11/7/2021
+. 2021-02-28 13:04:21.124 Login time: Sunday, February 28, 2021 1:04:21 PM
+. 2021-02-28 13:04:21.124 --------------------------------------------------------------------------
+. 2021-02-28 13:04:21.124 Script: Retrospectively logging previous script records:
+> 2021-02-28 13:04:21.124 Script: open sftp://xilinx:***@192.168.2.99/ -hostkey="ssh-ed25519 255 Ar2+h5ZV4JYSIOh21xf6yzHMqZFq9loxKvv4X9yGJ5M="
+. 2021-02-28 13:04:21.124 --------------------------------------------------------------------------
+. 2021-02-28 13:04:21.124 Session name: xilinx@192.168.2.99 (Ad-Hoc site)
+. 2021-02-28 13:04:21.124 Host name: 192.168.2.99 (Port: 22)
+. 2021-02-28 13:04:21.124 User name: xilinx (Password: Yes, Key file: No, Passphrase: No)
+. 2021-02-28 13:04:21.124 Tunnel: No
+. 2021-02-28 13:04:21.124 Transfer Protocol: SFTP
+. 2021-02-28 13:04:21.124 Ping type: Off, Ping interval: 30 sec; Timeout: 15 sec
+. 2021-02-28 13:04:21.124 Disable Nagle: No
+. 2021-02-28 13:04:21.124 Proxy: None
+. 2021-02-28 13:04:21.124 Send buffer: 262144
+. 2021-02-28 13:04:21.124 SSH protocol version: 2; Compression: No
+. 2021-02-28 13:04:21.124 Bypass authentication: No
+. 2021-02-28 13:04:21.124 Try agent: Yes; Agent forwarding: No; TIS/CryptoCard: No; KI: Yes; GSSAPI: Yes
+. 2021-02-28 13:04:21.124 GSSAPI: Forwarding: No; Libs: gssapi32,sspi,custom; Custom: 
+. 2021-02-28 13:04:21.124 Ciphers: aes,chacha20,blowfish,3des,WARN,arcfour,des; Ssh2DES: No
+. 2021-02-28 13:04:21.124 KEX: ecdh,dh-gex-sha1,dh-group14-sha1,rsa,WARN,dh-group1-sha1
+. 2021-02-28 13:04:21.124 SSH Bugs: Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto
+. 2021-02-28 13:04:21.124 Simple channel: Yes
+. 2021-02-28 13:04:21.124 Return code variable: Autodetect; Lookup user groups: Auto
+. 2021-02-28 13:04:21.124 Shell: default
+. 2021-02-28 13:04:21.124 EOL: LF, UTF: Auto
+. 2021-02-28 13:04:21.124 Clear aliases: Yes, Unset nat.vars: Yes, Resolve symlinks: Yes; Follow directory symlinks: No
+. 2021-02-28 13:04:21.124 LS: ls -la, Ign LS warn: Yes, Scp1 Comp: No; Exit code 1 is error: No
+. 2021-02-28 13:04:21.124 SFTP Bugs: Auto,Auto
+. 2021-02-28 13:04:21.124 SFTP Server: default
+. 2021-02-28 13:04:21.124 Local directory: default, Remote directory: home, Update: Yes, Cache: Yes
+. 2021-02-28 13:04:21.124 Cache directory changes: Yes, Permanent: Yes
+. 2021-02-28 13:04:21.124 Recycle bin: Delete to: No, Overwritten to: No, Bin path: 
+. 2021-02-28 13:04:21.124 DST mode: Unix
+. 2021-02-28 13:04:21.124 --------------------------------------------------------------------------
+. 2021-02-28 13:04:21.124 Looking up host "192.168.2.99" for SSH connection
+. 2021-02-28 13:04:21.124 Connecting to 192.168.2.99 port 22
+. 2021-02-28 13:04:21.139 We claim version: SSH-2.0-WinSCP_release_5.17.7
+. 2021-02-28 13:04:21.186 Remote version: SSH-2.0-OpenSSH_7.6p1 Ubuntu-4
+. 2021-02-28 13:04:21.186 Using SSH protocol version 2
+. 2021-02-28 13:04:21.186 Have a known host key of type ssh-ed25519
+. 2021-02-28 13:04:21.202 Doing ECDH key exchange with curve Curve25519 and hash SHA-256
+. 2021-02-28 13:04:21.311 Server also has ecdsa-sha2-nistp256/ssh-rsa host keys, but we don't know any of them
+. 2021-02-28 13:04:21.311 Host key fingerprint is:
+. 2021-02-28 13:04:21.311 ssh-ed25519 255 4f:99:f8:bc:0c:99:f5:13:c7:83:dd:33:57:db:f1:11 Ar2+h5ZV4JYSIOh21xf6yzHMqZFq9loxKvv4X9yGJ5M=
+. 2021-02-28 13:04:21.311 Host key matches configured key fingerprint
+. 2021-02-28 13:04:21.311 Initialised AES-256 SDCTR (AES-NI accelerated) outbound encryption
+. 2021-02-28 13:04:21.311 Initialised HMAC-SHA-256 outbound MAC algorithm
+. 2021-02-28 13:04:21.311 Initialised AES-256 SDCTR (AES-NI accelerated) inbound encryption
+. 2021-02-28 13:04:21.311 Initialised HMAC-SHA-256 inbound MAC algorithm
+! 2021-02-28 13:04:21.311 Using username "xilinx".
+. 2021-02-28 13:04:21.327 Server offered these authentication methods: publickey,password
+. 2021-02-28 13:04:21.327 Prompt (password, "SSH password", <no instructions>, "&Password: ")
+. 2021-02-28 13:04:21.327 Using stored password.
+. 2021-02-28 13:04:21.327 Sent password
+. 2021-02-28 13:04:21.499 Access granted
+. 2021-02-28 13:04:21.499 Opening main session channel
+. 2021-02-28 13:04:22.703 Opened main channel
+. 2021-02-28 13:04:22.703 Started a shell/command
+. 2021-02-28 13:04:22.703 --------------------------------------------------------------------------
+. 2021-02-28 13:04:22.703 Using SFTP protocol.
+. 2021-02-28 13:04:22.703 Doing startup conversation with host.
+> 2021-02-28 13:04:22.703 Type: SSH_FXP_INIT, Size: 5, Number: -1
+< 2021-02-28 13:04:22.718 Type: SSH_FXP_VERSION, Size: 150, Number: -1
+. 2021-02-28 13:04:22.718 SFTP version 3 negotiated.
+. 2021-02-28 13:04:22.718 Unknown server extension posix-rename@openssh.com="1"
+. 2021-02-28 13:04:22.718 Supports statvfs@openssh.com extension version "2"
+. 2021-02-28 13:04:22.718 Unknown server extension fstatvfs@openssh.com="2"
+. 2021-02-28 13:04:22.718 Supports hardlink@openssh.com extension version "1"
+. 2021-02-28 13:04:22.718 Unknown server extension fsync@openssh.com="1"
+. 2021-02-28 13:04:22.718 We believe the server has signed timestamps bug
+. 2021-02-28 13:04:22.718 We will use UTF-8 strings until server sends an invalid UTF-8 string as with SFTP version 3 and older UTF-8 strings are not mandatory
+. 2021-02-28 13:04:22.718 Limiting packet size to OpenSSH sftp-server limit of 262148 bytes
+. 2021-02-28 13:04:22.718 Getting current directory name.
+. 2021-02-28 13:04:22.718 Getting real path for '.'
+> 2021-02-28 13:04:22.718 Type: SSH_FXP_REALPATH, Size: 10, Number: 16
+< 2021-02-28 13:04:22.718 Type: SSH_FXP_NAME, Size: 45, Number: 16
+. 2021-02-28 13:04:22.718 Real path is '/home/xilinx'
+. 2021-02-28 13:04:22.718 Startup conversation with host finished.
+< 2021-02-28 13:04:22.718 Script: Active session: [1] xilinx@192.168.2.99
+> 2021-02-28 13:04:22.718 Script: cd /home/xilinx/Brando/sources/repo
+. 2021-02-28 13:04:22.718 Changing directory to "/home/xilinx/Brando/sources/repo".
+. 2021-02-28 13:04:22.718 Getting real path for '/home/xilinx/Brando/sources/repo'
+> 2021-02-28 13:04:22.718 Type: SSH_FXP_REALPATH, Size: 41, Number: 272
+< 2021-02-28 13:04:22.734 Type: SSH_FXP_NAME, Size: 85, Number: 272
+. 2021-02-28 13:04:22.734 Real path is '/home/xilinx/Brando/sources/repo'
+. 2021-02-28 13:04:22.734 Trying to open directory "/home/xilinx/Brando/sources/repo".
+> 2021-02-28 13:04:22.734 Type: SSH_FXP_LSTAT, Size: 41, Number: 519
+< 2021-02-28 13:04:22.734 Type: SSH_FXP_ATTRS, Size: 37, Number: 519
+. 2021-02-28 13:04:22.734 Getting current directory name.
+< 2021-02-28 13:04:22.734 Script: /home/xilinx/Brando/sources/repo
+> 2021-02-28 13:04:22.734 Script: lcd B:\COLLEGE\Thesis\Source2
+< 2021-02-28 13:04:22.734 Script: B:\COLLEGE\Thesis\Source2
+> 2021-02-28 13:04:22.750 Script: get *
+. 2021-02-28 13:04:22.750 Listing directory "/home/xilinx/Brando/sources/repo".
+> 2021-02-28 13:04:22.750 Type: SSH_FXP_OPENDIR, Size: 41, Number: 779
+< 2021-02-28 13:04:22.750 Type: SSH_FXP_HANDLE, Size: 13, Number: 779
+> 2021-02-28 13:04:22.750 Type: SSH_FXP_READDIR, Size: 13, Number: 1036
+< 2021-02-28 13:04:22.750 Type: SSH_FXP_NAME, Size: 309, Number: 1036
+> 2021-02-28 13:04:22.750 Type: SSH_FXP_READDIR, Size: 13, Number: 1292
+< 2021-02-28 13:04:22.766 Type: SSH_FXP_STATUS, Size: 28, Number: 1292
+< 2021-02-28 13:04:22.766 Status code: 1
+> 2021-02-28 13:04:22.766 Type: SSH_FXP_CLOSE, Size: 13, Number: 1540
+. 2021-02-28 13:04:22.766 amt;d;0;2020-10-19T16:26:57.000Z;3;"xilinx" [1000];"xilinx" [1000];rwxrwxr-x;0
+. 2021-02-28 13:04:22.766 .;d;0;2020-10-19T16:21:16.000Z;3;"xilinx" [1000];"xilinx" [1000];rwxrwxr-x;0
+. 2021-02-28 13:04:22.766 ..;d;0;2020-10-19T16:21:11.000Z;3;"xilinx" [1000];"xilinx" [1000];rwxrwxr-x;0
+. 2021-02-28 13:04:22.766 Copying 1 files/directories to local directory "B:\COLLEGE\Thesis\Source2"
+. 2021-02-28 13:04:22.766   PrTime: Yes; PrRO: No; Rght: rw-r--r--; PrR: No (No); FnCs: N; RIC: 0100; Resume: S (102400); CalcS: No; Mask: 
+. 2021-02-28 13:04:22.766   TM: B; ClAr: No; RemEOF: No; RemBOM: No; CPS: 0; NewerOnly: No; EncryptNewFiles: Yes; ExcludeHiddenFiles: No; ExcludeEmptyDirectories: No; InclM: ; ResumeL: 0
+. 2021-02-28 13:04:22.766   AscM: *.*html; *.htm; *.txt; *.php; *.php3; *.cgi; *.c; *.cpp; *.h; *.pas; *.bas; *.tex; *.pl; *.js; .htaccess; *.xtml; *.css; *.cfg; *.ini; *.sh; *.xml
+. 2021-02-28 13:04:22.766 File: '/home/xilinx/Brando/sources/repo/amt' [2020-10-19T16:26:57.000Z] [0]
+. 2021-02-28 13:04:22.766 Listing directory "/home/xilinx/Brando/sources/repo/amt".
+> 2021-02-28 13:04:22.766 Type: SSH_FXP_OPENDIR, Size: 45, Number: 1803
+< 2021-02-28 13:04:22.766 Type: SSH_FXP_STATUS, Size: 24, Number: 1540
+. 2021-02-28 13:04:22.766 Discarding reserved response
+< 2021-02-28 13:04:22.766 Type: SSH_FXP_HANDLE, Size: 13, Number: 1803
+> 2021-02-28 13:04:22.766 Type: SSH_FXP_READDIR, Size: 13, Number: 2060
+< 2021-02-28 13:04:22.766 Type: SSH_FXP_NAME, Size: 449, Number: 2060
+> 2021-02-28 13:04:22.766 Type: SSH_FXP_READDIR, Size: 13, Number: 2316
+< 2021-02-28 13:04:22.766 Type: SSH_FXP_STATUS, Size: 28, Number: 2316
+< 2021-02-28 13:04:22.766 Status code: 1
+> 2021-02-28 13:04:22.766 Type: SSH_FXP_CLOSE, Size: 13, Number: 2564
+. 2021-02-28 13:04:22.766 main.py;-;241;2021-02-28T20:55:42.000Z;3;"xilinx" [1000];"xilinx" [1000];rwxrw-r--;0
+. 2021-02-28 13:04:22.766 sds_trace_data.dat;-;32;2020-10-19T16:28:04.000Z;3;"root" [0];"root" [0];rw-r--r--;0
+. 2021-02-28 13:04:22.766 .;d;0;2020-10-19T16:26:57.000Z;3;"xilinx" [1000];"xilinx" [1000];rwxrwxr-x;0
+. 2021-02-28 13:04:22.766 ..;d;0;2020-10-19T16:21:16.000Z;3;"xilinx" [1000];"xilinx" [1000];rwxrwxr-x;0
+. 2021-02-28 13:04:22.766 File: '/home/xilinx/Brando/sources/repo/amt/main.py' [2021-02-28T20:55:42.000Z] [241]
+. 2021-02-28 13:04:22.766 Copying "/home/xilinx/Brando/sources/repo/amt/main.py" to local directory started.
+. 2021-02-28 13:04:22.766 Binary transfer mode selected.
+. 2021-02-28 13:04:22.766 Opening remote file.
+> 2021-02-28 13:04:22.766 Type: SSH_FXP_OPEN, Size: 61, Number: 2819
+< 2021-02-28 13:04:22.766 Type: SSH_FXP_STATUS, Size: 24, Number: 2564
+. 2021-02-28 13:04:22.766 Discarding reserved response
+< 2021-02-28 13:04:22.766 Type: SSH_FXP_HANDLE, Size: 13, Number: 2819
+> 2021-02-28 13:04:22.766 Type: SSH_FXP_FSTAT, Size: 13, Number: 3080
+< 2021-02-28 13:04:22.766 Type: SSH_FXP_ATTRS, Size: 37, Number: 3080
+. 2021-02-28 13:04:22.766 Confirming overwriting of file.
+> 2021-02-28 13:04:22.766 Type: SSH_FXP_READ, Size: 25, Number: 3333
+< 2021-02-28 13:04:22.781 Status code: 1
+. 2021-02-28 13:04:22.781 3 skipped SSH_FXP_WRITE, SSH_FXP_READ, SSH_FXP_DATA and SSH_FXP_STATUS packets.
+> 2021-02-28 13:04:22.781 Type: SSH_FXP_CLOSE, Size: 13, Number: 3844
+. 2021-02-28 13:04:22.781 Preserving timestamp [2021-02-28T20:55:42.000Z]
+. 2021-02-28 13:04:22.781 Transfer done: '/home/xilinx/Brando/sources/repo/amt/main.py' => 'B:\COLLEGE\Thesis\Source2\amt\main.py' [241]
+. 2021-02-28 13:04:22.781 File: '/home/xilinx/Brando/sources/repo/amt/sds_trace_data.dat' [2020-10-19T16:28:04.000Z] [32]
+. 2021-02-28 13:04:22.781 Copying "/home/xilinx/Brando/sources/repo/amt/sds_trace_data.dat" to local directory started.
+. 2021-02-28 13:04:22.781 Binary transfer mode selected.
+. 2021-02-28 13:04:22.781 Opening remote file.
+> 2021-02-28 13:04:22.781 Type: SSH_FXP_OPEN, Size: 72, Number: 4099
+< 2021-02-28 13:04:22.781 Type: SSH_FXP_STATUS, Size: 24, Number: 3844
+. 2021-02-28 13:04:22.781 Discarding reserved response
+< 2021-02-28 13:04:22.781 Type: SSH_FXP_HANDLE, Size: 13, Number: 4099
+> 2021-02-28 13:04:22.781 Type: SSH_FXP_FSTAT, Size: 13, Number: 4360
+< 2021-02-28 13:04:22.781 Type: SSH_FXP_ATTRS, Size: 37, Number: 4360
+> 2021-02-28 13:04:22.797 Type: SSH_FXP_READ, Size: 25, Number: 4613
+< 2021-02-28 13:04:22.797 Status code: 1
+. 2021-02-28 13:04:22.797 3 skipped SSH_FXP_WRITE, SSH_FXP_READ, SSH_FXP_DATA and SSH_FXP_STATUS packets.
+> 2021-02-28 13:04:22.797 Type: SSH_FXP_CLOSE, Size: 13, Number: 5124
+. 2021-02-28 13:04:22.797 Preserving timestamp [2020-10-19T16:28:04.000Z]
+. 2021-02-28 13:04:22.797 Transfer done: '/home/xilinx/Brando/sources/repo/amt/sds_trace_data.dat' => 'B:\COLLEGE\Thesis\Source2\amt\sds_trace_data.dat' [32]
+. 2021-02-28 13:04:22.797 Copying finished: Transferred: 273, Elapsed: 0:00:00, CPS: 2,000/s
+> 2021-02-28 13:04:22.797 Script: exit
+. 2021-02-28 13:04:22.797 Script: Exit code: 0
+. 2021-02-28 13:04:22.797 Closing connection.
+. 2021-02-28 13:04:22.797 Sending special code: 1
+. 2021-02-28 13:04:22.812 Session sent command exit status 0
+. 2021-02-28 13:04:22.812 Main session channel closed
+. 2021-02-28 13:04:22.812 All channels closed
