@@ -34,6 +34,10 @@ def analyzeWaveFile(waveFile):
 
     return xf, yf
 
+class xAudioHandler:
+    def __init__(self):
+        self._name = "xAduioHandler"
+
 if __name__ == "__main__":
 
     # Init overlay
