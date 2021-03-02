@@ -24,6 +24,11 @@ class xAudioHandler:
             if path.exists(baseBitFile) == False:
                 okayToContinue = False 
                 print("Bit file", baseBitFile, "does not exist")
+        
+        if okayToContinue:
+            if baseBitFile.endswith('.bit') == False:
+                okayToContinue = False
+                print(baseBitFile, "must be .bit file")
 
         # Bit file
         if okayToContinue:
