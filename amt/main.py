@@ -10,12 +10,10 @@ from os import path
 print("### AMT ###")
 
 bitFile = "/home/xilinx/pynq/overlays/base/base.bit"
-myWavFile = "input.wav"
 
 class xAudioHandler:
     def __init__(self,baseBitFile,inputPort):
         okayToContinue = True
-        # bitFilePassed = False
         
         # Wav file
         self._wavFile = "input.wav"
@@ -102,6 +100,7 @@ class xAudioHandler:
         temp_buffer[:, :, :sample_width] = raw_bytes.reshape(-1, num_channels, sample_width)
         temp_buffer[:, :, sample_width:] = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
         frames = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
+        print(frames.shape)
 
         # Calculate the frequency spectrum 
         for channel_index in range(num_channels):
@@ -137,8 +136,13 @@ class xAudioHandler:
             print("Note:", notesTableData.loc[smallestDiffIndex, noteColumn])
             print("Frequency:", notesTableData.loc[smallestDiffIndex, frequencyColumn], "Hz")
 
+    # TODO https://dsp.stackexchange.com/questions/13722/pitch-class-profiling/26280#26280
+    # This would take the results of the getSpectrum() method 
+    # N is the shape of the frames above
     def pcp(self,p):
-        print("Hello")        
+        print("Hello")   
+        # for q in range(12):
+        #     for      
 
 if __name__ == "__main__":
     audioReader = xAudioHandler(baseBitFile=bitFile, inputPort="select_line_in")
