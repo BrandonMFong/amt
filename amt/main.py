@@ -49,6 +49,9 @@ class xAudioHandler:
             self._outlet = self._base.audio
             self._outlet.set_volume(50)
             self._outlet.bypass(seconds=5)  
+        
+            # Sample rate
+            self._sampling_rate = self._outlet.sample_rate
 
             # Select input port 
             # The default is line_in
