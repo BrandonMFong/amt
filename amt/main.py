@@ -93,6 +93,10 @@ class xAudioHandler:
             # Analyze spectrum 
             self.analyze()
 
+            # Testing pcp 
+            self.pcp()
+            break
+
     def record(self, seconds):
         # Default state to 0.5 seconds
         if seconds is None:
@@ -155,16 +159,32 @@ class xAudioHandler:
     # TODO https://dsp.stackexchange.com/questions/13722/pitch-class-profiling/26280#26280
     # This would take the results of the getSpectrum() method 
     # N is the shape of the frames above
-    def pcp(self,p):
-        cf = 0.0
-        pcp = np.empty(12)
+    # https://stackoverflow.com/questions/36752485/python-code-for-pitch-class-profiling
+    # I will checking output against my original method 
+    def pcp(self):
+        results = np.empty(12)
         size = self._dft.shape[0]
-        print("Hello")   
+        cf = 0
         for q in range(12):
-            for f in range(size):
-                cf = (12*math.log2(self._sampling_rate * self._dft[self._frequency].iloc[f] /self._n))%12
-                print(cf)
+            for f in self._dft[self._frequency]:
+                if f > 0:
+                    x = self._sampling_rate * f
+                    # print("x:", x)
+                    y = self._n * self._frequencyRef[q]
+                    # print("y:", y)
+                    z = x/y
+                    # print("z:", z)
+                    a = 12*math.log2(z)
+                    a = round(a)
+                    cf = a%12
+                    # print(cf)
+
+                if cf == q:
+                    results[q] += 1
+        
+        print(results)
 
 if __name__ == "__main__":
     audioReader = xAudioHandler(baseBitFile=bitFile, inputPort="select_line_in")
     audioReader.run(recordInterval=0.5)
+    # np.fft.rfft()
