@@ -26,6 +26,9 @@ class xAudioHandler:
         # C0 to B0
         self._frequencyRef = [16.35, 17.32, 18.35, 19.45, 20.60, 21.83, 23.12, 24.50, 25.96, 27.50, 29.14, 30.87]
 
+        # empty dataframe for dft 
+        self._dft = pd.DataFrame()
+
         if okayToContinue:
             if path.exists(baseBitFile) == False:
                 okayToContinue = False 
@@ -81,10 +84,10 @@ class xAudioHandler:
             self.record(recordInterval)
 
             # Get spectrum from wavFile
-            frequency, magnitude = self.getSpectrum()
+            self.getSpectrum()
 
             # Analyze spectrum 
-            self.analyze(frequency, magnitude)
+            self.analyze()
 
     def record(self, seconds):
         # Default state to 0.5 seconds
@@ -115,21 +118,20 @@ class xAudioHandler:
             yf = temp[1:len(temp)//2]
             xf = np.linspace(0.0, sample_rate/2, len(yf))
 
-        return xf, yf
+        # Save into dataframe
+        self._dft = pd.DataFrame({"Frequency": np.array(xf), "Magnitude" : np.array(abs(yf))})
 
-    def analyze(self,xf,yf):
+    def analyze(self):
         okayToContinue = True
-        if xf is None and yf is None:
-            print("xf and yf have an error")
+
+        if self._dft.shape[0] == 0:
+            print("dft error")
             okayToContinue = False
         
         if okayToContinue:
-            spectrumData = pd.DataFrame()
-            spectrumData['Mag'] = np.array(abs(yf))
-            spectrumData['Frequency'] = np.array(xf)
-
             # Get the max value of the magnitude
-            peakRowValue = spectrumData.loc[spectrumData['Mag'].idxmax()]
+            # peakRowValue = spectrumData.loc[spectrumData['Mag'].idxmax()]
+            peakRowValue = self._dft.loc[self._dft['Magnitude'].idxmax()]
             peakRowNoteFrequency = peakRowValue['Frequency']
 
             # Determine note
@@ -142,6 +144,9 @@ class xAudioHandler:
             # freqCandidate = freqArray[smallestDiffIndex]
             print("Note:", notesTableData.loc[smallestDiffIndex, noteColumn])
             print("Frequency:", notesTableData.loc[smallestDiffIndex, frequencyColumn], "Hz")
+
+        if okayToContinue == False:
+            raise Exception("Error in analysis") 
 
     # TODO https://dsp.stackexchange.com/questions/13722/pitch-class-profiling/26280#26280
     # This would take the results of the getSpectrum() method 
