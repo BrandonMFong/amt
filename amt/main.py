@@ -13,18 +13,22 @@ print("### AMT ###")
 bitFile = "/home/xilinx/pynq/overlays/base/base.bit"
 
 class xAudioHandler:
+    # Wav file
+    _wavFile = "input.wav"
+
+    # FFT size
+    _n = 24000
+    
+    # Frequency Reference for PCP
+    # C0 to B0
+    _frequencyRef = [16.35, 17.32, 18.35, 19.45, 20.60, 21.83, 23.12, 24.50, 25.96, 27.50, 29.14, 30.87]
+
+    # Dataframe columns for DFT
+    _frequency = "Frequency"
+    _magnitude = "Magnitude"
+
     def __init__(self,baseBitFile,inputPort):
         okayToContinue = True
-        
-        # Wav file
-        self._wavFile = "input.wav"
-
-        # FFT size
-        self._n = 24000
-        
-        # Frequency Reference for PCP
-        # C0 to B0
-        self._frequencyRef = [16.35, 17.32, 18.35, 19.45, 20.60, 21.83, 23.12, 24.50, 25.96, 27.50, 29.14, 30.87]
 
         # empty dataframe for dft 
         self._dft = pd.DataFrame()
@@ -119,7 +123,7 @@ class xAudioHandler:
             xf = np.linspace(0.0, sample_rate/2, len(yf))
 
         # Save into dataframe
-        self._dft = pd.DataFrame({"Frequency": np.array(xf), "Magnitude" : np.array(abs(yf))})
+        self._dft = pd.DataFrame({self._frequency : np.array(xf), self._magnitude : np.array(abs(yf))})
 
     def analyze(self):
         okayToContinue = True
@@ -131,8 +135,8 @@ class xAudioHandler:
         if okayToContinue:
             # Get the max value of the magnitude
             # peakRowValue = spectrumData.loc[spectrumData['Mag'].idxmax()]
-            peakRowValue = self._dft.loc[self._dft['Magnitude'].idxmax()]
-            peakRowNoteFrequency = peakRowValue['Frequency']
+            peakRowValue = self._dft.loc[self._dft[self._magnitude].idxmax()]
+            peakRowNoteFrequency = peakRowValue[self._frequency]
 
             # Determine note
             frequencyColumn = "Frequency"
@@ -151,15 +155,15 @@ class xAudioHandler:
     # TODO https://dsp.stackexchange.com/questions/13722/pitch-class-profiling/26280#26280
     # This would take the results of the getSpectrum() method 
     # N is the shape of the frames above
-    # def pcp(self,p):
-    #     cf = 0.0
-    #     pcp = np.empty(12)
-    #     print("Hello")   
-    #     for q in range(12):
-    #         for f in range(self._n/8):
-    #             cf = 12 * (math.log2(self._sampling_rate /self._n)%12)
-    #             if cf == q:
-    #                 pcp[q] += dft[f]
+    def pcp(self,p):
+        cf = 0.0
+        pcp = np.empty(12)
+        size = self._dft.shape[0]
+        print("Hello")   
+        for q in range(12):
+            for f in range(size):
+                cf = (12*math.log2(self._sampling_rate * self._dft[self._frequency].iloc[f] /self._n))%12
+                print(cf)
 
 if __name__ == "__main__":
     audioReader = xAudioHandler(baseBitFile=bitFile, inputPort="select_line_in")
