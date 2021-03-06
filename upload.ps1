@@ -15,7 +15,7 @@ if(Test-Path ".\amt\*.dat")
   /command `
     "open $($jsonReader.sftpSite) -hostkey=`"`"$($jsonReader.hostKey)`"`"" `
     "lcd B:\COLLEGE\Thesis\Source2" `
-    "cd /home/xilinx/Brando/sources/repo" `
+    "cd /home/xilinx/brando/sources/repo" `
     "put amt" `
     "exit"
 

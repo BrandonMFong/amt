@@ -8,7 +8,7 @@
   /log=$logPath /ini=nul `
   /command `
     "open $($jsonReader.sftpSite) -hostkey=`"`"$($jsonReader.hostKey)`"`"" `
-    "cd /home/xilinx/Brando/sources/repo" `
+    "cd /home/xilinx/brando/sources/repo" `
     "lcd B:\COLLEGE\Thesis\Source2" `
     "get *" `
     "exit"

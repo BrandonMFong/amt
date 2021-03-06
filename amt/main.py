@@ -6,6 +6,7 @@ import wave
 from scipy.fftpack import fft
 import os.path
 from os import path
+import math
 
 print("### AMT ###")
 
@@ -17,6 +18,13 @@ class xAudioHandler:
         
         # Wav file
         self._wavFile = "input.wav"
+
+        # FFT size
+        self._n = 24000
+        
+        # Frequency Reference for PCP
+        # C0 to B0
+        self._frequencyRef = [16.35, 17.32, 18.35, 19.45, 20.60, 21.83, 23.12, 24.50, 25.96, 27.50, 29.14, 30.87]
 
         if okayToContinue:
             if path.exists(baseBitFile) == False:
@@ -100,11 +108,10 @@ class xAudioHandler:
         temp_buffer[:, :, :sample_width] = raw_bytes.reshape(-1, num_channels, sample_width)
         temp_buffer[:, :, sample_width:] = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
         frames = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
-        print(frames.shape)
 
         # Calculate the frequency spectrum 
         for channel_index in range(num_channels):
-            temp = fft(frames[:, channel_index])
+            temp = fft(x=frames[:, channel_index])
             yf = temp[1:len(temp)//2]
             xf = np.linspace(0.0, sample_rate/2, len(yf))
 
@@ -139,10 +146,15 @@ class xAudioHandler:
     # TODO https://dsp.stackexchange.com/questions/13722/pitch-class-profiling/26280#26280
     # This would take the results of the getSpectrum() method 
     # N is the shape of the frames above
-    def pcp(self,p):
-        print("Hello")   
-        # for q in range(12):
-        #     for      
+    # def pcp(self,p):
+    #     cf = 0.0
+    #     pcp = np.empty(12)
+    #     print("Hello")   
+    #     for q in range(12):
+    #         for f in range(self._n/8):
+    #             cf = 12 * (math.log2(self._sampling_rate /self._n)%12)
+    #             if cf == q:
+    #                 pcp[q] += dft[f]
 
 if __name__ == "__main__":
     audioReader = xAudioHandler(baseBitFile=bitFile, inputPort="select_line_in")
