@@ -13,6 +13,7 @@ from os import path
 import math
 from sys import platform
 import sys
+import scipy.io.wavfile
 
 print("### AMT ###")
 print(platform)
@@ -31,7 +32,7 @@ class xAudioHandler:
     _notesTable = "notestable.csv"
 
     # FFT size
-    _n = 24000
+    _frames = 0
     
     # Frequency Reference for PCP
     # C0 to B0
@@ -116,7 +117,7 @@ class xAudioHandler:
             raise ValueError("Recording time has to be in (0,60].")
 
         while True:
-            # Record and save into file 
+            # Record and save into file using pynq audio codec 
             self.record(recordInterval)
 
             # Get spectrum from wavFile
@@ -139,52 +140,63 @@ class xAudioHandler:
 
     def getSpectrum(self):
         # Get the wavefile
-        with wave.open(self._wavFile, 'r') as wav_file:
-            raw_frames = wav_file.readframes(-1)
-            num_frames = wav_file.getnframes()
-            num_channels = wav_file.getnchannels()
-            sample_rate = wav_file.getframerate()
-            sample_width = wav_file.getsampwidth()
+        # with wave.open(self._wavFile, 'r') as wav_file:
+        #     raw_frames = wav_file.readframes(-1)
+        #     num_frames = wav_file.getnframes()
+        #     num_channels = wav_file.getnchannels()
+        #     sample_rate = wav_file.getframerate()
+        #     sample_width = wav_file.getsampwidth()
             
-        temp_buffer = np.empty((num_frames, num_channels, 4), dtype=np.uint8)
-        raw_bytes = np.frombuffer(raw_frames, dtype=np.uint8)
-        temp_buffer[:, :, :sample_width] = raw_bytes.reshape(-1, num_channels, sample_width)
-        temp_buffer[:, :, sample_width:] = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
-        frames = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
+        # temp_buffer = np.empty((num_frames, num_channels, 4), dtype=np.uint8)
+        # raw_bytes = np.frombuffer(raw_frames, dtype=np.uint8)
+        # temp_buffer[:, :, :sample_width] = raw_bytes.reshape(-1, num_channels, sample_width)
+        # temp_buffer[:, :, sample_width:] = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
+        # frames = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
 
-        # Calculate the frequency spectrum 
-        for channel_index in range(num_channels):
-            temp = fft(x=frames[:, channel_index])
-            yf = temp[1:len(temp)//2]
-            xf = np.linspace(0.0, sample_rate/2, len(yf))
+        # # Calculate the frequency spectrum 
+        # for channel_index in range(num_channels):
+        #     temp = fft(x=frames[:, channel_index])
+        #     yf = temp[1:len(temp)//2]
+        #     xf = np.linspace(0.0, sample_rate/2, len(yf))
 
-        # Save into dataframe
-        self._dft = pd.DataFrame({self._frequency : np.array(xf), self._magnitude : np.array(abs(yf))})
+        # # Save into dataframe
+        # self._dft = pd.DataFrame({self._frequency : np.array(xf), self._magnitude : np.array(abs(yf))})
+
+        # This is taken from https://stackoverflow.com/questions/36752485/python-code-for-pitch-class-profiling
+        self._sampling_rate, data = scipy.io.wavfile.read(self._wavFile)
+
+        self._frames = data.size
+
+        self._dft = np.fft.rfft(data)
 
     def analyze(self):
         okayToContinue = True
 
         if self._dft.shape[0] == 0:
-            print("dft error")
+            print("analyze(): dft error")
             okayToContinue = False
         
-        if okayToContinue:
-            # Get the max value of the magnitude
-            # peakRowValue = spectrumData.loc[spectrumData['Mag'].idxmax()]
-            peakRowValue = self._dft.loc[self._dft[self._magnitude].idxmax()]
-            peakRowNoteFrequency = peakRowValue[self._frequency]
+        # if okayToContinue:
+        #     # Get the max value of the magnitude
+        #     # peakRowValue = spectrumData.loc[spectrumData['Mag'].idxmax()]
+        #     peakRowValue = self._dft.loc[self._dft[self._magnitude].idxmax()]
+        #     peakRowNoteFrequency = peakRowValue[self._frequency]
 
-            # Determine note
-            frequencyColumn = "Frequency"
-            noteColumn = "Note"
-            # notesTableData = pd.read_csv("notestable.csv", header=None, names=[noteColumn, frequencyColumn])
-            notesTableData = pd.read_csv(self._notesTable, header=None, names=[noteColumn, frequencyColumn])
-            freqArray = np.array(notesTableData[frequencyColumn])
-            absFreqArray = np.abs(freqArray - peakRowNoteFrequency)
-            smallestDiffIndex = absFreqArray.argmin()
-            # freqCandidate = freqArray[smallestDiffIndex]
-            print("Note:", notesTableData.loc[smallestDiffIndex, noteColumn])
-            print("Frequency:", notesTableData.loc[smallestDiffIndex, frequencyColumn], "Hz")
+        #     # Determine note
+        #     frequencyColumn = "Frequency"
+        #     noteColumn = "Note"
+        #     # notesTableData = pd.read_csv("notestable.csv", header=None, names=[noteColumn, frequencyColumn])
+        #     notesTableData = pd.read_csv(self._notesTable, header=None, names=[noteColumn, frequencyColumn])
+        #     freqArray = np.array(notesTableData[frequencyColumn])
+        #     absFreqArray = np.abs(freqArray - peakRowNoteFrequency)
+        #     smallestDiffIndex = absFreqArray.argmin()
+        #     # freqCandidate = freqArray[smallestDiffIndex]
+        #     print("Note:", notesTableData.loc[smallestDiffIndex, noteColumn])
+        #     print("Frequency:", notesTableData.loc[smallestDiffIndex, frequencyColumn], "Hz")
+
+        if okayToContinue:
+            results = self.pcp()
+            print(results)
 
         if okayToContinue == False:
             raise Exception("Error in analysis") 
@@ -195,27 +207,38 @@ class xAudioHandler:
     # https://stackoverflow.com/questions/36752485/python-code-for-pitch-class-profiling
     # I will checking output against my original method 
     def pcp(self):
-        results = np.empty(12)
+        results = {}
         size = self._dft.shape[0]
         cf = 0
-        for q in range(12):
-            for f in self._dft[self._frequency]:
-                if f > 0:
-                    x = self._sampling_rate * f
-                    # print("x:", x)
-                    y = self._n * self._frequencyRef[q]
-                    # print("y:", y)
-                    z = x/y
-                    # print("z:", z)
-                    a = 12*math.log2(z)
-                    a = round(a)
-                    cf = a%12
-                    # print(cf)
+        for q in range(0,11):
+            r = 0
+            for f in self._dft:
+                a = self._sampling_rate * f[0]
+                b = self._frames * self._frequencyRef[q]
+                c = 12 * np.log2(a/b)
+                d = np.round(c)
+                e = np.mod(d.all(), 12)
 
-                if cf == q:
-                    results[q] += 1
+                if e == q:
+                    r += 1
+                    
+            results[q] = r
+                # if f > 0:
+                #     x = self._sampling_rate * f
+                #     # print("x:", x)
+                #     y = self._frames * self._frequencyRef[q]
+                #     # print("y:", y)
+                #     z = x/y
+                #     # print("z:", z)
+                #     a = 12*math.log2(z)
+                #     a = round(a)
+                #     cf = a%12
+                #     # print(cf)
+
+                #     if cf == q:
+                #         results[q] += 1
         
-        print(results)
+        return results
 
 if __name__ == "__main__":
     audioReader = xAudioHandler(baseBitFile=bitFile, inputPort="select_line_in")
