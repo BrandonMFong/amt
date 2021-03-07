@@ -1,5 +1,9 @@
-#/usr/bin/python3
-from pynq.overlays.base import BaseOverlay
+#!/usr/bin/python3
+try:
+    from pynq.overlays.base import BaseOverlay
+except ModuleNotFoundError:
+    from Debug.BaseOverlay import BaseOverlay
+
 import numpy as np 
 import pandas as pd 
 import wave
@@ -7,14 +11,24 @@ from scipy.fftpack import fft
 import os.path
 from os import path
 import math
+from sys import platform
+import sys
 
 print("### AMT ###")
+print(platform)
 
-bitFile = "/home/xilinx/pynq/overlays/base/base.bit"
+if platform == "win32":
+    # Debug file 
+    bitFile = "B:\\COLLEGE\\Thesis\\Source2\\amt\\Debug\\Base.bit"
+else:
+    bitFile = "/home/xilinx/pynq/overlays/base/base.bit"
 
 class xAudioHandler:
     # Wav file
     _wavFile = "input.wav"
+
+    # Notes Table 
+    _notesTable = "notestable.csv"
 
     # FFT size
     _n = 24000
@@ -42,6 +56,13 @@ class xAudioHandler:
             if baseBitFile.endswith('.bit') == False:
                 okayToContinue = False
                 print(baseBitFile, "must be .bit file")
+        
+        if okayToContinue:
+            basePath = sys.path[0]
+            self._wavFile = basePath + "\\" + self._wavFile
+            if self._wavFile.__len__ == 0:
+                okayToContinue = False 
+                print("Error in wave file")
 
         # Bit file
         if okayToContinue:
@@ -145,7 +166,8 @@ class xAudioHandler:
             # Determine note
             frequencyColumn = "Frequency"
             noteColumn = "Note"
-            notesTableData = pd.read_csv("notestable.csv", header=None, names=[noteColumn, frequencyColumn])
+            # notesTableData = pd.read_csv("notestable.csv", header=None, names=[noteColumn, frequencyColumn])
+            notesTableData = pd.read_csv(self._notesTable, header=None, names=[noteColumn, frequencyColumn])
             freqArray = np.array(notesTableData[frequencyColumn])
             absFreqArray = np.abs(freqArray - peakRowNoteFrequency)
             smallestDiffIndex = absFreqArray.argmin()
