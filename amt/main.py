@@ -43,6 +43,7 @@ class xAudioHandler:
 
     def __init__(self,baseBitFile,inputPort):
         okayToContinue = True
+        fsSeparator = "\\" if platform == "win32" else "/"
 
         # empty dataframe for dft 
         self._dft = pd.DataFrame()
@@ -59,10 +60,20 @@ class xAudioHandler:
         
         if okayToContinue:
             basePath = sys.path[0]
-            self._wavFile = basePath + "\\" + self._wavFile
+
+            # Wav file
+            self._wavFile = basePath + fsSeparator + self._wavFile
             if self._wavFile.__len__ == 0:
                 okayToContinue = False 
-                print("Error in wave file")
+                print("Error in making wav file path")
+
+            # notes table
+            # This is the overhead I use to determine notes
+            # Kevin uses PCP
+            self._notesTable = basePath + fsSeparator + self._notesTable
+            if self._notesTable.__len__ == 0:
+                okayToContinue = False 
+                print("Error in making Notes Table file path")
 
         # Bit file
         if okayToContinue:
