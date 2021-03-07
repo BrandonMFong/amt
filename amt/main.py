@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#/usr/bin/python3
 from pynq.overlays.base import BaseOverlay
 import numpy as np 
 import pandas as pd 
