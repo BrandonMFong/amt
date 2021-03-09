@@ -172,18 +172,14 @@ class xAudioHandler:
             okayToContinue = False
         
         if okayToContinue:
-            results = self.pcp()
+            results = self.PCP()
             print(results)
 
         if okayToContinue == False:
             raise Exception("Error in analysis") 
 
-    # TODO https://dsp.stackexchange.com/questions/13722/pitch-class-profiling/26280#26280
-    # This would take the results of the getSpectrum() method 
-    # N is the shape of the frames above
-    # https://stackoverflow.com/questions/36752485/python-code-for-pitch-class-profiling
-    # I will checking output against my original method 
-    def pcp(self):
+    # PCP
+    def PCP(self):
         results = {}
         baseNote = self._frequencyRef[0]
         for q in range(0,11):
