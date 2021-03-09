@@ -32,7 +32,7 @@ class xAudioHandler:
     _notesTable = "notestable.csv"
 
     # FFT size
-    _frames = 0
+    _numFrames = 0
     
     # Frequency Reference for PCP
     # C0 to B0
@@ -140,34 +140,36 @@ class xAudioHandler:
 
     def getSpectrum(self):
         # Get the wavefile
-        # with wave.open(self._wavFile, 'r') as wav_file:
-        #     raw_frames = wav_file.readframes(-1)
-        #     num_frames = wav_file.getnframes()
-        #     num_channels = wav_file.getnchannels()
-        #     sample_rate = wav_file.getframerate()
-        #     sample_width = wav_file.getsampwidth()
+        with wave.open(self._wavFile, 'r') as wav_file:
+            raw_frames = wav_file.readframes(-1)
+            num_frames = wav_file.getnframes()
+            num_channels = wav_file.getnchannels()
+            sample_rate = wav_file.getframerate()
+            sample_width = wav_file.getsampwidth()
             
-        # temp_buffer = np.empty((num_frames, num_channels, 4), dtype=np.uint8)
-        # raw_bytes = np.frombuffer(raw_frames, dtype=np.uint8)
-        # temp_buffer[:, :, :sample_width] = raw_bytes.reshape(-1, num_channels, sample_width)
-        # temp_buffer[:, :, sample_width:] = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
-        # frames = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
+        temp_buffer = np.empty((num_frames, num_channels, 4), dtype=np.uint8)
+        raw_bytes = np.frombuffer(raw_frames, dtype=np.uint8)
+        temp_buffer[:, :, :sample_width] = raw_bytes.reshape(-1, num_channels, sample_width)
+        temp_buffer[:, :, sample_width:] = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
+        frames = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
 
-        # # Calculate the frequency spectrum 
-        # for channel_index in range(num_channels):
-        #     temp = fft(x=frames[:, channel_index])
-        #     yf = temp[1:len(temp)//2]
-        #     xf = np.linspace(0.0, sample_rate/2, len(yf))
+        self._numFrames = num_frames
 
-        # # Save into dataframe
-        # self._dft = pd.DataFrame({self._frequency : np.array(xf), self._magnitude : np.array(abs(yf))})
+        # Calculate the frequency spectrum 
+        for channel_index in range(num_channels):
+            temp = fft(x=frames[:, channel_index])
+            yf = temp[1:len(temp)//2]
+            xf = np.linspace(0.0, sample_rate/2, len(yf))
 
-        # This is taken from https://stackoverflow.com/questions/36752485/python-code-for-pitch-class-profiling
-        self._sampling_rate, data = scipy.io.wavfile.read(self._wavFile)
+        # Save into dataframe
+        self._dft = pd.DataFrame({self._frequency : np.array(xf), self._magnitude : np.array(abs(yf))})
 
-        self._frames = data.size
+        # # This is taken from https://stackoverflow.com/questions/36752485/python-code-for-pitch-class-profiling
+        # self._sampling_rate, data = scipy.io.wavfile.read(self._wavFile)
 
-        self._dft = np.fft.rfft(data)
+        # self._frames = data.size
+
+        # self._dft = np.fft.rfft(data)
 
     def analyze(self):
         okayToContinue = True
@@ -212,15 +214,17 @@ class xAudioHandler:
         cf = 0
         for q in range(0,11):
             r = 0
-            for f in self._dft:
-                a = self._sampling_rate * f[0]
-                b = self._frames * self._frequencyRef[q]
-                c = 12 * np.log2(a/b)
-                d = np.round(c)
-                e = np.mod(d.all(), 12)
+            for f in self._dft[self._frequency]:
+                if f > 0:
+                    # a = self._sampling_rate * f[0]
+                    a = self._sampling_rate * f
+                    b = self._numFrames * self._frequencyRef[q]
+                    c = 12 * np.log2(a/b)
+                    d = np.round(c)
+                    e = np.mod(d.all(), 12)
 
-                if e == q:
-                    r += 1
+                    if e == q:
+                        r += 1
                     
             results[q] = r
                 # if f > 0:
