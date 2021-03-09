@@ -182,11 +182,13 @@ class xAudioHandler:
     def PCP(self):
         results = {}
         baseNote = self._frequencyRef[0]
-        for q in range(0,11):
+        threshold = 3000000
+        for q in range(0,12):
             refNote = self._frequencyRef[q]
             r = 0
             for _, row in self._dft.iterrows():
                 currentFrequency = row[self._frequency]
+                currentMagnitude = row[self._magnitude]
 
                 # Our base is 16.35 Hz so we don't need anything below this
                 if currentFrequency > baseNote:
@@ -196,7 +198,7 @@ class xAudioHandler:
                         d = round(c, 0)
                         e = d % 12
 
-                        if e == q:
+                        if (e == q) and (currentMagnitude > threshold):
                             r += 1
 
             results[q] = r
