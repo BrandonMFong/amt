@@ -126,8 +126,8 @@ class xAudioHandler:
             # Analyze spectrum 
             self.analyze()
 
-            # Testing pcp 
-            self.pcp()
+            # # Testing pcp 
+            # self.pcp()
             break
 
     def record(self, seconds):
@@ -164,13 +164,6 @@ class xAudioHandler:
         # Save into dataframe
         self._dft = pd.DataFrame({self._frequency : np.array(xf), self._magnitude : np.array(abs(yf))})
 
-        # # This is taken from https://stackoverflow.com/questions/36752485/python-code-for-pitch-class-profiling
-        # self._sampling_rate, data = scipy.io.wavfile.read(self._wavFile)
-
-        # self._frames = data.size
-
-        # self._dft = np.fft.rfft(data)
-
     def analyze(self):
         okayToContinue = True
 
@@ -178,24 +171,6 @@ class xAudioHandler:
             print("analyze(): dft error")
             okayToContinue = False
         
-        # if okayToContinue:
-        #     # Get the max value of the magnitude
-        #     # peakRowValue = spectrumData.loc[spectrumData['Mag'].idxmax()]
-        #     peakRowValue = self._dft.loc[self._dft[self._magnitude].idxmax()]
-        #     peakRowNoteFrequency = peakRowValue[self._frequency]
-
-        #     # Determine note
-        #     frequencyColumn = "Frequency"
-        #     noteColumn = "Note"
-        #     # notesTableData = pd.read_csv("notestable.csv", header=None, names=[noteColumn, frequencyColumn])
-        #     notesTableData = pd.read_csv(self._notesTable, header=None, names=[noteColumn, frequencyColumn])
-        #     freqArray = np.array(notesTableData[frequencyColumn])
-        #     absFreqArray = np.abs(freqArray - peakRowNoteFrequency)
-        #     smallestDiffIndex = absFreqArray.argmin()
-        #     # freqCandidate = freqArray[smallestDiffIndex]
-        #     print("Note:", notesTableData.loc[smallestDiffIndex, noteColumn])
-        #     print("Frequency:", notesTableData.loc[smallestDiffIndex, frequencyColumn], "Hz")
-
         if okayToContinue:
             results = self.pcp()
             print(results)
@@ -216,6 +191,7 @@ class xAudioHandler:
             r = 0
             for _, row in self._dft.iterrows():
                 currentFrequency = row[self._frequency]
+
                 # Our base is 16.35 Hz so we don't need anything below this
                 if currentFrequency > baseNote:
                         a = currentFrequency / refNote
