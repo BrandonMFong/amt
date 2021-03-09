@@ -210,38 +210,25 @@ class xAudioHandler:
     # I will checking output against my original method 
     def pcp(self):
         results = {}
-        size = self._dft.shape[0]
-        cf = 0
+        baseNote = self._frequencyRef[0]
         for q in range(0,11):
+            refNote = self._frequencyRef[q]
             r = 0
-            for f in self._dft[self._frequency]:
-                if f > 0:
-                    # a = self._sampling_rate * f[0]
-                    a = self._sampling_rate * f
-                    b = self._numFrames * self._frequencyRef[q]
-                    c = 12 * np.log2(a/b)
-                    d = np.round(c)
-                    e = np.mod(d.all(), 12)
+            for _, row in self._dft.iterrows():
+                currentFrequency = row[self._frequency]
+                # Our base is 16.35 Hz so we don't need anything below this
+                if currentFrequency > baseNote:
+                        a = currentFrequency / refNote
+                        b = math.log2(a)
+                        c = 12 * b
+                        d = round(c, 0)
+                        e = d % 12
 
-                    if e == q:
-                        r += 1
-                    
+                        if e == q:
+                            r += 1
+
             results[q] = r
-                # if f > 0:
-                #     x = self._sampling_rate * f
-                #     # print("x:", x)
-                #     y = self._frames * self._frequencyRef[q]
-                #     # print("y:", y)
-                #     z = x/y
-                #     # print("z:", z)
-                #     a = 12*math.log2(z)
-                #     a = round(a)
-                #     cf = a%12
-                #     # print(cf)
 
-                #     if cf == q:
-                #         results[q] += 1
-        
         return results
 
 if __name__ == "__main__":
