@@ -239,16 +239,21 @@ class xAudioHandler:
         I call this FBar standing for Fong Bar 
         This is the method I came up with in CES400
         """
-        # Get the max value of the magnitude
-        # peakRowValue = spectrumData.loc[spectrumData['Mag'].idxmax()]
+        # Get the row that has the highest magnitude
         peakRowValue = self._dft.loc[self._dft[self._magnitude].idxmax()]
+
+        # Get the frequency of that row
         peakRowNoteFrequency = peakRowValue[self._frequency]
 
-        # Determine note
+        # Get the frequencies in the notes table
         freqArray = np.array(self._notesTableData[self._frequency])
+
+        # Determine the closest value by subtracting the frequency of the 
+        # highest magnitude with all the frequencies in our notestable.
+        # The smallest value is the candidate
         absFreqArray = np.abs(freqArray - peakRowNoteFrequency)
         smallestDiffIndex = absFreqArray.argmin()
-        # freqCandidate = freqArray[smallestDiffIndex]
+
         print("Note:", self._notesTableData.loc[smallestDiffIndex, self._notes])
         print("Frequency:", self._notesTableData.loc[smallestDiffIndex, self._frequency], "Hz")
 
