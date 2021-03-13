@@ -47,11 +47,14 @@ class xAudioHandler:
     _notes      = "Notes"       # for notestable
 
     # Analysis methods 
-    fbar = 0
+    pcp2 = 0
     pcp = 1
     
     # Max magnitude to consider 
     _maximumMagnitude = 1 * pow(10,8)
+
+    # Note Labels
+    _noteLabels = np.array(["C","C#/Db","D","D#/Eb","E","F","F#/Gb","G","G#/Ab","A","A#/Bb","B"])
 
     def __init__(self,baseBitFile,inputPort,analysisMethod=None):
         okayToContinue = True
@@ -127,7 +130,7 @@ class xAudioHandler:
 
         if okayToContinue:
             if analysisMethod is None:
-                self._analysisMethod = self.fbar
+                self._analysisMethod = self.pcp2
             else:
                 self._analysisMethod = analysisMethod
 
@@ -199,8 +202,8 @@ class xAudioHandler:
             okayToContinue = False
         
         if okayToContinue:
-            if self._analysisMethod == self.fbar:
-                results = self.FBar()
+            if self._analysisMethod == self.pcp2:
+                results = self.PCP2()
             elif self._analysisMethod == self.pcp:
                 results = self.PCP()
             else:
@@ -237,15 +240,15 @@ class xAudioHandler:
 
         return results
 
-    def FBar(self):
+    def PCP2(self):
         """
-        I call this FBar standing for Fong Bar 
+        I call this pcp2 standing for Fong Bar 
         This is the method I came up with in CES400
         """
         # Construct the pcp vector
-        notesArray = np.array(["C","C#/Db","D","D#/Eb","E","F","F#/Gb","G","G#/Ab","A","A#/Bb","B"])
-        temp = np.zeros(notesArray.size)
-        results = pd.DataFrame({"Notes": notesArray, "Result": temp})
+        # notesArray = np.array(["C","C#/Db","D","D#/Eb","E","F","F#/Gb","G","G#/Ab","A","A#/Bb","B"])
+        temp = np.zeros(self._noteLabels.size)
+        results = pd.DataFrame({"Notes": self._noteLabels, "Result": temp})
 
         # Get the frequencies in the notes table
         freqArray = np.array(self._notesTableData[self._frequency])
@@ -267,7 +270,7 @@ class xAudioHandler:
 
                 # Record the value in the pcp vector 
                 note = self._notesTableData.loc[smallestDiffIndex, self._notes]
-                freq = self._notesTableData.loc[smallestDiffIndex, self._frequency]
+                # freq = self._notesTableData.loc[smallestDiffIndex, self._frequency]
                 results.loc[results[results["Notes"] == note]["Result"].index, "Result"] += 1
         return results
 
@@ -278,6 +281,6 @@ class xAudioHandler:
         return result
 
 if __name__ == "__main__":
-    audioReader = xAudioHandler(baseBitFile=bitFile, inputPort="select_line_in", analysisMethod=xAudioHandler.fbar)
+    audioReader = xAudioHandler(baseBitFile=bitFile, inputPort="select_line_in", analysisMethod=xAudioHandler.pcp2)
     audioReader.run(recordInterval=0.5)
     # np.fft.rfft()

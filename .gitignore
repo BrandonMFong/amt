@@ -12,3 +12,6 @@ secrets.json
 
 # Logs
 *.log
+
+# Python cache files
+*.pyc
