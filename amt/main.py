@@ -4,7 +4,8 @@ try:
 except ModuleNotFoundError:
     from Debug.BaseOverlay import BaseOverlay
 
-import numpy as np 
+import numpy as np
+from numpy.core.fromnumeric import size 
 import pandas as pd 
 import wave
 from scipy.fftpack import fft
@@ -49,6 +50,8 @@ class xAudioHandler:
     fbar = 0
     pcp = 1
     
+    # Max magnitude to consider 
+    _maximumMagnitude = 1 * pow(10,8)
 
     def __init__(self,baseBitFile,inputPort,analysisMethod=None):
         okayToContinue = True
@@ -239,27 +242,36 @@ class xAudioHandler:
         I call this FBar standing for Fong Bar 
         This is the method I came up with in CES400
         """
-        # Get the top 3 max values of dataframe column
+        notesArray = np.array(["C","C#/Db","D","D#/Eb","E","F","F#/Gb","G","G#/Ab","A","A#/Bb","B"])
+        temp = np.zeros(notesArray.size)
+        results = pd.DataFrame({"Notes": notesArray, "Result": temp})
         # Get the frequencies in the notes table
         freqArray = np.array(self._notesTableData[self._frequency])
         print("\nTesting obtaining high values")
         # peakRowValues = self._dft.nlargest(5, self._magnitude)
         peakRowValues = self._dft[(self._dft[self._magnitude].shift(1) < self._dft[self._magnitude]) & (self._dft[self._magnitude].shift(-1) < self._dft[self._magnitude])]
-        
-        print(peakRowValues)
+
+        # print(peakRowValues)
         for _, row in peakRowValues.iterrows():
             # Get the frequency of that row
-            peakRowNoteFrequency = row[self._frequency]
+            frequency = row[self._frequency]
+            magnitude = row[self._magnitude]
+            if magnitude > self._maximumMagnitude:
+                # Determine the closest value by subtracting the frequency of the 
+                # highest magnitude with all the frequencies in our notestable.
+                # The smallest value is the candidate
+                absFreqArray = np.abs(freqArray - frequency)
+                smallestDiffIndex = absFreqArray.argmin()
 
-            # Determine the closest value by subtracting the frequency of the 
-            # highest magnitude with all the frequencies in our notestable.
-            # The smallest value is the candidate
-            absFreqArray = np.abs(freqArray - peakRowNoteFrequency)
-            smallestDiffIndex = absFreqArray.argmin()
+                note = self._notesTableData.loc[smallestDiffIndex, self._notes]
+                freq = self._notesTableData.loc[smallestDiffIndex, self._frequency]
+                # print("Note:", note)
+                # print("Frequency:", freq, "Hz")
+                results.loc[results[results["Notes"] == note]["Result"].index, "Result"] += 1
+        # print("\n")
 
-            print("Note:", self._notesTableData.loc[smallestDiffIndex, self._notes])
-            print("Frequency:", self._notesTableData.loc[smallestDiffIndex, self._frequency], "Hz")
-        print("\n")
+        # print(results)
+        return results
 
         # # Get the row that has the highest magnitude
         # peakRowValue = self._dft.loc[self._dft[self._magnitude].idxmax()]
