@@ -241,13 +241,10 @@ class xAudioHandler:
         """
         # Get the max value of the magnitude
         # peakRowValue = spectrumData.loc[spectrumData['Mag'].idxmax()]
-        peakRowValue = self._dft.loc[self._dft['Magnitude'].idxmax()]
-        peakRowNoteFrequency = peakRowValue['Frequency']
+        peakRowValue = self._dft.loc[self._dft[self._magnitude].idxmax()]
+        peakRowNoteFrequency = peakRowValue[self._frequency]
 
         # Determine note
-        # frequencyColumn = "Frequency"
-        # noteColumn = "Note"
-        # notesTableData = pd.read_csv(self._notesTable, header=None, names=[noteColumn, frequencyColumn])
         freqArray = np.array(self._notesTableData[self._frequency])
         absFreqArray = np.abs(freqArray - peakRowNoteFrequency)
         smallestDiffIndex = absFreqArray.argmin()
