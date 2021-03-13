@@ -243,7 +243,9 @@ class xAudioHandler:
         # Get the frequencies in the notes table
         freqArray = np.array(self._notesTableData[self._frequency])
         print("\nTesting obtaining high values")
-        peakRowValues = self._dft.nlargest(5, self._magnitude)
+        # peakRowValues = self._dft.nlargest(5, self._magnitude)
+        peakRowValues = self._dft[(self._dft[self._magnitude].shift(1) < self._dft[self._magnitude]) & (self._dft[self._magnitude].shift(-1) < self._dft[self._magnitude])]
+        
         print(peakRowValues)
         for _, row in peakRowValues.iterrows():
             # Get the frequency of that row
