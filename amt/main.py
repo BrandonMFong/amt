@@ -196,6 +196,7 @@ class xAudioHandler:
         I need this to determine the chord 
         """
         okayToContinue = True
+        pcpVector = None
 
         if self._dft.shape[0] == 0:
             print("analyze(): dft error")
@@ -203,12 +204,17 @@ class xAudioHandler:
         
         if okayToContinue:
             if self._analysisMethod == self.pcp2:
-                results = self.PCP2()
+                pcpVector = self.PCP2()
             elif self._analysisMethod == self.pcp:
-                results = self.PCP()
+                pcpVector = self.PCP()
             else:
-                results = self.PCP()
-            print(results)
+                pcpVector = self.PCP()
+
+            if pcpVector is None:
+                okayToContinue = False
+
+        if okayToContinue:
+            print(pcpVector)
 
         if okayToContinue == False:
             raise Exception("Error in analysis") 
