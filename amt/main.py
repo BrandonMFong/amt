@@ -14,6 +14,7 @@ import math
 from sys import platform
 import sys
 import scipy.io.wavfile
+from enum import Enum
 
 print("### AMT ###")
 print(platform)
@@ -42,7 +43,12 @@ class xAudioHandler:
     _frequency = "Frequency"
     _magnitude = "Magnitude"
 
-    def __init__(self,baseBitFile,inputPort):
+    # Analysis methods 
+    fbar = 0
+    pcp = 1
+    
+
+    def __init__(self,baseBitFile,inputPort,analysisMethod=None):
         okayToContinue = True
         fsSeparator = "\\" if platform == "win32" else "/"
 
@@ -108,6 +114,12 @@ class xAudioHandler:
             else:
                 self._outlet.select_line_in()
 
+        if okayToContinue:
+            if analysisMethod is None:
+                self._analysisMethod = self.fbar
+            else:
+                self._analysisMethod = analysisMethod
+
         if okayToContinue is False:
             raise Exception("Error in constructing Audio Handler") 
 
@@ -165,6 +177,10 @@ class xAudioHandler:
         self._dft = pd.DataFrame({self._frequency : np.array(xf), self._magnitude : np.array(abs(yf))})
 
     def analyze(self):
+        """
+        I am expecting Analysis to create a vector like pcp
+        I need this to determine the chord 
+        """
         okayToContinue = True
 
         if self._dft.shape[0] == 0:
@@ -172,7 +188,12 @@ class xAudioHandler:
             okayToContinue = False
         
         if okayToContinue:
-            results = self.PCP()
+            if self._analysisMethod == self.fbar:
+                results = self.FBar()
+            elif self._analysisMethod == self.pcp:
+                results = self.PCP()
+            else:
+                results = self.PCP()
             print(results)
 
         if okayToContinue == False:
@@ -204,6 +225,23 @@ class xAudioHandler:
             results[q] = r
 
         return results
+
+    def FBar(self):
+        # Get the max value of the magnitude
+        # peakRowValue = spectrumData.loc[spectrumData['Mag'].idxmax()]
+        peakRowValue = self._dft.loc[self._dft['Magnitude'].idxmax()]
+        peakRowNoteFrequency = peakRowValue['Frequency']
+
+        # Determine note
+        frequencyColumn = "Frequency"
+        noteColumn = "Note"
+        notesTableData = pd.read_csv("notestable.csv", header=None, names=[noteColumn, frequencyColumn])
+        freqArray = np.array(notesTableData[frequencyColumn])
+        absFreqArray = np.abs(freqArray - peakRowNoteFrequency)
+        smallestDiffIndex = absFreqArray.argmin()
+        # freqCandidate = freqArray[smallestDiffIndex]
+        print("Note:", notesTableData.loc[smallestDiffIndex, noteColumn])
+        print("Frequency:", notesTableData.loc[smallestDiffIndex, frequencyColumn], "Hz")
 
 if __name__ == "__main__":
     audioReader = xAudioHandler(baseBitFile=bitFile, inputPort="select_line_in")
