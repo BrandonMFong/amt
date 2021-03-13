@@ -19,7 +19,6 @@ import scipy.io.wavfile
 from enum import Enum
 
 print("### AMT ###")
-print(platform)
 
 if platform == "win32":
     # Debug file 
@@ -45,6 +44,7 @@ class xAudioHandler:
     _frequency  = "Frequency"   # for Notestable and dft
     _magnitude  = "Magnitude"   # for dft
     _notes      = "Notes"       # for notestable
+    _result     = "Result"      # for pcp vector
 
     # Analysis methods 
     pcp2 = 0
@@ -152,10 +152,6 @@ class xAudioHandler:
             # Analyze spectrum 
             self.analyze()
 
-            # # Testing pcp 
-            # self.pcp()
-            break
-
     def record(self, seconds):
         # Default state to 0.5 seconds
         if seconds is None:
@@ -192,8 +188,7 @@ class xAudioHandler:
 
     def analyze(self):
         """
-        I am expecting Analysis to create a vector like pcp
-        I need this to determine the chord 
+        Generates pcp vector and chord outcome
         """
         okayToContinue = True
         pcpVector = None
@@ -214,7 +209,8 @@ class xAudioHandler:
                 okayToContinue = False
 
         if okayToContinue:
-            print(pcpVector)
+            print("\nNotes:")
+            print(pcpVector[pcpVector[self._result] != 0].loc[:, self._notes])
 
         if okayToContinue == False:
             raise Exception("Error in analysis") 
@@ -252,9 +248,8 @@ class xAudioHandler:
         This is the method I came up with in CES400
         """
         # Construct the pcp vector
-        # notesArray = np.array(["C","C#/Db","D","D#/Eb","E","F","F#/Gb","G","G#/Ab","A","A#/Bb","B"])
         temp = np.zeros(self._noteLabels.size)
-        results = pd.DataFrame({"Notes": self._noteLabels, "Result": temp})
+        results = pd.DataFrame({self._notes: self._noteLabels, self._result: temp})
 
         # Get the frequencies in the notes table
         freqArray = np.array(self._notesTableData[self._frequency])
@@ -277,7 +272,7 @@ class xAudioHandler:
                 # Record the value in the pcp vector 
                 note = self._notesTableData.loc[smallestDiffIndex, self._notes]
                 # freq = self._notesTableData.loc[smallestDiffIndex, self._frequency]
-                results.loc[results[results["Notes"] == note]["Result"].index, "Result"] += 1
+                results.loc[results[results[self._notes] == note][self._result].index, self._result] += 1
         return results
 
     def GenerateNotesTable(self):
