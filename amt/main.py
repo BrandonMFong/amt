@@ -53,10 +53,20 @@ class xAudioHandler:
     # Max magnitude to consider 
     _maximumMagnitude = 1 * pow(10,8)
 
+    # The threshold percentage
+    _threshold = 0.60
+
     # Note Labels
     _noteLabels = np.array(["C","C#/Db","D","D#/Eb","E","F","F#/Gb","G","G#/Ab","A","A#/Bb","B"])
 
-    def __init__(self,baseBitFile,inputPort,analysisMethod=None):
+    def __init__(self,baseBitFile,inputPort,analysisMethod=None,thresholdValue=None):
+        """
+        Parameters:
+            - baseBitFile: full path to base.bit
+            - inputPort: 'select_line_in' or 'select_microphone'
+            - analysisMethod: pcp or pcp2
+            - thresholdValue: percentage value of threshold to consider (i.e. pass in 0.60 for 60%)
+        """
         okayToContinue = True
         fsSeparator = "\\" if platform == "win32" else "/"
 
@@ -82,14 +92,6 @@ class xAudioHandler:
                 okayToContinue = False 
                 print("Error in making wav file path")
 
-            # # notes table
-            # # This is the overhead I use to determine notes
-            # # Kevin uses PCP
-            # self._notesTable = basePath + fsSeparator + self._notesTable
-            # if self._notesTable.__len__ == 0:
-            #     okayToContinue = False 
-            #     print("Error in making Notes Table file path")
-        
         if okayToContinue:
             self._notesTableData = self.GenerateNotesTable()
             if self._notesTableData is None:
@@ -128,11 +130,17 @@ class xAudioHandler:
             else:
                 self._outlet.select_line_in()
 
+        # Select analysis method 
         if okayToContinue:
             if analysisMethod is None:
                 self._analysisMethod = self.pcp2
             else:
                 self._analysisMethod = analysisMethod
+
+        # Select threshold value
+        if okayToContinue:
+            if thresholdValue is not None:
+                self._threshold = thresholdValue
 
         if okayToContinue is False:
             raise Exception("Error in constructing Audio Handler") 
@@ -151,8 +159,6 @@ class xAudioHandler:
 
             # Analyze spectrum 
             self.analyze()
-
-            break
 
     def record(self, seconds):
         # Default state to 0.5 seconds
@@ -187,6 +193,9 @@ class xAudioHandler:
 
         # Save into dataframe
         self._dft = pd.DataFrame({self._frequency : np.array(xf), self._magnitude : np.array(abs(yf))})
+
+        # Recalculate threshold for maximum  magnitude 
+        self._maximumMagnitude = self._dft[self._magnitude].max() * self._threshold
 
     def analyze(self):
         """
