@@ -303,5 +303,5 @@ class xAudioHandler:
         return result
 
 if __name__ == "__main__":
-    audioReader = xAudioHandler(baseBitFile=bitFile, inputPort="select_line_in", analysisMethod=xAudioHandler.pcp2)
+    audioReader = xAudioHandler(baseBitFile=bitFile, inputPort="select_line_in", analysisMethod=xAudioHandler.pcp2, thresholdValue=0.50)
     audioReader.run(recordInterval=0.5)
