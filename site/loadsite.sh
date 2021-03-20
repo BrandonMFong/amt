@@ -1,1 +1,1 @@
-echo "Hello World"
+cp ./site/* /var/www/html
