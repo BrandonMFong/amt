@@ -17,4 +17,4 @@ secrets.json
 *.pyc
 
 # Node files
-site/site/node_modules/*
+site/*/node_modules/*
