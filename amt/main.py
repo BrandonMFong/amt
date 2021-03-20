@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 try:
     from pynq.overlays.base import BaseOverlay
+    from pynq import GPIO
 except ModuleNotFoundError:
     from Debug.BaseOverlay import BaseOverlay
 
@@ -305,3 +306,9 @@ class xAudioHandler:
 if __name__ == "__main__":
     audioReader = xAudioHandler(baseBitFile=bitFile, inputPort="select_line_in", analysisMethod=xAudioHandler.pcp2, thresholdValue=0.50)
     audioReader.run(recordInterval=0.5)
+    # gpioBase = GPIO.get_gpio_base()
+    # gpioBasePath = GPIO.get_gpio_base_path()
+    # gpioNPins = GPIO.get_gpio_npins()
+    # print(gpioBase)
+    # print(gpioBasePath)
+    # print(gpioNPins)
