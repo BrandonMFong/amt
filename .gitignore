@@ -15,3 +15,6 @@ secrets.json
 
 # Python cache files
 *.pyc
+
+# Node files
+site/site/node_modules/*
