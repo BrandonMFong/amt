@@ -320,10 +320,38 @@ class xAudioHandler:
         return result
 
     def WriteIntoFile(self):
-        with open(self._webServerFile, "a") as f:
-            result = "{}".format(self._pcpVector[self._pcpVector[self._result] != 0].loc[:, self._notes])
-            f.write(result)
-            f.close()
+        okayToContinue = True 
+        tempData = None
+        result = None
+        length = None
+
+        fileHandler = open(self._webServerFile, "a")
+        okayToContinue = True if self._webServerFile is not None else False 
+
+        # Format data 
+        if okayToContinue:
+            tempData = self._pcpVector[self._pcpVector[self._result] != 0].loc[:, self._notes]
+            result = "Chord: "
+            okayToContinue = True if tempData.empty is False and result is not None else False 
+
+        if okayToContinue:
+            length = len(result)
+            for val in tempData:
+                result += "{} ".format(val)
+
+            if length > len(result):
+                okayToContinue = False 
+
+        if okayToContinue:
+            fileHandler.write(result)
+
+        if okayToContinue:
+            fileHandler.close()
+
+        # with open(self._webServerFile, "a") as f:
+        #     result = "{}".format(self._pcpVector[self._pcpVector[self._result] != 0].loc[:, self._notes])
+        #     f.write(result)
+        #     f.close()
 
 if __name__ == "__main__":
     audioReader = xAudioHandler(baseBitFile=bitFile, inputPort="select_line_in", analysisMethod=xAudioHandler.pcp2, thresholdValue=0.50)
