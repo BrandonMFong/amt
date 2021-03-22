@@ -5,7 +5,7 @@
     <body>
         <?php 
             echo "The time is " . date("h:i:sa"); 
-            $file = file_get_contents('./test.txt', FILE_USE_INCLUDE_PATH);
+            $file = file_get_contents('./results.txt', FILE_USE_INCLUDE_PATH);
             echo "<br/>" . $file;
         ?>
     </body>
