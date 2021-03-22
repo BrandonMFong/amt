@@ -156,6 +156,11 @@ class xAudioHandler:
             if printResults is not None:
                 self._printResults = printResults
 
+        # Delete web server file to restart session 
+        if okayToContinue:
+            if os.path.exists(self._webServerFile):
+                os.remove(self._webServerFile)
+
         if okayToContinue is False:
             raise Exception("Error in constructing Audio Handler") 
 
@@ -343,15 +348,13 @@ class xAudioHandler:
                 okayToContinue = False 
 
         if okayToContinue:
+            # Since this is going to be parsed by a web server, adding 
+            # html break cmd 
+            result += "<br/>\n" 
             fileHandler.write(result)
 
         if okayToContinue:
             fileHandler.close()
-
-        # with open(self._webServerFile, "a") as f:
-        #     result = "{}".format(self._pcpVector[self._pcpVector[self._result] != 0].loc[:, self._notes])
-        #     f.write(result)
-        #     f.close()
 
 if __name__ == "__main__":
     audioReader = xAudioHandler(baseBitFile=bitFile, inputPort="select_line_in", analysisMethod=xAudioHandler.pcp2, thresholdValue=0.50)
