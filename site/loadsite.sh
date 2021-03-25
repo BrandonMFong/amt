@@ -1,4 +1,4 @@
-systemctl stop apache2
+systemctl start apache2
 rm -f -r /var/www/html/
 mkdir /var/www/html
 cp -f -v -a ./site/* /var/www/html
