@@ -331,7 +331,10 @@ class xAudioHandler:
         length = None
 
         fileHandler = open(self._webServerFile, "a")
-        okayToContinue = True if self._webServerFile is not None else False 
+        okayToContinue = True if fileHandler is not None else False 
+
+        if okayToContinue:
+            fileHandler.truncate(0)
 
         # Format data 
         if okayToContinue:
