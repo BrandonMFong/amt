@@ -8,20 +8,29 @@ try
     $size = $_FILES['audio_data']['size']; //the size in bytes
     $input = $_FILES['audio_data']['tmp_name']; //temporary name that PHP gave to the uploaded file
     // $output = $_FILES['audio_data']['name'].".wav"; //letting the client control the filename is a rather bad idea
-    $ouptutDir = "/home/xilinx/brando/sources/repo/amt";
+    $ouptutDir = "/home/xilinx/brando/sources/repo/amt/test";
     $output = $ouptutDir . "/input.wav"; //letting the client control the filename is a rather bad idea
 
-    echo "Will upload to " . $output . "\n";
+    echo "Will upload to " . $output . "\n\n";
 
     if($okayToContinue) {
-        mkdir($ouptutDir, 0777, true);
-        $okayToContinue = is_dir($ouptutDir);
 
-        if(!$okayToContinue) {
-            echo "'". $ouptutDir . "' directory does not exist\n";
+        // Check if it is already a directory 
+        // if not then make it
+        if(!is_dir($ouptutDir)) {
+            mkdir($ouptutDir, 0777, true);
+
+            // check if we successfully make directory 
+            $okayToContinue = is_dir($ouptutDir);
+            if(!$okayToContinue) {
+                echo "Failed to make directory '". $ouptutDir . "'\n";
+            }
+        } else {
+            $okayToContinue = True;
         }
     }
 
+    // Check if upload was successful
     if($okayToContinue) {
         $okayToContinue = file_exists($input);
         
@@ -30,6 +39,7 @@ try
         }
     }
 
+    // move the upload file
     if($okayToContinue) {
         $okayToContinue = move_uploaded_file($input, $output);
 
