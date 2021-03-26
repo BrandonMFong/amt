@@ -18,6 +18,7 @@ if(Test-Path ".\amt\*.dat")
     "cd /home/xilinx/brando/sources/repo" `
     "put amt" `
     "put site" `
+    "put loadsite.sh" `
     "exit"
 
 $winscpResult = $LastExitCode
