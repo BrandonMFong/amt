@@ -171,7 +171,7 @@ class xAudioHandler:
 
         while True:
             # Record and save into file using pynq audio codec 
-            self.record(recordInterval)
+            # self.record(recordInterval)
 
             # Get spectrum from wavFile
             self.getSpectrum()
