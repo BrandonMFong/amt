@@ -71,7 +71,7 @@ function streamRecording() {
 			console.log("Recording stopped"); 
 			gumStream.getAudioTracks()[0].stop();
 			rec.exportWAV(function(blob){
-				console.log("Exporting wav file");
+				console.log("Uploading audio to server");
 				var xhr=new XMLHttpRequest();
 				var filename = "temp.wav";
 				xhr.onload=function(e) {
@@ -87,10 +87,7 @@ function streamRecording() {
 		});
 	
 	}).catch(function(err) {
-	  	//enable the record button if getUserMedia() fails
-    	recordButton.disabled = false;
-    	stopButton.disabled = true;
-    	pauseButton.disabled = true
+		console.log("Error in streaming");
 	});
 }
 function sleep(ms) {
