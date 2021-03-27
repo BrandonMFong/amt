@@ -24,17 +24,19 @@ streamButton.addEventListener("click", streamRecording);
 stopStreamButton.addEventListener("click", stopStreaming);
 
 streamButton.disabled = false;
-stopStreamButton.disabled = false;
+stopStreamButton.disabled = true;
 stopStreamingFlag = false;
 
 function stopStreaming() {
 	stopStreamingFlag = true;
+	stopStreamButton.disabled = true;
 }
 
 async function streamRecording() {
 	console.log("Stream clicked");
 
 	stopStreamingFlag = false;
+	stopStreamButton.disabled = false;
 
 	/*
 		Simple constraints object, for more advanced audio features see
