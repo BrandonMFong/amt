@@ -42,11 +42,12 @@ try
     // move the upload file
     if($okayToContinue) {
         $okayToContinue = move_uploaded_file($input, $output);
-        // $okayToContinue = copy($input, $output);
 
         //move the file from temp name to local folder using $output name
         if(!$okayToContinue) {
             echo "Copy Failure\n";
+        } else {
+            echo "Copy Success\n";
         }
     }
 
