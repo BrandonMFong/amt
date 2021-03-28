@@ -104,6 +104,8 @@ async function streamRecording() {
 				xhr.send(fd);
 			});
 		});
+
+		break;
 	}
 }
 
@@ -125,6 +127,7 @@ async function getChord() {
 		oReq.send();
 
 		await sleep(5000);
+		break;
 	}
 }
 

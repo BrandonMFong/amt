@@ -357,11 +357,17 @@ class xAudioHandler:
         result = None
         length = None
 
-        okayToContinue = True if self._printValue.shape[0] != 0 else False
+        # Checks if dft has been computed 
+        # Will not pause since I am assuming that this case
+        # was already handled by the analysis method 
+        okayToContinue = False if self._dft.shape[0] == 0 else True  
 
-        # Will pause because we don't want to keep printing out empty results 
-        if okayToContinue is False:
-            time.sleep(self._pauseInterval / 2)
+        if okayToContinue:
+            okayToContinue = True if self._printValue.shape[0] != 0 else False
+
+            # Will pause because we don't want to keep printing out empty results 
+            if okayToContinue is False:
+                time.sleep(self._pauseInterval / 2)
 
         if okayToContinue:
             fileHandler = open(self._webServerFile, "a")
