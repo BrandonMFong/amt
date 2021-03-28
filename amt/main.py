@@ -18,6 +18,7 @@ from sys import platform
 import sys
 import scipy.io.wavfile
 from enum import Enum
+import time
 
 print("### AMT ###")
 
@@ -191,33 +192,38 @@ class xAudioHandler:
         self._outlet.save(self._wavFile)
 
     def getSpectrum(self):
-        # Get the wavefile
-        with wave.open(self._wavFile, 'r') as wav_file:
-            raw_frames = wav_file.readframes(-1)
-            num_frames = wav_file.getnframes()
-            num_channels = wav_file.getnchannels()
-            sample_rate = wav_file.getframerate()
-            sample_width = wav_file.getsampwidth()
-            
-        temp_buffer = np.empty((num_frames, num_channels, 4), dtype=np.uint8)
-        raw_bytes = np.frombuffer(raw_frames, dtype=np.uint8)
-        temp_buffer[:, :, :sample_width] = raw_bytes.reshape(-1, num_channels, sample_width)
-        temp_buffer[:, :, sample_width:] = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
-        frames = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
+        okayToContinue = True 
 
-        self._numFrames = num_frames
+        okayToContinue = path.exists(self._wavFile)
 
-        # Calculate the frequency spectrum 
-        for channel_index in range(num_channels):
-            temp = fft(x=frames[:, channel_index])
-            yf = temp[1:len(temp)//2]
-            xf = np.linspace(0.0, sample_rate/2, len(yf))
+        if okayToContinue:
+            # Get the wavefile
+            with wave.open(self._wavFile, 'r') as wav_file:
+                raw_frames = wav_file.readframes(-1)
+                num_frames = wav_file.getnframes()
+                num_channels = wav_file.getnchannels()
+                sample_rate = wav_file.getframerate()
+                sample_width = wav_file.getsampwidth()
+                
+            temp_buffer = np.empty((num_frames, num_channels, 4), dtype=np.uint8)
+            raw_bytes = np.frombuffer(raw_frames, dtype=np.uint8)
+            temp_buffer[:, :, :sample_width] = raw_bytes.reshape(-1, num_channels, sample_width)
+            temp_buffer[:, :, sample_width:] = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
+            frames = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
 
-        # Save into dataframe
-        self._dft = pd.DataFrame({self._frequency : np.array(xf), self._magnitude : np.array(abs(yf))})
+            self._numFrames = num_frames
 
-        # Recalculate threshold for maximum  magnitude 
-        self._maximumMagnitude = self._dft[self._magnitude].max() * self._threshold
+            # Calculate the frequency spectrum 
+            for channel_index in range(num_channels):
+                temp = fft(x=frames[:, channel_index])
+                yf = temp[1:len(temp)//2]
+                xf = np.linspace(0.0, sample_rate/2, len(yf))
+
+            # Save into dataframe
+            self._dft = pd.DataFrame({self._frequency : np.array(xf), self._magnitude : np.array(abs(yf))})
+
+            # Recalculate threshold for maximum  magnitude 
+            self._maximumMagnitude = self._dft[self._magnitude].max() * self._threshold
 
     def analyze(self):
         """
@@ -227,7 +233,8 @@ class xAudioHandler:
         self._pcpVector = None
 
         if self._dft.shape[0] == 0:
-            print("analyze(): dft error")
+            print("analyze(): Empty DFT")
+            time.sleep(10) # sleep for 10 seconds 
             okayToContinue = False
         
         if okayToContinue:
@@ -247,8 +254,8 @@ class xAudioHandler:
             # Only print values on the vector that is not zero 
             print(self._pcpVector[self._pcpVector[self._result] != 0].loc[:, self._notes])
 
-        if okayToContinue == False:
-            raise Exception("Error in analysis") 
+        # if okayToContinue == False:
+        #     raise Exception("Error in analysis") 
 
     # PCP
     def PCP(self):
@@ -334,7 +341,7 @@ class xAudioHandler:
         okayToContinue = True if fileHandler is not None else False 
 
         if okayToContinue:
-            fileHandler.truncate(0)
+            okayToContinue = True if self._pcpVector is not None else False 
 
         # Format data 
         if okayToContinue:
@@ -351,6 +358,7 @@ class xAudioHandler:
                 okayToContinue = False 
 
         if okayToContinue:
+            fileHandler.truncate(0) # empty file 
             # Since this is going to be parsed by a web server, adding 
             # html break cmd 
             result += "<br/>\n" 

@@ -8,3 +8,5 @@ file="./amt/input.wav"
 if [ -f "${file}" ]; then
 	rm -f -v "${file}"
 fi
+
+sudo /usr/bin/python3 ./amt/main.py

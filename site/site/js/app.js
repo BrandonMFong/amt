@@ -85,7 +85,7 @@ async function streamRecording() {
 		console.log("Recording started");
 
 		// Wait 2 seconds before stopping the recording 
-		await sleep(2000).then(async function () { 
+		await sleep(5000).then(async function () { 
 			rec.stop(); 
 			console.log("Recording stopped"); 
 			gumStream.getAudioTracks()[0].stop();
@@ -116,18 +116,14 @@ async function getChord() {
 		var oReq = new XMLHttpRequest();
 
 		oReq.onload = function(e) {
-		//   var arraybuffer = oReq.response; // not responseText
-		//   /* ... */
-		//   chordOutput.innerHTML = arraybuffer;
 			if(this.readyState === 4) {
 				console.log("Server returned: ", e.target.responseText);
+				chordOutput.innerHTML = e.target.responseText;
 			}
 		}
 		oReq.open("GET", "readOutput.php");
-		// oReq.responseType = "arraybuffer";
 		oReq.send();
 
-		// chordOutput.innerHTML = "Test " + i;
 		await sleep(5000);
 	}
 }
