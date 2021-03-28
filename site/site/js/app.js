@@ -15,6 +15,7 @@ var stopButton = document.getElementById("stopButton");
 var pauseButton = document.getElementById("pauseButton");
 var streamButton = document.getElementById("streamButton");
 var stopStreamButton = document.getElementById("stopStreamButton");
+var chordOutput = document.getElementById("chordOutput");
 
 //add events to those 2 buttons
 recordButton.addEventListener("click", startRecording);
@@ -34,6 +35,9 @@ function stopStreaming() {
 
 async function streamRecording() {
 	console.log("Stream clicked");
+
+	// Start retrieving outputs from amt software
+	getChord();
 
 	stopStreamingFlag = false;
 	stopStreamButton.disabled = false;
@@ -102,8 +106,18 @@ async function streamRecording() {
 		});
 	}
 }
+
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function getChord() {
+	var i = 0;
+	while(1) {
+		chordOutput.innerHTML = "Test " + i;
+		await sleep(5000);
+		i++;
+	}
 }
 
 function startRecording() {
