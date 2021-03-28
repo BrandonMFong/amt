@@ -5,6 +5,8 @@ var gumStream; 						//stream from getUserMedia()
 var rec; 							//Recorder.js object
 var input; 							//MediaStreamAudioSourceNode we'll be recording
 var stopStreamingFlag;
+var blobGenerated = false;
+var messageReceived = false;
 
 // shim for AudioContext when it's not avb. 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -36,9 +38,7 @@ function stopStreaming() {
 async function streamRecording() {
 	console.log("Stream clicked");
 
-	// Start retrieving outputs from amt software
-	getChord();
-
+	var blob;
 	stopStreamingFlag = false;
 	stopStreamButton.disabled = false;
 
@@ -50,7 +50,8 @@ async function streamRecording() {
 
 	var stream = await navigator.mediaDevices.getUserMedia(constraints);
 
-	while(!stopStreamingFlag) {
+	// while(!stopStreamingFlag) {
+	if (!stopStreamingFlag) {
 		/*
 			We're using the standard promise based getUserMedia() 
 			https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
@@ -85,27 +86,44 @@ async function streamRecording() {
 		console.log("Recording started");
 
 		// Wait 2 seconds before stopping the recording 
-		await sleep(5000).then(async function () { 
-			rec.stop(); 
-			console.log("Recording stopped"); 
-			gumStream.getAudioTracks()[0].stop();
-			await rec.exportWAV(function(blob){
-				console.log("Uploading audio to server");
-				var xhr=new XMLHttpRequest();
-				var filename = "temp.wav";
-				xhr.onload=function(e) {
-					if(this.readyState === 4) {
-						console.log("Server returned: ",e.target.responseText);
-					}
-				};
-				var fd=new FormData();
-				fd.append("audio_data",blob, filename);
-				xhr.open("POST","upload.php",true);
-				xhr.send(fd);
-			});
-		});
+		// await sleep(5000).then(async function () { 
+		await sleep(2000)
+		rec.stop(); 
+		console.log("Recording stopped"); 
+		gumStream.getAudioTracks()[0].stop();
+		// await rec.exportWAV( function(blob) {
+		// 	console.log("Uploading audio to server");
+		// 	var xhr=new XMLHttpRequest();
+		// 	var filename = "temp.wav";
+		// 	xhr.onload=function(e) {
+		// 		if(this.readyState === 4) {
+		// 			console.log("Server returned: ",e.target.responseText);
+		// 		}
+		// 	};
+		// 	var fd=new FormData();
+		// 	fd.append("audio_data",blob, filename);
+		// 	xhr.open("POST","upload.php",true);
+		// 	xhr.send(fd);
+		// });
+		blobGenerated = false;
 
-		break;
+		rec.exportWAV( function(blob) {
+			console.log("Uploading audio to server");
+			var xhr=new XMLHttpRequest();
+			var filename = "temp.wav";
+			xhr.onload=function(e) {
+				if(this.readyState === 4) {
+					console.log("Server returned: ",e.target.responseText);
+					getChord();
+				}
+			};
+			var fd=new FormData();
+			fd.append("audio_data",blob, filename);
+			xhr.open("POST","upload.php",true);
+			xhr.send(fd);
+		});
+		// });
+
 	}
 }
 
@@ -113,22 +131,19 @@ function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function getChord() {
-	while(!stopStreamingFlag) {
-		var oReq = new XMLHttpRequest();
+function getChord() {
+	var oReq = new XMLHttpRequest();
 
-		oReq.onload = function(e) {
-			if(this.readyState === 4) {
-				console.log("Server returned: ", e.target.responseText);
-				chordOutput.innerHTML = e.target.responseText;
-			}
+	oReq.onload = function(e) {
+		if(this.readyState === 4) {
+			console.log("Server returned: ", e.target.responseText);
+			chordOutput.innerHTML = e.target.responseText;
+			streamRecording();
 		}
-		oReq.open("GET", "readOutput.php");
-		oReq.send();
-
-		await sleep(5000);
-		break;
 	}
+
+	oReq.open("GET", "readOutput.php");
+	oReq.send();
 }
 
 function startRecording() {

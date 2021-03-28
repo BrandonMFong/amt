@@ -23,8 +23,6 @@ import scipy.io.wavfile
 from enum import Enum
 import time
 
-print("### AMT ###")
-
 bitFile             = "/home/xilinx/pynq/overlays/base/base.bit"
 pathToSiteDirectory = "/var/www/html"
 
@@ -185,6 +183,8 @@ class xAudioHandler:
             raise Exception("Error in constructing Audio Handler") 
 
     def run(self,recordInterval):
+        print("Running program...")
+        
         # This is present in the audio.py, but I will catch it here as well 
         if not 0 < recordInterval <= 60:
             raise ValueError("Recording time has to be in (0,60].")
