@@ -112,14 +112,23 @@ function sleep(ms) {
 }
 
 async function getChord() {
-	var i = 0;
 	while(!stopStreamingFlag) {
+		var oReq = new XMLHttpRequest();
 
-		
+		oReq.onload = function(e) {
+		//   var arraybuffer = oReq.response; // not responseText
+		//   /* ... */
+		//   chordOutput.innerHTML = arraybuffer;
+			if(this.readyState === 4) {
+				console.log("Server returned: ", e.target.responseText);
+			}
+		}
+		oReq.open("GET", "readOutput.php");
+		// oReq.responseType = "arraybuffer";
+		oReq.send();
 
-		chordOutput.innerHTML = "Test " + i;
+		// chordOutput.innerHTML = "Test " + i;
 		await sleep(5000);
-		i++;
 	}
 }
 
