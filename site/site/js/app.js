@@ -113,7 +113,10 @@ function sleep(ms) {
 
 async function getChord() {
 	var i = 0;
-	while(1) {
+	while(!stopStreamingFlag) {
+
+		
+
 		chordOutput.innerHTML = "Test " + i;
 		await sleep(5000);
 		i++;
