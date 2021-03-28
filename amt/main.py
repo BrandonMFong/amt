@@ -1,9 +1,12 @@
 #!/usr/bin/python3
+isDebug = False
+
 try:
     from pynq.overlays.base import BaseOverlay
     from pynq import GPIO
 except ModuleNotFoundError:
     from Debug.BaseOverlay import BaseOverlay
+    isDebug = True 
 
 import numpy as np
 from numpy.core.fromnumeric import size 
@@ -22,18 +25,19 @@ import time
 
 print("### AMT ###")
 
-if platform == "win32":
-    # Debug file 
-    bitFile = "B:\\COLLEGE\\Thesis\\Source2\\amt\\Debug\\Base.bit"
-else:
-    bitFile = "/home/xilinx/pynq/overlays/base/base.bit"
+bitFile             = "/home/xilinx/pynq/overlays/base/base.bit"
+pathToSiteDirectory = "/var/www/html"
+
+if isDebug:
+    if platform == "win32":
+        # Debug file 
+        bitFile = "B:\\COLLEGE\\Thesis\\Source2\\amt\\Debug\\Base.bit"
+    else:
+        raise Exception("Error: No other platforms known for debug")
 
 class xAudioHandler:
     # Wav file
     _wavFile = "input.wav"
-
-    # Notes Table 
-    # _notesTable = "notestable.csv"
 
     # FFT size
     _numFrames = 0
@@ -66,10 +70,16 @@ class xAudioHandler:
     _pcpVector = None 
 
     # Destination file for saving chords
-    _webServerFile = "/var/www/html/results.txt"
+    _webServerFile = "results.txt"
 
     # Print results of PCP
     _printResults = False
+
+    # Amount of time to wait if DFT was not successful 
+    _pauseInterval = 10
+
+    # Values to print
+    _printValue = None
 
     def __init__(self,baseBitFile,inputPort,analysisMethod=None,thresholdValue=None,printResults=True):
         """
@@ -103,6 +113,15 @@ class xAudioHandler:
             if self._wavFile.__len__ == 0:
                 okayToContinue = False 
                 print("Error in making wav file path")
+
+            # Chord results file
+            # Using base path if we are debugging on my window's machine
+            # else use the web server root dir 
+            basePath = basePath if isDebug else pathToSiteDirectory
+            self._webServerFile = basePath + fsSeparator + self._webServerFile
+            if self._webServerFile.__len__ == 0:
+                okayToContinue = False 
+                print("Error in the making of chord results file")
 
         if okayToContinue:
             self._notesTableData = self.GenerateNotesTable()
@@ -231,10 +250,11 @@ class xAudioHandler:
         """
         okayToContinue = True
         self._pcpVector = None
+        self._printValue = None
 
         if self._dft.shape[0] == 0:
             print("analyze(): Empty DFT")
-            time.sleep(10) # sleep for 10 seconds 
+            time.sleep(self._pauseInterval) # sleep for 10 seconds 
             okayToContinue = False
         
         if okayToContinue:
@@ -248,14 +268,14 @@ class xAudioHandler:
             if self._pcpVector is None:
                 okayToContinue = False
 
+        # Prints the values regardless if it is empty or not
         if okayToContinue and self._printResults:
             print("\nNotes:")
 
             # Only print values on the vector that is not zero 
-            print(self._pcpVector[self._pcpVector[self._result] != 0].loc[:, self._notes])
+            self._printValue = self._pcpVector[self._pcpVector[self._result] != 0].loc[:, self._notes]
 
-        # if okayToContinue == False:
-        #     raise Exception("Error in analysis") 
+            print(self._printValue)
 
     # PCP
     def PCP(self):
@@ -337,8 +357,15 @@ class xAudioHandler:
         result = None
         length = None
 
-        fileHandler = open(self._webServerFile, "a")
-        okayToContinue = True if fileHandler is not None else False 
+        okayToContinue = True if self._printValue.shape[0] != 0 else False
+
+        # Will pause because we don't want to keep printing out empty results 
+        if okayToContinue is False:
+            time.sleep(self._pauseInterval / 2)
+
+        if okayToContinue:
+            fileHandler = open(self._webServerFile, "a")
+            okayToContinue = True if fileHandler is not None else False 
 
         if okayToContinue:
             okayToContinue = True if self._pcpVector is not None else False 
