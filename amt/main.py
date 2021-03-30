@@ -79,7 +79,9 @@ class xAudioHandler:
     # Values to print
     _printValue = None
 
-    def __init__(self,baseBitFile,inputPort,analysisMethod=None,thresholdValue=None,printResults=True):
+    _spectrumMax = None
+
+    def __init__(self,baseBitFile=None,inputPort=None,analysisMethod=None,thresholdValue=None,printResults=True,usePynqAudioCodec=True,spectrumMax=None):
         """
         Parameters:
             - baseBitFile: full path to base.bit
@@ -94,11 +96,18 @@ class xAudioHandler:
         self._dft = pd.DataFrame()
 
         if okayToContinue:
-            if path.exists(baseBitFile) == False:
+            if spectrumMax is not None:
+                self._spectrumMax = spectrumMax
+
+        if okayToContinue and usePynqAudioCodec:
+            if baseBitFile is None:
+                okayToContinue = False 
+                print("Bit file was not passed")
+            elif path.exists(baseBitFile) == False:
                 okayToContinue = False 
                 print("Bit file", baseBitFile, "does not exist")
         
-        if okayToContinue:
+        if okayToContinue and usePynqAudioCodec:
             if baseBitFile.endswith('.bit') == False:
                 okayToContinue = False
                 print(baseBitFile, "must be .bit file")
@@ -128,7 +137,7 @@ class xAudioHandler:
                 print("Error in generating the notes table")
 
         # Bit file
-        if okayToContinue:
+        if okayToContinue and usePynqAudioCodec:
             # the if case is covered since the baseBitFile is
             # "required" but including just in case
             if baseBitFile is None:
@@ -142,7 +151,7 @@ class xAudioHandler:
                 okayToContinue = True
 
         # Audio settings
-        if okayToContinue:
+        if okayToContinue and usePynqAudioCodec:
             self._outlet = self._base.audio
             self._outlet.set_volume(50)
             self._outlet.bypass(seconds=5)  
@@ -270,12 +279,12 @@ class xAudioHandler:
 
         # Prints the values regardless if it is empty or not
         if okayToContinue and self._printResults:
-            print("\nNotes:")
+            # print("\nNotes:")
 
             # Only print values on the vector that is not zero 
             self._printValue = self._pcpVector[self._pcpVector[self._result] != 0].loc[:, self._notes]
 
-            print(self._printValue)
+            # print(self._printValue)
 
     # PCP
     def PCP(self):
@@ -325,6 +334,10 @@ class xAudioHandler:
         # Get all the local maximum 
         peakRowValues = self._dft[(self._dft[self._magnitude].shift(1) < self._dft[self._magnitude]) & (self._dft[self._magnitude].shift(-1) < self._dft[self._magnitude])]
 
+        # Trim if user wants it
+        if self._spectrumMax is not None:
+            peakRowValues = peakRowValues.iloc[:self._spectrumMax]
+
         for _, row in peakRowValues.iterrows():
             # Get the frequency and magnitude of that row
             frequency = row[self._frequency]
@@ -353,13 +366,13 @@ class xAudioHandler:
 
     def WriteIntoFile(self):
         okayToContinue = True 
-        tempData = None
+        # tempData = None
         result = ""
 
         # Checks if dft has been computed 
         # Will not pause since I am assuming that this case
         # was already handled by the analysis method 
-        okayToContinue = False if self._dft.shape[0] == 0 else True  
+        okayToContinue = True if self._dft.shape[0] != 0 else False  
 
         if okayToContinue:
             okayToContinue = True if self._printValue.shape[0] != 0 else False
@@ -373,30 +386,24 @@ class xAudioHandler:
             okayToContinue = True if fileHandler is not None else False 
 
         if okayToContinue:
-            okayToContinue = True if self._pcpVector is not None else False 
-
-        # Format data 
-        if okayToContinue:
-            tempData = self._pcpVector[self._pcpVector[self._result] != 0].loc[:, self._notes]
-            okayToContinue = True if tempData.empty is False else False 
-
-        if okayToContinue:
-            for val in tempData:
+            # for val in tempData:
+            for val in self._printValue:
                 result += "{} ".format(val)
 
-            if len(result) > 0:
+            if len(result) == 0:
                 okayToContinue = False 
+                print("Error in result length")
 
         if okayToContinue:
             fileHandler.truncate(0) # empty file 
             # Since this is going to be parsed by a web server, adding 
             # html break cmd 
-            result += "<br/>\n" 
+            print("Output:", result)
             fileHandler.write(result)
 
         if okayToContinue:
             fileHandler.close()
 
 if __name__ == "__main__":
-    audioReader = xAudioHandler(baseBitFile=bitFile, inputPort="select_line_in", analysisMethod=xAudioHandler.pcp2, thresholdValue=0.50)
+    audioReader = xAudioHandler(usePynqAudioCodec=False,analysisMethod=xAudioHandler.pcp2, thresholdValue=0.50, spectrumMax=2000)
     audioReader.run(recordInterval=0.5)

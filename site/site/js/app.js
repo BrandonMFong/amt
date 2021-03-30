@@ -34,10 +34,6 @@ function stopStreaming() {
 }
 
 async function streamRecording() {
-	console.log("Stream clicked");
-
-	stopStreamingFlag = false;
-	stopStreamButton.disabled = false;
 
 	/*
 		Simple constraints object, for more advanced audio features see
@@ -47,14 +43,8 @@ async function streamRecording() {
 
 	var stream = await navigator.mediaDevices.getUserMedia(constraints);
 
-	// while(!stopStreamingFlag) {
 	if (!stopStreamingFlag) {
-		/*
-			We're using the standard promise based getUserMedia() 
-			https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
-		*/
-		console.log("getUserMedia() success, stream created, initializing Recorder.js ...");
-
+		stopStreamButton.disabled = false;
 		/*
 			create an audio context after getUserMedia is called
 			sampleRate might change after getUserMedia is called, like it does on macOS when recording through AirPods
@@ -79,23 +69,19 @@ async function streamRecording() {
 		rec = new Recorder(input,{numChannels:1})
 
 		//start the recording process
-		rec.record()
-		console.log("Recording started");
+		rec.record();
 
 		// Wait 2 seconds before stopping the recording 
-		// await sleep(5000).then(async function () { 
-		await sleep(2000)
+		await sleep(5000);
 		rec.stop(); 
-		console.log("Recording stopped"); 
 		gumStream.getAudioTracks()[0].stop();
 
 		rec.exportWAV( function(blob) {
-			console.log("Uploading audio to server");
 			var xhr=new XMLHttpRequest();
 			var filename = "temp.wav";
 			xhr.onload=function(e) {
 				if(this.readyState === 4) {
-					console.log("Server returned: ",e.target.responseText);
+					console.log(e.target.responseText);
 					getChord();
 				}
 			};
@@ -104,7 +90,11 @@ async function streamRecording() {
 			xhr.open("POST","upload.php",true);
 			xhr.send(fd);
 		});
-	}
+	} else {
+		// reset the flag 
+		stopStreamingFlag = false;
+		stopStreamButton.disabled = true;
+	}	
 }
 
 function getChord() {
@@ -112,7 +102,7 @@ function getChord() {
 
 	oReq.onload = function(e) {
 		if(this.readyState === 4) {
-			console.log("Server returned: ", e.target.responseText);
+			console.log(e.target.responseText);
 			chordOutput.innerHTML = e.target.responseText;
 			streamRecording();
 		}
