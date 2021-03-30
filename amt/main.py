@@ -34,6 +34,48 @@ if isDebug:
         raise Exception("Error: No other platforms known for debug")
 
 class xAudioHandler:
+    """
+    A class that analyzes audio input from fpga or client 
+
+    Attributes
+    ----------
+    _wavFile : str
+    _numFrames : int
+    _frequencyRef : list
+    _frequency : str
+    _magnitude : str
+    _notes : str
+    _result : str
+    pcp2 : int
+    pcp : int
+    _maximumMagnitude : float
+    _threshold : float
+    _noteLabels : np.array 
+    _pcpVector : list
+    _webServerFile : str
+    _pauseInterval : int
+    _printValue : str
+    _spectrumMax : int
+
+    Methods
+    -------
+    run(recordInterval)
+
+    record(seconds)
+
+    getSpectrum()
+
+    analyze()
+
+    PCP()
+
+    PCP2()
+
+    GenerateNotesTable()
+
+    WriteIntoFile()
+    
+    """
     # Wav file
     _wavFile = "input.wav"
 
@@ -70,9 +112,6 @@ class xAudioHandler:
     # Destination file for saving chords
     _webServerFile = "results.txt"
 
-    # Print results of PCP
-    _printResults = False
-
     # Amount of time to wait if DFT was not successful 
     _pauseInterval = 10
 
@@ -81,13 +120,34 @@ class xAudioHandler:
 
     _spectrumMax = None
 
-    def __init__(self,baseBitFile=None,inputPort=None,analysisMethod=None,thresholdValue=None,printResults=True,usePynqAudioCodec=True,spectrumMax=None):
-        """
-        Parameters:
-            - baseBitFile: full path to base.bit
-            - inputPort: 'select_line_in' or 'select_microphone'
-            - analysisMethod: pcp or pcp2
-            - thresholdValue: percentage value of threshold to consider (i.e. pass in 0.60 for 60%)
+    def __init__(self,baseBitFile=None,inputPort=None,analysisMethod=None,thresholdValue=None,usePynqAudioCodec=True,spectrumMax=None):
+        """ 
+        Initializer
+        ==========
+
+        Parameters
+        ----------
+        baseBitFile : str, optional
+            full path to base.bit
+
+        inputPort : str, optional
+            'select_line_in' or 'select_microphone'
+
+        analysisMethod : constants
+            pcp or pcp2
+
+        thresholdValue : float, optional 
+            percentage value of threshold to consider (i.e. pass in 0.60 for 60%)
+
+        usePynqAudioCodec : boolean, optional 
+            Flag to use the Audio code overlay
+
+        spectrumMax : int, optional 
+            The highest frequency index to consider in the spectrum 
+
+        Raises
+        ------
+        - Standard Exception
         """
         okayToContinue = True
         fsSeparator = "\\" if platform == "win32" else "/"
@@ -180,8 +240,6 @@ class xAudioHandler:
         if okayToContinue:
             if thresholdValue is not None:
                 self._threshold = thresholdValue
-            if printResults is not None:
-                self._printResults = printResults
 
         # Delete web server file to restart session 
         if okayToContinue:
@@ -192,6 +250,10 @@ class xAudioHandler:
             raise Exception("Error in constructing Audio Handler") 
 
     def run(self,recordInterval):
+        """
+        The program that analyzes the wav file for chords and sends
+        output to web server that relays the output to client 
+        """
         print("Running program...")
         
         # This is present in the audio.py, but I will catch it here as well 
@@ -220,6 +282,9 @@ class xAudioHandler:
         self._outlet.save(self._wavFile)
 
     def getSpectrum(self):
+        """
+        Gets spectrum from wav file sent by client 
+        """
         okayToContinue = True 
 
         okayToContinue = path.exists(self._wavFile)
@@ -257,9 +322,9 @@ class xAudioHandler:
         """
         Generates pcp vector and chord outcome
         """
-        okayToContinue = True
-        self._pcpVector = None
-        self._printValue = None
+        okayToContinue      = True
+        self._pcpVector     = None
+        self._printValue    = None
 
         if self._dft.shape[0] == 0:
             print("analyze(): Empty DFT")
@@ -277,14 +342,10 @@ class xAudioHandler:
             if self._pcpVector is None:
                 okayToContinue = False
 
-        # Prints the values regardless if it is empty or not
-        if okayToContinue and self._printResults:
-            # print("\nNotes:")
-
-            # Only print values on the vector that is not zero 
+        # Only print values on the vector that is not zero 
+        if okayToContinue:
+            
             self._printValue = self._pcpVector[self._pcpVector[self._result] != 0].loc[:, self._notes]
-
-            # print(self._printValue)
 
     # PCP
     def PCP(self):
@@ -365,6 +426,11 @@ class xAudioHandler:
         return result
 
     def WriteIntoFile(self):
+        """
+        Writes into file the PCP vector
+
+        TODO write chord 
+        """
         okayToContinue = True 
         # tempData = None
         result = ""
