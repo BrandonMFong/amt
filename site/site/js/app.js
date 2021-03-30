@@ -58,57 +58,56 @@ async function streamRecording() {
 
 	// Get user's media outlet
 	stream = await navigator.mediaDevices.getUserMedia(constraints);
-	if(stream == null) {
-		success = false;
-	}
+	success = (stream == null) ? false : true;
 
 	if (!stopStreamingFlag) {
-		stopStreamButton.disabled = false;
-		/*
-			create an audio context after getUserMedia is called
-			sampleRate might change after getUserMedia is called, like it does on macOS when recording through AirPods
-			the sampleRate defaults to the one set in your OS for your playback device
+		if(success) {
+			stopStreamButton.disabled = false;
 
-		*/
-		audioContext = new AudioContext();
+			// create an audio context after getUserMedia is called
+			// sampleRate might change after getUserMedia is called, like it does on macOS when recording through AirPods
+			// the sampleRate defaults to the one set in your OS for your playback device
+			audioContext = new AudioContext();
 
-		//update the format 
-		document.getElementById("formats").innerHTML="Format: 1 channel pcm @ "+audioContext.sampleRate/1000+"kHz"
+			// update the format 
+			document.getElementById("formats").innerHTML="Format: 1 channel pcm @ "+audioContext.sampleRate/1000+"kHz"
+	
+			// assign to gumStream for later use
+			gumStream = stream;
+			
+			// use the stream
+			input = audioContext.createMediaStreamSource(stream);
 
-		/*  assign to gumStream for later use  */
-		gumStream = stream;
-		
-		/* use the stream */
-		input = audioContext.createMediaStreamSource(stream);
+			// Create the Recorder object and configure to record mono sound (1 channel)
+			// Recording 2 channels  will double the file size
+			rec = new Recorder(input,{numChannels:1})
+	
+			//start the recording process
+			rec.record();
+	
+			// Wait 2 seconds before stopping the recording 
+			await sleep(5000);
 
-		/* 
-			Create the Recorder object and configure to record mono sound (1 channel)
-			Recording 2 channels  will double the file size
-		*/
-		rec = new Recorder(input,{numChannels:1})
+			rec.stop(); 
+			gumStream.getAudioTracks()[0].stop();
+	
+			rec.exportWAV( function(blob) {
+				var xhr = new XMLHttpRequest();
+				var filename = "temp.wav";
+				var fd=new FormData();
 
-		//start the recording process
-		rec.record();
+				xhr.onload=function(e) {
+					if(this.readyState === 4) {
+						console.log(e.target.responseText);
+						getChord();
+					}
+				};
 
-		// Wait 2 seconds before stopping the recording 
-		await sleep(5000);
-		rec.stop(); 
-		gumStream.getAudioTracks()[0].stop();
-
-		rec.exportWAV( function(blob) {
-			var xhr=new XMLHttpRequest();
-			var filename = "temp.wav";
-			xhr.onload=function(e) {
-				if(this.readyState === 4) {
-					console.log(e.target.responseText);
-					getChord();
-				}
-			};
-			var fd=new FormData();
-			fd.append("audio_data",blob, filename);
-			xhr.open("POST","upload.php",true);
-			xhr.send(fd);
-		});
+				fd.append("audio_data",blob, filename);
+				xhr.open("POST","upload.php",true);
+				xhr.send(fd);
+			});
+		}
 	} else {
 		// reset the flag 
 		stopStreamingFlag = false;
@@ -128,6 +127,9 @@ function getChord() {
 		if(this.readyState === 4) {
 			console.log(e.target.responseText);
 			chordOutput.innerHTML = e.target.responseText;
+
+			// Continue looping through calls 
+			// This is probably a really poor way of doing this
 			streamRecording();
 		}
 	}
