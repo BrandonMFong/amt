@@ -1,7 +1,6 @@
 <?php
     $okayToContinue = True;
     $filename = "./results.txt";
-    // $filename = "./test.txt";
 
     if($okayToContinue) {
         $okayToContinue = file_exists($filename);

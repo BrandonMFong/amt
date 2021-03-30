@@ -354,8 +354,7 @@ class xAudioHandler:
     def WriteIntoFile(self):
         okayToContinue = True 
         tempData = None
-        result = None
-        length = None
+        result = ""
 
         # Checks if dft has been computed 
         # Will not pause since I am assuming that this case
@@ -379,15 +378,13 @@ class xAudioHandler:
         # Format data 
         if okayToContinue:
             tempData = self._pcpVector[self._pcpVector[self._result] != 0].loc[:, self._notes]
-            result = "Chord: "
-            okayToContinue = True if tempData.empty is False and result is not None else False 
+            okayToContinue = True if tempData.empty is False else False 
 
         if okayToContinue:
-            length = len(result)
             for val in tempData:
                 result += "{} ".format(val)
 
-            if length > len(result):
+            if len(result) > 0:
                 okayToContinue = False 
 
         if okayToContinue:

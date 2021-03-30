@@ -5,8 +5,6 @@ var gumStream; 						//stream from getUserMedia()
 var rec; 							//Recorder.js object
 var input; 							//MediaStreamAudioSourceNode we'll be recording
 var stopStreamingFlag;
-var blobGenerated = false;
-var messageReceived = false;
 
 // shim for AudioContext when it's not avb. 
 var AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -38,7 +36,6 @@ function stopStreaming() {
 async function streamRecording() {
 	console.log("Stream clicked");
 
-	var blob;
 	stopStreamingFlag = false;
 	stopStreamButton.disabled = false;
 
@@ -91,21 +88,6 @@ async function streamRecording() {
 		rec.stop(); 
 		console.log("Recording stopped"); 
 		gumStream.getAudioTracks()[0].stop();
-		// await rec.exportWAV( function(blob) {
-		// 	console.log("Uploading audio to server");
-		// 	var xhr=new XMLHttpRequest();
-		// 	var filename = "temp.wav";
-		// 	xhr.onload=function(e) {
-		// 		if(this.readyState === 4) {
-		// 			console.log("Server returned: ",e.target.responseText);
-		// 		}
-		// 	};
-		// 	var fd=new FormData();
-		// 	fd.append("audio_data",blob, filename);
-		// 	xhr.open("POST","upload.php",true);
-		// 	xhr.send(fd);
-		// });
-		blobGenerated = false;
 
 		rec.exportWAV( function(blob) {
 			console.log("Uploading audio to server");
@@ -122,13 +104,7 @@ async function streamRecording() {
 			xhr.open("POST","upload.php",true);
 			xhr.send(fd);
 		});
-		// });
-
 	}
-}
-
-function sleep(ms) {
-	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function getChord() {
@@ -144,6 +120,10 @@ function getChord() {
 
 	oReq.open("GET", "readOutput.php");
 	oReq.send();
+}
+
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function startRecording() {
