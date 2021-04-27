@@ -85,7 +85,7 @@ async function streamRecording() {
 			//start the recording process
 			rec.record();
 	
-			// Wait 2 seconds before stopping the recording 
+			// Wait 5 seconds before stopping the recording 
 			await sleep(5000);
 
 			rec.stop(); 
@@ -117,8 +117,8 @@ async function streamRecording() {
 
 /**
  * Retrieves output from server.  The server should be
- * running a forever loop that runs pcp algorithm on the 
- * audio produced here 
+ * running a forever loop that runs chord recognition 
+ * algorithm on the audio produced here 
  */
 function getChord() {
 	var oReq = new XMLHttpRequest();
@@ -129,7 +129,6 @@ function getChord() {
 			chordOutput.innerHTML = e.target.responseText;
 
 			// Continue looping through calls 
-			// This is probably a really poor way of doing this
 			streamRecording();
 		}
 	}

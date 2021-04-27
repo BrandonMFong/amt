@@ -13,7 +13,7 @@ from numpy.core.fromnumeric import size
 import pandas as pd 
 import wave
 from scipy.fftpack import fft
-import os.path
+import os.path, time
 from os import path
 import os
 import math
@@ -22,6 +22,7 @@ import sys
 import scipy.io.wavfile
 from enum import Enum
 import time
+from datetime import datetime
 
 bitFile             = "/home/xilinx/pynq/overlays/base/base.bit"
 pathToSiteDirectory = "/var/www/html"
@@ -120,6 +121,9 @@ class xAudioHandler:
 
     _spectrumMax = None
 
+    _start = 0
+    _end = 1
+
     def __init__(self,baseBitFile=None,inputPort=None,analysisMethod=None,thresholdValue=None,usePynqAudioCodec=True,spectrumMax=None):
         """ 
         Initializer
@@ -153,7 +157,9 @@ class xAudioHandler:
         fsSeparator = "\\" if platform == "win32" else "/"
 
         # empty dataframe for dft 
-        self._dft = pd.DataFrame()
+        self._dft       = pd.DataFrame()
+        self._startTime = datetime.now()
+        self._endTime   = datetime.now()
 
         if okayToContinue:
             if spectrumMax is not None:
@@ -281,6 +287,14 @@ class xAudioHandler:
         self._outlet.record(seconds)
         self._outlet.save(self._wavFile)
 
+    def RecordTimeStamp(self):
+        # TODO get datetime https://stackoverflow.com/questions/237079/how-to-get-file-creation-modification-date-times-in-python of file 
+        okayToContinue = True 
+
+        if okayToContinue:
+            pass
+
+
     def getSpectrum(self):
         """
         Gets spectrum from wav file sent by client 
@@ -394,6 +408,8 @@ class xAudioHandler:
 
         # Get all the local maximum 
         peakRowValues = self._dft[(self._dft[self._magnitude].shift(1) < self._dft[self._magnitude]) & (self._dft[self._magnitude].shift(-1) < self._dft[self._magnitude])]
+        print(len(peakRowValues))
+        print(len(self._dft))
 
         # Trim if user wants it
         if self._spectrumMax is not None:
