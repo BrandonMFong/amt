@@ -14,12 +14,12 @@ if(Test-Path ".\amt\*.dat")
   /log=$logPath /ini=nul `
   /command `
     "open $($jsonReader.sftpSite) -hostkey=`"`"$($jsonReader.hostKey)`"`"" `
-    "lcd B:\COLLEGE\Thesis\Source2" `
+    "lcd B:\COLLEGE\Thesis\Source" `
     "cd /home/xilinx/brando/sources/repo" `
     "put amt" `
     "put site" `
     "put loadsite.sh" `
-    "lcd B:\COLLEGE\Thesis\Source2\IP" `
+    "lcd B:\COLLEGE\Thesis\Source\IP" `
     "put builds" `
     "exit"
 

@@ -1,0 +1,24 @@
+{
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 6.8.11  2018-08-07 bk=1.4403 VDI=40 GEI=35 GUI=JA:9.0 non-TLS
+#  -string -flagsOSRD
+preplace port DDR -pg 1 -y -380 -defaultsOSRD
+preplace port FIXED_IO -pg 1 -y -360 -defaultsOSRD
+preplace inst my_multiplier_0 -pg 1 -lvl 1 -y -690 -defaultsOSRD
+preplace inst ps7_0_axi_periph -pg 1 -lvl 4 -y -530 -defaultsOSRD
+preplace inst rst_ps7_0_100M -pg 1 -lvl 3 -y -480 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 2 -y -330 -defaultsOSRD
+preplace netloc processing_system7_0_DDR 1 2 3 NJ -380 N -380 N
+preplace netloc processing_system7_0_M_AXI_GP0 1 2 2 640 -590 NJ
+preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 0 4 40 -580 NJ -580 NJ -580 1000
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 2 1 660
+preplace netloc processing_system7_0_FIXED_IO 1 2 3 NJ -360 N -360 N
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 4 20 -460 240 -460 650 -370 1010
+preplace netloc ps7_0_axi_periph_M00_AXI 1 0 5 30 -610 NJ -610 640J -650 NJ -650 1310
+levelinfo -pg 1 0 140 440 830 1160 1330 -top -770 -bot 200
+"
+}
+{
+   "da_axi4_cnt":"1",
+   "da_ps7_cnt":"1"
+}
