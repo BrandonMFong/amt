@@ -36,6 +36,7 @@ results.txt
 *.runs
 *.sim
 *.hw
+*.str
 
 # Logs
 *.log
