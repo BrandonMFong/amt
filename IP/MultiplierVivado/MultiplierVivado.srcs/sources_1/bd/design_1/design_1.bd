@@ -10,13 +10,13 @@
     },
     "design_tree": {
       "processing_system7_0": "",
-      "my_multiplier_0": "",
       "ps7_0_axi_periph": {
         "s00_couplers": {
           "auto_pc": ""
         }
       },
-      "rst_ps7_0_100M": ""
+      "rst_ps7_0_100M": "",
+      "my_multiplier_0": ""
     },
     "interface_ports": {
       "DDR": {
@@ -1666,10 +1666,6 @@
           }
         }
       },
-      "my_multiplier_0": {
-        "vlnv": "xilinx.com:user:my_multiplier:1.2",
-        "xci_name": "design_1_my_multiplier_0_0"
-      },
       "ps7_0_axi_periph": {
         "vlnv": "xilinx.com:ip:axi_interconnect:2.1",
         "xci_name": "design_1_ps7_0_axi_periph_0",
@@ -1869,15 +1865,13 @@
       "rst_ps7_0_100M": {
         "vlnv": "xilinx.com:ip:proc_sys_reset:5.0",
         "xci_name": "design_1_rst_ps7_0_100M_0"
+      },
+      "my_multiplier_0": {
+        "vlnv": "xilinx.com:user:my_multiplier:1.2",
+        "xci_name": "design_1_my_multiplier_0_0"
       }
     },
     "interface_nets": {
-      "processing_system7_0_DDR": {
-        "interface_ports": [
-          "DDR",
-          "processing_system7_0/DDR"
-        ]
-      },
       "processing_system7_0_FIXED_IO": {
         "interface_ports": [
           "FIXED_IO",
@@ -1888,6 +1882,12 @@
         "interface_ports": [
           "processing_system7_0/M_AXI_GP0",
           "ps7_0_axi_periph/S00_AXI"
+        ]
+      },
+      "processing_system7_0_DDR": {
+        "interface_ports": [
+          "DDR",
+          "processing_system7_0/DDR"
         ]
       },
       "ps7_0_axi_periph_M00_AXI": {
@@ -1904,9 +1904,9 @@
           "processing_system7_0/M_AXI_GP0_ACLK",
           "ps7_0_axi_periph/S00_ACLK",
           "rst_ps7_0_100M/slowest_sync_clk",
-          "my_multiplier_0/s00_axi_aclk",
           "ps7_0_axi_periph/M00_ACLK",
-          "ps7_0_axi_periph/ACLK"
+          "ps7_0_axi_periph/ACLK",
+          "my_multiplier_0/s00_axi_aclk"
         ]
       },
       "processing_system7_0_FCLK_RESET0_N": {
@@ -1919,9 +1919,9 @@
         "ports": [
           "rst_ps7_0_100M/peripheral_aresetn",
           "ps7_0_axi_periph/S00_ARESETN",
-          "my_multiplier_0/s00_axi_aresetn",
           "ps7_0_axi_periph/M00_ARESETN",
-          "ps7_0_axi_periph/ARESETN"
+          "ps7_0_axi_periph/ARESETN",
+          "my_multiplier_0/s00_axi_aresetn"
         ]
       }
     },

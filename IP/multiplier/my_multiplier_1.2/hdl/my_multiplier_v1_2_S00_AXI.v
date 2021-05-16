@@ -15,9 +15,8 @@
 	)
 	(
 		// Users to add ports here
-		input     [4 : 0] a, b, 
-		output    [7 : 0] c, 
-
+//		input     [4 : 0] a, b,
+//		output    [7 : 0] c,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -364,6 +363,10 @@
 	    end
 	end    
 
+    // User start
+	wire [31:0] multOutput;
+	// User end 
+	
 	// Implement memory mapped register select and read logic generation
 	// Slave register read enable is asserted when valid address is available
 	// and the slave is ready to accept the read address.
@@ -373,7 +376,8 @@
 	      // Address decoding for reading registers
 	      case ( axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
 	        2'h0   : reg_data_out <= slv_reg0;
-	        2'h1   : reg_data_out <= slv_reg1;
+//	        2'h1   : reg_data_out <= slv_reg1;
+	        2'h1   : reg_data_out <= multOutput;
 	        2'h2   : reg_data_out <= slv_reg2;
 	        2'h3   : reg_data_out <= slv_reg3;
 	        default : reg_data_out <= 0;
@@ -400,7 +404,7 @@
 	end    
 
 	// Add user logic here
-	multiplier mod0 (.a(a), .b(b), .c(c));
+	multiplier mod0 (.a(slv_reg0[31:16]), .b(slv_reg0[15:0]), .c(multOutput));
 	// User logic ends
 
 	endmodule

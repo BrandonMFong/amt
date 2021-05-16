@@ -48,7 +48,7 @@
 
 
 // IP VLNV: xilinx.com:user:my_multiplier:1.2
-// IP Revision: 4
+// IP Revision: 11
 
 `timescale 1ns/1ps
 

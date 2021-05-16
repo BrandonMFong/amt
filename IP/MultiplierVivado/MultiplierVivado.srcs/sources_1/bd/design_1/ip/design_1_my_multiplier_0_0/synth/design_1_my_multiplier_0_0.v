@@ -48,11 +48,11 @@
 
 
 // IP VLNV: xilinx.com:user:my_multiplier:1.2
-// IP Revision: 4
+// IP Revision: 11
 
 (* X_CORE_INFO = "my_multiplier_v1_2,Vivado 2018.3" *)
 (* CHECK_LICENSE_TYPE = "design_1_my_multiplier_0_0,my_multiplier_v1_2,{}" *)
-(* CORE_GENERATION_INFO = "design_1_my_multiplier_0_0,my_multiplier_v1_2,{x_ipProduct=Vivado 2018.3,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=my_multiplier,x_ipVersion=1.2,x_ipCoreRevision=4,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_S00_AXI_DATA_WIDTH=32,C_S00_AXI_ADDR_WIDTH=4}" *)
+(* CORE_GENERATION_INFO = "design_1_my_multiplier_0_0,my_multiplier_v1_2,{x_ipProduct=Vivado 2018.3,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=my_multiplier,x_ipVersion=1.2,x_ipCoreRevision=11,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_S00_AXI_DATA_WIDTH=32,C_S00_AXI_ADDR_WIDTH=4}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_my_multiplier_0_0 (
   s00_axi_awaddr,
