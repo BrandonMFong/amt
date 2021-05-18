@@ -82,6 +82,10 @@
 		input wire  S_AXI_RREADY
 	);
 
+    // User start
+	reg [31:0] multOutput;
+	// User end 
+
 	// AXI4LITE signals
 	reg [C_S_AXI_ADDR_WIDTH-1 : 0] 	axi_awaddr;
 	reg  	axi_awready;
@@ -243,6 +247,7 @@
 	                // Respective byte enables are asserted as per write strobes 
 	                // Slave register 1
 	                slv_reg1[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
+//	                multOutput[(byte_index*8) +: 8] <= S_AXI_WDATA[(byte_index*8) +: 8];
 	              end  
 	          2'h2:
 	            for ( byte_index = 0; byte_index <= (C_S_AXI_DATA_WIDTH/8)-1; byte_index = byte_index+1 )
@@ -261,6 +266,7 @@
 	          default : begin
 	                      slv_reg0 <= slv_reg0;
 	                      slv_reg1 <= slv_reg1;
+//	                      multOutput <= multOutput;
 	                      slv_reg2 <= slv_reg2;
 	                      slv_reg3 <= slv_reg3;
 	                    end
@@ -362,10 +368,6 @@
 	        end                
 	    end
 	end    
-
-    // User start
-	wire [31:0] multOutput;
-	// User end 
 	
 	// Implement memory mapped register select and read logic generation
 	// Slave register read enable is asserted when valid address is available
