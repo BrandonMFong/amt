@@ -34,6 +34,6 @@ module adder(
         temp <= a+b;
     end
     
-    assign c = temp;
+    assign c = 4246;
     
 endmodule
