@@ -37,6 +37,7 @@ results.txt
 *.sim
 *.hw
 *.str
+*.jou
 
 # Logs
 *.log
