@@ -363,7 +363,7 @@
 	end    
 	
 	// Brando
-	wire [31:0] adderout;
+	wire [11 : 0] vector;
 
 	// Implement memory mapped register select and read logic generation
 	// Slave register read enable is asserted when valid address is available
@@ -373,11 +373,11 @@
 	begin
 	      // Address decoding for reading registers
 	      case ( axi_araddr[ADDR_LSB+OPT_MEM_ADDR_BITS:ADDR_LSB] )
-	        2'h0   : reg_data_out <= slv_reg0;
-	        2'h1   : reg_data_out <= adderout;
-	        2'h2   : reg_data_out <= slv_reg2;
-	        2'h3   : reg_data_out <= slv_reg3;
-	        default : reg_data_out <= 0;
+	        2'h0       : reg_data_out          <= slv_reg0;
+	        2'h1       : reg_data_out[11 : 0]  <= vector;
+	        2'h2       : reg_data_out          <= slv_reg2;
+	        2'h3       : reg_data_out          <= slv_reg3;
+	        default    : reg_data_out          <= 0;
 	      endcase
 	end
 
@@ -401,13 +401,12 @@
 	end    
 
 	// Add user logic here
-//	wire [31:0] adderout;
 	
     adder adderinstance(
         .clk(S_AXI_ACLK),
         .a(slv_reg0[15:0]),
         .b(slv_reg0[31:16]),
-        .c(adderout)
+        .outputVector(vector)
     );
     
 	// User logic ends
