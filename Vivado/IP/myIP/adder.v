@@ -20,20 +20,34 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module adder(
-    input clk,
-    input [15:0] a,
-    input [15:0] b,
-    output [31:0] c
-    );
+module adder
+(
+    input           clk,
+    input [15:0]    a,
+    input [15:0]    b,
+    output [31:0]   outputVector
+);
+
+    reg [11 : 0] temp;
     
+    initial 
+    begin 
+        temp = 12'b000000000001;
+    end 
     
-    reg [31:0] temp;
-    
-    always @(posedge clk) begin
-        temp <= a+b;
+    always @(posedge clk) 
+    begin
+         if (temp[11] == 1'b1)
+         begin 
+            temp    <= temp << 1;
+            temp[0] <= 1;
+         end 
+         else 
+         begin
+            temp <= temp << 1; 
+         end 
     end
     
-    assign c = 4246;
+    assign outputVector = temp;
     
 endmodule
