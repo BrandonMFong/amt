@@ -12,8 +12,7 @@ if isDebug:
     else:
         raise Exception("Error: No other platforms known for debug")
 
-
-if __name__ == "__main__":
+def main():
     audioReader = AudioDriver(
         usePynqAudioCodec   = False,
         analysisMethod      = AudioDriver.pcp2, 
@@ -22,3 +21,7 @@ if __name__ == "__main__":
     )
 
     audioReader.run(recordInterval=0.5)
+
+
+if __name__ == "__main__":
+    main()

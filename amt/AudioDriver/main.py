@@ -7,11 +7,12 @@ isDebug = False
 
 try:
     from pynq.overlays.base import BaseOverlay
-    from pynq import GPIO
 except ModuleNotFoundError:
     from .Debug.BaseOverlay import BaseOverlay
     isDebug = True 
 
+from pynq           import GPIO
+from pynq           import Xlnk
 from scipy.fftpack  import fft
 from sys            import platform
 from os             import path
@@ -50,8 +51,9 @@ class AudioDriver:
     _result     = "Result"      # for pcp vector
 
     # Analysis methods 
-    pcp2 = 0
-    pcp = 1
+    pcp2    = 0
+    pcp     = 1
+    pcp3    = 2
     
     # Max magnitude to consider 
     _maximumMagnitude = 1 * pow(10,8)
@@ -117,9 +119,10 @@ class AudioDriver:
         fsSeparator = "\\" if platform == "win32" else "/"
 
         # empty dataframe for dft 
-        self._dft       = pd.DataFrame()
-        self._startTime = datetime.now()
-        self._endTime   = datetime.now()
+        self._dft           = pd.DataFrame()
+        self._startTime     = datetime.now()
+        self._endTime       = datetime.now()
+        self._cmaMemReader  = Xlnk()
 
         if okayToContinue:
             if spectrumMax is not None:
@@ -266,17 +269,17 @@ class AudioDriver:
         if okayToContinue:
             # Get the wavefile
             with wave.open(self._wavFile, 'r') as wav_file:
-                raw_frames = wav_file.readframes(-1)
-                num_frames = wav_file.getnframes()
-                num_channels = wav_file.getnchannels()
-                sample_rate = wav_file.getframerate()
-                sample_width = wav_file.getsampwidth()
+                raw_frames      = wav_file.readframes(-1)
+                num_frames      = wav_file.getnframes()
+                num_channels    = wav_file.getnchannels()
+                sample_rate     = wav_file.getframerate()
+                sample_width    = wav_file.getsampwidth()
                 
-            temp_buffer = np.empty((num_frames, num_channels, 4), dtype=np.uint8)
-            raw_bytes = np.frombuffer(raw_frames, dtype=np.uint8)
-            temp_buffer[:, :, :sample_width] = raw_bytes.reshape(-1, num_channels, sample_width)
-            temp_buffer[:, :, sample_width:] = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
-            frames = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
+            temp_buffer                         = np.empty((num_frames, num_channels, 4), dtype=np.uint8)
+            raw_bytes                           = np.frombuffer(raw_frames, dtype=np.uint8)
+            temp_buffer[:, :, :sample_width]    = raw_bytes.reshape(-1, num_channels, sample_width)
+            temp_buffer[:, :, sample_width:]    = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
+            frames                              = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
 
             self._numFrames = num_frames
 
@@ -310,6 +313,8 @@ class AudioDriver:
                 self._pcpVector = self.PCP2()
             elif self._analysisMethod == self.pcp:
                 self._pcpVector = self.PCP()
+            elif self._analysisMethod == self.pcp3:
+                self._pcpVector = self.PCP3()
             else:
                 self._pcpVector = self.PCP()
 
@@ -396,7 +401,21 @@ class AudioDriver:
         """
         3rd iteration that utilizes hardware acceleration 
         """
-        pass 
+        result          = None
+        inBuffer        = None 
+        outBuffer       = None
+        okayToContinue  = True 
+
+        if okayToContinue:
+            if self._numFrames is None or self._numFrames == 0:
+                okayToContinue = False 
+
+        if okayToContinue:
+            inBuffer    = self._cmaMemReader.cma_array(shape=(self._numFrames,), dtype=np.int32)
+            outBuffer   = self._cmaMemReader.cma_array(shape=(self._numFrames,), dtype=np.int32)
+            
+
+        return result 
 
     def GenerateNotesTable(self):
         """
