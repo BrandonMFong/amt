@@ -9,7 +9,7 @@
   /command `
     "open $($jsonReader.sftpSite) -hostkey=`"`"$($jsonReader.hostKey)`"`"" `
     "cd /home/xilinx/brando/sources/repo" `
-    "lcd B:\COLLEGE\Thesis\Source2" `
+    "lcd B:\COLLEGE\Thesis\Source" `
     "get *" `
     "exit"
 

@@ -25,6 +25,7 @@ if(Test-Path ".\amt\*.dat")
     "put loadsite.sh" `
     "lcd B:\COLLEGE\Thesis\Source" `
     "put hardware" `
+    "put Scripts"
     "exit"
 
 $winscpResult = $LastExitCode

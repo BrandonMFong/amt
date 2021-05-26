@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo 'export PYTHONPATH=/home/xilinx/brando/sources/repo/amt:$PYTHONPATH' >>~/.bash_profile
