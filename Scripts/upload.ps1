@@ -1,7 +1,7 @@
 # Brando
 [string]$secretsFile          = $($PSScriptRoot + "\..\secrets.json")
 [System.Object[]]$jsonReader  = Get-Content $secretsFile|ConvertFrom-Json;
-[string]$logPath              = $PSScriptRoot + "\..\sftp.log"
+[string]$logPath = "\sftp.log"
 
 # Copy files 
 Copy-Item $PSScriptRoot\..\Vivado\BD\myBD\myBD.runs\impl_1\design_1_wrapper.tcl $PSScriptRoot\..\hardware\myIP\adder.tcl -Force -Verbose
@@ -25,7 +25,7 @@ if(Test-Path ".\amt\*.dat")
     "put loadsite.sh" `
     "lcd B:\COLLEGE\Thesis\Source" `
     "put hardware" `
-    "put Scripts"
+    "put Scripts" `
     "exit"
 
 $winscpResult = $LastExitCode

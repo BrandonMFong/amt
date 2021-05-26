@@ -1,8 +1,8 @@
 # Brando 
 
-[string]$secretsFile = $($PSScriptRoot + "\secrets.json")
+[string]$secretsFile = $($PSScriptRoot + "\..\secrets.json")
 [System.Object[]]$jsonReader = Get-Content $secretsFile|ConvertFrom-Json;
-[string]$logPath = $PSScriptRoot + "\sftp.log"
+[string]$logPath = "\sftp.log"
 
 & "C:\Program Files (x86)\WinSCP\WinSCP.com" `
   /log=$logPath /ini=nul `
