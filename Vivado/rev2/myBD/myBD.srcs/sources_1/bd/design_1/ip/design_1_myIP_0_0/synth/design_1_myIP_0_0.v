@@ -48,11 +48,11 @@
 
 
 // IP VLNV: xilinx.com:user:myIP:1.1
-// IP Revision: 6
+// IP Revision: 11
 
 (* X_CORE_INFO = "myIP_v1_1,Vivado 2018.3" *)
 (* CHECK_LICENSE_TYPE = "design_1_myIP_0_0,myIP_v1_1,{}" *)
-(* CORE_GENERATION_INFO = "design_1_myIP_0_0,myIP_v1_1,{x_ipProduct=Vivado 2018.3,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=myIP,x_ipVersion=1.1,x_ipCoreRevision=6,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_M_AXIS_DATA_TDATA_WIDTH=32,C_M_AXIS_DATA_START_COUNT=32,C_S_AXIS_DATA_TDATA_WIDTH=32}" *)
+(* CORE_GENERATION_INFO = "design_1_myIP_0_0,myIP_v1_1,{x_ipProduct=Vivado 2018.3,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=myIP,x_ipVersion=1.1,x_ipCoreRevision=11,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_M_AXIS_DATA_TDATA_WIDTH=32,C_M_AXIS_DATA_START_COUNT=32,C_S_AXIS_DATA_TDATA_WIDTH=32}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_myIP_0_0 (
   m_axis_data_tdata,
@@ -60,6 +60,8 @@ module design_1_myIP_0_0 (
   m_axis_data_tlast,
   m_axis_data_tvalid,
   m_axis_data_tready,
+  myInput,
+  myOutput,
   m_axis_data_aclk,
   m_axis_data_aresetn,
   s_axis_data_tdata,
@@ -82,6 +84,8 @@ output wire m_axis_data_tvalid;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME M_AXIS_DATA, WIZ_DATA_WIDTH 32, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 1, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 M_AXIS_DATA TREADY" *)
 input wire m_axis_data_tready;
+input wire [31 : 0] myInput;
+output wire [31 : 0] myOutput;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME M_AXIS_DATA_CLK, ASSOCIATED_BUSIF M_AXIS_DATA, ASSOCIATED_RESET m_axis_data_aresetn, FREQ_HZ 100000000, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 M_AXIS_DATA_CLK CLK" *)
 input wire m_axis_data_aclk;
@@ -116,6 +120,8 @@ input wire s_axis_data_aresetn;
     .m_axis_data_tlast(m_axis_data_tlast),
     .m_axis_data_tvalid(m_axis_data_tvalid),
     .m_axis_data_tready(m_axis_data_tready),
+    .myInput(myInput),
+    .myOutput(myOutput),
     .m_axis_data_aclk(m_axis_data_aclk),
     .m_axis_data_aresetn(m_axis_data_aresetn),
     .s_axis_data_tdata(s_axis_data_tdata),

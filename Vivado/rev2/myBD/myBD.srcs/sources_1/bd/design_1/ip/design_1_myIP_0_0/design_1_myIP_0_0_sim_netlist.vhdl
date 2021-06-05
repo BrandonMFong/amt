@@ -1,7 +1,7 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Wed Jun  2 18:03:52 2021
+-- Date        : Sat Jun  5 09:33:39 2021
 -- Host        : KAMANTA running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.srcs/sources_1/bd/design_1/ip/design_1_myIP_0_0/design_1_myIP_0_0_sim_netlist.vhdl
@@ -18,6 +18,7 @@ entity design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA is
   port (
     m_axis_data_tvalid : out STD_LOGIC;
     m_axis_data_tlast : out STD_LOGIC;
+    myOutput : out STD_LOGIC_VECTOR ( 3 downto 0 );
     m_axis_data_aclk : in STD_LOGIC;
     m_axis_data_tready : in STD_LOGIC;
     m_axis_data_aresetn : in STD_LOGIC
@@ -37,32 +38,35 @@ architecture STRUCTURE of design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA is
   signal \count[2]_i_1_n_0\ : STD_LOGIC;
   signal \count_reg__0\ : STD_LOGIC_VECTOR ( 4 downto 0 );
   signal mst_exec_state : STD_LOGIC_VECTOR ( 1 downto 0 );
-  signal p_0_in : STD_LOGIC_VECTOR ( 3 downto 0 );
-  signal \p_0_in__0\ : STD_LOGIC_VECTOR ( 4 downto 0 );
-  signal \read_pointer[2]_i_1_n_0\ : STD_LOGIC;
+  signal p_0_in : STD_LOGIC_VECTOR ( 4 downto 0 );
   signal \read_pointer[3]_i_1_n_0\ : STD_LOGIC;
   signal \read_pointer_reg__0\ : STD_LOGIC_VECTOR ( 3 downto 0 );
+  signal \stream_data_out[0]_i_1_n_0\ : STD_LOGIC;
+  signal \stream_data_out[1]_i_1_n_0\ : STD_LOGIC;
+  signal \stream_data_out[2]_i_1_n_0\ : STD_LOGIC;
+  signal \stream_data_out[3]_i_2_n_0\ : STD_LOGIC;
   signal tx_done_i_1_n_0 : STD_LOGIC;
   signal tx_done_i_2_n_0 : STD_LOGIC;
   signal tx_done_reg_n_0 : STD_LOGIC;
+  signal tx_en : STD_LOGIC;
   attribute SOFT_HLUTNM : string;
   attribute SOFT_HLUTNM of \FSM_sequential_mst_exec_state[0]_i_1\ : label is "soft_lutpair2";
   attribute SOFT_HLUTNM of \FSM_sequential_mst_exec_state[1]_i_1\ : label is "soft_lutpair2";
-  attribute SOFT_HLUTNM of \FSM_sequential_mst_exec_state[1]_i_2\ : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of \FSM_sequential_mst_exec_state[1]_i_2\ : label is "soft_lutpair0";
   attribute FSM_ENCODED_STATES : string;
   attribute FSM_ENCODED_STATES of \FSM_sequential_mst_exec_state_reg[0]\ : label is "INIT_COUNTER:01,SEND_STREAM:10,IDLE:00";
   attribute FSM_ENCODED_STATES of \FSM_sequential_mst_exec_state_reg[1]\ : label is "INIT_COUNTER:01,SEND_STREAM:10,IDLE:00";
-  attribute SOFT_HLUTNM of axis_tvalid_delay_i_1 : label is "soft_lutpair0";
-  attribute SOFT_HLUTNM of \count[0]_i_1\ : label is "soft_lutpair5";
-  attribute SOFT_HLUTNM of \count[1]_i_1\ : label is "soft_lutpair5";
-  attribute SOFT_HLUTNM of \count[2]_i_1\ : label is "soft_lutpair3";
-  attribute SOFT_HLUTNM of \count[3]_i_1\ : label is "soft_lutpair3";
-  attribute SOFT_HLUTNM of \count[4]_i_2\ : label is "soft_lutpair1";
-  attribute SOFT_HLUTNM of \read_pointer[0]_i_1\ : label is "soft_lutpair6";
-  attribute SOFT_HLUTNM of \read_pointer[1]_i_1\ : label is "soft_lutpair6";
-  attribute SOFT_HLUTNM of \read_pointer[2]_i_1\ : label is "soft_lutpair4";
-  attribute SOFT_HLUTNM of \read_pointer[3]_i_2\ : label is "soft_lutpair4";
-  attribute SOFT_HLUTNM of tx_done_i_2 : label is "soft_lutpair0";
+  attribute SOFT_HLUTNM of axis_tlast_delay_i_2 : label is "soft_lutpair3";
+  attribute SOFT_HLUTNM of axis_tvalid_delay_i_1 : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of \count[0]_i_1\ : label is "soft_lutpair6";
+  attribute SOFT_HLUTNM of \count[1]_i_1\ : label is "soft_lutpair6";
+  attribute SOFT_HLUTNM of \count[2]_i_1\ : label is "soft_lutpair4";
+  attribute SOFT_HLUTNM of \count[3]_i_1\ : label is "soft_lutpair4";
+  attribute SOFT_HLUTNM of \count[4]_i_2\ : label is "soft_lutpair0";
+  attribute SOFT_HLUTNM of \stream_data_out[1]_i_1\ : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of \stream_data_out[2]_i_1\ : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of \stream_data_out[3]_i_2\ : label is "soft_lutpair3";
+  attribute SOFT_HLUTNM of tx_done_i_2 : label is "soft_lutpair1";
 begin
 \FSM_sequential_mst_exec_state[0]_i_1\: unisim.vcomponents.LUT3
     generic map(
@@ -164,7 +168,7 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => \count_reg__0\(0),
-      O => \p_0_in__0\(0)
+      O => p_0_in(0)
     );
 \count[1]_i_1\: unisim.vcomponents.LUT2
     generic map(
@@ -173,7 +177,7 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
         port map (
       I0 => \count_reg__0\(0),
       I1 => \count_reg__0\(1),
-      O => \p_0_in__0\(1)
+      O => p_0_in(1)
     );
 \count[2]_i_1\: unisim.vcomponents.LUT3
     generic map(
@@ -194,7 +198,7 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
       I1 => \count_reg__0\(0),
       I2 => \count_reg__0\(2),
       I3 => \count_reg__0\(3),
-      O => \p_0_in__0\(3)
+      O => p_0_in(3)
     );
 \count[4]_i_1\: unisim.vcomponents.LUT3
     generic map(
@@ -216,13 +220,13 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
       I2 => \count_reg__0\(1),
       I3 => \count_reg__0\(3),
       I4 => \count_reg__0\(4),
-      O => \p_0_in__0\(4)
+      O => p_0_in(4)
     );
 \count_reg[0]\: unisim.vcomponents.FDRE
      port map (
       C => m_axis_data_aclk,
       CE => count,
-      D => \p_0_in__0\(0),
+      D => p_0_in(0),
       Q => \count_reg__0\(0),
       R => axis_tlast_delay_i_1_n_0
     );
@@ -230,7 +234,7 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
      port map (
       C => m_axis_data_aclk,
       CE => count,
-      D => \p_0_in__0\(1),
+      D => p_0_in(1),
       Q => \count_reg__0\(1),
       R => axis_tlast_delay_i_1_n_0
     );
@@ -246,7 +250,7 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
      port map (
       C => m_axis_data_aclk,
       CE => count,
-      D => \p_0_in__0\(3),
+      D => p_0_in(3),
       Q => \count_reg__0\(3),
       R => axis_tlast_delay_i_1_n_0
     );
@@ -254,36 +258,9 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
      port map (
       C => m_axis_data_aclk,
       CE => count,
-      D => \p_0_in__0\(4),
+      D => p_0_in(4),
       Q => \count_reg__0\(4),
       R => axis_tlast_delay_i_1_n_0
-    );
-\read_pointer[0]_i_1\: unisim.vcomponents.LUT1
-    generic map(
-      INIT => X"1"
-    )
-        port map (
-      I0 => \read_pointer_reg__0\(0),
-      O => p_0_in(0)
-    );
-\read_pointer[1]_i_1\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"6"
-    )
-        port map (
-      I0 => \read_pointer_reg__0\(0),
-      I1 => \read_pointer_reg__0\(1),
-      O => p_0_in(1)
-    );
-\read_pointer[2]_i_1\: unisim.vcomponents.LUT3
-    generic map(
-      INIT => X"78"
-    )
-        port map (
-      I0 => \read_pointer_reg__0\(1),
-      I1 => \read_pointer_reg__0\(0),
-      I2 => \read_pointer_reg__0\(2),
-      O => \read_pointer[2]_i_1_n_0\
     );
 \read_pointer[3]_i_1\: unisim.vcomponents.LUT4
     generic map(
@@ -296,21 +273,11 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
       I3 => \read_pointer_reg__0\(3),
       O => \read_pointer[3]_i_1_n_0\
     );
-\read_pointer[3]_i_2\: unisim.vcomponents.LUT3
-    generic map(
-      INIT => X"80"
-    )
-        port map (
-      I0 => \read_pointer_reg__0\(0),
-      I1 => \read_pointer_reg__0\(1),
-      I2 => \read_pointer_reg__0\(2),
-      O => p_0_in(3)
-    );
 \read_pointer_reg[0]\: unisim.vcomponents.FDRE
      port map (
       C => m_axis_data_aclk,
       CE => \read_pointer[3]_i_1_n_0\,
-      D => p_0_in(0),
+      D => \stream_data_out[0]_i_1_n_0\,
       Q => \read_pointer_reg__0\(0),
       R => axis_tlast_delay_i_1_n_0
     );
@@ -318,7 +285,7 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
      port map (
       C => m_axis_data_aclk,
       CE => \read_pointer[3]_i_1_n_0\,
-      D => p_0_in(1),
+      D => \stream_data_out[1]_i_1_n_0\,
       Q => \read_pointer_reg__0\(1),
       R => axis_tlast_delay_i_1_n_0
     );
@@ -326,7 +293,7 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
      port map (
       C => m_axis_data_aclk,
       CE => \read_pointer[3]_i_1_n_0\,
-      D => \read_pointer[2]_i_1_n_0\,
+      D => \stream_data_out[2]_i_1_n_0\,
       Q => \read_pointer_reg__0\(2),
       R => axis_tlast_delay_i_1_n_0
     );
@@ -334,8 +301,89 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
      port map (
       C => m_axis_data_aclk,
       CE => \read_pointer[3]_i_1_n_0\,
-      D => p_0_in(3),
+      D => \stream_data_out[3]_i_2_n_0\,
       Q => \read_pointer_reg__0\(3),
+      R => axis_tlast_delay_i_1_n_0
+    );
+\stream_data_out[0]_i_1\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => \read_pointer_reg__0\(0),
+      O => \stream_data_out[0]_i_1_n_0\
+    );
+\stream_data_out[1]_i_1\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"6"
+    )
+        port map (
+      I0 => \read_pointer_reg__0\(0),
+      I1 => \read_pointer_reg__0\(1),
+      O => \stream_data_out[1]_i_1_n_0\
+    );
+\stream_data_out[2]_i_1\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"78"
+    )
+        port map (
+      I0 => \read_pointer_reg__0\(1),
+      I1 => \read_pointer_reg__0\(0),
+      I2 => \read_pointer_reg__0\(2),
+      O => \stream_data_out[2]_i_1_n_0\
+    );
+\stream_data_out[3]_i_1\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"0020"
+    )
+        port map (
+      I0 => m_axis_data_tready,
+      I1 => \read_pointer_reg__0\(3),
+      I2 => mst_exec_state(1),
+      I3 => mst_exec_state(0),
+      O => tx_en
+    );
+\stream_data_out[3]_i_2\: unisim.vcomponents.LUT4
+    generic map(
+      INIT => X"7F80"
+    )
+        port map (
+      I0 => \read_pointer_reg__0\(0),
+      I1 => \read_pointer_reg__0\(1),
+      I2 => \read_pointer_reg__0\(2),
+      I3 => \read_pointer_reg__0\(3),
+      O => \stream_data_out[3]_i_2_n_0\
+    );
+\stream_data_out_reg[0]\: unisim.vcomponents.FDSE
+     port map (
+      C => m_axis_data_aclk,
+      CE => tx_en,
+      D => \stream_data_out[0]_i_1_n_0\,
+      Q => myOutput(0),
+      S => axis_tlast_delay_i_1_n_0
+    );
+\stream_data_out_reg[1]\: unisim.vcomponents.FDRE
+     port map (
+      C => m_axis_data_aclk,
+      CE => tx_en,
+      D => \stream_data_out[1]_i_1_n_0\,
+      Q => myOutput(1),
+      R => axis_tlast_delay_i_1_n_0
+    );
+\stream_data_out_reg[2]\: unisim.vcomponents.FDRE
+     port map (
+      C => m_axis_data_aclk,
+      CE => tx_en,
+      D => \stream_data_out[2]_i_1_n_0\,
+      Q => myOutput(2),
+      R => axis_tlast_delay_i_1_n_0
+    );
+\stream_data_out_reg[3]\: unisim.vcomponents.FDRE
+     port map (
+      C => m_axis_data_aclk,
+      CE => tx_en,
+      D => \stream_data_out[3]_i_2_n_0\,
+      Q => myOutput(3),
       R => axis_tlast_delay_i_1_n_0
     );
 tx_done_i_1: unisim.vcomponents.LUT6
@@ -524,6 +572,7 @@ entity design_1_myIP_0_0_myIP_v1_1 is
   port (
     mst_exec_state_reg : out STD_LOGIC;
     m_axis_data_tvalid : out STD_LOGIC;
+    myOutput : out STD_LOGIC_VECTOR ( 3 downto 0 );
     m_axis_data_tlast : out STD_LOGIC;
     m_axis_data_tready : in STD_LOGIC;
     m_axis_data_aresetn : in STD_LOGIC;
@@ -545,7 +594,8 @@ myIP_v1_1_M_AXIS_DATA_inst: entity work.design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA
       m_axis_data_aresetn => m_axis_data_aresetn,
       m_axis_data_tlast => m_axis_data_tlast,
       m_axis_data_tready => m_axis_data_tready,
-      m_axis_data_tvalid => m_axis_data_tvalid
+      m_axis_data_tvalid => m_axis_data_tvalid,
+      myOutput(3 downto 0) => myOutput(3 downto 0)
     );
 myIP_v1_1_S_AXIS_DATA_inst: entity work.design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA
      port map (
@@ -567,6 +617,8 @@ entity design_1_myIP_0_0 is
     m_axis_data_tlast : out STD_LOGIC;
     m_axis_data_tvalid : out STD_LOGIC;
     m_axis_data_tready : in STD_LOGIC;
+    myInput : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    myOutput : out STD_LOGIC_VECTOR ( 31 downto 0 );
     m_axis_data_aclk : in STD_LOGIC;
     m_axis_data_aresetn : in STD_LOGIC;
     s_axis_data_tdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
@@ -590,6 +642,8 @@ end design_1_myIP_0_0;
 architecture STRUCTURE of design_1_myIP_0_0 is
   signal \<const0>\ : STD_LOGIC;
   signal \<const1>\ : STD_LOGIC;
+  signal \^myoutput\ : STD_LOGIC_VECTOR ( 3 downto 0 );
+  signal \^s_axis_data_tdata\ : STD_LOGIC_VECTOR ( 31 downto 0 );
   attribute X_INTERFACE_INFO : string;
   attribute X_INTERFACE_INFO of m_axis_data_aclk : signal is "xilinx.com:signal:clock:1.0 M_AXIS_DATA_CLK CLK";
   attribute X_INTERFACE_PARAMETER : string;
@@ -613,42 +667,41 @@ architecture STRUCTURE of design_1_myIP_0_0 is
   attribute X_INTERFACE_INFO of s_axis_data_tdata : signal is "xilinx.com:interface:axis:1.0 S_AXIS_DATA TDATA";
   attribute X_INTERFACE_INFO of s_axis_data_tstrb : signal is "xilinx.com:interface:axis:1.0 S_AXIS_DATA TSTRB";
 begin
-  m_axis_data_tdata(31) <= \<const0>\;
-  m_axis_data_tdata(30) <= \<const0>\;
-  m_axis_data_tdata(29) <= \<const0>\;
-  m_axis_data_tdata(28) <= \<const0>\;
-  m_axis_data_tdata(27) <= \<const0>\;
-  m_axis_data_tdata(26) <= \<const0>\;
-  m_axis_data_tdata(25) <= \<const0>\;
-  m_axis_data_tdata(24) <= \<const0>\;
-  m_axis_data_tdata(23) <= \<const0>\;
-  m_axis_data_tdata(22) <= \<const0>\;
-  m_axis_data_tdata(21) <= \<const0>\;
-  m_axis_data_tdata(20) <= \<const0>\;
-  m_axis_data_tdata(19) <= \<const0>\;
-  m_axis_data_tdata(18) <= \<const0>\;
-  m_axis_data_tdata(17) <= \<const0>\;
-  m_axis_data_tdata(16) <= \<const0>\;
-  m_axis_data_tdata(15) <= \<const0>\;
-  m_axis_data_tdata(14) <= \<const0>\;
-  m_axis_data_tdata(13) <= \<const0>\;
-  m_axis_data_tdata(12) <= \<const0>\;
-  m_axis_data_tdata(11) <= \<const0>\;
-  m_axis_data_tdata(10) <= \<const0>\;
-  m_axis_data_tdata(9) <= \<const0>\;
-  m_axis_data_tdata(8) <= \<const0>\;
-  m_axis_data_tdata(7) <= \<const0>\;
-  m_axis_data_tdata(6) <= \<const0>\;
-  m_axis_data_tdata(5) <= \<const0>\;
-  m_axis_data_tdata(4) <= \<const0>\;
-  m_axis_data_tdata(3) <= \<const0>\;
-  m_axis_data_tdata(2) <= \<const0>\;
-  m_axis_data_tdata(1) <= \<const1>\;
-  m_axis_data_tdata(0) <= \<const1>\;
+  \^s_axis_data_tdata\(31 downto 0) <= s_axis_data_tdata(31 downto 0);
+  m_axis_data_tdata(31 downto 0) <= \^s_axis_data_tdata\(31 downto 0);
   m_axis_data_tstrb(3) <= \<const1>\;
   m_axis_data_tstrb(2) <= \<const1>\;
   m_axis_data_tstrb(1) <= \<const1>\;
   m_axis_data_tstrb(0) <= \<const1>\;
+  myOutput(31) <= \<const0>\;
+  myOutput(30) <= \<const0>\;
+  myOutput(29) <= \<const0>\;
+  myOutput(28) <= \<const0>\;
+  myOutput(27) <= \<const0>\;
+  myOutput(26) <= \<const0>\;
+  myOutput(25) <= \<const0>\;
+  myOutput(24) <= \<const0>\;
+  myOutput(23) <= \<const0>\;
+  myOutput(22) <= \<const0>\;
+  myOutput(21) <= \<const0>\;
+  myOutput(20) <= \<const0>\;
+  myOutput(19) <= \<const0>\;
+  myOutput(18) <= \<const0>\;
+  myOutput(17) <= \<const0>\;
+  myOutput(16) <= \<const0>\;
+  myOutput(15) <= \<const0>\;
+  myOutput(14) <= \<const0>\;
+  myOutput(13) <= \<const0>\;
+  myOutput(12) <= \<const0>\;
+  myOutput(11) <= \<const0>\;
+  myOutput(10) <= \<const0>\;
+  myOutput(9) <= \<const0>\;
+  myOutput(8) <= \<const0>\;
+  myOutput(7) <= \<const0>\;
+  myOutput(6) <= \<const0>\;
+  myOutput(5) <= \<const0>\;
+  myOutput(4) <= \<const0>\;
+  myOutput(3 downto 0) <= \^myoutput\(3 downto 0);
 GND: unisim.vcomponents.GND
      port map (
       G => \<const0>\
@@ -665,6 +718,7 @@ inst: entity work.design_1_myIP_0_0_myIP_v1_1
       m_axis_data_tready => m_axis_data_tready,
       m_axis_data_tvalid => m_axis_data_tvalid,
       mst_exec_state_reg => s_axis_data_tready,
+      myOutput(3 downto 0) => \^myoutput\(3 downto 0),
       s_axis_data_aclk => s_axis_data_aclk,
       s_axis_data_aresetn => s_axis_data_aresetn,
       s_axis_data_tlast => s_axis_data_tlast,

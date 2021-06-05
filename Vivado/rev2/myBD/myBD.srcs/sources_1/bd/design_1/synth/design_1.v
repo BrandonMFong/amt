@@ -1,7 +1,7 @@
 //Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-//Date        : Wed Jun  2 18:03:05 2021
+//Date        : Sat Jun  5 09:32:46 2021
 //Host        : KAMANTA running 64-bit major release  (build 9200)
 //Command     : generate_target design_1.bd
 //Design      : design_1
@@ -1204,6 +1204,7 @@ module stream_imp_100ZW6D
   wire axi_dma_0_M_AXI_S2MM_WREADY;
   wire [3:0]axi_dma_0_M_AXI_S2MM_WSTRB;
   wire axi_dma_0_M_AXI_S2MM_WVALID;
+  wire [31:0]ip_myOutput;
   wire [31:0]myIP_0_M_AXIS_DATA_TDATA;
   wire myIP_0_M_AXIS_DATA_TLAST;
   wire myIP_0_M_AXIS_DATA_TREADY;
@@ -1340,6 +1341,8 @@ module stream_imp_100ZW6D
         .m_axis_data_tlast(myIP_0_M_AXIS_DATA_TLAST),
         .m_axis_data_tready(myIP_0_M_AXIS_DATA_TREADY),
         .m_axis_data_tvalid(myIP_0_M_AXIS_DATA_TVALID),
+        .myInput(ip_myOutput),
+        .myOutput(ip_myOutput),
         .s_axis_data_aclk(processing_system7_0_FCLK_CLK0),
         .s_axis_data_aresetn(rst_ps7_0_100M_peripheral_aresetn),
         .s_axis_data_tdata(axi_dma_0_M_AXIS_MM2S_TDATA),

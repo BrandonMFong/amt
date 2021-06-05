@@ -184,6 +184,7 @@ proc create_hier_cell_stream { parentCell nameHier } {
   connect_bd_intf_net -intf_net ps7_0_axi_periph_M00_AXI [get_bd_intf_pins S_AXI_LITE] [get_bd_intf_pins dma/S_AXI_LITE]
 
   # Create port connections
+  connect_bd_net -net ip_myOutput [get_bd_pins ip/myInput] [get_bd_pins ip/myOutput]
   connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins m_axi_mm2s_aclk] [get_bd_pins dma/m_axi_mm2s_aclk] [get_bd_pins dma/m_axi_s2mm_aclk] [get_bd_pins dma/s_axi_lite_aclk] [get_bd_pins ip/m_axis_data_aclk] [get_bd_pins ip/s_axis_data_aclk]
   connect_bd_net -net rst_ps7_0_100M_peripheral_aresetn [get_bd_pins m_axis_data_aresetn] [get_bd_pins dma/axi_resetn] [get_bd_pins ip/m_axis_data_aresetn] [get_bd_pins ip/s_axis_data_aresetn]
 
