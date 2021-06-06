@@ -670,8 +670,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>myIP_v1.1</xilinx:displayName>
-      <xilinx:coreRevision>11</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-06-05T16:32:13Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>12</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-06-06T16:36:43Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@17d75138_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@2d4ee8d6_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
@@ -870,6 +870,17 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4b2a704b_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@8d087c2_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@552778ff_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@13d1bf86_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@79f109d2_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@d77eddb_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2e7cf527_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@15b841c2_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@656bbef5_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6526393_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e9806bd_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@549a54ac_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5f2aacfd_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4d4513a0_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
