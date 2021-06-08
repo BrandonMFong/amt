@@ -52,6 +52,7 @@
 		.S_AXIS_ARESETN(s_axis_data_aresetn),
 		.S_AXIS_TREADY(s_axis_data_tready),
 		.S_AXIS_TDATA(myInput),
+//		.S_AXIS_TDATA(s_axis_data_tdata),
 		.S_AXIS_TSTRB(s_axis_data_tstrb),
 		.S_AXIS_TLAST(s_axis_data_tlast),
 		.S_AXIS_TVALID(s_axis_data_tvalid)
@@ -66,6 +67,7 @@
 		.M_AXIS_ARESETN(m_axis_data_aresetn),
 		.M_AXIS_TVALID(m_axis_data_tvalid),
 		.M_AXIS_TDATA(myOutput),
+//		.M_AXIS_TDATA(m_axis_data_tdata),
 		.M_AXIS_TSTRB(m_axis_data_tstrb),
 		.M_AXIS_TLAST(m_axis_data_tlast),
 		.M_AXIS_TREADY(m_axis_data_tready)
