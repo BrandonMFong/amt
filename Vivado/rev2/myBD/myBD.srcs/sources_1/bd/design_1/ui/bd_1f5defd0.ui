@@ -1,36 +1,36 @@
 {
    "ExpandedHierarchyInLayout":"",
-   "guistr":"# # String gsaved with Nlview 6.8.11  2018-08-07 bk=1.4403 VDI=40 GEI=35 GUI=JA:9.0 non-TLS-threadsafe
+   "guistr":"# # String gsaved with Nlview 6.8.11  2018-08-07 bk=1.4403 VDI=40 GEI=35 GUI=JA:9.0 non-TLS
 #  -string -flagsOSRD
 preplace port DDR -pg 1 -y -200 -defaultsOSRD
 preplace port FIXED_IO -pg 1 -y -180 -defaultsOSRD
-preplace inst stream|dma -pg 1 -lvl 2 -y -452 -defaultsOSRD
+preplace inst stream|dma -pg 1 -lvl 2 -y -434 -defaultsOSRD
 preplace inst axi_smc -pg 1 -lvl 5 -y -550 -defaultsOSRD
-preplace inst stream -pg 1 -lvl 6 -y -572 -defaultsOSRD
+preplace inst stream -pg 1 -lvl 6 -y -554 -defaultsOSRD
 preplace inst ps7_0_axi_periph -pg 1 -lvl 5 -y -350 -defaultsOSRD
-preplace inst stream|ip -pg 1 -lvl 1 -y -432 -defaultsOSRD
+preplace inst stream|ip -pg 1 -lvl 1 -y -454 -defaultsOSRD
 preplace inst rst_ps7_0_100M -pg 1 -lvl 4 -y -300 -defaultsOSRD
 preplace inst processing_system7_0 -pg 1 -lvl 3 -y -150 -defaultsOSRD
 preplace netloc processing_system7_0_DDR 1 3 4 NJ -200 N -200 N -200 N
-preplace netloc stream|myIP_0_M_AXIS_DATA 1 1 1 1790
+preplace netloc stream|myIP_0_M_AXIS_DATA 1 1 1 N
 preplace netloc stream|axi_dma_0_M_AXI_MM2S 1 2 1 N
 preplace netloc processing_system7_0_M_AXI_GP0 1 3 2 480 -410 NJ
-preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 4 2 850 -640 1180
-preplace netloc stream|axi_dma_0_M_AXIS_MM2S 1 0 3 1390 -602 NJ -602 2150
+preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 4 2 840 -680 1190
+preplace netloc stream|axi_dma_0_M_AXIS_MM2S 1 0 3 1410 -594 NJ -594 2110
 preplace netloc axi_smc_M00_AXI 1 2 4 20 -660 NJ -660 NJ -660 1170
 preplace netloc processing_system7_0_FCLK_RESET0_N 1 3 1 500
-preplace netloc stream|ps7_0_axi_periph_M00_AXI 1 0 2 NJ -612 1810
-preplace netloc stream|ip_myOutput 1 0 2 1390 -262 1800
-preplace netloc stream|rst_ps7_0_100M_peripheral_aresetn 1 0 2 1370 -272 1810
+preplace netloc stream|ps7_0_axi_periph_M00_AXI 1 0 2 NJ -584 1760
+preplace netloc stream|rst_ps7_0_100M_peripheral_aresetn 1 0 2 1410 -334 1770
 preplace netloc stream|axi_dma_0_M_AXI_S2MM 1 2 1 N
-preplace netloc axi_dma_0_M_AXI_MM2S 1 4 3 860 -692 N -692 2300
+preplace netloc axi_dma_0_M_AXI_MM2S 1 4 3 870 -650 1180 -654 2250
 preplace netloc processing_system7_0_FIXED_IO 1 3 4 NJ -180 N -180 N -180 N
-preplace netloc axi_dma_0_M_AXI_S2MM 1 4 3 870 -682 N -682 2290
-preplace netloc processing_system7_0_FCLK_CLK0 1 2 4 20 -40 490 -400 840 -650 1200
-preplace netloc stream|processing_system7_0_FCLK_CLK0 1 0 2 1380 -592 1800
-preplace netloc ps7_0_axi_periph_M00_AXI 1 5 1 1190
-levelinfo -pg 1 -80 -50 0 250 670 1020 1500 2320 -top -710 -bot 200
-levelinfo -hier stream * 1590 1980 *
+preplace netloc axi_dma_0_M_AXI_S2MM 1 4 3 860 -670 N -670 2260
+preplace netloc processing_system7_0_FCLK_CLK0 1 2 4 20 -40 490 -400 850 -640 1180
+preplace netloc stream|processing_system7_0_FCLK_CLK0 1 0 2 1420 -344 1760
+preplace netloc ps7_0_axi_periph_M00_AXI 1 5 1 1200
+preplace netloc stream|ip_myOutput1 1 0 2 1420 -564 1750
+levelinfo -pg 1 -80 -50 0 250 670 1020 1500 2280 -top -710 -bot 200
+levelinfo -hier stream * 1590 1940 *
 "
 }
 {

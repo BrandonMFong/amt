@@ -55,7 +55,8 @@
 //		.S_AXIS_TDATA(s_axis_data_tdata),
 		.S_AXIS_TSTRB(s_axis_data_tstrb),
 		.S_AXIS_TLAST(s_axis_data_tlast),
-		.S_AXIS_TVALID(s_axis_data_tvalid)
+		.S_AXIS_TVALID(s_axis_data_tvalid),
+		.inputFifoValue(m_axis_data_tdata)
 	);
 
 // Instantiation of Axi Bus Interface M_AXIS_DATA
@@ -74,7 +75,7 @@
 	);
 
 	// Add user logic here
-	assign m_axis_data_tdata = s_axis_data_tdata;
+//	assign m_axis_data_tdata = s_axis_data_tdata;
 
 	// User logic ends
 

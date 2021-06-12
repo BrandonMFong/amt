@@ -13,7 +13,7 @@
 	)
 	(
 		// Users to add ports here
-
+        output wire [C_S_AXIS_TDATA_WIDTH-1:0] inputFifoValue, 
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -161,7 +161,12 @@
 	endgenerate
 
 	// Add user logic here
-
+    assign inputFifoValue = {
+        FIFO_GEN[0].stream_data_fifo[write_pointer + 0],
+        FIFO_GEN[1].stream_data_fifo[write_pointer + 1],
+        FIFO_GEN[2].stream_data_fifo[write_pointer + 2],
+        FIFO_GEN[3].stream_data_fifo[write_pointer + 3]
+    };
 	// User logic ends
 
 	endmodule
