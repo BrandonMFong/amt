@@ -14,6 +14,7 @@
 	(
 		// Users to add ports here
         output wire [C_S_AXIS_TDATA_WIDTH-1:0] inputFifoValue, 
+        input wire [C_S_AXIS_TDATA_WIDTH-1:0] read_pointer,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -141,7 +142,7 @@
 	// FIFO write enable generation
 	assign fifo_wren = S_AXIS_TVALID && axis_tready;
 
-	// FIFO Implementation
+	// FIFO Implementation, (C_S_AXIS_TDATA_WIDTH/8-1)=4 so there are 4 FIFO_GEN blocks
 	generate 
 	  for(byte_index=0; byte_index<= (C_S_AXIS_TDATA_WIDTH/8-1); byte_index=byte_index+1)
 	  begin:FIFO_GEN
@@ -162,10 +163,10 @@
 
 	// Add user logic here
     assign inputFifoValue = {
-        FIFO_GEN[0].stream_data_fifo[write_pointer + 0],
-        FIFO_GEN[1].stream_data_fifo[write_pointer + 1],
-        FIFO_GEN[2].stream_data_fifo[write_pointer + 2],
-        FIFO_GEN[3].stream_data_fifo[write_pointer + 3]
+        FIFO_GEN[3].stream_data_fifo[read_pointer + 3],
+        FIFO_GEN[2].stream_data_fifo[read_pointer + 2],
+        FIFO_GEN[1].stream_data_fifo[read_pointer + 1],
+        FIFO_GEN[0].stream_data_fifo[read_pointer + 0]
     };
 	// User logic ends
 

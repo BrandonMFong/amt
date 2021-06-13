@@ -258,7 +258,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>8e52c977</spirit:value>
+            <spirit:value>87321c65</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -274,7 +274,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>8e52c977</spirit:value>
+            <spirit:value>87321c65</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -587,7 +587,7 @@
       <spirit:file>
         <spirit:name>hdl/myIP_v1_1.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_e67d5413</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_9317f251</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -670,8 +670,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>myIP_v1.1</xilinx:displayName>
-      <xilinx:coreRevision>22</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-06-12T17:50:17Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>27</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-06-13T17:58:50Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@17d75138_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@2d4ee8d6_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
@@ -1023,6 +1023,66 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@29f3f5c7_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5d78974_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@6942dc7b_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4c311e42_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6de833f3_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@547e7fb9_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5ca69b68_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@32c1abbc_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@194b07b2_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1714180c_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@595d7140_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@818c5a5_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@101f81a0_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@28e551fa_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7bf092e4_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2deddb2f_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@46a3eaf7_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2b12f317_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ac30f69_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@f88d4c5_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@577c4d1c_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6f4e0b2a_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@78de9833_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@15c07e52_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@60c0e905_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5641f7d9_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b59d99b_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@514bd842_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4ff824e2_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@eac96ee_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@60a5bebc_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@136a30e4_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@735eafa6_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ecf71b7_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2666b0d8_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ea9c898_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3703e90e_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6a1923b_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@595dd220_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1b95ae28_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ffa9ab7_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7041ebf3_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7c92626d_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7077507_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2de8e420_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2e8b09c5_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4e754f9d_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@76e3a74f_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@20d6c67b_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5fc6c7d6_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@51135259_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@57c0507b_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@68bff264_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@20c1b389_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2266efee_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@56503593_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2c6094fe_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@11fcf87a_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@260e359e_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@60ef94ac_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7d0a5fd_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@59c9cee4_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2f1cca43_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP/myIP_1.1</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
@@ -1030,7 +1090,7 @@
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="040ea465"/>
       <xilinx:checksum xilinx:scope="addressSpaces" xilinx:value="45b86753"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="aa8280b1"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="1a3437f7"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="138e2549"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="5e1e5273"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="dc2463b4"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="a710a575"/>

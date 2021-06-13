@@ -38,6 +38,11 @@ results.txt
 *.hw
 *.str
 *.jou
+*.hwdef
+*.bxml
+*.ui
+*.bd
+*.dcp
 
 # Logs
 *.log

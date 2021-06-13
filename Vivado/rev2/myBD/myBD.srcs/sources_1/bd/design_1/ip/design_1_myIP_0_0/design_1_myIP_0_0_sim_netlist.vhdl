@@ -1,7 +1,7 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Sat Jun 12 10:51:31 2021
+-- Date        : Sun Jun 13 11:00:13 2021
 -- Host        : KAMANTA running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.srcs/sources_1/bd/design_1/ip/design_1_myIP_0_0/design_1_myIP_0_0_sim_netlist.vhdl
@@ -18,7 +18,11 @@ entity design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA is
   port (
     m_axis_data_tvalid : out STD_LOGIC;
     m_axis_data_tlast : out STD_LOGIC;
+    Q : out STD_LOGIC_VECTOR ( 2 downto 0 );
     myOutput : out STD_LOGIC_VECTOR ( 3 downto 0 );
+    ADDRA : out STD_LOGIC_VECTOR ( 2 downto 0 );
+    \read_pointer_reg[1]_0\ : out STD_LOGIC_VECTOR ( 1 downto 0 );
+    \read_pointer_reg[1]_1\ : out STD_LOGIC_VECTOR ( 1 downto 0 );
     m_axis_data_aclk : in STD_LOGIC;
     m_axis_data_tready : in STD_LOGIC;
     m_axis_data_aresetn : in STD_LOGIC
@@ -28,21 +32,22 @@ entity design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA is
 end design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA;
 
 architecture STRUCTURE of design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA is
+  signal \^addra\ : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal \FSM_sequential_mst_exec_state[0]_i_1_n_0\ : STD_LOGIC;
   signal \FSM_sequential_mst_exec_state[1]_i_1_n_0\ : STD_LOGIC;
   signal \FSM_sequential_mst_exec_state[1]_i_2_n_0\ : STD_LOGIC;
-  signal axis_tlast : STD_LOGIC;
+  signal \^q\ : STD_LOGIC_VECTOR ( 2 downto 0 );
   signal axis_tlast_delay_i_1_n_0 : STD_LOGIC;
+  signal axis_tlast_delay_i_2_n_0 : STD_LOGIC;
   signal axis_tvalid : STD_LOGIC;
   signal count : STD_LOGIC;
   signal \count[2]_i_1_n_0\ : STD_LOGIC;
   signal \count_reg__0\ : STD_LOGIC_VECTOR ( 4 downto 0 );
+  signal master_slave_read_pointer : STD_LOGIC_VECTOR ( 3 to 3 );
   signal mst_exec_state : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal p_0_in : STD_LOGIC_VECTOR ( 4 downto 0 );
-  signal p_1_in : STD_LOGIC_VECTOR ( 3 downto 0 );
+  signal p_1_in : STD_LOGIC_VECTOR ( 3 to 3 );
   signal \read_pointer[3]_i_1_n_0\ : STD_LOGIC;
-  signal \read_pointer_reg__0\ : STD_LOGIC_VECTOR ( 3 downto 0 );
-  signal \stream_data_out[2]_i_1_n_0\ : STD_LOGIC;
   signal tx_done_i_1_n_0 : STD_LOGIC;
   signal tx_done_i_2_n_0 : STD_LOGIC;
   signal tx_done_reg_n_0 : STD_LOGIC;
@@ -50,22 +55,85 @@ architecture STRUCTURE of design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA is
   attribute SOFT_HLUTNM : string;
   attribute SOFT_HLUTNM of \FSM_sequential_mst_exec_state[0]_i_1\ : label is "soft_lutpair2";
   attribute SOFT_HLUTNM of \FSM_sequential_mst_exec_state[1]_i_1\ : label is "soft_lutpair2";
-  attribute SOFT_HLUTNM of \FSM_sequential_mst_exec_state[1]_i_2\ : label is "soft_lutpair0";
+  attribute SOFT_HLUTNM of \FSM_sequential_mst_exec_state[1]_i_2\ : label is "soft_lutpair1";
   attribute FSM_ENCODED_STATES : string;
   attribute FSM_ENCODED_STATES of \FSM_sequential_mst_exec_state_reg[0]\ : label is "INIT_COUNTER:01,SEND_STREAM:10,IDLE:00";
   attribute FSM_ENCODED_STATES of \FSM_sequential_mst_exec_state_reg[1]\ : label is "INIT_COUNTER:01,SEND_STREAM:10,IDLE:00";
   attribute SOFT_HLUTNM of axis_tlast_delay_i_2 : label is "soft_lutpair3";
-  attribute SOFT_HLUTNM of axis_tvalid_delay_i_1 : label is "soft_lutpair1";
-  attribute SOFT_HLUTNM of \count[0]_i_1\ : label is "soft_lutpair6";
-  attribute SOFT_HLUTNM of \count[1]_i_1\ : label is "soft_lutpair6";
+  attribute SOFT_HLUTNM of axis_tvalid_delay_i_1 : label is "soft_lutpair0";
+  attribute SOFT_HLUTNM of \count[0]_i_1\ : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of \count[1]_i_1\ : label is "soft_lutpair5";
   attribute SOFT_HLUTNM of \count[2]_i_1\ : label is "soft_lutpair4";
   attribute SOFT_HLUTNM of \count[3]_i_1\ : label is "soft_lutpair4";
-  attribute SOFT_HLUTNM of \count[4]_i_2\ : label is "soft_lutpair0";
-  attribute SOFT_HLUTNM of \stream_data_out[1]_i_1\ : label is "soft_lutpair5";
-  attribute SOFT_HLUTNM of \stream_data_out[2]_i_1\ : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of \count[4]_i_2\ : label is "soft_lutpair1";
   attribute SOFT_HLUTNM of \stream_data_out[3]_i_2\ : label is "soft_lutpair3";
-  attribute SOFT_HLUTNM of tx_done_i_2 : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of tx_done_i_2 : label is "soft_lutpair0";
 begin
+  ADDRA(2 downto 0) <= \^addra\(2 downto 0);
+  Q(2 downto 0) <= \^q\(2 downto 0);
+\FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_1\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"78"
+    )
+        port map (
+      I0 => \^q\(0),
+      I1 => \^q\(1),
+      I2 => \^q\(2),
+      O => \^addra\(2)
+    );
+\FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_2\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"6"
+    )
+        port map (
+      I0 => \^q\(0),
+      I1 => \^q\(1),
+      O => \^addra\(1)
+    );
+\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_1\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"6"
+    )
+        port map (
+      I0 => \^q\(1),
+      I1 => \^q\(2),
+      O => \read_pointer_reg[1]_1\(1)
+    );
+\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_2\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => \^q\(1),
+      O => \read_pointer_reg[1]_1\(0)
+    );
+\FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_2\: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"1E"
+    )
+        port map (
+      I0 => \^q\(1),
+      I1 => \^q\(0),
+      I2 => \^q\(2),
+      O => \read_pointer_reg[1]_0\(1)
+    );
+\FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_3\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"9"
+    )
+        port map (
+      I0 => \^q\(1),
+      I1 => \^q\(0),
+      O => \read_pointer_reg[1]_0\(0)
+    );
+\FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_4\: unisim.vcomponents.LUT1
+    generic map(
+      INIT => X"1"
+    )
+        port map (
+      I0 => \^q\(0),
+      O => \^addra\(0)
+    );
 \FSM_sequential_mst_exec_state[0]_i_1\: unisim.vcomponents.LUT3
     generic map(
       INIT => X"C7"
@@ -128,17 +196,17 @@ axis_tlast_delay_i_2: unisim.vcomponents.LUT4
       INIT => X"4000"
     )
         port map (
-      I0 => \read_pointer_reg__0\(3),
-      I1 => \read_pointer_reg__0\(2),
-      I2 => \read_pointer_reg__0\(1),
-      I3 => \read_pointer_reg__0\(0),
-      O => axis_tlast
+      I0 => master_slave_read_pointer(3),
+      I1 => \^q\(2),
+      I2 => \^q\(0),
+      I3 => \^q\(1),
+      O => axis_tlast_delay_i_2_n_0
     );
 axis_tlast_delay_reg: unisim.vcomponents.FDRE
      port map (
       C => m_axis_data_aclk,
       CE => '1',
-      D => axis_tlast,
+      D => axis_tlast_delay_i_2_n_0,
       Q => m_axis_data_tlast,
       R => axis_tlast_delay_i_1_n_0
     );
@@ -149,7 +217,7 @@ axis_tvalid_delay_i_1: unisim.vcomponents.LUT3
         port map (
       I0 => mst_exec_state(0),
       I1 => mst_exec_state(1),
-      I2 => \read_pointer_reg__0\(3),
+      I2 => master_slave_read_pointer(3),
       O => axis_tvalid
     );
 axis_tvalid_delay_reg: unisim.vcomponents.FDRE
@@ -268,31 +336,31 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
       I0 => mst_exec_state(0),
       I1 => mst_exec_state(1),
       I2 => m_axis_data_tready,
-      I3 => \read_pointer_reg__0\(3),
+      I3 => master_slave_read_pointer(3),
       O => \read_pointer[3]_i_1_n_0\
     );
 \read_pointer_reg[0]\: unisim.vcomponents.FDRE
      port map (
       C => m_axis_data_aclk,
       CE => \read_pointer[3]_i_1_n_0\,
-      D => p_1_in(0),
-      Q => \read_pointer_reg__0\(0),
+      D => \^addra\(0),
+      Q => \^q\(0),
       R => axis_tlast_delay_i_1_n_0
     );
 \read_pointer_reg[1]\: unisim.vcomponents.FDRE
      port map (
       C => m_axis_data_aclk,
       CE => \read_pointer[3]_i_1_n_0\,
-      D => p_1_in(1),
-      Q => \read_pointer_reg__0\(1),
+      D => \^addra\(1),
+      Q => \^q\(1),
       R => axis_tlast_delay_i_1_n_0
     );
 \read_pointer_reg[2]\: unisim.vcomponents.FDRE
      port map (
       C => m_axis_data_aclk,
       CE => \read_pointer[3]_i_1_n_0\,
-      D => \stream_data_out[2]_i_1_n_0\,
-      Q => \read_pointer_reg__0\(2),
+      D => \^addra\(2),
+      Q => \^q\(2),
       R => axis_tlast_delay_i_1_n_0
     );
 \read_pointer_reg[3]\: unisim.vcomponents.FDRE
@@ -300,35 +368,8 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
       C => m_axis_data_aclk,
       CE => \read_pointer[3]_i_1_n_0\,
       D => p_1_in(3),
-      Q => \read_pointer_reg__0\(3),
+      Q => master_slave_read_pointer(3),
       R => axis_tlast_delay_i_1_n_0
-    );
-\stream_data_out[0]_i_1\: unisim.vcomponents.LUT1
-    generic map(
-      INIT => X"1"
-    )
-        port map (
-      I0 => \read_pointer_reg__0\(0),
-      O => p_1_in(0)
-    );
-\stream_data_out[1]_i_1\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"6"
-    )
-        port map (
-      I0 => \read_pointer_reg__0\(0),
-      I1 => \read_pointer_reg__0\(1),
-      O => p_1_in(1)
-    );
-\stream_data_out[2]_i_1\: unisim.vcomponents.LUT3
-    generic map(
-      INIT => X"78"
-    )
-        port map (
-      I0 => \read_pointer_reg__0\(1),
-      I1 => \read_pointer_reg__0\(0),
-      I2 => \read_pointer_reg__0\(2),
-      O => \stream_data_out[2]_i_1_n_0\
     );
 \stream_data_out[3]_i_1\: unisim.vcomponents.LUT4
     generic map(
@@ -336,7 +377,7 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
     )
         port map (
       I0 => m_axis_data_tready,
-      I1 => \read_pointer_reg__0\(3),
+      I1 => master_slave_read_pointer(3),
       I2 => mst_exec_state(1),
       I3 => mst_exec_state(0),
       O => tx_en
@@ -346,17 +387,17 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
       INIT => X"7F80"
     )
         port map (
-      I0 => \read_pointer_reg__0\(0),
-      I1 => \read_pointer_reg__0\(1),
-      I2 => \read_pointer_reg__0\(2),
-      I3 => \read_pointer_reg__0\(3),
+      I0 => \^q\(1),
+      I1 => \^q\(0),
+      I2 => \^q\(2),
+      I3 => master_slave_read_pointer(3),
       O => p_1_in(3)
     );
 \stream_data_out_reg[0]\: unisim.vcomponents.FDSE
      port map (
       C => m_axis_data_aclk,
       CE => tx_en,
-      D => p_1_in(0),
+      D => \^addra\(0),
       Q => myOutput(0),
       S => axis_tlast_delay_i_1_n_0
     );
@@ -364,7 +405,7 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
      port map (
       C => m_axis_data_aclk,
       CE => tx_en,
-      D => p_1_in(1),
+      D => \^addra\(1),
       Q => myOutput(1),
       R => axis_tlast_delay_i_1_n_0
     );
@@ -372,7 +413,7 @@ axis_tvalid_delay_reg: unisim.vcomponents.FDRE
      port map (
       C => m_axis_data_aclk,
       CE => tx_en,
-      D => \stream_data_out[2]_i_1_n_0\,
+      D => \^addra\(2),
       Q => myOutput(2),
       R => axis_tlast_delay_i_1_n_0
     );
@@ -390,10 +431,10 @@ tx_done_i_1: unisim.vcomponents.LUT6
     )
         port map (
       I0 => tx_done_reg_n_0,
-      I1 => \read_pointer_reg__0\(1),
-      I2 => \read_pointer_reg__0\(3),
-      I3 => \read_pointer_reg__0\(2),
-      I4 => \read_pointer_reg__0\(0),
+      I1 => \^q\(0),
+      I2 => master_slave_read_pointer(3),
+      I3 => \^q\(1),
+      I4 => \^q\(2),
       I5 => tx_done_i_2_n_0,
       O => tx_done_i_1_n_0
     );
@@ -402,7 +443,7 @@ tx_done_i_2: unisim.vcomponents.LUT5
       INIT => X"0040FFFF"
     )
         port map (
-      I0 => \read_pointer_reg__0\(3),
+      I0 => master_slave_read_pointer(3),
       I1 => m_axis_data_tready,
       I2 => mst_exec_state(1),
       I3 => mst_exec_state(0),
@@ -426,24 +467,22 @@ entity design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA is
   port (
     mst_exec_state_reg_0 : out STD_LOGIC;
     m_axis_data_tdata : out STD_LOGIC_VECTOR ( 31 downto 0 );
+    s_axis_data_tlast : in STD_LOGIC;
     s_axis_data_aclk : in STD_LOGIC;
     s_axis_data_tvalid : in STD_LOGIC;
     s_axis_data_aresetn : in STD_LOGIC;
-    myInput : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    s_axis_data_tlast : in STD_LOGIC
+    s_axis_data_tdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    Q : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    ADDRA : in STD_LOGIC_VECTOR ( 2 downto 0 );
+    \m_axis_data_tdata[23]\ : in STD_LOGIC_VECTOR ( 1 downto 0 );
+    \m_axis_data_tdata[31]\ : in STD_LOGIC_VECTOR ( 1 downto 0 )
   );
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA : entity is "myIP_v1_1_S_AXIS_DATA";
 end design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA;
 
 architecture STRUCTURE of design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA is
-  signal \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_1_n_0\ : STD_LOGIC;
-  signal \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_2_n_0\ : STD_LOGIC;
-  signal \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_3_n_0\ : STD_LOGIC;
-  signal \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_1_n_0\ : STD_LOGIC;
-  signal \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_2_n_0\ : STD_LOGIC;
   signal fifo_wren : STD_LOGIC;
-  signal inputFifoValue1 : STD_LOGIC_VECTOR ( 2 downto 1 );
   signal mst_exec_state_i_1_n_0 : STD_LOGIC;
   signal \^mst_exec_state_reg_0\ : STD_LOGIC;
   signal write_pointer : STD_LOGIC_VECTOR ( 2 downto 0 );
@@ -453,6 +492,10 @@ architecture STRUCTURE of design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA is
   signal writes_done : STD_LOGIC;
   signal writes_done0_n_0 : STD_LOGIC;
   signal writes_done_i_1_n_0 : STD_LOGIC;
+  signal \NLW_FIFO_GEN[0].stream_data_fifo_reg_0_7_0_5_DOD_UNCONNECTED\ : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal \NLW_FIFO_GEN[0].stream_data_fifo_reg_0_7_6_7_DOB_UNCONNECTED\ : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal \NLW_FIFO_GEN[0].stream_data_fifo_reg_0_7_6_7_DOC_UNCONNECTED\ : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal \NLW_FIFO_GEN[0].stream_data_fifo_reg_0_7_6_7_DOD_UNCONNECTED\ : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal \NLW_FIFO_GEN[1].stream_data_fifo_reg_0_7_0_5_DOD_UNCONNECTED\ : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal \NLW_FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_DOB_UNCONNECTED\ : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal \NLW_FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_DOC_UNCONNECTED\ : STD_LOGIC_VECTOR ( 1 downto 0 );
@@ -465,24 +508,25 @@ architecture STRUCTURE of design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA is
   signal \NLW_FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_DOB_UNCONNECTED\ : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal \NLW_FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_DOC_UNCONNECTED\ : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal \NLW_FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_DOD_UNCONNECTED\ : STD_LOGIC_VECTOR ( 1 downto 0 );
-  attribute XILINX_LEGACY_PRIM : string;
-  attribute XILINX_LEGACY_PRIM of \FIFO_GEN[0].stream_data_fifo_reg_0_7_0_0\ : label is "RAM16X1S";
-  attribute XILINX_LEGACY_PRIM of \FIFO_GEN[0].stream_data_fifo_reg_0_7_1_1\ : label is "RAM16X1S";
-  attribute XILINX_LEGACY_PRIM of \FIFO_GEN[0].stream_data_fifo_reg_0_7_2_2\ : label is "RAM16X1S";
-  attribute XILINX_LEGACY_PRIM of \FIFO_GEN[0].stream_data_fifo_reg_0_7_3_3\ : label is "RAM16X1S";
-  attribute XILINX_LEGACY_PRIM of \FIFO_GEN[0].stream_data_fifo_reg_0_7_4_4\ : label is "RAM16X1S";
-  attribute XILINX_LEGACY_PRIM of \FIFO_GEN[0].stream_data_fifo_reg_0_7_5_5\ : label is "RAM16X1S";
-  attribute XILINX_LEGACY_PRIM of \FIFO_GEN[0].stream_data_fifo_reg_0_7_6_6\ : label is "RAM16X1S";
-  attribute XILINX_LEGACY_PRIM of \FIFO_GEN[0].stream_data_fifo_reg_0_7_7_7\ : label is "RAM16X1S";
   attribute METHODOLOGY_DRC_VIOS : string;
-  attribute METHODOLOGY_DRC_VIOS of \FIFO_GEN[1].stream_data_fifo_reg_0_7_0_5\ : label is "";
+  attribute METHODOLOGY_DRC_VIOS of \FIFO_GEN[0].stream_data_fifo_reg_0_7_0_5\ : label is "";
   attribute ram_addr_begin : integer;
-  attribute ram_addr_begin of \FIFO_GEN[1].stream_data_fifo_reg_0_7_0_5\ : label is 0;
+  attribute ram_addr_begin of \FIFO_GEN[0].stream_data_fifo_reg_0_7_0_5\ : label is 0;
   attribute ram_addr_end : integer;
-  attribute ram_addr_end of \FIFO_GEN[1].stream_data_fifo_reg_0_7_0_5\ : label is 7;
+  attribute ram_addr_end of \FIFO_GEN[0].stream_data_fifo_reg_0_7_0_5\ : label is 7;
   attribute ram_slice_begin : integer;
-  attribute ram_slice_begin of \FIFO_GEN[1].stream_data_fifo_reg_0_7_0_5\ : label is 0;
+  attribute ram_slice_begin of \FIFO_GEN[0].stream_data_fifo_reg_0_7_0_5\ : label is 0;
   attribute ram_slice_end : integer;
+  attribute ram_slice_end of \FIFO_GEN[0].stream_data_fifo_reg_0_7_0_5\ : label is 5;
+  attribute METHODOLOGY_DRC_VIOS of \FIFO_GEN[0].stream_data_fifo_reg_0_7_6_7\ : label is "";
+  attribute ram_addr_begin of \FIFO_GEN[0].stream_data_fifo_reg_0_7_6_7\ : label is 0;
+  attribute ram_addr_end of \FIFO_GEN[0].stream_data_fifo_reg_0_7_6_7\ : label is 7;
+  attribute ram_slice_begin of \FIFO_GEN[0].stream_data_fifo_reg_0_7_6_7\ : label is 6;
+  attribute ram_slice_end of \FIFO_GEN[0].stream_data_fifo_reg_0_7_6_7\ : label is 7;
+  attribute METHODOLOGY_DRC_VIOS of \FIFO_GEN[1].stream_data_fifo_reg_0_7_0_5\ : label is "";
+  attribute ram_addr_begin of \FIFO_GEN[1].stream_data_fifo_reg_0_7_0_5\ : label is 0;
+  attribute ram_addr_end of \FIFO_GEN[1].stream_data_fifo_reg_0_7_0_5\ : label is 7;
+  attribute ram_slice_begin of \FIFO_GEN[1].stream_data_fifo_reg_0_7_0_5\ : label is 0;
   attribute ram_slice_end of \FIFO_GEN[1].stream_data_fifo_reg_0_7_0_5\ : label is 5;
   attribute METHODOLOGY_DRC_VIOS of \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7\ : label is "";
   attribute ram_addr_begin of \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7\ : label is 0;
@@ -510,164 +554,71 @@ architecture STRUCTURE of design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA is
   attribute ram_slice_begin of \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7\ : label is 6;
   attribute ram_slice_end of \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7\ : label is 7;
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of mst_exec_state_i_1 : label is "soft_lutpair7";
-  attribute SOFT_HLUTNM of \write_pointer[0]_i_1\ : label is "soft_lutpair8";
-  attribute SOFT_HLUTNM of \write_pointer[1]_i_1\ : label is "soft_lutpair8";
-  attribute SOFT_HLUTNM of writes_done_i_1 : label is "soft_lutpair7";
+  attribute SOFT_HLUTNM of mst_exec_state_i_1 : label is "soft_lutpair6";
+  attribute SOFT_HLUTNM of \write_pointer[0]_i_1\ : label is "soft_lutpair7";
+  attribute SOFT_HLUTNM of \write_pointer[1]_i_1\ : label is "soft_lutpair7";
+  attribute SOFT_HLUTNM of writes_done_i_1 : label is "soft_lutpair6";
 begin
   mst_exec_state_reg_0 <= \^mst_exec_state_reg_0\;
-\FIFO_GEN[0].stream_data_fifo_reg_0_7_0_0\: unisim.vcomponents.RAM32X1S
-    generic map(
-      INIT => X"00000000"
-    )
-        port map (
-      A0 => write_pointer(0),
-      A1 => write_pointer(1),
-      A2 => write_pointer(2),
-      A3 => '0',
-      A4 => '0',
-      D => myInput(0),
-      O => m_axis_data_tdata(24),
+\FIFO_GEN[0].stream_data_fifo_reg_0_7_0_5\: unisim.vcomponents.RAM32M
+     port map (
+      ADDRA(4 downto 3) => B"00",
+      ADDRA(2 downto 0) => Q(2 downto 0),
+      ADDRB(4 downto 3) => B"00",
+      ADDRB(2 downto 0) => Q(2 downto 0),
+      ADDRC(4 downto 3) => B"00",
+      ADDRC(2 downto 0) => Q(2 downto 0),
+      ADDRD(4 downto 3) => B"00",
+      ADDRD(2 downto 0) => write_pointer(2 downto 0),
+      DIA(1 downto 0) => s_axis_data_tdata(1 downto 0),
+      DIB(1 downto 0) => s_axis_data_tdata(3 downto 2),
+      DIC(1 downto 0) => s_axis_data_tdata(5 downto 4),
+      DID(1 downto 0) => B"00",
+      DOA(1 downto 0) => m_axis_data_tdata(1 downto 0),
+      DOB(1 downto 0) => m_axis_data_tdata(3 downto 2),
+      DOC(1 downto 0) => m_axis_data_tdata(5 downto 4),
+      DOD(1 downto 0) => \NLW_FIFO_GEN[0].stream_data_fifo_reg_0_7_0_5_DOD_UNCONNECTED\(1 downto 0),
       WCLK => s_axis_data_aclk,
       WE => fifo_wren
     );
-\FIFO_GEN[0].stream_data_fifo_reg_0_7_1_1\: unisim.vcomponents.RAM32X1S
-    generic map(
-      INIT => X"00000000"
-    )
-        port map (
-      A0 => write_pointer(0),
-      A1 => write_pointer(1),
-      A2 => write_pointer(2),
-      A3 => '0',
-      A4 => '0',
-      D => myInput(1),
-      O => m_axis_data_tdata(25),
+\FIFO_GEN[0].stream_data_fifo_reg_0_7_6_7\: unisim.vcomponents.RAM32M
+     port map (
+      ADDRA(4 downto 3) => B"00",
+      ADDRA(2 downto 0) => Q(2 downto 0),
+      ADDRB(4 downto 3) => B"00",
+      ADDRB(2 downto 0) => Q(2 downto 0),
+      ADDRC(4 downto 3) => B"00",
+      ADDRC(2 downto 0) => Q(2 downto 0),
+      ADDRD(4 downto 3) => B"00",
+      ADDRD(2 downto 0) => write_pointer(2 downto 0),
+      DIA(1 downto 0) => s_axis_data_tdata(7 downto 6),
+      DIB(1 downto 0) => B"00",
+      DIC(1 downto 0) => B"00",
+      DID(1 downto 0) => B"00",
+      DOA(1 downto 0) => m_axis_data_tdata(7 downto 6),
+      DOB(1 downto 0) => \NLW_FIFO_GEN[0].stream_data_fifo_reg_0_7_6_7_DOB_UNCONNECTED\(1 downto 0),
+      DOC(1 downto 0) => \NLW_FIFO_GEN[0].stream_data_fifo_reg_0_7_6_7_DOC_UNCONNECTED\(1 downto 0),
+      DOD(1 downto 0) => \NLW_FIFO_GEN[0].stream_data_fifo_reg_0_7_6_7_DOD_UNCONNECTED\(1 downto 0),
       WCLK => s_axis_data_aclk,
       WE => fifo_wren
-    );
-\FIFO_GEN[0].stream_data_fifo_reg_0_7_2_2\: unisim.vcomponents.RAM32X1S
-    generic map(
-      INIT => X"00000000"
-    )
-        port map (
-      A0 => write_pointer(0),
-      A1 => write_pointer(1),
-      A2 => write_pointer(2),
-      A3 => '0',
-      A4 => '0',
-      D => myInput(2),
-      O => m_axis_data_tdata(26),
-      WCLK => s_axis_data_aclk,
-      WE => fifo_wren
-    );
-\FIFO_GEN[0].stream_data_fifo_reg_0_7_3_3\: unisim.vcomponents.RAM32X1S
-    generic map(
-      INIT => X"00000000"
-    )
-        port map (
-      A0 => write_pointer(0),
-      A1 => write_pointer(1),
-      A2 => write_pointer(2),
-      A3 => '0',
-      A4 => '0',
-      D => myInput(3),
-      O => m_axis_data_tdata(27),
-      WCLK => s_axis_data_aclk,
-      WE => fifo_wren
-    );
-\FIFO_GEN[0].stream_data_fifo_reg_0_7_4_4\: unisim.vcomponents.RAM32X1S
-    generic map(
-      INIT => X"00000000"
-    )
-        port map (
-      A0 => write_pointer(0),
-      A1 => write_pointer(1),
-      A2 => write_pointer(2),
-      A3 => '0',
-      A4 => '0',
-      D => myInput(4),
-      O => m_axis_data_tdata(28),
-      WCLK => s_axis_data_aclk,
-      WE => fifo_wren
-    );
-\FIFO_GEN[0].stream_data_fifo_reg_0_7_5_5\: unisim.vcomponents.RAM32X1S
-    generic map(
-      INIT => X"00000000"
-    )
-        port map (
-      A0 => write_pointer(0),
-      A1 => write_pointer(1),
-      A2 => write_pointer(2),
-      A3 => '0',
-      A4 => '0',
-      D => myInput(5),
-      O => m_axis_data_tdata(29),
-      WCLK => s_axis_data_aclk,
-      WE => fifo_wren
-    );
-\FIFO_GEN[0].stream_data_fifo_reg_0_7_6_6\: unisim.vcomponents.RAM32X1S
-    generic map(
-      INIT => X"00000000"
-    )
-        port map (
-      A0 => write_pointer(0),
-      A1 => write_pointer(1),
-      A2 => write_pointer(2),
-      A3 => '0',
-      A4 => '0',
-      D => myInput(6),
-      O => m_axis_data_tdata(30),
-      WCLK => s_axis_data_aclk,
-      WE => fifo_wren
-    );
-\FIFO_GEN[0].stream_data_fifo_reg_0_7_7_7\: unisim.vcomponents.RAM32X1S
-    generic map(
-      INIT => X"00000000"
-    )
-        port map (
-      A0 => write_pointer(0),
-      A1 => write_pointer(1),
-      A2 => write_pointer(2),
-      A3 => '0',
-      A4 => '0',
-      D => myInput(7),
-      O => m_axis_data_tdata(31),
-      WCLK => s_axis_data_aclk,
-      WE => fifo_wren
-    );
-\FIFO_GEN[0].stream_data_fifo_reg_0_7_7_7_i_1\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"8"
-    )
-        port map (
-      I0 => s_axis_data_tvalid,
-      I1 => \^mst_exec_state_reg_0\,
-      O => fifo_wren
     );
 \FIFO_GEN[1].stream_data_fifo_reg_0_7_0_5\: unisim.vcomponents.RAM32M
      port map (
       ADDRA(4 downto 3) => B"00",
-      ADDRA(2) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_1_n_0\,
-      ADDRA(1) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_2_n_0\,
-      ADDRA(0) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_3_n_0\,
+      ADDRA(2 downto 0) => ADDRA(2 downto 0),
       ADDRB(4 downto 3) => B"00",
-      ADDRB(2) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_1_n_0\,
-      ADDRB(1) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_2_n_0\,
-      ADDRB(0) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_3_n_0\,
+      ADDRB(2 downto 0) => ADDRA(2 downto 0),
       ADDRC(4 downto 3) => B"00",
-      ADDRC(2) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_1_n_0\,
-      ADDRC(1) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_2_n_0\,
-      ADDRC(0) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_3_n_0\,
+      ADDRC(2 downto 0) => ADDRA(2 downto 0),
       ADDRD(4 downto 3) => B"00",
       ADDRD(2 downto 0) => write_pointer(2 downto 0),
-      DIA(1 downto 0) => myInput(9 downto 8),
-      DIB(1 downto 0) => myInput(11 downto 10),
-      DIC(1 downto 0) => myInput(13 downto 12),
+      DIA(1 downto 0) => s_axis_data_tdata(9 downto 8),
+      DIB(1 downto 0) => s_axis_data_tdata(11 downto 10),
+      DIC(1 downto 0) => s_axis_data_tdata(13 downto 12),
       DID(1 downto 0) => B"00",
-      DOA(1 downto 0) => m_axis_data_tdata(17 downto 16),
-      DOB(1 downto 0) => m_axis_data_tdata(19 downto 18),
-      DOC(1 downto 0) => m_axis_data_tdata(21 downto 20),
+      DOA(1 downto 0) => m_axis_data_tdata(9 downto 8),
+      DOB(1 downto 0) => m_axis_data_tdata(11 downto 10),
+      DOC(1 downto 0) => m_axis_data_tdata(13 downto 12),
       DOD(1 downto 0) => \NLW_FIFO_GEN[1].stream_data_fifo_reg_0_7_0_5_DOD_UNCONNECTED\(1 downto 0),
       WCLK => s_axis_data_aclk,
       WE => fifo_wren
@@ -675,77 +626,44 @@ begin
 \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7\: unisim.vcomponents.RAM32M
      port map (
       ADDRA(4 downto 3) => B"00",
-      ADDRA(2) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_1_n_0\,
-      ADDRA(1) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_2_n_0\,
-      ADDRA(0) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_3_n_0\,
+      ADDRA(2 downto 0) => ADDRA(2 downto 0),
       ADDRB(4 downto 3) => B"00",
-      ADDRB(2) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_1_n_0\,
-      ADDRB(1) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_2_n_0\,
-      ADDRB(0) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_3_n_0\,
+      ADDRB(2 downto 0) => ADDRA(2 downto 0),
       ADDRC(4 downto 3) => B"00",
-      ADDRC(2) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_1_n_0\,
-      ADDRC(1) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_2_n_0\,
-      ADDRC(0) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_3_n_0\,
+      ADDRC(2 downto 0) => ADDRA(2 downto 0),
       ADDRD(4 downto 3) => B"00",
       ADDRD(2 downto 0) => write_pointer(2 downto 0),
-      DIA(1 downto 0) => myInput(15 downto 14),
+      DIA(1 downto 0) => s_axis_data_tdata(15 downto 14),
       DIB(1 downto 0) => B"00",
       DIC(1 downto 0) => B"00",
       DID(1 downto 0) => B"00",
-      DOA(1 downto 0) => m_axis_data_tdata(23 downto 22),
+      DOA(1 downto 0) => m_axis_data_tdata(15 downto 14),
       DOB(1 downto 0) => \NLW_FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_DOB_UNCONNECTED\(1 downto 0),
       DOC(1 downto 0) => \NLW_FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_DOC_UNCONNECTED\(1 downto 0),
       DOD(1 downto 0) => \NLW_FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_DOD_UNCONNECTED\(1 downto 0),
       WCLK => s_axis_data_aclk,
       WE => fifo_wren
     );
-\FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_1\: unisim.vcomponents.LUT3
-    generic map(
-      INIT => X"78"
-    )
-        port map (
-      I0 => write_pointer(0),
-      I1 => write_pointer(1),
-      I2 => write_pointer(2),
-      O => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_1_n_0\
-    );
-\FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"6"
-    )
-        port map (
-      I0 => write_pointer(0),
-      I1 => write_pointer(1),
-      O => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_2_n_0\
-    );
-\FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_3\: unisim.vcomponents.LUT1
-    generic map(
-      INIT => X"1"
-    )
-        port map (
-      I0 => write_pointer(0),
-      O => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_3_n_0\
-    );
 \FIFO_GEN[2].stream_data_fifo_reg_0_7_0_5\: unisim.vcomponents.RAM32M
      port map (
       ADDRA(4 downto 3) => B"00",
-      ADDRA(2 downto 1) => inputFifoValue1(2 downto 1),
-      ADDRA(0) => write_pointer(0),
+      ADDRA(2 downto 1) => \m_axis_data_tdata[23]\(1 downto 0),
+      ADDRA(0) => Q(0),
       ADDRB(4 downto 3) => B"00",
-      ADDRB(2 downto 1) => inputFifoValue1(2 downto 1),
-      ADDRB(0) => write_pointer(0),
+      ADDRB(2 downto 1) => \m_axis_data_tdata[23]\(1 downto 0),
+      ADDRB(0) => Q(0),
       ADDRC(4 downto 3) => B"00",
-      ADDRC(2 downto 1) => inputFifoValue1(2 downto 1),
-      ADDRC(0) => write_pointer(0),
+      ADDRC(2 downto 1) => \m_axis_data_tdata[23]\(1 downto 0),
+      ADDRC(0) => Q(0),
       ADDRD(4 downto 3) => B"00",
       ADDRD(2 downto 0) => write_pointer(2 downto 0),
-      DIA(1 downto 0) => myInput(17 downto 16),
-      DIB(1 downto 0) => myInput(19 downto 18),
-      DIC(1 downto 0) => myInput(21 downto 20),
+      DIA(1 downto 0) => s_axis_data_tdata(17 downto 16),
+      DIB(1 downto 0) => s_axis_data_tdata(19 downto 18),
+      DIC(1 downto 0) => s_axis_data_tdata(21 downto 20),
       DID(1 downto 0) => B"00",
-      DOA(1 downto 0) => m_axis_data_tdata(9 downto 8),
-      DOB(1 downto 0) => m_axis_data_tdata(11 downto 10),
-      DOC(1 downto 0) => m_axis_data_tdata(13 downto 12),
+      DOA(1 downto 0) => m_axis_data_tdata(17 downto 16),
+      DOB(1 downto 0) => m_axis_data_tdata(19 downto 18),
+      DOC(1 downto 0) => m_axis_data_tdata(21 downto 20),
       DOD(1 downto 0) => \NLW_FIFO_GEN[2].stream_data_fifo_reg_0_7_0_5_DOD_UNCONNECTED\(1 downto 0),
       WCLK => s_axis_data_aclk,
       WE => fifo_wren
@@ -753,67 +671,47 @@ begin
 \FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7\: unisim.vcomponents.RAM32M
      port map (
       ADDRA(4 downto 3) => B"00",
-      ADDRA(2 downto 1) => inputFifoValue1(2 downto 1),
-      ADDRA(0) => write_pointer(0),
+      ADDRA(2 downto 1) => \m_axis_data_tdata[23]\(1 downto 0),
+      ADDRA(0) => Q(0),
       ADDRB(4 downto 3) => B"00",
-      ADDRB(2 downto 1) => inputFifoValue1(2 downto 1),
-      ADDRB(0) => write_pointer(0),
+      ADDRB(2 downto 1) => \m_axis_data_tdata[23]\(1 downto 0),
+      ADDRB(0) => Q(0),
       ADDRC(4 downto 3) => B"00",
-      ADDRC(2 downto 1) => inputFifoValue1(2 downto 1),
-      ADDRC(0) => write_pointer(0),
+      ADDRC(2 downto 1) => \m_axis_data_tdata[23]\(1 downto 0),
+      ADDRC(0) => Q(0),
       ADDRD(4 downto 3) => B"00",
       ADDRD(2 downto 0) => write_pointer(2 downto 0),
-      DIA(1 downto 0) => myInput(23 downto 22),
+      DIA(1 downto 0) => s_axis_data_tdata(23 downto 22),
       DIB(1 downto 0) => B"00",
       DIC(1 downto 0) => B"00",
       DID(1 downto 0) => B"00",
-      DOA(1 downto 0) => m_axis_data_tdata(15 downto 14),
+      DOA(1 downto 0) => m_axis_data_tdata(23 downto 22),
       DOB(1 downto 0) => \NLW_FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_DOB_UNCONNECTED\(1 downto 0),
       DOC(1 downto 0) => \NLW_FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_DOC_UNCONNECTED\(1 downto 0),
       DOD(1 downto 0) => \NLW_FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_DOD_UNCONNECTED\(1 downto 0),
       WCLK => s_axis_data_aclk,
       WE => fifo_wren
     );
-\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_1\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"6"
-    )
-        port map (
-      I0 => write_pointer(1),
-      I1 => write_pointer(2),
-      O => inputFifoValue1(2)
-    );
-\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_2\: unisim.vcomponents.LUT1
-    generic map(
-      INIT => X"1"
-    )
-        port map (
-      I0 => write_pointer(1),
-      O => inputFifoValue1(1)
-    );
 \FIFO_GEN[3].stream_data_fifo_reg_0_7_0_5\: unisim.vcomponents.RAM32M
      port map (
       ADDRA(4 downto 3) => B"00",
-      ADDRA(2) => \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_1_n_0\,
-      ADDRA(1) => \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_2_n_0\,
-      ADDRA(0) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_3_n_0\,
+      ADDRA(2 downto 1) => \m_axis_data_tdata[31]\(1 downto 0),
+      ADDRA(0) => ADDRA(0),
       ADDRB(4 downto 3) => B"00",
-      ADDRB(2) => \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_1_n_0\,
-      ADDRB(1) => \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_2_n_0\,
-      ADDRB(0) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_3_n_0\,
+      ADDRB(2 downto 1) => \m_axis_data_tdata[31]\(1 downto 0),
+      ADDRB(0) => ADDRA(0),
       ADDRC(4 downto 3) => B"00",
-      ADDRC(2) => \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_1_n_0\,
-      ADDRC(1) => \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_2_n_0\,
-      ADDRC(0) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_3_n_0\,
+      ADDRC(2 downto 1) => \m_axis_data_tdata[31]\(1 downto 0),
+      ADDRC(0) => ADDRA(0),
       ADDRD(4 downto 3) => B"00",
       ADDRD(2 downto 0) => write_pointer(2 downto 0),
-      DIA(1 downto 0) => myInput(25 downto 24),
-      DIB(1 downto 0) => myInput(27 downto 26),
-      DIC(1 downto 0) => myInput(29 downto 28),
+      DIA(1 downto 0) => s_axis_data_tdata(25 downto 24),
+      DIB(1 downto 0) => s_axis_data_tdata(27 downto 26),
+      DIC(1 downto 0) => s_axis_data_tdata(29 downto 28),
       DID(1 downto 0) => B"00",
-      DOA(1 downto 0) => m_axis_data_tdata(1 downto 0),
-      DOB(1 downto 0) => m_axis_data_tdata(3 downto 2),
-      DOC(1 downto 0) => m_axis_data_tdata(5 downto 4),
+      DOA(1 downto 0) => m_axis_data_tdata(25 downto 24),
+      DOB(1 downto 0) => m_axis_data_tdata(27 downto 26),
+      DOC(1 downto 0) => m_axis_data_tdata(29 downto 28),
       DOD(1 downto 0) => \NLW_FIFO_GEN[3].stream_data_fifo_reg_0_7_0_5_DOD_UNCONNECTED\(1 downto 0),
       WCLK => s_axis_data_aclk,
       WE => fifo_wren
@@ -821,48 +719,35 @@ begin
 \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7\: unisim.vcomponents.RAM32M
      port map (
       ADDRA(4 downto 3) => B"00",
-      ADDRA(2) => \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_1_n_0\,
-      ADDRA(1) => \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_2_n_0\,
-      ADDRA(0) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_3_n_0\,
+      ADDRA(2 downto 1) => \m_axis_data_tdata[31]\(1 downto 0),
+      ADDRA(0) => ADDRA(0),
       ADDRB(4 downto 3) => B"00",
-      ADDRB(2) => \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_1_n_0\,
-      ADDRB(1) => \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_2_n_0\,
-      ADDRB(0) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_3_n_0\,
+      ADDRB(2 downto 1) => \m_axis_data_tdata[31]\(1 downto 0),
+      ADDRB(0) => ADDRA(0),
       ADDRC(4 downto 3) => B"00",
-      ADDRC(2) => \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_1_n_0\,
-      ADDRC(1) => \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_2_n_0\,
-      ADDRC(0) => \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_3_n_0\,
+      ADDRC(2 downto 1) => \m_axis_data_tdata[31]\(1 downto 0),
+      ADDRC(0) => ADDRA(0),
       ADDRD(4 downto 3) => B"00",
       ADDRD(2 downto 0) => write_pointer(2 downto 0),
-      DIA(1 downto 0) => myInput(31 downto 30),
+      DIA(1 downto 0) => s_axis_data_tdata(31 downto 30),
       DIB(1 downto 0) => B"00",
       DIC(1 downto 0) => B"00",
       DID(1 downto 0) => B"00",
-      DOA(1 downto 0) => m_axis_data_tdata(7 downto 6),
+      DOA(1 downto 0) => m_axis_data_tdata(31 downto 30),
       DOB(1 downto 0) => \NLW_FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_DOB_UNCONNECTED\(1 downto 0),
       DOC(1 downto 0) => \NLW_FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_DOC_UNCONNECTED\(1 downto 0),
       DOD(1 downto 0) => \NLW_FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_DOD_UNCONNECTED\(1 downto 0),
       WCLK => s_axis_data_aclk,
       WE => fifo_wren
     );
-\FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_1\: unisim.vcomponents.LUT3
+\FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_1\: unisim.vcomponents.LUT2
     generic map(
-      INIT => X"1E"
+      INIT => X"8"
     )
         port map (
-      I0 => write_pointer(1),
-      I1 => write_pointer(0),
-      I2 => write_pointer(2),
-      O => \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_1_n_0\
-    );
-\FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_2\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"9"
-    )
-        port map (
-      I0 => write_pointer(1),
-      I1 => write_pointer(0),
-      O => \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_2_n_0\
+      I0 => s_axis_data_tvalid,
+      I1 => \^mst_exec_state_reg_0\,
+      O => fifo_wren
     );
 mst_exec_state_i_1: unisim.vcomponents.LUT4
     generic map(
@@ -992,7 +877,7 @@ entity design_1_myIP_0_0_myIP_v1_1 is
     s_axis_data_aresetn : in STD_LOGIC;
     s_axis_data_aclk : in STD_LOGIC;
     m_axis_data_aclk : in STD_LOGIC;
-    myInput : in STD_LOGIC_VECTOR ( 31 downto 0 );
+    s_axis_data_tdata : in STD_LOGIC_VECTOR ( 31 downto 0 );
     s_axis_data_tlast : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
@@ -1000,23 +885,43 @@ entity design_1_myIP_0_0_myIP_v1_1 is
 end design_1_myIP_0_0_myIP_v1_1;
 
 architecture STRUCTURE of design_1_myIP_0_0_myIP_v1_1 is
+  signal inputFifoValue1 : STD_LOGIC_VECTOR ( 2 downto 0 );
+  signal \master_slave_read_pointer__0\ : STD_LOGIC_VECTOR ( 2 downto 0 );
+  signal myIP_v1_1_M_AXIS_DATA_inst_n_10 : STD_LOGIC;
+  signal myIP_v1_1_M_AXIS_DATA_inst_n_14 : STD_LOGIC;
+  signal myIP_v1_1_M_AXIS_DATA_inst_n_15 : STD_LOGIC;
+  signal myIP_v1_1_M_AXIS_DATA_inst_n_9 : STD_LOGIC;
 begin
 myIP_v1_1_M_AXIS_DATA_inst: entity work.design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA
      port map (
+      ADDRA(2) => myIP_v1_1_M_AXIS_DATA_inst_n_9,
+      ADDRA(1) => myIP_v1_1_M_AXIS_DATA_inst_n_10,
+      ADDRA(0) => inputFifoValue1(0),
+      Q(2 downto 0) => \master_slave_read_pointer__0\(2 downto 0),
       m_axis_data_aclk => m_axis_data_aclk,
       m_axis_data_aresetn => m_axis_data_aresetn,
       m_axis_data_tlast => m_axis_data_tlast,
       m_axis_data_tready => m_axis_data_tready,
       m_axis_data_tvalid => m_axis_data_tvalid,
-      myOutput(3 downto 0) => myOutput(3 downto 0)
+      myOutput(3 downto 0) => myOutput(3 downto 0),
+      \read_pointer_reg[1]_0\(1 downto 0) => inputFifoValue1(2 downto 1),
+      \read_pointer_reg[1]_1\(1) => myIP_v1_1_M_AXIS_DATA_inst_n_14,
+      \read_pointer_reg[1]_1\(0) => myIP_v1_1_M_AXIS_DATA_inst_n_15
     );
 myIP_v1_1_S_AXIS_DATA_inst: entity work.design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA
      port map (
+      ADDRA(2) => myIP_v1_1_M_AXIS_DATA_inst_n_9,
+      ADDRA(1) => myIP_v1_1_M_AXIS_DATA_inst_n_10,
+      ADDRA(0) => inputFifoValue1(0),
+      Q(2 downto 0) => \master_slave_read_pointer__0\(2 downto 0),
       m_axis_data_tdata(31 downto 0) => m_axis_data_tdata(31 downto 0),
+      \m_axis_data_tdata[23]\(1) => myIP_v1_1_M_AXIS_DATA_inst_n_14,
+      \m_axis_data_tdata[23]\(0) => myIP_v1_1_M_AXIS_DATA_inst_n_15,
+      \m_axis_data_tdata[31]\(1 downto 0) => inputFifoValue1(2 downto 1),
       mst_exec_state_reg_0 => mst_exec_state_reg,
-      myInput(31 downto 0) => myInput(31 downto 0),
       s_axis_data_aclk => s_axis_data_aclk,
       s_axis_data_aresetn => s_axis_data_aresetn,
+      s_axis_data_tdata(31 downto 0) => s_axis_data_tdata(31 downto 0),
       s_axis_data_tlast => s_axis_data_tlast,
       s_axis_data_tvalid => s_axis_data_tvalid
     );
@@ -1131,10 +1036,10 @@ inst: entity work.design_1_myIP_0_0_myIP_v1_1
       m_axis_data_tready => m_axis_data_tready,
       m_axis_data_tvalid => m_axis_data_tvalid,
       mst_exec_state_reg => s_axis_data_tready,
-      myInput(31 downto 0) => myInput(31 downto 0),
       myOutput(3 downto 0) => \^myoutput\(3 downto 0),
       s_axis_data_aclk => s_axis_data_aclk,
       s_axis_data_aresetn => s_axis_data_aresetn,
+      s_axis_data_tdata(31 downto 0) => s_axis_data_tdata(31 downto 0),
       s_axis_data_tlast => s_axis_data_tlast,
       s_axis_data_tvalid => s_axis_data_tvalid
     );

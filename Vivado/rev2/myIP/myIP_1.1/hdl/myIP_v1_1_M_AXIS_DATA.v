@@ -15,7 +15,7 @@
 	)
 	(
 		// Users to add ports here
-
+        output wire [C_M_AXIS_TDATA_WIDTH-1:0] pointer,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -89,7 +89,6 @@
 
 	assign M_AXIS_TVALID	= axis_tvalid_delay;
 	assign M_AXIS_TDATA	= stream_data_out;
-//	assign M_AXIS_TDATA	= 3;
 	assign M_AXIS_TLAST	= axis_tlast_delay;
 	assign M_AXIS_TSTRB	= {(C_M_AXIS_TDATA_WIDTH/8){1'b1}};
 
@@ -223,7 +222,7 @@
 	    end                                              
 
 	// Add user logic here
-
+    assign pointer = read_pointer;
 	// User logic ends
 
 	endmodule
