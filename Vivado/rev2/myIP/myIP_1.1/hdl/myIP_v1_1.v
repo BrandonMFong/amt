@@ -43,7 +43,7 @@
         input wire [C_S_AXIS_DATA_TDATA_WIDTH-1 : 0] myInput,
         output wire [C_M_AXIS_DATA_TDATA_WIDTH-1 : 0] myOutput
 	);
-    wire [31-1:0] master_slave_read_pointer;
+    wire [31:0] master_slave_read_pointer;
 	
 // Instantiation of Axi Bus Interface S_AXIS_DATA
 	myIP_v1_1_S_AXIS_DATA # ( 

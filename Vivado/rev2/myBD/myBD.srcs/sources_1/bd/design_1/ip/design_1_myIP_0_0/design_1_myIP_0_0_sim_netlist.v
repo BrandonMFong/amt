@@ -1,7 +1,7 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-// Date        : Sun Jun 13 11:00:13 2021
+// Date        : Sun Jun 13 11:45:15 2021
 // Host        : KAMANTA running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.srcs/sources_1/bd/design_1/ip/design_1_myIP_0_0/design_1_myIP_0_0_sim_netlist.v
@@ -120,9 +120,9 @@ endmodule
 (* ORIG_REF_NAME = "myIP_v1_1" *) 
 module design_1_myIP_0_0_myIP_v1_1
    (mst_exec_state_reg,
+    myOutput,
     m_axis_data_tdata,
     m_axis_data_tvalid,
-    myOutput,
     m_axis_data_tlast,
     m_axis_data_tready,
     m_axis_data_aresetn,
@@ -133,9 +133,9 @@ module design_1_myIP_0_0_myIP_v1_1
     s_axis_data_tdata,
     s_axis_data_tlast);
   output mst_exec_state_reg;
+  output [3:0]myOutput;
   output [31:0]m_axis_data_tdata;
   output m_axis_data_tvalid;
-  output [3:0]myOutput;
   output m_axis_data_tlast;
   input m_axis_data_tready;
   input m_axis_data_aresetn;
@@ -146,19 +146,14 @@ module design_1_myIP_0_0_myIP_v1_1
   input [31:0]s_axis_data_tdata;
   input s_axis_data_tlast;
 
-  wire [2:0]inputFifoValue1;
   wire m_axis_data_aclk;
   wire m_axis_data_aresetn;
   wire [31:0]m_axis_data_tdata;
   wire m_axis_data_tlast;
   wire m_axis_data_tready;
   wire m_axis_data_tvalid;
-  wire [2:0]master_slave_read_pointer__0;
   wire mst_exec_state_reg;
-  wire myIP_v1_1_M_AXIS_DATA_inst_n_10;
-  wire myIP_v1_1_M_AXIS_DATA_inst_n_14;
-  wire myIP_v1_1_M_AXIS_DATA_inst_n_15;
-  wire myIP_v1_1_M_AXIS_DATA_inst_n_9;
+  wire myIP_v1_1_M_AXIS_DATA_inst_n_2;
   wire [3:0]myOutput;
   wire s_axis_data_aclk;
   wire s_axis_data_aresetn;
@@ -167,22 +162,17 @@ module design_1_myIP_0_0_myIP_v1_1
   wire s_axis_data_tvalid;
 
   design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA myIP_v1_1_M_AXIS_DATA_inst
-       (.ADDRA({myIP_v1_1_M_AXIS_DATA_inst_n_9,myIP_v1_1_M_AXIS_DATA_inst_n_10,inputFifoValue1[0]}),
-        .Q(master_slave_read_pointer__0),
+       (.ADDRA(myIP_v1_1_M_AXIS_DATA_inst_n_2),
+        .Q(myOutput),
         .m_axis_data_aclk(m_axis_data_aclk),
         .m_axis_data_aresetn(m_axis_data_aresetn),
         .m_axis_data_tlast(m_axis_data_tlast),
         .m_axis_data_tready(m_axis_data_tready),
-        .m_axis_data_tvalid(m_axis_data_tvalid),
-        .myOutput(myOutput),
-        .\read_pointer_reg[1]_0 (inputFifoValue1[2:1]),
-        .\read_pointer_reg[1]_1 ({myIP_v1_1_M_AXIS_DATA_inst_n_14,myIP_v1_1_M_AXIS_DATA_inst_n_15}));
+        .m_axis_data_tvalid(m_axis_data_tvalid));
   design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA myIP_v1_1_S_AXIS_DATA_inst
-       (.ADDRA({myIP_v1_1_M_AXIS_DATA_inst_n_9,myIP_v1_1_M_AXIS_DATA_inst_n_10,inputFifoValue1[0]}),
-        .Q(master_slave_read_pointer__0),
+       (.ADDRA(myIP_v1_1_M_AXIS_DATA_inst_n_2),
+        .Q(myOutput[2:0]),
         .m_axis_data_tdata(m_axis_data_tdata),
-        .\m_axis_data_tdata[23] ({myIP_v1_1_M_AXIS_DATA_inst_n_14,myIP_v1_1_M_AXIS_DATA_inst_n_15}),
-        .\m_axis_data_tdata[31] (inputFifoValue1[2:1]),
         .mst_exec_state_reg_0(mst_exec_state_reg),
         .s_axis_data_aclk(s_axis_data_aclk),
         .s_axis_data_aresetn(s_axis_data_aresetn),
@@ -195,32 +185,26 @@ endmodule
 module design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA
    (m_axis_data_tvalid,
     m_axis_data_tlast,
-    Q,
-    myOutput,
     ADDRA,
-    \read_pointer_reg[1]_0 ,
-    \read_pointer_reg[1]_1 ,
+    Q,
     m_axis_data_aclk,
     m_axis_data_tready,
     m_axis_data_aresetn);
   output m_axis_data_tvalid;
   output m_axis_data_tlast;
-  output [2:0]Q;
-  output [3:0]myOutput;
-  output [2:0]ADDRA;
-  output [1:0]\read_pointer_reg[1]_0 ;
-  output [1:0]\read_pointer_reg[1]_1 ;
+  output [0:0]ADDRA;
+  output [3:0]Q;
   input m_axis_data_aclk;
   input m_axis_data_tready;
   input m_axis_data_aresetn;
 
-  wire [2:0]ADDRA;
+  wire [0:0]ADDRA;
   wire \FSM_sequential_mst_exec_state[0]_i_1_n_0 ;
   wire \FSM_sequential_mst_exec_state[1]_i_1_n_0 ;
   wire \FSM_sequential_mst_exec_state[1]_i_2_n_0 ;
-  wire [2:0]Q;
+  wire [3:0]Q;
+  wire axis_tlast;
   wire axis_tlast_delay_i_1_n_0;
-  wire axis_tlast_delay_i_2_n_0;
   wire axis_tvalid;
   wire count;
   wire \count[2]_i_1_n_0 ;
@@ -230,62 +214,27 @@ module design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA
   wire m_axis_data_tlast;
   wire m_axis_data_tready;
   wire m_axis_data_tvalid;
-  wire [3:3]master_slave_read_pointer;
   wire [1:0]mst_exec_state;
-  wire [3:0]myOutput;
   wire [4:0]p_0_in;
-  wire [3:3]p_1_in;
+  wire [3:0]p_1_in;
+  wire \read_pointer[0]_i_1_n_0 ;
+  wire \read_pointer[1]_i_1_n_0 ;
+  wire \read_pointer[2]_i_1_n_0 ;
   wire \read_pointer[3]_i_1_n_0 ;
-  wire [1:0]\read_pointer_reg[1]_0 ;
-  wire [1:0]\read_pointer_reg[1]_1 ;
+  wire [3:0]read_pointer_reg;
+  wire \stream_data_out[2]_i_1_n_0 ;
   wire tx_done_i_1_n_0;
   wire tx_done_i_2_n_0;
   wire tx_done_reg_n_0;
   wire tx_en;
 
-  LUT3 #(
-    .INIT(8'h78)) 
+  LUT2 #(
+    .INIT(4'h6)) 
     \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_1 
        (.I0(Q[0]),
         .I1(Q[1]),
-        .I2(Q[2]),
-        .O(ADDRA[2]));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7_i_2 
-       (.I0(Q[0]),
-        .I1(Q[1]),
-        .O(ADDRA[1]));
-  LUT2 #(
-    .INIT(4'h6)) 
-    \FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_1 
-       (.I0(Q[1]),
-        .I1(Q[2]),
-        .O(\read_pointer_reg[1]_1 [1]));
-  LUT1 #(
-    .INIT(2'h1)) 
-    \FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_2 
-       (.I0(Q[1]),
-        .O(\read_pointer_reg[1]_1 [0]));
-  LUT3 #(
-    .INIT(8'h1E)) 
-    \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_2 
-       (.I0(Q[1]),
-        .I1(Q[0]),
-        .I2(Q[2]),
-        .O(\read_pointer_reg[1]_0 [1]));
-  LUT2 #(
-    .INIT(4'h9)) 
-    \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_3 
-       (.I0(Q[1]),
-        .I1(Q[0]),
-        .O(\read_pointer_reg[1]_0 [0]));
-  LUT1 #(
-    .INIT(2'h1)) 
-    \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_4 
-       (.I0(Q[0]),
-        .O(ADDRA[0]));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+        .O(ADDRA));
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
   LUT3 #(
     .INIT(8'hC7)) 
     \FSM_sequential_mst_exec_state[0]_i_1 
@@ -293,7 +242,7 @@ module design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA
         .I1(mst_exec_state[0]),
         .I2(mst_exec_state[1]),
         .O(\FSM_sequential_mst_exec_state[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
   LUT4 #(
     .INIT(16'hF3A0)) 
     \FSM_sequential_mst_exec_state[1]_i_1 
@@ -302,7 +251,7 @@ module design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA
         .I2(mst_exec_state[0]),
         .I3(mst_exec_state[1]),
         .O(\FSM_sequential_mst_exec_state[1]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT5 #(
     .INIT(32'h80000000)) 
     \FSM_sequential_mst_exec_state[1]_i_2 
@@ -331,19 +280,18 @@ module design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA
     axis_tlast_delay_i_1
        (.I0(m_axis_data_aresetn),
         .O(axis_tlast_delay_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair3" *) 
   LUT4 #(
     .INIT(16'h4000)) 
     axis_tlast_delay_i_2
-       (.I0(master_slave_read_pointer),
-        .I1(Q[2]),
-        .I2(Q[0]),
-        .I3(Q[1]),
-        .O(axis_tlast_delay_i_2_n_0));
+       (.I0(read_pointer_reg[3]),
+        .I1(read_pointer_reg[2]),
+        .I2(read_pointer_reg[1]),
+        .I3(read_pointer_reg[0]),
+        .O(axis_tlast));
   FDRE axis_tlast_delay_reg
        (.C(m_axis_data_aclk),
         .CE(1'b1),
-        .D(axis_tlast_delay_i_2_n_0),
+        .D(axis_tlast),
         .Q(m_axis_data_tlast),
         .R(axis_tlast_delay_i_1_n_0));
   (* SOFT_HLUTNM = "soft_lutpair0" *) 
@@ -352,7 +300,7 @@ module design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA
     axis_tvalid_delay_i_1
        (.I0(mst_exec_state[0]),
         .I1(mst_exec_state[1]),
-        .I2(master_slave_read_pointer),
+        .I2(read_pointer_reg[3]),
         .O(axis_tvalid));
   FDRE axis_tvalid_delay_reg
        (.C(m_axis_data_aclk),
@@ -360,20 +308,20 @@ module design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA
         .D(axis_tvalid),
         .Q(m_axis_data_tvalid),
         .R(axis_tlast_delay_i_1_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  (* SOFT_HLUTNM = "soft_lutpair6" *) 
   LUT1 #(
     .INIT(2'h1)) 
     \count[0]_i_1 
        (.I0(count_reg__0[0]),
         .O(p_0_in[0]));
-  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  (* SOFT_HLUTNM = "soft_lutpair6" *) 
   LUT2 #(
     .INIT(4'h6)) 
     \count[1]_i_1 
        (.I0(count_reg__0[0]),
         .I1(count_reg__0[1]),
         .O(p_0_in[1]));
-  (* SOFT_HLUTNM = "soft_lutpair4" *) 
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
   LUT3 #(
     .INIT(8'h78)) 
     \count[2]_i_1 
@@ -381,7 +329,7 @@ module design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA
         .I1(count_reg__0[1]),
         .I2(count_reg__0[2]),
         .O(\count[2]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair4" *) 
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
   LUT4 #(
     .INIT(16'h7F80)) 
     \count[3]_i_1 
@@ -397,7 +345,7 @@ module design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA
         .I1(mst_exec_state[0]),
         .I2(\FSM_sequential_mst_exec_state[1]_i_2_n_0 ),
         .O(count));
-  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT5 #(
     .INIT(32'h7FFF8000)) 
     \count[4]_i_2 
@@ -437,94 +385,143 @@ module design_1_myIP_0_0_myIP_v1_1_M_AXIS_DATA
         .D(p_0_in[4]),
         .Q(count_reg__0[4]),
         .R(axis_tlast_delay_i_1_n_0));
-  LUT4 #(
-    .INIT(16'h0040)) 
+  LUT5 #(
+    .INIT(32'hFFBF0040)) 
+    \read_pointer[0]_i_1 
+       (.I0(read_pointer_reg[3]),
+        .I1(m_axis_data_tready),
+        .I2(mst_exec_state[1]),
+        .I3(mst_exec_state[0]),
+        .I4(read_pointer_reg[0]),
+        .O(\read_pointer[0]_i_1_n_0 ));
+  LUT6 #(
+    .INIT(64'hFFFFDFFF00002000)) 
+    \read_pointer[1]_i_1 
+       (.I0(read_pointer_reg[0]),
+        .I1(mst_exec_state[0]),
+        .I2(mst_exec_state[1]),
+        .I3(m_axis_data_tready),
+        .I4(read_pointer_reg[3]),
+        .I5(read_pointer_reg[1]),
+        .O(\read_pointer[1]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+  LUT5 #(
+    .INIT(32'hFF7F0080)) 
+    \read_pointer[2]_i_1 
+       (.I0(read_pointer_reg[1]),
+        .I1(read_pointer_reg[0]),
+        .I2(tx_en),
+        .I3(read_pointer_reg[3]),
+        .I4(read_pointer_reg[2]),
+        .O(\read_pointer[2]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair1" *) 
+  LUT5 #(
+    .INIT(32'hFFFF8000)) 
     \read_pointer[3]_i_1 
-       (.I0(mst_exec_state[0]),
-        .I1(mst_exec_state[1]),
-        .I2(m_axis_data_tready),
-        .I3(master_slave_read_pointer),
+       (.I0(read_pointer_reg[0]),
+        .I1(read_pointer_reg[1]),
+        .I2(read_pointer_reg[2]),
+        .I3(tx_en),
+        .I4(read_pointer_reg[3]),
         .O(\read_pointer[3]_i_1_n_0 ));
   FDRE \read_pointer_reg[0] 
        (.C(m_axis_data_aclk),
-        .CE(\read_pointer[3]_i_1_n_0 ),
-        .D(ADDRA[0]),
-        .Q(Q[0]),
+        .CE(1'b1),
+        .D(\read_pointer[0]_i_1_n_0 ),
+        .Q(read_pointer_reg[0]),
         .R(axis_tlast_delay_i_1_n_0));
   FDRE \read_pointer_reg[1] 
        (.C(m_axis_data_aclk),
-        .CE(\read_pointer[3]_i_1_n_0 ),
-        .D(ADDRA[1]),
-        .Q(Q[1]),
+        .CE(1'b1),
+        .D(\read_pointer[1]_i_1_n_0 ),
+        .Q(read_pointer_reg[1]),
         .R(axis_tlast_delay_i_1_n_0));
   FDRE \read_pointer_reg[2] 
        (.C(m_axis_data_aclk),
-        .CE(\read_pointer[3]_i_1_n_0 ),
-        .D(ADDRA[2]),
-        .Q(Q[2]),
+        .CE(1'b1),
+        .D(\read_pointer[2]_i_1_n_0 ),
+        .Q(read_pointer_reg[2]),
         .R(axis_tlast_delay_i_1_n_0));
   FDRE \read_pointer_reg[3] 
        (.C(m_axis_data_aclk),
-        .CE(\read_pointer[3]_i_1_n_0 ),
-        .D(p_1_in),
-        .Q(master_slave_read_pointer),
+        .CE(1'b1),
+        .D(\read_pointer[3]_i_1_n_0 ),
+        .Q(read_pointer_reg[3]),
         .R(axis_tlast_delay_i_1_n_0));
+  LUT1 #(
+    .INIT(2'h1)) 
+    \stream_data_out[0]_i_1 
+       (.I0(read_pointer_reg[0]),
+        .O(p_1_in[0]));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \stream_data_out[1]_i_1 
+       (.I0(read_pointer_reg[0]),
+        .I1(read_pointer_reg[1]),
+        .O(p_1_in[1]));
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  LUT3 #(
+    .INIT(8'h78)) 
+    \stream_data_out[2]_i_1 
+       (.I0(read_pointer_reg[1]),
+        .I1(read_pointer_reg[0]),
+        .I2(read_pointer_reg[2]),
+        .O(\stream_data_out[2]_i_1_n_0 ));
   LUT4 #(
     .INIT(16'h0020)) 
     \stream_data_out[3]_i_1 
        (.I0(m_axis_data_tready),
-        .I1(master_slave_read_pointer),
+        .I1(read_pointer_reg[3]),
         .I2(mst_exec_state[1]),
         .I3(mst_exec_state[0]),
         .O(tx_en));
-  (* SOFT_HLUTNM = "soft_lutpair3" *) 
-  LUT4 #(
-    .INIT(16'h7F80)) 
+  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  LUT3 #(
+    .INIT(8'h80)) 
     \stream_data_out[3]_i_2 
-       (.I0(Q[1]),
-        .I1(Q[0]),
-        .I2(Q[2]),
-        .I3(master_slave_read_pointer),
-        .O(p_1_in));
+       (.I0(read_pointer_reg[0]),
+        .I1(read_pointer_reg[1]),
+        .I2(read_pointer_reg[2]),
+        .O(p_1_in[3]));
   FDSE \stream_data_out_reg[0] 
        (.C(m_axis_data_aclk),
         .CE(tx_en),
-        .D(ADDRA[0]),
-        .Q(myOutput[0]),
+        .D(p_1_in[0]),
+        .Q(Q[0]),
         .S(axis_tlast_delay_i_1_n_0));
   FDRE \stream_data_out_reg[1] 
        (.C(m_axis_data_aclk),
         .CE(tx_en),
-        .D(ADDRA[1]),
-        .Q(myOutput[1]),
+        .D(p_1_in[1]),
+        .Q(Q[1]),
         .R(axis_tlast_delay_i_1_n_0));
   FDRE \stream_data_out_reg[2] 
        (.C(m_axis_data_aclk),
         .CE(tx_en),
-        .D(ADDRA[2]),
-        .Q(myOutput[2]),
+        .D(\stream_data_out[2]_i_1_n_0 ),
+        .Q(Q[2]),
         .R(axis_tlast_delay_i_1_n_0));
   FDRE \stream_data_out_reg[3] 
        (.C(m_axis_data_aclk),
         .CE(tx_en),
-        .D(p_1_in),
-        .Q(myOutput[3]),
+        .D(p_1_in[3]),
+        .Q(Q[3]),
         .R(axis_tlast_delay_i_1_n_0));
   LUT6 #(
     .INIT(64'h00000000AAAAAABA)) 
     tx_done_i_1
        (.I0(tx_done_reg_n_0),
-        .I1(Q[0]),
-        .I2(master_slave_read_pointer),
-        .I3(Q[1]),
-        .I4(Q[2]),
+        .I1(read_pointer_reg[1]),
+        .I2(read_pointer_reg[3]),
+        .I3(read_pointer_reg[2]),
+        .I4(read_pointer_reg[0]),
         .I5(tx_done_i_2_n_0),
         .O(tx_done_i_1_n_0));
   (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT5 #(
     .INIT(32'h0040FFFF)) 
     tx_done_i_2
-       (.I0(master_slave_read_pointer),
+       (.I0(read_pointer_reg[3]),
         .I1(m_axis_data_tready),
         .I2(mst_exec_state[1]),
         .I3(mst_exec_state[0]),
@@ -543,32 +540,30 @@ module design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA
    (mst_exec_state_reg_0,
     m_axis_data_tdata,
     s_axis_data_tlast,
+    Q,
     s_axis_data_aclk,
     s_axis_data_tvalid,
     s_axis_data_aresetn,
     s_axis_data_tdata,
-    Q,
-    ADDRA,
-    \m_axis_data_tdata[23] ,
-    \m_axis_data_tdata[31] );
+    ADDRA);
   output mst_exec_state_reg_0;
   output [31:0]m_axis_data_tdata;
   input s_axis_data_tlast;
+  input [2:0]Q;
   input s_axis_data_aclk;
   input s_axis_data_tvalid;
   input s_axis_data_aresetn;
   input [31:0]s_axis_data_tdata;
-  input [2:0]Q;
-  input [2:0]ADDRA;
-  input [1:0]\m_axis_data_tdata[23] ;
-  input [1:0]\m_axis_data_tdata[31] ;
+  input [0:0]ADDRA;
 
-  wire [2:0]ADDRA;
+  wire [0:0]ADDRA;
+  wire \FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_1_n_0 ;
+  wire \FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_2_n_0 ;
   wire [2:0]Q;
   wire fifo_wren;
+  wire [2:0]inputFifoValue1__0;
+  wire inputFifoValue1_n_0;
   wire [31:0]m_axis_data_tdata;
-  wire [1:0]\m_axis_data_tdata[23] ;
-  wire [1:0]\m_axis_data_tdata[31] ;
   wire mst_exec_state_i_1_n_0;
   wire mst_exec_state_reg_0;
   wire s_axis_data_aclk;
@@ -646,9 +641,9 @@ module design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA
   (* ram_slice_begin = "0" *) 
   (* ram_slice_end = "5" *) 
   RAM32M \FIFO_GEN[1].stream_data_fifo_reg_0_7_0_5 
-       (.ADDRA({1'b0,1'b0,ADDRA}),
-        .ADDRB({1'b0,1'b0,ADDRA}),
-        .ADDRC({1'b0,1'b0,ADDRA}),
+       (.ADDRA({1'b0,1'b0,inputFifoValue1_n_0,ADDRA,inputFifoValue1__0[0]}),
+        .ADDRB({1'b0,1'b0,inputFifoValue1_n_0,ADDRA,inputFifoValue1__0[0]}),
+        .ADDRC({1'b0,1'b0,inputFifoValue1_n_0,ADDRA,inputFifoValue1__0[0]}),
         .ADDRD({1'b0,1'b0,write_pointer}),
         .DIA(s_axis_data_tdata[9:8]),
         .DIB(s_axis_data_tdata[11:10]),
@@ -666,9 +661,9 @@ module design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA
   (* ram_slice_begin = "6" *) 
   (* ram_slice_end = "7" *) 
   RAM32M \FIFO_GEN[1].stream_data_fifo_reg_0_7_6_7 
-       (.ADDRA({1'b0,1'b0,ADDRA}),
-        .ADDRB({1'b0,1'b0,ADDRA}),
-        .ADDRC({1'b0,1'b0,ADDRA}),
+       (.ADDRA({1'b0,1'b0,inputFifoValue1_n_0,ADDRA,inputFifoValue1__0[0]}),
+        .ADDRB({1'b0,1'b0,inputFifoValue1_n_0,ADDRA,inputFifoValue1__0[0]}),
+        .ADDRC({1'b0,1'b0,inputFifoValue1_n_0,ADDRA,inputFifoValue1__0[0]}),
         .ADDRD({1'b0,1'b0,write_pointer}),
         .DIA(s_axis_data_tdata[15:14]),
         .DIB({1'b0,1'b0}),
@@ -686,9 +681,9 @@ module design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA
   (* ram_slice_begin = "0" *) 
   (* ram_slice_end = "5" *) 
   RAM32M \FIFO_GEN[2].stream_data_fifo_reg_0_7_0_5 
-       (.ADDRA({1'b0,1'b0,\m_axis_data_tdata[23] ,Q[0]}),
-        .ADDRB({1'b0,1'b0,\m_axis_data_tdata[23] ,Q[0]}),
-        .ADDRC({1'b0,1'b0,\m_axis_data_tdata[23] ,Q[0]}),
+       (.ADDRA({1'b0,1'b0,\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_1_n_0 ,\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_2_n_0 ,Q[0]}),
+        .ADDRB({1'b0,1'b0,\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_1_n_0 ,\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_2_n_0 ,Q[0]}),
+        .ADDRC({1'b0,1'b0,\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_1_n_0 ,\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_2_n_0 ,Q[0]}),
         .ADDRD({1'b0,1'b0,write_pointer}),
         .DIA(s_axis_data_tdata[17:16]),
         .DIB(s_axis_data_tdata[19:18]),
@@ -706,9 +701,9 @@ module design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA
   (* ram_slice_begin = "6" *) 
   (* ram_slice_end = "7" *) 
   RAM32M \FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7 
-       (.ADDRA({1'b0,1'b0,\m_axis_data_tdata[23] ,Q[0]}),
-        .ADDRB({1'b0,1'b0,\m_axis_data_tdata[23] ,Q[0]}),
-        .ADDRC({1'b0,1'b0,\m_axis_data_tdata[23] ,Q[0]}),
+       (.ADDRA({1'b0,1'b0,\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_1_n_0 ,\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_2_n_0 ,Q[0]}),
+        .ADDRB({1'b0,1'b0,\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_1_n_0 ,\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_2_n_0 ,Q[0]}),
+        .ADDRC({1'b0,1'b0,\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_1_n_0 ,\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_2_n_0 ,Q[0]}),
         .ADDRD({1'b0,1'b0,write_pointer}),
         .DIA(s_axis_data_tdata[23:22]),
         .DIB({1'b0,1'b0}),
@@ -720,15 +715,26 @@ module design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA
         .DOD(\NLW_FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_DOD_UNCONNECTED [1:0]),
         .WCLK(s_axis_data_aclk),
         .WE(fifo_wren));
+  LUT2 #(
+    .INIT(4'h6)) 
+    \FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_1 
+       (.I0(Q[1]),
+        .I1(Q[2]),
+        .O(\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_1_n_0 ));
+  LUT1 #(
+    .INIT(2'h1)) 
+    \FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_2 
+       (.I0(Q[1]),
+        .O(\FIFO_GEN[2].stream_data_fifo_reg_0_7_6_7_i_2_n_0 ));
   (* METHODOLOGY_DRC_VIOS = "" *) 
   (* ram_addr_begin = "0" *) 
   (* ram_addr_end = "7" *) 
   (* ram_slice_begin = "0" *) 
   (* ram_slice_end = "5" *) 
   RAM32M \FIFO_GEN[3].stream_data_fifo_reg_0_7_0_5 
-       (.ADDRA({1'b0,1'b0,\m_axis_data_tdata[31] ,ADDRA[0]}),
-        .ADDRB({1'b0,1'b0,\m_axis_data_tdata[31] ,ADDRA[0]}),
-        .ADDRC({1'b0,1'b0,\m_axis_data_tdata[31] ,ADDRA[0]}),
+       (.ADDRA({1'b0,1'b0,inputFifoValue1__0}),
+        .ADDRB({1'b0,1'b0,inputFifoValue1__0}),
+        .ADDRC({1'b0,1'b0,inputFifoValue1__0}),
         .ADDRD({1'b0,1'b0,write_pointer}),
         .DIA(s_axis_data_tdata[25:24]),
         .DIB(s_axis_data_tdata[27:26]),
@@ -746,9 +752,9 @@ module design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA
   (* ram_slice_begin = "6" *) 
   (* ram_slice_end = "7" *) 
   RAM32M \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7 
-       (.ADDRA({1'b0,1'b0,\m_axis_data_tdata[31] ,ADDRA[0]}),
-        .ADDRB({1'b0,1'b0,\m_axis_data_tdata[31] ,ADDRA[0]}),
-        .ADDRC({1'b0,1'b0,\m_axis_data_tdata[31] ,ADDRA[0]}),
+       (.ADDRA({1'b0,1'b0,inputFifoValue1__0}),
+        .ADDRB({1'b0,1'b0,inputFifoValue1__0}),
+        .ADDRC({1'b0,1'b0,inputFifoValue1__0}),
         .ADDRD({1'b0,1'b0,write_pointer}),
         .DIA(s_axis_data_tdata[31:30]),
         .DIB({1'b0,1'b0}),
@@ -766,7 +772,32 @@ module design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA
        (.I0(s_axis_data_tvalid),
         .I1(mst_exec_state_reg_0),
         .O(fifo_wren));
-  (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  LUT3 #(
+    .INIT(8'h1E)) 
+    \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_2 
+       (.I0(Q[1]),
+        .I1(Q[0]),
+        .I2(Q[2]),
+        .O(inputFifoValue1__0[2]));
+  LUT2 #(
+    .INIT(4'h9)) 
+    \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_3 
+       (.I0(Q[1]),
+        .I1(Q[0]),
+        .O(inputFifoValue1__0[1]));
+  LUT1 #(
+    .INIT(2'h1)) 
+    \FIFO_GEN[3].stream_data_fifo_reg_0_7_6_7_i_4 
+       (.I0(Q[0]),
+        .O(inputFifoValue1__0[0]));
+  LUT3 #(
+    .INIT(8'h78)) 
+    inputFifoValue1
+       (.I0(Q[0]),
+        .I1(Q[1]),
+        .I2(Q[2]),
+        .O(inputFifoValue1_n_0));
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
   LUT4 #(
     .INIT(16'h2E00)) 
     mst_exec_state_i_1
@@ -781,7 +812,7 @@ module design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA
         .D(mst_exec_state_i_1_n_0),
         .Q(mst_exec_state_reg_0),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
   LUT4 #(
     .INIT(16'h6A00)) 
     \write_pointer[0]_i_1 
@@ -790,7 +821,7 @@ module design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA
         .I2(mst_exec_state_reg_0),
         .I3(s_axis_data_aresetn),
         .O(\write_pointer[0]_i_1_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+  (* SOFT_HLUTNM = "soft_lutpair8" *) 
   LUT5 #(
     .INIT(32'h6AAA0000)) 
     \write_pointer[1]_i_1 
@@ -836,7 +867,7 @@ module design_1_myIP_0_0_myIP_v1_1_S_AXIS_DATA
         .I2(write_pointer[1]),
         .I3(s_axis_data_tlast),
         .O(writes_done0_n_0));
-  (* SOFT_HLUTNM = "soft_lutpair6" *) 
+  (* SOFT_HLUTNM = "soft_lutpair7" *) 
   LUT5 #(
     .INIT(32'hFF2A0000)) 
     writes_done_i_1

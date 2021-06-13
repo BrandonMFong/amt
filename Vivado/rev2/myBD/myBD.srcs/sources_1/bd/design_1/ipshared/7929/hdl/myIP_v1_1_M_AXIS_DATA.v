@@ -222,7 +222,7 @@
 	    end                                              
 
 	// Add user logic here
-    assign pointer = read_pointer;
+    assign pointer = stream_data_out;
 	// User logic ends
 
 	endmodule
