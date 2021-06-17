@@ -168,6 +168,10 @@ proc create_hier_cell_stream { parentCell nameHier } {
 
   # Create instance: dma, and set properties
   set dma [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_dma:7.1 dma ]
+  set_property -dict [ list \
+   CONFIG.c_include_sg {0} \
+   CONFIG.c_sg_include_stscntrl_strm {0} \
+ ] $dma
 
   # Create instance: myIP, and set properties
   set myIP [ create_bd_cell -type ip -vlnv xilinx.com:user:myIP2:1.0 myIP ]
@@ -176,12 +180,11 @@ proc create_hier_cell_stream { parentCell nameHier } {
   connect_bd_intf_net -intf_net axi_dma_0_M_AXIS_MM2S [get_bd_intf_pins dma/M_AXIS_MM2S] [get_bd_intf_pins myIP/S00_AXIS]
   connect_bd_intf_net -intf_net axi_dma_0_M_AXI_MM2S [get_bd_intf_pins M_AXI_MM2S] [get_bd_intf_pins dma/M_AXI_MM2S]
   connect_bd_intf_net -intf_net axi_dma_0_M_AXI_S2MM [get_bd_intf_pins M_AXI_S2MM] [get_bd_intf_pins dma/M_AXI_S2MM]
-  connect_bd_intf_net -intf_net axi_dma_0_M_AXI_SG [get_bd_intf_pins M_AXI_SG] [get_bd_intf_pins dma/M_AXI_SG]
   connect_bd_intf_net -intf_net myIP2_0_M00_AXIS [get_bd_intf_pins dma/S_AXIS_S2MM] [get_bd_intf_pins myIP/M00_AXIS]
   connect_bd_intf_net -intf_net ps7_0_axi_periph_M00_AXI [get_bd_intf_pins S_AXI_LITE] [get_bd_intf_pins dma/S_AXI_LITE]
 
   # Create port connections
-  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins m00_axis_aclk] [get_bd_pins dma/m_axi_mm2s_aclk] [get_bd_pins dma/m_axi_s2mm_aclk] [get_bd_pins dma/m_axi_sg_aclk] [get_bd_pins dma/s_axi_lite_aclk] [get_bd_pins myIP/m00_axis_aclk] [get_bd_pins myIP/s00_axis_aclk]
+  connect_bd_net -net processing_system7_0_FCLK_CLK0 [get_bd_pins m00_axis_aclk] [get_bd_pins dma/m_axi_mm2s_aclk] [get_bd_pins dma/m_axi_s2mm_aclk] [get_bd_pins dma/s_axi_lite_aclk] [get_bd_pins myIP/m00_axis_aclk] [get_bd_pins myIP/s00_axis_aclk]
   connect_bd_net -net rst_ps7_0_100M_peripheral_aresetn [get_bd_pins m00_axis_aresetn] [get_bd_pins dma/axi_resetn] [get_bd_pins myIP/m00_axis_aresetn] [get_bd_pins myIP/s00_axis_aresetn]
 
   # Restore current instance
@@ -1035,7 +1038,6 @@ proc create_root_design { parentCell } {
 
   # Create address segments
   create_bd_addr_seg -range 0x00010000 -offset 0x40400000 [get_bd_addr_spaces processing_system7_0/Data] [get_bd_addr_segs stream/dma/S_AXI_LITE/Reg] SEG_axi_dma_0_Reg
-  create_bd_addr_seg -range 0x20000000 -offset 0x00000000 [get_bd_addr_spaces stream/dma/Data_SG] [get_bd_addr_segs processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM] SEG_processing_system7_0_HP0_DDR_LOWOCM
   create_bd_addr_seg -range 0x20000000 -offset 0x00000000 [get_bd_addr_spaces stream/dma/Data_MM2S] [get_bd_addr_segs processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM] SEG_processing_system7_0_HP0_DDR_LOWOCM
   create_bd_addr_seg -range 0x20000000 -offset 0x00000000 [get_bd_addr_spaces stream/dma/Data_S2MM] [get_bd_addr_segs processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM] SEG_processing_system7_0_HP0_DDR_LOWOCM
 
