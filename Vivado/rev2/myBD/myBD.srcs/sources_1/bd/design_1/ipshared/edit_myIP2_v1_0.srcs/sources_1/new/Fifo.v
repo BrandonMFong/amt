@@ -62,5 +62,12 @@ module Fifo #
 	  end		
 	endgenerate
 	
-	assign M_AXIS_TDATA = 2;
+//	assign M_AXIS_TDATA = 2;
+    assign read_pointer = 0;
+    assign M_AXIS_TDATA = {
+        FIFO_GEN[3].stream_data_fifo[read_pointer + 3],
+        FIFO_GEN[2].stream_data_fifo[read_pointer + 2],
+        FIFO_GEN[1].stream_data_fifo[read_pointer + 1],
+        FIFO_GEN[0].stream_data_fifo[read_pointer + 0]
+    };
 endmodule

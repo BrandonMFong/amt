@@ -1,7 +1,7 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-// Date        : Sat Jun 19 09:31:53 2021
+// Date        : Sat Jun 19 09:39:56 2021
 // Host        : KAMANTA running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.srcs/sources_1/bd/design_1/ip/design_1_myIP2_0_1/design_1_myIP2_0_1_sim_netlist.v
@@ -44,70 +44,236 @@ module design_1_myIP2_0_1
   (* X_INTERFACE_INFO = "xilinx.com:signal:clock:1.0 S00_AXIS_CLK CLK" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S00_AXIS_CLK, ASSOCIATED_BUSIF S00_AXIS, ASSOCIATED_RESET s00_axis_aresetn, FREQ_HZ 100000000, PHASE 0.000, CLK_DOMAIN design_1_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *) input s00_axis_aclk;
   (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 S00_AXIS_RST RST" *) (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME S00_AXIS_RST, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input s00_axis_aresetn;
 
-  wire \<const0> ;
   wire \<const1> ;
   wire m00_axis_aclk;
   wire m00_axis_aresetn;
+  wire [31:0]m00_axis_tdata;
   wire m00_axis_tlast;
   wire m00_axis_tready;
   wire m00_axis_tvalid;
   wire s00_axis_aclk;
   wire s00_axis_aresetn;
+  wire [31:0]s00_axis_tdata;
   wire s00_axis_tlast;
   wire s00_axis_tready;
   wire s00_axis_tvalid;
 
-  assign m00_axis_tdata[31] = \<const0> ;
-  assign m00_axis_tdata[30] = \<const0> ;
-  assign m00_axis_tdata[29] = \<const0> ;
-  assign m00_axis_tdata[28] = \<const0> ;
-  assign m00_axis_tdata[27] = \<const0> ;
-  assign m00_axis_tdata[26] = \<const0> ;
-  assign m00_axis_tdata[25] = \<const0> ;
-  assign m00_axis_tdata[24] = \<const0> ;
-  assign m00_axis_tdata[23] = \<const0> ;
-  assign m00_axis_tdata[22] = \<const0> ;
-  assign m00_axis_tdata[21] = \<const0> ;
-  assign m00_axis_tdata[20] = \<const0> ;
-  assign m00_axis_tdata[19] = \<const0> ;
-  assign m00_axis_tdata[18] = \<const0> ;
-  assign m00_axis_tdata[17] = \<const0> ;
-  assign m00_axis_tdata[16] = \<const0> ;
-  assign m00_axis_tdata[15] = \<const0> ;
-  assign m00_axis_tdata[14] = \<const0> ;
-  assign m00_axis_tdata[13] = \<const0> ;
-  assign m00_axis_tdata[12] = \<const0> ;
-  assign m00_axis_tdata[11] = \<const0> ;
-  assign m00_axis_tdata[10] = \<const0> ;
-  assign m00_axis_tdata[9] = \<const0> ;
-  assign m00_axis_tdata[8] = \<const0> ;
-  assign m00_axis_tdata[7] = \<const0> ;
-  assign m00_axis_tdata[6] = \<const0> ;
-  assign m00_axis_tdata[5] = \<const0> ;
-  assign m00_axis_tdata[4] = \<const0> ;
-  assign m00_axis_tdata[3] = \<const0> ;
-  assign m00_axis_tdata[2] = \<const0> ;
-  assign m00_axis_tdata[1] = \<const1> ;
-  assign m00_axis_tdata[0] = \<const0> ;
   assign m00_axis_tstrb[3] = \<const1> ;
   assign m00_axis_tstrb[2] = \<const1> ;
   assign m00_axis_tstrb[1] = \<const1> ;
   assign m00_axis_tstrb[0] = \<const1> ;
-  GND GND
-       (.G(\<const0> ));
   VCC VCC
        (.P(\<const1> ));
   design_1_myIP2_0_1_myIP2_v1_0 inst
        (.m00_axis_aclk(m00_axis_aclk),
         .m00_axis_aresetn(m00_axis_aresetn),
+        .m00_axis_tdata(m00_axis_tdata),
         .m00_axis_tlast(m00_axis_tlast),
         .m00_axis_tready(m00_axis_tready),
         .m00_axis_tvalid(m00_axis_tvalid),
         .mst_exec_state_reg(s00_axis_tready),
         .s00_axis_aclk(s00_axis_aclk),
         .s00_axis_aresetn(s00_axis_aresetn),
+        .s00_axis_tdata(s00_axis_tdata),
         .s00_axis_tlast(s00_axis_tlast),
         .s00_axis_tvalid(s00_axis_tvalid));
+endmodule
+
+(* ORIG_REF_NAME = "Fifo" *) 
+module design_1_myIP2_0_1_Fifo
+   (m00_axis_tdata,
+    s00_axis_aclk,
+    myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren,
+    s00_axis_tdata,
+    ADDRD);
+  output [31:0]m00_axis_tdata;
+  input s00_axis_aclk;
+  input myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren;
+  input [31:0]s00_axis_tdata;
+  input [2:0]ADDRD;
+
+  wire [2:0]ADDRD;
+  wire [31:0]m00_axis_tdata;
+  wire myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren;
+  wire s00_axis_aclk;
+  wire [31:0]s00_axis_tdata;
+  wire [1:0]\NLW_FIFO_GEN[0].stream_data_fifo_reg_0_15_0_5_DOD_UNCONNECTED ;
+  wire [1:0]\NLW_FIFO_GEN[0].stream_data_fifo_reg_0_15_6_7_DOB_UNCONNECTED ;
+  wire [1:0]\NLW_FIFO_GEN[0].stream_data_fifo_reg_0_15_6_7_DOC_UNCONNECTED ;
+  wire [1:0]\NLW_FIFO_GEN[0].stream_data_fifo_reg_0_15_6_7_DOD_UNCONNECTED ;
+  wire [1:0]\NLW_FIFO_GEN[1].stream_data_fifo_reg_0_15_0_5_DOD_UNCONNECTED ;
+  wire [1:0]\NLW_FIFO_GEN[1].stream_data_fifo_reg_0_15_6_7_DOB_UNCONNECTED ;
+  wire [1:0]\NLW_FIFO_GEN[1].stream_data_fifo_reg_0_15_6_7_DOC_UNCONNECTED ;
+  wire [1:0]\NLW_FIFO_GEN[1].stream_data_fifo_reg_0_15_6_7_DOD_UNCONNECTED ;
+  wire [1:0]\NLW_FIFO_GEN[2].stream_data_fifo_reg_0_15_0_5_DOD_UNCONNECTED ;
+  wire [1:0]\NLW_FIFO_GEN[2].stream_data_fifo_reg_0_15_6_7_DOB_UNCONNECTED ;
+  wire [1:0]\NLW_FIFO_GEN[2].stream_data_fifo_reg_0_15_6_7_DOC_UNCONNECTED ;
+  wire [1:0]\NLW_FIFO_GEN[2].stream_data_fifo_reg_0_15_6_7_DOD_UNCONNECTED ;
+  wire [1:0]\NLW_FIFO_GEN[3].stream_data_fifo_reg_0_15_0_5_DOD_UNCONNECTED ;
+  wire [1:0]\NLW_FIFO_GEN[3].stream_data_fifo_reg_0_15_6_7_DOB_UNCONNECTED ;
+  wire [1:0]\NLW_FIFO_GEN[3].stream_data_fifo_reg_0_15_6_7_DOC_UNCONNECTED ;
+  wire [1:0]\NLW_FIFO_GEN[3].stream_data_fifo_reg_0_15_6_7_DOD_UNCONNECTED ;
+
+  (* METHODOLOGY_DRC_VIOS = "" *) 
+  (* ram_addr_begin = "0" *) 
+  (* ram_addr_end = "15" *) 
+  (* ram_slice_begin = "0" *) 
+  (* ram_slice_end = "5" *) 
+  RAM32M \FIFO_GEN[0].stream_data_fifo_reg_0_15_0_5 
+       (.ADDRA({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ADDRB({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ADDRC({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ADDRD({1'b0,1'b0,ADDRD}),
+        .DIA(s00_axis_tdata[1:0]),
+        .DIB(s00_axis_tdata[3:2]),
+        .DIC(s00_axis_tdata[5:4]),
+        .DID({1'b0,1'b0}),
+        .DOA(m00_axis_tdata[1:0]),
+        .DOB(m00_axis_tdata[3:2]),
+        .DOC(m00_axis_tdata[5:4]),
+        .DOD(\NLW_FIFO_GEN[0].stream_data_fifo_reg_0_15_0_5_DOD_UNCONNECTED [1:0]),
+        .WCLK(s00_axis_aclk),
+        .WE(myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren));
+  (* METHODOLOGY_DRC_VIOS = "" *) 
+  (* ram_addr_begin = "0" *) 
+  (* ram_addr_end = "15" *) 
+  (* ram_slice_begin = "6" *) 
+  (* ram_slice_end = "7" *) 
+  RAM32M \FIFO_GEN[0].stream_data_fifo_reg_0_15_6_7 
+       (.ADDRA({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ADDRB({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ADDRC({1'b0,1'b0,1'b0,1'b0,1'b0}),
+        .ADDRD({1'b0,1'b0,ADDRD}),
+        .DIA(s00_axis_tdata[7:6]),
+        .DIB({1'b0,1'b0}),
+        .DIC({1'b0,1'b0}),
+        .DID({1'b0,1'b0}),
+        .DOA(m00_axis_tdata[7:6]),
+        .DOB(\NLW_FIFO_GEN[0].stream_data_fifo_reg_0_15_6_7_DOB_UNCONNECTED [1:0]),
+        .DOC(\NLW_FIFO_GEN[0].stream_data_fifo_reg_0_15_6_7_DOC_UNCONNECTED [1:0]),
+        .DOD(\NLW_FIFO_GEN[0].stream_data_fifo_reg_0_15_6_7_DOD_UNCONNECTED [1:0]),
+        .WCLK(s00_axis_aclk),
+        .WE(myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren));
+  (* METHODOLOGY_DRC_VIOS = "" *) 
+  (* ram_addr_begin = "0" *) 
+  (* ram_addr_end = "15" *) 
+  (* ram_slice_begin = "0" *) 
+  (* ram_slice_end = "5" *) 
+  RAM32M \FIFO_GEN[1].stream_data_fifo_reg_0_15_0_5 
+       (.ADDRA({1'b0,1'b0,1'b0,1'b0,1'b1}),
+        .ADDRB({1'b0,1'b0,1'b0,1'b0,1'b1}),
+        .ADDRC({1'b0,1'b0,1'b0,1'b0,1'b1}),
+        .ADDRD({1'b0,1'b0,ADDRD}),
+        .DIA(s00_axis_tdata[9:8]),
+        .DIB(s00_axis_tdata[11:10]),
+        .DIC(s00_axis_tdata[13:12]),
+        .DID({1'b0,1'b0}),
+        .DOA(m00_axis_tdata[9:8]),
+        .DOB(m00_axis_tdata[11:10]),
+        .DOC(m00_axis_tdata[13:12]),
+        .DOD(\NLW_FIFO_GEN[1].stream_data_fifo_reg_0_15_0_5_DOD_UNCONNECTED [1:0]),
+        .WCLK(s00_axis_aclk),
+        .WE(myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren));
+  (* METHODOLOGY_DRC_VIOS = "" *) 
+  (* ram_addr_begin = "0" *) 
+  (* ram_addr_end = "15" *) 
+  (* ram_slice_begin = "6" *) 
+  (* ram_slice_end = "7" *) 
+  RAM32M \FIFO_GEN[1].stream_data_fifo_reg_0_15_6_7 
+       (.ADDRA({1'b0,1'b0,1'b0,1'b0,1'b1}),
+        .ADDRB({1'b0,1'b0,1'b0,1'b0,1'b1}),
+        .ADDRC({1'b0,1'b0,1'b0,1'b0,1'b1}),
+        .ADDRD({1'b0,1'b0,ADDRD}),
+        .DIA(s00_axis_tdata[15:14]),
+        .DIB({1'b0,1'b0}),
+        .DIC({1'b0,1'b0}),
+        .DID({1'b0,1'b0}),
+        .DOA(m00_axis_tdata[15:14]),
+        .DOB(\NLW_FIFO_GEN[1].stream_data_fifo_reg_0_15_6_7_DOB_UNCONNECTED [1:0]),
+        .DOC(\NLW_FIFO_GEN[1].stream_data_fifo_reg_0_15_6_7_DOC_UNCONNECTED [1:0]),
+        .DOD(\NLW_FIFO_GEN[1].stream_data_fifo_reg_0_15_6_7_DOD_UNCONNECTED [1:0]),
+        .WCLK(s00_axis_aclk),
+        .WE(myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren));
+  (* METHODOLOGY_DRC_VIOS = "" *) 
+  (* ram_addr_begin = "0" *) 
+  (* ram_addr_end = "15" *) 
+  (* ram_slice_begin = "0" *) 
+  (* ram_slice_end = "5" *) 
+  RAM32M \FIFO_GEN[2].stream_data_fifo_reg_0_15_0_5 
+       (.ADDRA({1'b0,1'b0,1'b0,1'b1,1'b0}),
+        .ADDRB({1'b0,1'b0,1'b0,1'b1,1'b0}),
+        .ADDRC({1'b0,1'b0,1'b0,1'b1,1'b0}),
+        .ADDRD({1'b0,1'b0,ADDRD}),
+        .DIA(s00_axis_tdata[17:16]),
+        .DIB(s00_axis_tdata[19:18]),
+        .DIC(s00_axis_tdata[21:20]),
+        .DID({1'b0,1'b0}),
+        .DOA(m00_axis_tdata[17:16]),
+        .DOB(m00_axis_tdata[19:18]),
+        .DOC(m00_axis_tdata[21:20]),
+        .DOD(\NLW_FIFO_GEN[2].stream_data_fifo_reg_0_15_0_5_DOD_UNCONNECTED [1:0]),
+        .WCLK(s00_axis_aclk),
+        .WE(myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren));
+  (* METHODOLOGY_DRC_VIOS = "" *) 
+  (* ram_addr_begin = "0" *) 
+  (* ram_addr_end = "15" *) 
+  (* ram_slice_begin = "6" *) 
+  (* ram_slice_end = "7" *) 
+  RAM32M \FIFO_GEN[2].stream_data_fifo_reg_0_15_6_7 
+       (.ADDRA({1'b0,1'b0,1'b0,1'b1,1'b0}),
+        .ADDRB({1'b0,1'b0,1'b0,1'b1,1'b0}),
+        .ADDRC({1'b0,1'b0,1'b0,1'b1,1'b0}),
+        .ADDRD({1'b0,1'b0,ADDRD}),
+        .DIA(s00_axis_tdata[23:22]),
+        .DIB({1'b0,1'b0}),
+        .DIC({1'b0,1'b0}),
+        .DID({1'b0,1'b0}),
+        .DOA(m00_axis_tdata[23:22]),
+        .DOB(\NLW_FIFO_GEN[2].stream_data_fifo_reg_0_15_6_7_DOB_UNCONNECTED [1:0]),
+        .DOC(\NLW_FIFO_GEN[2].stream_data_fifo_reg_0_15_6_7_DOC_UNCONNECTED [1:0]),
+        .DOD(\NLW_FIFO_GEN[2].stream_data_fifo_reg_0_15_6_7_DOD_UNCONNECTED [1:0]),
+        .WCLK(s00_axis_aclk),
+        .WE(myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren));
+  (* METHODOLOGY_DRC_VIOS = "" *) 
+  (* ram_addr_begin = "0" *) 
+  (* ram_addr_end = "15" *) 
+  (* ram_slice_begin = "0" *) 
+  (* ram_slice_end = "5" *) 
+  RAM32M \FIFO_GEN[3].stream_data_fifo_reg_0_15_0_5 
+       (.ADDRA({1'b0,1'b0,1'b0,1'b1,1'b1}),
+        .ADDRB({1'b0,1'b0,1'b0,1'b1,1'b1}),
+        .ADDRC({1'b0,1'b0,1'b0,1'b1,1'b1}),
+        .ADDRD({1'b0,1'b0,ADDRD}),
+        .DIA(s00_axis_tdata[25:24]),
+        .DIB(s00_axis_tdata[27:26]),
+        .DIC(s00_axis_tdata[29:28]),
+        .DID({1'b0,1'b0}),
+        .DOA(m00_axis_tdata[25:24]),
+        .DOB(m00_axis_tdata[27:26]),
+        .DOC(m00_axis_tdata[29:28]),
+        .DOD(\NLW_FIFO_GEN[3].stream_data_fifo_reg_0_15_0_5_DOD_UNCONNECTED [1:0]),
+        .WCLK(s00_axis_aclk),
+        .WE(myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren));
+  (* METHODOLOGY_DRC_VIOS = "" *) 
+  (* ram_addr_begin = "0" *) 
+  (* ram_addr_end = "15" *) 
+  (* ram_slice_begin = "6" *) 
+  (* ram_slice_end = "7" *) 
+  RAM32M \FIFO_GEN[3].stream_data_fifo_reg_0_15_6_7 
+       (.ADDRA({1'b0,1'b0,1'b0,1'b1,1'b1}),
+        .ADDRB({1'b0,1'b0,1'b0,1'b1,1'b1}),
+        .ADDRC({1'b0,1'b0,1'b0,1'b1,1'b1}),
+        .ADDRD({1'b0,1'b0,ADDRD}),
+        .DIA(s00_axis_tdata[31:30]),
+        .DIB({1'b0,1'b0}),
+        .DIC({1'b0,1'b0}),
+        .DID({1'b0,1'b0}),
+        .DOA(m00_axis_tdata[31:30]),
+        .DOB(\NLW_FIFO_GEN[3].stream_data_fifo_reg_0_15_6_7_DOB_UNCONNECTED [1:0]),
+        .DOC(\NLW_FIFO_GEN[3].stream_data_fifo_reg_0_15_6_7_DOC_UNCONNECTED [1:0]),
+        .DOD(\NLW_FIFO_GEN[3].stream_data_fifo_reg_0_15_6_7_DOD_UNCONNECTED [1:0]),
+        .WCLK(s00_axis_aclk),
+        .WE(myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren));
 endmodule
 
 (* ORIG_REF_NAME = "myIP2_v1_0" *) 
@@ -115,35 +281,49 @@ module design_1_myIP2_0_1_myIP2_v1_0
    (mst_exec_state_reg,
     m00_axis_tvalid,
     m00_axis_tlast,
+    m00_axis_tdata,
     m00_axis_tready,
     m00_axis_aclk,
     s00_axis_tvalid,
     s00_axis_aresetn,
     s00_axis_aclk,
+    s00_axis_tdata,
     s00_axis_tlast,
     m00_axis_aresetn);
   output mst_exec_state_reg;
   output m00_axis_tvalid;
   output m00_axis_tlast;
+  output [31:0]m00_axis_tdata;
   input m00_axis_tready;
   input m00_axis_aclk;
   input s00_axis_tvalid;
   input s00_axis_aresetn;
   input s00_axis_aclk;
+  input [31:0]s00_axis_tdata;
   input s00_axis_tlast;
   input m00_axis_aresetn;
 
   wire m00_axis_aclk;
   wire m00_axis_aresetn;
+  wire [31:0]m00_axis_tdata;
   wire m00_axis_tlast;
   wire m00_axis_tready;
   wire m00_axis_tvalid;
   wire mst_exec_state_reg;
+  wire myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren;
+  wire [2:0]myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer;
   wire s00_axis_aclk;
   wire s00_axis_aresetn;
+  wire [31:0]s00_axis_tdata;
   wire s00_axis_tlast;
   wire s00_axis_tvalid;
 
+  design_1_myIP2_0_1_Fifo mod0
+       (.ADDRD(myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer),
+        .m00_axis_tdata(m00_axis_tdata),
+        .myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren(myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren),
+        .s00_axis_aclk(s00_axis_aclk),
+        .s00_axis_tdata(s00_axis_tdata));
   design_1_myIP2_0_1_myIP2_v1_0_M00_AXIS myIP2_v1_0_M00_AXIS_inst
        (.m00_axis_aclk(m00_axis_aclk),
         .m00_axis_aresetn(m00_axis_aresetn),
@@ -151,7 +331,9 @@ module design_1_myIP2_0_1_myIP2_v1_0
         .m00_axis_tready(m00_axis_tready),
         .m00_axis_tvalid(m00_axis_tvalid));
   design_1_myIP2_0_1_myIP2_v1_0_S00_AXIS myIP2_v1_0_S00_AXIS_inst
-       (.mst_exec_state_reg_0(mst_exec_state_reg),
+       (.ADDRD(myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer),
+        .mst_exec_state_reg_0(mst_exec_state_reg),
+        .myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren(myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren),
         .s00_axis_aclk(s00_axis_aclk),
         .s00_axis_aresetn(s00_axis_aresetn),
         .s00_axis_tlast(s00_axis_tlast),
@@ -457,19 +639,24 @@ endmodule
 (* ORIG_REF_NAME = "myIP2_v1_0_S00_AXIS" *) 
 module design_1_myIP2_0_1_myIP2_v1_0_S00_AXIS
    (mst_exec_state_reg_0,
-    s00_axis_tlast,
+    ADDRD,
+    myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren,
     s00_axis_aclk,
     s00_axis_tvalid,
-    s00_axis_aresetn);
+    s00_axis_aresetn,
+    s00_axis_tlast);
   output mst_exec_state_reg_0;
-  input s00_axis_tlast;
+  output [2:0]ADDRD;
+  output myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren;
   input s00_axis_aclk;
   input s00_axis_tvalid;
   input s00_axis_aresetn;
+  input s00_axis_tlast;
 
+  wire [2:0]ADDRD;
   wire mst_exec_state_i_1_n_0;
   wire mst_exec_state_reg_0;
-  wire [2:0]myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer;
+  wire myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren;
   wire s00_axis_aclk;
   wire s00_axis_aresetn;
   wire s00_axis_tlast;
@@ -481,6 +668,12 @@ module design_1_myIP2_0_1_myIP2_v1_0_S00_AXIS
   wire writes_done0_n_0;
   wire writes_done_i_1_n_0;
 
+  LUT2 #(
+    .INIT(4'h8)) 
+    \FIFO_GEN[3].stream_data_fifo_reg_0_15_6_7_i_1 
+       (.I0(s00_axis_tvalid),
+        .I1(mst_exec_state_reg_0),
+        .O(myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren));
   (* SOFT_HLUTNM = "soft_lutpair6" *) 
   LUT4 #(
     .INIT(16'h2E00)) 
@@ -500,7 +693,7 @@ module design_1_myIP2_0_1_myIP2_v1_0_S00_AXIS
   LUT4 #(
     .INIT(16'h6A00)) 
     \write_pointer[0]_i_1 
-       (.I0(myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer[0]),
+       (.I0(ADDRD[0]),
         .I1(s00_axis_tvalid),
         .I2(mst_exec_state_reg_0),
         .I3(s00_axis_aresetn),
@@ -509,46 +702,46 @@ module design_1_myIP2_0_1_myIP2_v1_0_S00_AXIS
   LUT5 #(
     .INIT(32'h6AAA0000)) 
     \write_pointer[1]_i_1 
-       (.I0(myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer[1]),
+       (.I0(ADDRD[1]),
         .I1(mst_exec_state_reg_0),
         .I2(s00_axis_tvalid),
-        .I3(myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer[0]),
+        .I3(ADDRD[0]),
         .I4(s00_axis_aresetn),
         .O(\write_pointer[1]_i_1_n_0 ));
   LUT6 #(
     .INIT(64'h6AAAAAAA00000000)) 
     \write_pointer[2]_i_1 
-       (.I0(myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer[2]),
+       (.I0(ADDRD[2]),
         .I1(mst_exec_state_reg_0),
         .I2(s00_axis_tvalid),
-        .I3(myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer[1]),
-        .I4(myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer[0]),
+        .I3(ADDRD[1]),
+        .I4(ADDRD[0]),
         .I5(s00_axis_aresetn),
         .O(\write_pointer[2]_i_1_n_0 ));
   FDRE \write_pointer_reg[0] 
        (.C(s00_axis_aclk),
         .CE(1'b1),
         .D(\write_pointer[0]_i_1_n_0 ),
-        .Q(myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer[0]),
+        .Q(ADDRD[0]),
         .R(1'b0));
   FDRE \write_pointer_reg[1] 
        (.C(s00_axis_aclk),
         .CE(1'b1),
         .D(\write_pointer[1]_i_1_n_0 ),
-        .Q(myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer[1]),
+        .Q(ADDRD[1]),
         .R(1'b0));
   FDRE \write_pointer_reg[2] 
        (.C(s00_axis_aclk),
         .CE(1'b1),
         .D(\write_pointer[2]_i_1_n_0 ),
-        .Q(myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer[2]),
+        .Q(ADDRD[2]),
         .R(1'b0));
   LUT4 #(
     .INIT(16'hFF80)) 
     writes_done0
-       (.I0(myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer[2]),
-        .I1(myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer[0]),
-        .I2(myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer[1]),
+       (.I0(ADDRD[2]),
+        .I1(ADDRD[0]),
+        .I2(ADDRD[1]),
         .I3(s00_axis_tlast),
         .O(writes_done0_n_0));
   (* SOFT_HLUTNM = "soft_lutpair6" *) 
