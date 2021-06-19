@@ -71,7 +71,7 @@ set rc [catch {
   set_param project.singleFileAddWarning.threshold 0
   set_property webtalk.parent_dir B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.cache/wt [current_project]
   set_property parent.project_path B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.xpr [current_project]
-  set_property ip_repo_paths b:/COLLEGE/Thesis/Source/Vivado/rev2 [current_project]
+  set_property ip_repo_paths B:/COLLEGE/Thesis/Source/Vivado/rev2 [current_project]
   update_ip_catalog
   set_property ip_output_repo B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]

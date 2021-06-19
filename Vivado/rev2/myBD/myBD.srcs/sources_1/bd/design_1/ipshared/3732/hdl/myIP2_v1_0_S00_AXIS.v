@@ -4,7 +4,7 @@
 	module myIP2_v1_0_S00_AXIS #
 	(
 		// Users to add parameters here
-
+        parameter integer bitNumber = 16,
 		// User parameters ends
 		// Do not modify the parameters beyond this line
 
@@ -13,7 +13,8 @@
 	)
 	(
 		// Users to add ports here
-		
+		output wire fifoWriteEnable,
+		output wire [bitNumber-1:0] writePointer,
 		// User ports ends
 		// Do not modify the ports beyond this line
 
@@ -42,7 +43,7 @@
 	endfunction
 
 	// Total number of input data.
-	localparam NUMBER_OF_INPUT_WORDS  = 8;
+	localparam NUMBER_OF_INPUT_WORDS  = 8; // TODO make into module param 
 	// bit_num gives the minimum number of bits needed to address 'NUMBER_OF_INPUT_WORDS' size of FIFO.
 	localparam bit_num  = clogb2(NUMBER_OF_INPUT_WORDS-1);
 	// Define the states of state machine
@@ -141,27 +142,28 @@
 	// FIFO write enable generation
 	assign fifo_wren = S_AXIS_TVALID && axis_tready;
 
-	// FIFO Implementation
-	generate 
-	  for(byte_index=0; byte_index<= (C_S_AXIS_TDATA_WIDTH/8-1); byte_index=byte_index+1)
-	  begin:FIFO_GEN
+//	// FIFO Implementation
+//	generate 
+//	  for(byte_index=0; byte_index<= (C_S_AXIS_TDATA_WIDTH/8-1); byte_index=byte_index+1)
+//	  begin:FIFO_GEN
 
-	    reg  [(C_S_AXIS_TDATA_WIDTH/4)-1:0] stream_data_fifo [0 : NUMBER_OF_INPUT_WORDS-1];
+//	    reg  [(C_S_AXIS_TDATA_WIDTH/4)-1:0] stream_data_fifo [0 : NUMBER_OF_INPUT_WORDS-1];
 
-	    // Streaming input data is stored in FIFO
+//	    // Streaming input data is stored in FIFO
 
-	    always @( posedge S_AXIS_ACLK )
-	    begin
-	      if (fifo_wren)// && S_AXIS_TSTRB[byte_index])
-	        begin
-	          stream_data_fifo[write_pointer] <= S_AXIS_TDATA[(byte_index*8+7) -: 8];
-	        end  
-	    end  
-	  end		
-	endgenerate
+//	    always @( posedge S_AXIS_ACLK )
+//	    begin
+//	      if (fifo_wren)// && S_AXIS_TSTRB[byte_index])
+//	        begin
+//	          stream_data_fifo[write_pointer] <= S_AXIS_TDATA[(byte_index*8+7) -: 8];
+//	        end  
+//	    end  
+//	  end		
+//	endgenerate
 
 	// Add user logic here
-	
+	assign fifoWriteEnable = fifo_wren;
+	assign writePointer    = write_pointer;
 	// User logic ends
 
 	endmodule

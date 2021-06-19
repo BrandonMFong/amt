@@ -131,7 +131,7 @@
       <spirit:parameters>
         <spirit:parameter>
           <spirit:name>POLARITY</spirit:name>
-          <spirit:value spirit:id="BUSIFPARAM_VALUE.M00_AXIS_RST.POLARITY" spirit:choiceRef="choice_list_74b5137e">ACTIVE_LOW</spirit:value>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.M00_AXIS_RST.POLARITY" spirit:choiceRef="choice_list_9d8b0d81">ACTIVE_LOW</spirit:value>
         </spirit:parameter>
       </spirit:parameters>
     </spirit:busInterface>
@@ -179,7 +179,7 @@
       <spirit:parameters>
         <spirit:parameter>
           <spirit:name>POLARITY</spirit:name>
-          <spirit:value spirit:id="BUSIFPARAM_VALUE.S00_AXIS_RST.POLARITY" spirit:choiceRef="choice_list_74b5137e">ACTIVE_LOW</spirit:value>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.S00_AXIS_RST.POLARITY" spirit:choiceRef="choice_list_9d8b0d81">ACTIVE_LOW</spirit:value>
         </spirit:parameter>
       </spirit:parameters>
     </spirit:busInterface>
@@ -224,7 +224,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>eb8c8556</spirit:value>
+            <spirit:value>d21885be</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -240,7 +240,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>eb8c8556</spirit:value>
+            <spirit:value>d21885be</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -254,7 +254,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>47853119</spirit:value>
+            <spirit:value>85bad177</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -497,6 +497,16 @@
         <spirit:displayName>Number Of Output Words</spirit:displayName>
         <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.NUMBER_OF_OUTPUT_WORDS">16</spirit:value>
       </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>bitNumber</spirit:name>
+        <spirit:displayName>Bitnumber</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.bitNumber">16</spirit:value>
+      </spirit:modelParameter>
+      <spirit:modelParameter spirit:dataType="integer">
+        <spirit:name>NUMBER_OF_INPUT_WORDS</spirit:name>
+        <spirit:displayName>Number Of Input Words</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.NUMBER_OF_INPUT_WORDS">16</spirit:value>
+      </spirit:modelParameter>
     </spirit:modelParameters>
   </spirit:model>
   <spirit:choices>
@@ -505,7 +515,7 @@
       <spirit:enumeration>32</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
-      <spirit:name>choice_list_74b5137e</spirit:name>
+      <spirit:name>choice_list_9d8b0d81</spirit:name>
       <spirit:enumeration>ACTIVE_HIGH</spirit:enumeration>
       <spirit:enumeration>ACTIVE_LOW</spirit:enumeration>
     </spirit:choice>
@@ -513,6 +523,10 @@
   <spirit:fileSets>
     <spirit:fileSet>
       <spirit:name>xilinx_verilogsynthesis_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>../edit_myIP2_v1_0.srcs/sources_1/new/Fifo.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
       <spirit:file>
         <spirit:name>hdl/myIP2_v1_0_M00_AXIS.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
@@ -524,11 +538,15 @@
       <spirit:file>
         <spirit:name>hdl/myIP2_v1_0.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_2b317000</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_9fce776d</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
       <spirit:name>xilinx_verilogbehavioralsimulation_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>../edit_myIP2_v1_0.srcs/sources_1/new/Fifo.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
       <spirit:file>
         <spirit:name>hdl/myIP2_v1_0_M00_AXIS.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
@@ -547,7 +565,7 @@
       <spirit:file>
         <spirit:name>xgui/myIP2_v1_0.tcl</spirit:name>
         <spirit:fileType>tclSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_47853119</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_85bad177</spirit:userFileType>
         <spirit:userFileType>XGUI_VERSION_2</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
@@ -602,6 +620,16 @@
       <spirit:displayName>Number Of Output Words</spirit:displayName>
       <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.NUMBER_OF_OUTPUT_WORDS">16</spirit:value>
     </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>bitNumber</spirit:name>
+      <spirit:displayName>Bitnumber</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.bitNumber">16</spirit:value>
+    </spirit:parameter>
+    <spirit:parameter>
+      <spirit:name>NUMBER_OF_INPUT_WORDS</spirit:name>
+      <spirit:displayName>Number Of Input Words</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.NUMBER_OF_INPUT_WORDS">16</spirit:value>
+    </spirit:parameter>
   </spirit:parameters>
   <spirit:vendorExtensions>
     <xilinx:coreExtensions>
@@ -612,8 +640,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>myIP2_v1.0</xilinx:displayName>
-      <xilinx:coreRevision>7</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-06-17T01:21:36Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>9</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-06-19T16:07:04Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@299ae5a1_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@48800e3d_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
@@ -704,15 +732,37 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@f3eb5ff_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@2cbfd2e8_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@2792fa9a_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3e4108b0_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@35f6abfa_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@29466056_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1da0ac7d_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@21e8b998_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3682a7e_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6cd27d31_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@28070c2d_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@71039ec0_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@26e0746b_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3cf8c643_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@42d5d41e_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b183e5c_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1e5e14a4_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5fb677af_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5067787a_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@78e5f5fe_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@77925950_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@8b71d5f_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3651ebf5_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2c26233a_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5823313d_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2018.3</xilinx:xilinxVersion>
-      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="ab7f9b17"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="98025aab"/>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="29a15928"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="db8a83fe"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="44e5ec29"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="fde76449"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="99cdb9c5"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="8bf19895"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="180b5a70"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>
