@@ -26,14 +26,18 @@ module Fifo #
     parameter integer C_S_AXIS_TDATA_WIDTH      = 32,
     parameter integer NUMBER_OF_INPUT_WORDS     = 16,
     parameter integer NUMBER_OF_OUTPUT_WORDS    = 16, 
-    parameter integer bitNumber                 = 16
+    parameter integer bitNumber                 = 16,
+    parameter integer C_M_AXIS_TDATA_WIDTH      = 32
 )
 (
     input wire S_AXIS_ACLK,
 	input wire fifo_wren,
 	input wire [bitNumber-1:0] write_pointer,
+	input wire [bitNumber-1:0] read_pointer,
     // Data in
-    input wire [C_S_AXIS_TDATA_WIDTH-1 : 0] S_AXIS_TDATA
+    input wire [C_S_AXIS_TDATA_WIDTH-1 : 0] S_AXIS_TDATA,
+    // TDATA is the primary payload that is used to provide the data that is passing across the interface from the master.
+    output wire [C_M_AXIS_TDATA_WIDTH-1 : 0] M_AXIS_TDATA
 );
     
 	// FIFO implementation signals
@@ -57,4 +61,6 @@ module Fifo #
 	    end  
 	  end		
 	endgenerate
+	
+	assign M_AXIS_TDATA = 2;
 endmodule

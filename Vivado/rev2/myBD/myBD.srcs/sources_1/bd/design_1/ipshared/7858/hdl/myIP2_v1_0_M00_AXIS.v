@@ -5,6 +5,7 @@
 	(
 		// Users to add parameters here
 		parameter integer NUMBER_OF_OUTPUT_WORDS = 16,
+        parameter integer bitNumber = 16,
 		// User parameters ends
 		// Do not modify the parameters beyond this line
 
@@ -15,10 +16,10 @@
 	)
 	(
 		// Users to add ports here
-
+        
 		// User ports ends
 		// Do not modify the ports beyond this line
-
+        output wire [bitNumber - 1 : 0] readPointer,
 		// Global ports
 		input wire  M_AXIS_ACLK,
 		// 
@@ -88,7 +89,7 @@
 	// I/O Connections assignments
 
 	assign M_AXIS_TVALID	= axis_tvalid_delay;
-	assign M_AXIS_TDATA	= stream_data_out;
+//	assign M_AXIS_TDATA	= stream_data_out; // this just does not make sense to me.  Later the stream data is assigned the read pointer? Is this just a demo?
 	assign M_AXIS_TLAST	= axis_tlast_delay;
 	assign M_AXIS_TSTRB	= {(C_M_AXIS_TDATA_WIDTH/8){1'b1}};
 
@@ -217,12 +218,13 @@
 	        end                                          
 	      else if (tx_en)// && M_AXIS_TSTRB[byte_index]  
 	        begin                                        
-	          stream_data_out <= read_pointer + 32'b1;   
+	          stream_data_out <= read_pointer + 32'b1;   // Why? 
 	        end                                          
 	    end                                              
 
 	// Add user logic here
-
+//    assign M_AXIS_TDATA = 2; // Temp value
+    assign readPointer = read_pointer;
 	// User logic ends
 
 	endmodule
