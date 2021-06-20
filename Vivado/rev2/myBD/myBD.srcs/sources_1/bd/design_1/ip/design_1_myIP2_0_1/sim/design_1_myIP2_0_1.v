@@ -48,7 +48,7 @@
 
 
 // IP VLNV: xilinx.com:user:myIP2:1.0
-// IP Revision: 29
+// IP Revision: 30
 
 `timescale 1ns/1ps
 
@@ -110,7 +110,8 @@ input wire s00_axis_aresetn;
     .C_M00_AXIS_START_COUNT(32),  // Start count is the number of clock cycles the master will wait before initiating/issuing any transaction.
     .C_S00_AXIS_TDATA_WIDTH(32),  // AXI4Stream sink: Data Width
     .bitNumber(16),
-    .NUMBER_OF_INPUT_WORDS(16)
+    .NUMBER_OF_INPUT_WORDS(16),
+    .NUMBER_OF_OUTPUT_WORDS(8)
   ) inst (
     .m00_axis_tdata(m00_axis_tdata),
     .m00_axis_tstrb(m00_axis_tstrb),
