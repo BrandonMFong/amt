@@ -223,8 +223,7 @@
 	    end                                              
 
 	// Add user logic here
-//    assign M_AXIS_TDATA = 2; // Temp value
-    assign readPointer = read_pointer; // This is going up to 16??
+    assign readPointer = read_pointer - 5; // 
 	// User logic ends
 
 	endmodule
