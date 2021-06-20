@@ -6,7 +6,7 @@
 		// Users to add parameters here
         parameter integer bitNumber                   = 8,
 		parameter integer NUMBER_OF_INPUT_WORDS       = 8,
-		parameter integer NUMBER_OF_OUTPUT_WORDS      = 8,
+//		parameter integer NUMBER_OF_OUTPUT_WORDS      = 16,
 		// User parameters ends
 		// Do not modify the parameters beyond this line
 
@@ -74,7 +74,7 @@
 	myIP2_v1_0_M00_AXIS # ( 
 		.C_M_AXIS_TDATA_WIDTH     (C_M00_AXIS_TDATA_WIDTH),
 		.C_M_START_COUNT          (C_M00_AXIS_START_COUNT), 
-		.NUMBER_OF_OUTPUT_WORDS   (NUMBER_OF_OUTPUT_WORDS),
+//		.NUMBER_OF_OUTPUT_WORDS   (NUMBER_OF_OUTPUT_WORDS),
 		.bitNumber(bitNumber)
 	) myIP2_v1_0_M00_AXIS_inst (
 		.M_AXIS_ACLK      (m00_axis_aclk),

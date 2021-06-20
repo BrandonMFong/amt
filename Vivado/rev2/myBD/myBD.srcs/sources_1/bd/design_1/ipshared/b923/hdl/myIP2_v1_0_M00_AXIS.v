@@ -4,7 +4,7 @@
 	module myIP2_v1_0_M00_AXIS #
 	(
 		// Users to add parameters here
-		parameter integer NUMBER_OF_OUTPUT_WORDS = 8,
+		parameter NUMBER_OF_OUTPUT_WORDS = 16,
         parameter integer bitNumber = 8,
 		// User parameters ends
 		// Do not modify the parameters beyond this line

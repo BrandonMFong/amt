@@ -57,8 +57,8 @@
 	wire  	axis_tready;
 	// State variable
 	reg mst_exec_state;  
-	// FIFO implementation signals
-	genvar byte_index;     
+//	// FIFO implementation signals
+//	genvar byte_index;     
 	// FIFO write enable
 	wire fifo_wren;
 	// FIFO full flag

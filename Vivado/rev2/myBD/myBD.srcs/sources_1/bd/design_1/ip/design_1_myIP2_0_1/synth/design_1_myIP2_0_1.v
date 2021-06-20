@@ -48,11 +48,11 @@
 
 
 // IP VLNV: xilinx.com:user:myIP2:1.0
-// IP Revision: 35
+// IP Revision: 41
 
 (* X_CORE_INFO = "myIP2_v1_0,Vivado 2018.3" *)
 (* CHECK_LICENSE_TYPE = "design_1_myIP2_0_1,myIP2_v1_0,{}" *)
-(* CORE_GENERATION_INFO = "design_1_myIP2_0_1,myIP2_v1_0,{x_ipProduct=Vivado 2018.3,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=myIP2,x_ipVersion=1.0,x_ipCoreRevision=35,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_M00_AXIS_TDATA_WIDTH=32,C_M00_AXIS_START_COUNT=32,C_S00_AXIS_TDATA_WIDTH=32,bitNumber=16,NUMBER_OF_INPUT_WORDS=16,NUMBER_OF_OUTPUT_WORDS=8}" *)
+(* CORE_GENERATION_INFO = "design_1_myIP2_0_1,myIP2_v1_0,{x_ipProduct=Vivado 2018.3,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=myIP2,x_ipVersion=1.0,x_ipCoreRevision=41,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_M00_AXIS_TDATA_WIDTH=32,C_M00_AXIS_START_COUNT=32,C_S00_AXIS_TDATA_WIDTH=32,bitNumber=16,NUMBER_OF_INPUT_WORDS=16}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_myIP2_0_1 (
   m00_axis_tdata,
@@ -111,8 +111,7 @@ input wire s00_axis_aresetn;
     .C_M00_AXIS_START_COUNT(32),  // Start count is the number of clock cycles the master will wait before initiating/issuing any transaction.
     .C_S00_AXIS_TDATA_WIDTH(32),  // AXI4Stream sink: Data Width
     .bitNumber(16),
-    .NUMBER_OF_INPUT_WORDS(16),
-    .NUMBER_OF_OUTPUT_WORDS(8)
+    .NUMBER_OF_INPUT_WORDS(16)
   ) inst (
     .m00_axis_tdata(m00_axis_tdata),
     .m00_axis_tstrb(m00_axis_tstrb),
