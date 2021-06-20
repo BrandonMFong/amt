@@ -4,12 +4,13 @@
 	module myIP2_v1_0_S00_AXIS #
 	(
 		// Users to add parameters here
-        parameter integer bitNumber = 16,
+        parameter integer bitNumber = 8,
 		// User parameters ends
 		// Do not modify the parameters beyond this line
 
 		// AXI4Stream sink: Data Width
-		parameter integer C_S_AXIS_TDATA_WIDTH	= 32
+		parameter integer C_S_AXIS_TDATA_WIDTH	= 32,
+		parameter integer NUMBER_OF_INPUT_WORDS = 8
 	)
 	(
 		// Users to add ports here
@@ -43,7 +44,7 @@
 	endfunction
 
 	// Total number of input data.
-	localparam NUMBER_OF_INPUT_WORDS  = 8; // TODO make into module param 
+//	localparam NUMBER_OF_INPUT_WORDS  = 8; // TODO make into module param 
 	// bit_num gives the minimum number of bits needed to address 'NUMBER_OF_INPUT_WORDS' size of FIFO.
 	localparam bit_num  = clogb2(NUMBER_OF_INPUT_WORDS-1);
 	// Define the states of state machine

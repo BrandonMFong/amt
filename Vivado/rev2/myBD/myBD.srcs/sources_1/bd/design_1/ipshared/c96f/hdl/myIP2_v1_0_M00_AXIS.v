@@ -4,8 +4,8 @@
 	module myIP2_v1_0_M00_AXIS #
 	(
 		// Users to add parameters here
-		parameter integer NUMBER_OF_OUTPUT_WORDS = 16,
-        parameter integer bitNumber = 16,
+		parameter integer NUMBER_OF_OUTPUT_WORDS = 8,
+        parameter integer bitNumber = 8,
 		// User parameters ends
 		// Do not modify the parameters beyond this line
 
@@ -36,7 +36,7 @@
 		input wire  M_AXIS_TREADY
 	);
 	// Total number of output data                                                 
-//	localparam NUMBER_OF_OUTPUT_WORDS = 8;                                               
+//	localparam NUMBER_OF_OUTPUT_WORDS = 16;                                               
 	                                                                                     
 	// function called clogb2 that returns an integer which has the                      
 	// value of the ceiling of the log base 2.                                           
@@ -186,7 +186,7 @@
 	      tx_done <= 1'b0;                                                           
 	    end                                                                          
 	  else                                                                           
-	    if (read_pointer <= NUMBER_OF_OUTPUT_WORDS-1)                                
+	    if (read_pointer <= NUMBER_OF_OUTPUT_WORDS-1)
 	      begin                                                                      
 	        if (tx_en)                                                               
 	          // read pointer is incremented after every read from the FIFO          
@@ -196,7 +196,7 @@
 	            tx_done <= 1'b0;                                                     
 	          end                                                                    
 	      end                                                                        
-	    else if (read_pointer == NUMBER_OF_OUTPUT_WORDS)                             
+	    else if (read_pointer == NUMBER_OF_OUTPUT_WORDS)
 	      begin                                                                      
 	        // tx_done is asserted when NUMBER_OF_OUTPUT_WORDS numbers of streaming data
 	        // has been out.                                                         
@@ -224,7 +224,7 @@
 
 	// Add user logic here
 //    assign M_AXIS_TDATA = 2; // Temp value
-    assign readPointer = read_pointer;
+    assign readPointer = read_pointer; // This is going up to 16??
 	// User logic ends
 
 	endmodule

@@ -24,9 +24,9 @@ module Fifo #
 (
     // AXI4Stream sink: Data Width
     parameter integer C_S_AXIS_TDATA_WIDTH      = 32,
-    parameter integer NUMBER_OF_INPUT_WORDS     = 16,
-    parameter integer NUMBER_OF_OUTPUT_WORDS    = 16, 
-    parameter integer bitNumber                 = 16,
+    parameter integer NUMBER_OF_INPUT_WORDS     = 8,
+    parameter integer NUMBER_OF_OUTPUT_WORDS    = 8, 
+    parameter integer bitNumber                 = 8,
     parameter integer C_M_AXIS_TDATA_WIDTH      = 32
 )
 (
@@ -62,12 +62,11 @@ module Fifo #
 	  end		
 	endgenerate
 	
-//	assign M_AXIS_TDATA = 2;
-    assign read_pointer = 0;
-    assign M_AXIS_TDATA = {
-        FIFO_GEN[3].stream_data_fifo[read_pointer + 3],
-        FIFO_GEN[2].stream_data_fifo[read_pointer + 2],
-        FIFO_GEN[1].stream_data_fifo[read_pointer + 1],
-        FIFO_GEN[0].stream_data_fifo[read_pointer + 0]
-    };
+//    assign M_AXIS_TDATA = {
+//        FIFO_GEN[3].stream_data_fifo[read_pointer + 3],
+//        FIFO_GEN[2].stream_data_fifo[read_pointer + 2],
+//        FIFO_GEN[1].stream_data_fifo[read_pointer + 1],
+//        FIFO_GEN[0].stream_data_fifo[read_pointer + 0]
+//    };
+    assign M_AXIS_TDATA = read_pointer;
 endmodule
