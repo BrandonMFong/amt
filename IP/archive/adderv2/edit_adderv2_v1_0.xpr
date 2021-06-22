@@ -22,8 +22,8 @@
     <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
-    <Option Name="IPRepoPath" Val="$PPRDIR/../../../../../../COLLEGE/Thesis/Source/Vivado/IP/adderv2/adderv2_1.0"/>
-    <Option Name="IPRepoPath" Val="$PPRDIR/../../../../../../COLLEGE/Thesis/Source/Vivado/IP/bufferIP_1.0"/>
+    <Option Name="IPRepoPath" Val="$PPRDIR/../../../../../../../COLLEGE/Thesis/Source/Vivado/IP/adderv2/adderv2_1.0"/>
+    <Option Name="IPRepoPath" Val="$PPRDIR/../../../../../../../COLLEGE/Thesis/Source/Vivado/IP/bufferIP_1.0"/>
     <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>
     <Option Name="IPCachePermission" Val="read"/>
     <Option Name="IPCachePermission" Val="write"/>
@@ -63,7 +63,7 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PPRDIR/../../../../../../COLLEGE/Thesis/Source/Vivado/IP/adderv2/adderv2_1.0/hdl/adderv2_v1_0.v">
+      <File Path="$PPRDIR/../../../../../../../COLLEGE/Thesis/Source/Vivado/IP/adderv2/adderv2_1.0/hdl/adderv2_v1_0.v">
         <FileInfo>
           <Attr Name="Library" Val=""/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -71,7 +71,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../../../../../COLLEGE/Thesis/Source/Vivado/IP/adderv2/adderv2_1.0/hdl/adderv2_v1_0_S00_AXI.v">
+      <File Path="$PPRDIR/../../../../../../../COLLEGE/Thesis/Source/Vivado/IP/adderv2/adderv2_1.0/hdl/adderv2_v1_0_S00_AXI.v">
         <FileInfo>
           <Attr Name="Library" Val=""/>
           <Attr Name="AutoDisabled" Val="1"/>
@@ -80,13 +80,13 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../../../../../COLLEGE/Thesis/Source/Vivado/IP/adderv2/adderv2_1.0/component.xml">
+      <File Path="$PPRDIR/../../../../../../../COLLEGE/Thesis/Source/Vivado/IP/adderv2/adderv2_1.0/component.xml">
         <FileInfo SFType="IPXACT"/>
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
         <Option Name="TopModule" Val="adderv2_v1_0"/>
-        <Option Name="TopRTLFile" Val="$PPRDIR/../../../../../../COLLEGE/Thesis/Source/Vivado/IP/adderv2/adderv2_1.0/hdl/adderv2_v1_0.v"/>
+        <Option Name="TopRTLFile" Val="$PPRDIR/../../../../../../../COLLEGE/Thesis/Source/Vivado/IP/adderv2/adderv2_1.0/hdl/adderv2_v1_0.v"/>
       </Config>
     </FileSet>
     <FileSet Name="constrs_1" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
