@@ -1,7 +1,7 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-// Date        : Wed Jun 23 17:10:27 2021
+// Date        : Wed Jun 23 18:08:33 2021
 // Host        : KAMANTA running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.srcs/sources_1/bd/design_1/ip/design_1_myIP2_0_1/design_1_myIP2_0_1_sim_netlist.v
@@ -49,6 +49,7 @@ module design_1_myIP2_0_1
   wire m00_axis_aclk;
   wire [5:0]\^m00_axis_tdata ;
   wire m00_axis_tlast;
+  wire m00_axis_tready;
   wire m00_axis_tvalid;
   wire s00_axis_aclk;
   wire s00_axis_aresetn;
@@ -95,6 +96,7 @@ module design_1_myIP2_0_1
        (.m00_axis_aclk(m00_axis_aclk),
         .m00_axis_tdata(\^m00_axis_tdata ),
         .m00_axis_tlast(m00_axis_tlast),
+        .m00_axis_tready(m00_axis_tready),
         .m00_axis_tvalid(m00_axis_tvalid),
         .mst_exec_state_reg(s00_axis_tready),
         .s00_axis_aclk(s00_axis_aclk),
@@ -108,18 +110,22 @@ module design_1_myIP2_0_1_PCP
    (m00_axis_tvalid,
     m00_axis_tlast,
     m00_axis_tdata,
-    m00_axis_aclk);
+    m00_axis_aclk,
+    m00_axis_tready);
   output m00_axis_tvalid;
   output m00_axis_tlast;
   output [5:0]m00_axis_tdata;
   input m00_axis_aclk;
+  input m00_axis_tready;
 
+  wire counter;
   wire \counter[5]_i_1_n_0 ;
   wire [5:0]counter_reg__0;
   wire finishedFlag_i_1_n_0;
   wire m00_axis_aclk;
   wire [5:0]m00_axis_tdata;
   wire m00_axis_tlast;
+  wire m00_axis_tready;
   wire m00_axis_tvalid;
   wire \outputValue[5]_i_1_n_0 ;
   wire \outputValue[5]_i_2_n_0 ;
@@ -176,8 +182,18 @@ module design_1_myIP2_0_1_PCP
         .I4(counter_reg__0[5]),
         .O(\counter[5]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'h7FFFFFFF80000000)) 
+    .INIT(64'h000000005F5F5F7F)) 
     \counter[5]_i_2 
+       (.I0(counter_reg__0[5]),
+        .I1(counter_reg__0[2]),
+        .I2(counter_reg__0[4]),
+        .I3(counter_reg__0[3]),
+        .I4(counter_reg__0[1]),
+        .I5(m00_axis_tready),
+        .O(counter));
+  LUT6 #(
+    .INIT(64'h7FFFFFFF80000000)) 
+    \counter[5]_i_3 
        (.I0(counter_reg__0[2]),
         .I1(counter_reg__0[4]),
         .I2(counter_reg__0[3]),
@@ -189,7 +205,7 @@ module design_1_myIP2_0_1_PCP
     .INIT(1'b0)) 
     \counter_reg[0] 
        (.C(m00_axis_aclk),
-        .CE(\outputValue[5]_i_2_n_0 ),
+        .CE(counter),
         .D(p_0_in__0[0]),
         .Q(counter_reg__0[0]),
         .R(\counter[5]_i_1_n_0 ));
@@ -197,7 +213,7 @@ module design_1_myIP2_0_1_PCP
     .INIT(1'b0)) 
     \counter_reg[1] 
        (.C(m00_axis_aclk),
-        .CE(\outputValue[5]_i_2_n_0 ),
+        .CE(counter),
         .D(p_0_in__0[1]),
         .Q(counter_reg__0[1]),
         .R(\counter[5]_i_1_n_0 ));
@@ -205,7 +221,7 @@ module design_1_myIP2_0_1_PCP
     .INIT(1'b0)) 
     \counter_reg[2] 
        (.C(m00_axis_aclk),
-        .CE(\outputValue[5]_i_2_n_0 ),
+        .CE(counter),
         .D(p_0_in__0[2]),
         .Q(counter_reg__0[2]),
         .R(\counter[5]_i_1_n_0 ));
@@ -213,7 +229,7 @@ module design_1_myIP2_0_1_PCP
     .INIT(1'b0)) 
     \counter_reg[3] 
        (.C(m00_axis_aclk),
-        .CE(\outputValue[5]_i_2_n_0 ),
+        .CE(counter),
         .D(p_0_in__0[3]),
         .Q(counter_reg__0[3]),
         .R(\counter[5]_i_1_n_0 ));
@@ -221,7 +237,7 @@ module design_1_myIP2_0_1_PCP
     .INIT(1'b0)) 
     \counter_reg[4] 
        (.C(m00_axis_aclk),
-        .CE(\outputValue[5]_i_2_n_0 ),
+        .CE(counter),
         .D(p_0_in__0[4]),
         .Q(counter_reg__0[4]),
         .R(\counter[5]_i_1_n_0 ));
@@ -229,7 +245,7 @@ module design_1_myIP2_0_1_PCP
     .INIT(1'b0)) 
     \counter_reg[5] 
        (.C(m00_axis_aclk),
-        .CE(\outputValue[5]_i_2_n_0 ),
+        .CE(counter),
         .D(p_0_in__0[5]),
         .Q(counter_reg__0[5]),
         .R(\counter[5]_i_1_n_0 ));
@@ -355,7 +371,8 @@ module design_1_myIP2_0_1_myIP2_v1_0
     s00_axis_aclk,
     s00_axis_tvalid,
     s00_axis_aresetn,
-    s00_axis_tlast);
+    s00_axis_tlast,
+    m00_axis_tready);
   output [5:0]m00_axis_tdata;
   output mst_exec_state_reg;
   output m00_axis_tvalid;
@@ -365,10 +382,12 @@ module design_1_myIP2_0_1_myIP2_v1_0
   input s00_axis_tvalid;
   input s00_axis_aresetn;
   input s00_axis_tlast;
+  input m00_axis_tready;
 
   wire m00_axis_aclk;
   wire [5:0]m00_axis_tdata;
   wire m00_axis_tlast;
+  wire m00_axis_tready;
   wire m00_axis_tvalid;
   wire mst_exec_state_reg;
   wire s00_axis_aclk;
@@ -380,6 +399,7 @@ module design_1_myIP2_0_1_myIP2_v1_0
        (.m00_axis_aclk(m00_axis_aclk),
         .m00_axis_tdata(m00_axis_tdata),
         .m00_axis_tlast(m00_axis_tlast),
+        .m00_axis_tready(m00_axis_tready),
         .m00_axis_tvalid(m00_axis_tvalid));
   design_1_myIP2_0_1_myIP2_v1_0_S00_AXIS myIP2_v1_0_S00_AXIS_inst
        (.mst_exec_state_reg_0(mst_exec_state_reg),

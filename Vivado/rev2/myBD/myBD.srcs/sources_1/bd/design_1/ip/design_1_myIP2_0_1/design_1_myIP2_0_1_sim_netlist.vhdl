@@ -1,7 +1,7 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Wed Jun 23 17:10:27 2021
+-- Date        : Wed Jun 23 18:08:33 2021
 -- Host        : KAMANTA running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.srcs/sources_1/bd/design_1/ip/design_1_myIP2_0_1/design_1_myIP2_0_1_sim_netlist.vhdl
@@ -19,13 +19,15 @@ entity design_1_myIP2_0_1_PCP is
     m00_axis_tvalid : out STD_LOGIC;
     m00_axis_tlast : out STD_LOGIC;
     m00_axis_tdata : out STD_LOGIC_VECTOR ( 5 downto 0 );
-    m00_axis_aclk : in STD_LOGIC
+    m00_axis_aclk : in STD_LOGIC;
+    m00_axis_tready : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of design_1_myIP2_0_1_PCP : entity is "PCP";
 end design_1_myIP2_0_1_PCP;
 
 architecture STRUCTURE of design_1_myIP2_0_1_PCP is
+  signal counter : STD_LOGIC;
   signal \counter[5]_i_1_n_0\ : STD_LOGIC;
   signal \counter_reg__0\ : STD_LOGIC_VECTOR ( 5 downto 0 );
   signal finishedFlag_i_1_n_0 : STD_LOGIC;
@@ -108,6 +110,19 @@ begin
     );
 \counter[5]_i_2\: unisim.vcomponents.LUT6
     generic map(
+      INIT => X"000000005F5F5F7F"
+    )
+        port map (
+      I0 => \counter_reg__0\(5),
+      I1 => \counter_reg__0\(2),
+      I2 => \counter_reg__0\(4),
+      I3 => \counter_reg__0\(3),
+      I4 => \counter_reg__0\(1),
+      I5 => m00_axis_tready,
+      O => counter
+    );
+\counter[5]_i_3\: unisim.vcomponents.LUT6
+    generic map(
       INIT => X"7FFFFFFF80000000"
     )
         port map (
@@ -125,7 +140,7 @@ begin
     )
         port map (
       C => m00_axis_aclk,
-      CE => \outputValue[5]_i_2_n_0\,
+      CE => counter,
       D => \p_0_in__0\(0),
       Q => \counter_reg__0\(0),
       R => \counter[5]_i_1_n_0\
@@ -136,7 +151,7 @@ begin
     )
         port map (
       C => m00_axis_aclk,
-      CE => \outputValue[5]_i_2_n_0\,
+      CE => counter,
       D => \p_0_in__0\(1),
       Q => \counter_reg__0\(1),
       R => \counter[5]_i_1_n_0\
@@ -147,7 +162,7 @@ begin
     )
         port map (
       C => m00_axis_aclk,
-      CE => \outputValue[5]_i_2_n_0\,
+      CE => counter,
       D => \p_0_in__0\(2),
       Q => \counter_reg__0\(2),
       R => \counter[5]_i_1_n_0\
@@ -158,7 +173,7 @@ begin
     )
         port map (
       C => m00_axis_aclk,
-      CE => \outputValue[5]_i_2_n_0\,
+      CE => counter,
       D => \p_0_in__0\(3),
       Q => \counter_reg__0\(3),
       R => \counter[5]_i_1_n_0\
@@ -169,7 +184,7 @@ begin
     )
         port map (
       C => m00_axis_aclk,
-      CE => \outputValue[5]_i_2_n_0\,
+      CE => counter,
       D => \p_0_in__0\(4),
       Q => \counter_reg__0\(4),
       R => \counter[5]_i_1_n_0\
@@ -180,7 +195,7 @@ begin
     )
         port map (
       C => m00_axis_aclk,
-      CE => \outputValue[5]_i_2_n_0\,
+      CE => counter,
       D => \p_0_in__0\(5),
       Q => \counter_reg__0\(5),
       R => \counter[5]_i_1_n_0\
@@ -524,7 +539,8 @@ entity design_1_myIP2_0_1_myIP2_v1_0 is
     s00_axis_aclk : in STD_LOGIC;
     s00_axis_tvalid : in STD_LOGIC;
     s00_axis_aresetn : in STD_LOGIC;
-    s00_axis_tlast : in STD_LOGIC
+    s00_axis_tlast : in STD_LOGIC;
+    m00_axis_tready : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of design_1_myIP2_0_1_myIP2_v1_0 : entity is "myIP2_v1_0";
@@ -537,6 +553,7 @@ mod1: entity work.design_1_myIP2_0_1_PCP
       m00_axis_aclk => m00_axis_aclk,
       m00_axis_tdata(5 downto 0) => m00_axis_tdata(5 downto 0),
       m00_axis_tlast => m00_axis_tlast,
+      m00_axis_tready => m00_axis_tready,
       m00_axis_tvalid => m00_axis_tvalid
     );
 myIP2_v1_0_S00_AXIS_inst: entity work.design_1_myIP2_0_1_myIP2_v1_0_S00_AXIS
@@ -650,6 +667,7 @@ inst: entity work.design_1_myIP2_0_1_myIP2_v1_0
       m00_axis_aclk => m00_axis_aclk,
       m00_axis_tdata(5 downto 0) => \^m00_axis_tdata\(5 downto 0),
       m00_axis_tlast => m00_axis_tlast,
+      m00_axis_tready => m00_axis_tready,
       m00_axis_tvalid => m00_axis_tvalid,
       mst_exec_state_reg => s00_axis_tready,
       s00_axis_aclk => s00_axis_aclk,

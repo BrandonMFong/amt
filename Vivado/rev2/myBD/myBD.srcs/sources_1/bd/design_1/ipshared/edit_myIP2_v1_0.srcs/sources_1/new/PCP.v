@@ -24,6 +24,7 @@ module PCP #(
     parameter MAX_OUTPUT_SIZE = 16
 )(   
     input wire clk,
+    input wire ready,
     
     output reg [MAX_OUTPUT_SIZE - 1 : 0] outputValue,
     
@@ -34,6 +35,8 @@ module PCP #(
     localparam kOffset = 5;
     localparam kMaxCount = 50;
     
+    wire isReady = 0;
+    
     reg [MAX_OUTPUT_SIZE - 1 : 0] counter = 0;
     reg validFlag = 0;
     reg finishedFlag = 0;
@@ -41,6 +44,8 @@ module PCP #(
     initial begin 
         outputValue = 0;
     end 
+    
+//    assign isReady = ready;
     
     // TODO: output every four clock cycles
     always @ (posedge clk) begin 
@@ -53,7 +58,10 @@ module PCP #(
                 outputValue <= 0;
             end 
             
-            counter = counter + 1;
+            // Do not move on until the dma has already accepted the data
+            if (ready == 0) begin 
+                counter = counter + 1;
+            end 
         end else begin 
             counter <= 0; // I don't think I need this cuz regs would overflow? 
             finishedFlag <= 1;

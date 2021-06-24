@@ -108,10 +108,11 @@
     PCP # (
     .MAX_OUTPUT_SIZE(C_M00_AXIS_TDATA_WIDTH)
     ) mod1 (
-    .clk(m00_axis_aclk),
-    .outputValue(m00_axis_tdata),
-    .validData(m00_axis_tvalid),
-    .finished(m00_axis_tlast)
+        .clk(m00_axis_aclk),
+        .outputValue(m00_axis_tdata),
+        .validData(m00_axis_tvalid),
+        .finished(m00_axis_tlast),
+        .ready(m00_axis_tready)
     );
     
 	// User logic ends
