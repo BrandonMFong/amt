@@ -541,18 +541,18 @@
         <spirit:displayName>Verilog Synthesis</spirit:displayName>
         <spirit:envIdentifier>verilogSource:vivado.xilinx.com:synthesis</spirit:envIdentifier>
         <spirit:language>verilog</spirit:language>
-        <spirit:modelName>myIP2_v1_0</spirit:modelName>
+        <spirit:modelName>axis_fifo_v1_0</spirit:modelName>
         <spirit:fileSetRef>
           <spirit:localName>xilinx_verilogsynthesis_view_fileset</spirit:localName>
         </spirit:fileSetRef>
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Thu Jun 24 01:07:51 UTC 2021</spirit:value>
+            <spirit:value>Thu Jun 24 01:21:34 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:abef0f5c</spirit:value>
+            <spirit:value>9:8896b726</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -568,11 +568,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Thu Jun 24 01:07:51 UTC 2021</spirit:value>
+            <spirit:value>Thu Jun 24 01:21:34 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:abef0f5c</spirit:value>
+            <spirit:value>9:8896b726</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -581,18 +581,18 @@
         <spirit:displayName>Verilog Simulation</spirit:displayName>
         <spirit:envIdentifier>verilogSource:vivado.xilinx.com:simulation</spirit:envIdentifier>
         <spirit:language>verilog</spirit:language>
-        <spirit:modelName>myIP2_v1_0</spirit:modelName>
+        <spirit:modelName>axis_fifo_v1_0</spirit:modelName>
         <spirit:fileSetRef>
           <spirit:localName>xilinx_verilogbehavioralsimulation_view_fileset</spirit:localName>
         </spirit:fileSetRef>
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Thu Jun 24 01:07:51 UTC 2021</spirit:value>
+            <spirit:value>Thu Jun 24 01:21:34 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:987af898</spirit:value>
+            <spirit:value>9:2d1fcfcf</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -608,11 +608,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Thu Jun 24 01:07:51 UTC 2021</spirit:value>
+            <spirit:value>Thu Jun 24 01:21:34 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:987af898</spirit:value>
+            <spirit:value>9:2d1fcfcf</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -626,11 +626,11 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>GENtimestamp</spirit:name>
-            <spirit:value>Thu Jun 24 01:08:33 UTC 2021</spirit:value>
+            <spirit:value>Thu Jun 24 01:22:18 UTC 2021</spirit:value>
           </spirit:parameter>
           <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
-            <spirit:value>9:abef0f5c</spirit:value>
+            <spirit:value>9:8896b726</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -641,7 +641,7 @@
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_M00_AXIS_TDATA_WIDTH&apos;)) - 1)">31</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_AXIS_TDATA_WIDTH&apos;)) - 1)">31</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -658,7 +658,7 @@
         <spirit:wire>
           <spirit:direction>out</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_M00_AXIS_TDATA_WIDTH&apos;)) / 8) - 1)">3</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_AXIS_TDATA_WIDTH&apos;)) / 8) - 1)">3</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -740,7 +740,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_S00_AXIS_TDATA_WIDTH&apos;)) - 1)">31</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="(spirit:decode(id(&apos;MODELPARAM_VALUE.C_AXIS_TDATA_WIDTH&apos;)) - 1)">31</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -757,7 +757,7 @@
         <spirit:wire>
           <spirit:direction>in</spirit:direction>
           <spirit:vector>
-            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_S00_AXIS_TDATA_WIDTH&apos;)) / 8) - 1)">3</spirit:left>
+            <spirit:left spirit:format="long" spirit:resolve="dependent" spirit:dependency="((spirit:decode(id(&apos;MODELPARAM_VALUE.C_AXIS_TDATA_WIDTH&apos;)) / 8) - 1)">3</spirit:left>
             <spirit:right spirit:format="long">0</spirit:right>
           </spirit:vector>
           <spirit:wireTypeDefs>
@@ -837,32 +837,14 @@
     </spirit:ports>
     <spirit:modelParameters>
       <spirit:modelParameter xsi:type="spirit:nameValueTypeType" spirit:dataType="integer">
-        <spirit:name>C_M00_AXIS_TDATA_WIDTH</spirit:name>
-        <spirit:displayName>C M00 AXIS TDATA WIDTH</spirit:displayName>
-        <spirit:description>Width of S_AXIS address bus. The slave accepts the read and write addresses of width C_M_AXIS_TDATA_WIDTH.</spirit:description>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_M00_AXIS_TDATA_WIDTH" spirit:order="3" spirit:rangeType="long">32</spirit:value>
+        <spirit:name>ADDR_WIDTH</spirit:name>
+        <spirit:displayName>Addr Width</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.ADDR_WIDTH">12</spirit:value>
       </spirit:modelParameter>
       <spirit:modelParameter spirit:dataType="integer">
-        <spirit:name>C_M00_AXIS_START_COUNT</spirit:name>
-        <spirit:displayName>C M00 AXIS START COUNT</spirit:displayName>
-        <spirit:description>Start count is the number of clock cycles the master will wait before initiating/issuing any transaction.</spirit:description>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_M00_AXIS_START_COUNT" spirit:order="4" spirit:minimum="1" spirit:rangeType="long">32</spirit:value>
-      </spirit:modelParameter>
-      <spirit:modelParameter spirit:dataType="integer">
-        <spirit:name>C_S00_AXIS_TDATA_WIDTH</spirit:name>
-        <spirit:displayName>C S00 AXIS TDATA WIDTH</spirit:displayName>
-        <spirit:description>AXI4Stream sink: Data Width</spirit:description>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_S00_AXIS_TDATA_WIDTH" spirit:order="5" spirit:rangeType="long">32</spirit:value>
-      </spirit:modelParameter>
-      <spirit:modelParameter spirit:dataType="integer">
-        <spirit:name>bitNumber</spirit:name>
-        <spirit:displayName>Bitnumber</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.bitNumber">16</spirit:value>
-      </spirit:modelParameter>
-      <spirit:modelParameter spirit:dataType="integer">
-        <spirit:name>NUMBER_OF_INPUT_WORDS</spirit:name>
-        <spirit:displayName>Number Of Input Words</spirit:displayName>
-        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.NUMBER_OF_INPUT_WORDS">16</spirit:value>
+        <spirit:name>C_AXIS_TDATA_WIDTH</spirit:name>
+        <spirit:displayName>C Axis Tdata Width</spirit:displayName>
+        <spirit:value spirit:format="long" spirit:resolve="generated" spirit:id="MODELPARAM_VALUE.C_AXIS_TDATA_WIDTH">32</spirit:value>
       </spirit:modelParameter>
     </spirit:modelParameters>
   </spirit:model>
@@ -881,23 +863,7 @@
     <spirit:fileSet>
       <spirit:name>xilinx_verilogsynthesis_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>../../ipshared/edit_myIP2_v1_0.srcs/sources_1/new/Fifo.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>../../ipshared/edit_myIP2_v1_0.srcs/sources_1/new/PCP.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>../../ipshared/26f6/hdl/myIP2_v1_0_M00_AXIS.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>../../ipshared/26f6/hdl/myIP2_v1_0_S00_AXIS.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>../../ipshared/26f6/hdl/myIP2_v1_0.v</spirit:name>
+        <spirit:name>../../ipshared/edit_myIP2_v1_0.srcs/sources_1/new/topModule.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>
@@ -912,23 +878,7 @@
     <spirit:fileSet>
       <spirit:name>xilinx_verilogbehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>../../ipshared/edit_myIP2_v1_0.srcs/sources_1/new/Fifo.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>../../ipshared/edit_myIP2_v1_0.srcs/sources_1/new/PCP.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>../../ipshared/26f6/hdl/myIP2_v1_0_M00_AXIS.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>../../ipshared/26f6/hdl/myIP2_v1_0_S00_AXIS.v</spirit:name>
-        <spirit:fileType>verilogSource</spirit:fileType>
-      </spirit:file>
-      <spirit:file>
-        <spirit:name>../../ipshared/26f6/hdl/myIP2_v1_0.v</spirit:name>
+        <spirit:name>../../ipshared/edit_myIP2_v1_0.srcs/sources_1/new/topModule.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>
@@ -980,56 +930,24 @@
   <spirit:description>My new AXI IP</spirit:description>
   <spirit:parameters>
     <spirit:parameter>
-      <spirit:name>C_M00_AXIS_TDATA_WIDTH</spirit:name>
-      <spirit:displayName>C M00 AXIS TDATA WIDTH</spirit:displayName>
-      <spirit:description>Width of S_AXIS address bus. The slave accepts the read and write addresses of width C_M_AXIS_TDATA_WIDTH.</spirit:description>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_M00_AXIS_TDATA_WIDTH" spirit:choiceRef="choice_list_6fc15197" spirit:order="3">32</spirit:value>
-      <spirit:vendorExtensions>
-        <xilinx:parameterInfo>
-          <xilinx:enablement>
-            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.C_M00_AXIS_TDATA_WIDTH">false</xilinx:isEnabled>
-          </xilinx:enablement>
-        </xilinx:parameterInfo>
-      </spirit:vendorExtensions>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>C_M00_AXIS_START_COUNT</spirit:name>
-      <spirit:displayName>C M00 AXIS START COUNT</spirit:displayName>
-      <spirit:description>Start count is the number of clock cycles the master will wait before initiating/issuing any transaction.</spirit:description>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_M00_AXIS_START_COUNT" spirit:order="4" spirit:minimum="1" spirit:rangeType="long">32</spirit:value>
-    </spirit:parameter>
-    <spirit:parameter>
-      <spirit:name>C_S00_AXIS_TDATA_WIDTH</spirit:name>
-      <spirit:displayName>C S00 AXIS TDATA WIDTH</spirit:displayName>
-      <spirit:description>AXI4Stream sink: Data Width</spirit:description>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_S00_AXIS_TDATA_WIDTH" spirit:choiceRef="choice_list_6fc15197" spirit:order="5">32</spirit:value>
-      <spirit:vendorExtensions>
-        <xilinx:parameterInfo>
-          <xilinx:enablement>
-            <xilinx:isEnabled xilinx:id="PARAM_ENABLEMENT.C_S00_AXIS_TDATA_WIDTH">false</xilinx:isEnabled>
-          </xilinx:enablement>
-        </xilinx:parameterInfo>
-      </spirit:vendorExtensions>
-    </spirit:parameter>
-    <spirit:parameter>
       <spirit:name>Component_Name</spirit:name>
       <spirit:value spirit:resolve="user" spirit:id="PARAM_VALUE.Component_Name" spirit:order="1">design_1_myIP2_0_1</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
-      <spirit:name>bitNumber</spirit:name>
-      <spirit:displayName>Bitnumber</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.bitNumber">16</spirit:value>
+      <spirit:name>ADDR_WIDTH</spirit:name>
+      <spirit:displayName>Addr Width</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.ADDR_WIDTH">12</spirit:value>
     </spirit:parameter>
     <spirit:parameter>
-      <spirit:name>NUMBER_OF_INPUT_WORDS</spirit:name>
-      <spirit:displayName>Number Of Input Words</spirit:displayName>
-      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.NUMBER_OF_INPUT_WORDS">16</spirit:value>
+      <spirit:name>C_AXIS_TDATA_WIDTH</spirit:name>
+      <spirit:displayName>C Axis Tdata Width</spirit:displayName>
+      <spirit:value spirit:format="long" spirit:resolve="user" spirit:id="PARAM_VALUE.C_AXIS_TDATA_WIDTH">32</spirit:value>
     </spirit:parameter>
   </spirit:parameters>
   <spirit:vendorExtensions>
     <xilinx:coreExtensions>
       <xilinx:displayName>myIP2_v1.0</xilinx:displayName>
-      <xilinx:coreRevision>47</xilinx:coreRevision>
+      <xilinx:coreRevision>48</xilinx:coreRevision>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@299ae5a1_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@48800e3d_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
@@ -1586,6 +1504,29 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@5bd4245d_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@7808c994_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@7c3295a0_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1ee4f6b_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1e5c93b7_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7772c809_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b41898a_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@731f3b25_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@49372ea7_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@726fd910_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4f2db375_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@40c640_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@37c7471d_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e93b761_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5c9f889d_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ecf2645_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ef93b5e_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6d19e80d_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6045ddb0_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@c85bcca_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@17190fab_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@40135515_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3d8cec21_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@e933bbf_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@41e0ba0f_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@62ffbad5_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
       </xilinx:tags>
       <xilinx:configElementInfos>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.M00_AXIS.CLK_DOMAIN" xilinx:valueSource="default_prop" xilinx:valuePermission="bd"/>
@@ -1612,17 +1553,15 @@
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S00_AXIS.TUSER_WIDTH" xilinx:valueSource="constant" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S00_AXIS_CLK.CLK_DOMAIN" xilinx:valueSource="default_prop" xilinx:valuePermission="bd"/>
         <xilinx:configElementInfo xilinx:referenceId="BUSIFPARAM_VALUE.S00_AXIS_CLK.FREQ_HZ" xilinx:valueSource="user_prop" xilinx:valuePermission="bd"/>
-        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.NUMBER_OF_INPUT_WORDS" xilinx:valueSource="user"/>
-        <xilinx:configElementInfo xilinx:referenceId="PARAM_VALUE.bitNumber" xilinx:valueSource="user"/>
       </xilinx:configElementInfos>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2018.3</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="29a15928"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="a5499176"/>
-      <xilinx:checksum xilinx:scope="ports" xilinx:value="44e5ec29"/>
-      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="f24d46fc"/>
-      <xilinx:checksum xilinx:scope="parameters" xilinx:value="2027e2a5"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="4753b822"/>
+      <xilinx:checksum xilinx:scope="ports" xilinx:value="dde9699e"/>
+      <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="f9bf6230"/>
+      <xilinx:checksum xilinx:scope="parameters" xilinx:value="02e480d3"/>
     </xilinx:packagingInfo>
   </spirit:vendorExtensions>
 </spirit:component>

@@ -48,7 +48,7 @@
 
 
 // IP VLNV: xilinx.com:user:myIP2:1.0
-// IP Revision: 47
+// IP Revision: 48
 
 `timescale 1ns/1ps
 
@@ -105,12 +105,9 @@ input wire s00_axis_aclk;
 (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 S00_AXIS_RST RST" *)
 input wire s00_axis_aresetn;
 
-  myIP2_v1_0 #(
-    .C_M00_AXIS_TDATA_WIDTH(32),  // Width of S_AXIS address bus. The slave accepts the read and write addresses of width C_M_AXIS_TDATA_WIDTH.
-    .C_M00_AXIS_START_COUNT(32),  // Start count is the number of clock cycles the master will wait before initiating/issuing any transaction.
-    .C_S00_AXIS_TDATA_WIDTH(32),  // AXI4Stream sink: Data Width
-    .bitNumber(16),
-    .NUMBER_OF_INPUT_WORDS(16)
+  axis_fifo_v1_0 #(
+    .ADDR_WIDTH(12),
+    .C_AXIS_TDATA_WIDTH(32)
   ) inst (
     .m00_axis_tdata(m00_axis_tdata),
     .m00_axis_tstrb(m00_axis_tstrb),
