@@ -48,11 +48,11 @@
 
 
 // IP VLNV: xilinx.com:user:myIP2:1.0
-// IP Revision: 48
+// IP Revision: 49
 
 (* X_CORE_INFO = "axis_fifo_v1_0,Vivado 2018.3" *)
 (* CHECK_LICENSE_TYPE = "design_1_myIP2_0_1,axis_fifo_v1_0,{}" *)
-(* CORE_GENERATION_INFO = "design_1_myIP2_0_1,axis_fifo_v1_0,{x_ipProduct=Vivado 2018.3,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=myIP2,x_ipVersion=1.0,x_ipCoreRevision=48,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,ADDR_WIDTH=12,C_AXIS_TDATA_WIDTH=32}" *)
+(* CORE_GENERATION_INFO = "design_1_myIP2_0_1,axis_fifo_v1_0,{x_ipProduct=Vivado 2018.3,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=myIP2,x_ipVersion=1.0,x_ipCoreRevision=49,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,ADDR_WIDTH=12,C_AXIS_TDATA_WIDTH=32}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_myIP2_0_1 (
   m00_axis_tdata,
