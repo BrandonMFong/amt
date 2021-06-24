@@ -79,10 +79,10 @@
 	) myIP2_v1_0_M00_AXIS_inst (
 		.M_AXIS_ACLK      (m00_axis_aclk),
 		.M_AXIS_ARESETN   (m00_axis_aresetn),
-		.M_AXIS_TVALID    (m00_axis_tvalid),
+//		.M_AXIS_TVALID    (m00_axis_tvalid),
 //		.M_AXIS_TDATA     (m00_axis_tdata),
 		.M_AXIS_TSTRB     (m00_axis_tstrb),
-		.M_AXIS_TLAST     (m00_axis_tlast),
+//		.M_AXIS_TLAST     (m00_axis_tlast),
 		.M_AXIS_TREADY    (m00_axis_tready),
 		
         // Add user logic here
@@ -90,21 +90,31 @@
         // User logic ends
 	);
 
+/********************** THIS IS ALL ME **********************/
 	// Add user logic here
-//    assign m00_axis_tdata = s00_axis_tdata;
     Fifo # (
         .C_S_AXIS_TDATA_WIDTH   (C_S00_AXIS_TDATA_WIDTH),
         .NUMBER_OF_INPUT_WORDS  (NUMBER_OF_INPUT_WORDS),
-//        .NUMBER_OF_OUTPUT_WORDS (NUMBER_OF_OUTPUT_WORDS),
-		.bitNumber(bitNumber)
+		.bitNumber              (bitNumber)
     ) mod0 (
 		.S_AXIS_ACLK      (s00_axis_aclk),
 		.fifo_wren        (myIP2_v1_0_S00_AXIS_fifoWriteEnable__Fifo_fifo_wren),
 		.write_pointer    (myIP2_v1_0_S00_AXIS_writePointer__Fifo_write_pointer),
 		.S_AXIS_TDATA     (s00_axis_tdata),
-		.M_AXIS_TDATA     (m00_axis_tdata),
+//		.M_AXIS_TDATA     (m00_axis_tdata),
 		.read_pointer     (myIP2_v1_0_M00_AXIS_readPointer__Fifo_read_pointer)
     );
+    
+    PCP # (
+    .MAX_OUTPUT_SIZE(C_M00_AXIS_TDATA_WIDTH)
+    ) mod1 (
+    .clk(m00_axis_aclk),
+    .outputValue(m00_axis_tdata),
+    .validData(m00_axis_tvalid),
+    .finished(m00_axis_tlast)
+    );
+    
 	// User logic ends
+/********************** THIS IS ALL ME **********************/
 
 	endmodule
