@@ -1,7 +1,7 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Mon Jun 28 18:04:22 2021
+-- Date        : Mon Jun 28 18:38:49 2021
 -- Host        : KAMANTA running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.srcs/sources_1/bd/design_1/ip/design_1_myIP2_0_1/design_1_myIP2_0_1_sim_netlist.vhdl
@@ -18,7 +18,7 @@ entity design_1_myIP2_0_1_axis_fifo_v1_0 is
   port (
     s00_axis_tready : out STD_LOGIC;
     m00_axis_tvalid_reg_reg_0 : out STD_LOGIC;
-    mem_read_data_reg : out STD_LOGIC_VECTOR ( 32 downto 0 );
+    pcpin_mem_read_data_reg : out STD_LOGIC_VECTOR ( 32 downto 0 );
     s00_axis_tvalid : in STD_LOGIC;
     m00_axis_tready : in STD_LOGIC;
     s00_axis_aclk : in STD_LOGIC;
@@ -61,8 +61,9 @@ architecture STRUCTURE of design_1_myIP2_0_1_axis_fifo_v1_0 is
   signal m00_rst_sync3_reg : STD_LOGIC;
   signal m00_rst_sync3_reg_i_1_n_0 : STD_LOGIC;
   signal mem_read_data_valid_reg : STD_LOGIC;
+  signal mem_read_data_valid_reg_i_2_n_0 : STD_LOGIC;
   signal mem_reg_3_i_1_n_0 : STD_LOGIC;
-  signal mem_reg_3_i_2_n_0 : STD_LOGIC;
+  signal mem_reg_3_n_61 : STD_LOGIC;
   signal p_0_in : STD_LOGIC;
   signal p_0_in0_in : STD_LOGIC;
   signal p_1_in : STD_LOGIC;
@@ -112,14 +113,14 @@ architecture STRUCTURE of design_1_myIP2_0_1_axis_fifo_v1_0 is
   signal rd_ptr_next1 : STD_LOGIC;
   signal rd_ptr_reg : STD_LOGIC_VECTOR ( 12 downto 0 );
   signal \rd_ptr_reg[0]_i_1_n_0\ : STD_LOGIC;
-  signal read : STD_LOGIC;
-  signal s00_axis_tready03_in : STD_LOGIC;
+  signal s00_axis_tready0 : STD_LOGIC;
   signal s00_rst_sync1_reg : STD_LOGIC;
   signal s00_rst_sync1_reg_i_1_n_0 : STD_LOGIC;
   signal s00_rst_sync2_reg : STD_LOGIC;
   signal s00_rst_sync2_reg_i_1_n_0 : STD_LOGIC;
   signal s00_rst_sync3_reg : STD_LOGIC;
   signal s00_rst_sync3_reg_i_1_n_0 : STD_LOGIC;
+  signal store_output : STD_LOGIC;
   signal wr_addr_reg : STD_LOGIC_VECTOR ( 11 downto 0 );
   signal \wr_addr_reg[0]_i_1_n_0\ : STD_LOGIC;
   signal \wr_addr_reg[10]_i_1_n_0\ : STD_LOGIC;
@@ -212,7 +213,7 @@ architecture STRUCTURE of design_1_myIP2_0_1_axis_fifo_v1_0 is
   signal NLW_mem_reg_3_INJECTSBITERR_UNCONNECTED : STD_LOGIC;
   signal NLW_mem_reg_3_SBITERR_UNCONNECTED : STD_LOGIC;
   signal NLW_mem_reg_3_DOADO_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
-  signal NLW_mem_reg_3_DOBDO_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 6 );
+  signal NLW_mem_reg_3_DOBDO_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 7 );
   signal NLW_mem_reg_3_DOPADOP_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal NLW_mem_reg_3_DOPBDOP_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal NLW_mem_reg_3_ECCPARITY_UNCONNECTED : STD_LOGIC_VECTOR ( 7 downto 0 );
@@ -275,19 +276,19 @@ architecture STRUCTURE of design_1_myIP2_0_1_axis_fifo_v1_0 is
   attribute ram_addr_end of mem_reg_2 : label is 4095;
   attribute ram_slice_begin of mem_reg_2 : label is 18;
   attribute ram_slice_end of mem_reg_2 : label is 26;
-  attribute \MEM.PORTA.DATA_BIT_LAYOUT\ of mem_reg_3 : label is "p0_d6";
-  attribute \MEM.PORTB.DATA_BIT_LAYOUT\ of mem_reg_3 : label is "p0_d6";
+  attribute \MEM.PORTA.DATA_BIT_LAYOUT\ of mem_reg_3 : label is "p0_d7";
+  attribute \MEM.PORTB.DATA_BIT_LAYOUT\ of mem_reg_3 : label is "p0_d7";
   attribute METHODOLOGY_DRC_VIOS of mem_reg_3 : label is "";
   attribute RTL_RAM_BITS of mem_reg_3 : label is 139264;
   attribute RTL_RAM_NAME of mem_reg_3 : label is "mem";
   attribute bram_addr_begin of mem_reg_3 : label is 0;
   attribute bram_addr_end of mem_reg_3 : label is 4095;
   attribute bram_slice_begin of mem_reg_3 : label is 27;
-  attribute bram_slice_end of mem_reg_3 : label is 32;
+  attribute bram_slice_end of mem_reg_3 : label is 33;
   attribute ram_addr_begin of mem_reg_3 : label is 0;
   attribute ram_addr_end of mem_reg_3 : label is 4095;
   attribute ram_slice_begin of mem_reg_3 : label is 27;
-  attribute ram_slice_end of mem_reg_3 : label is 32;
+  attribute ram_slice_end of mem_reg_3 : label is 33;
   attribute SOFT_HLUTNM of \rd_ptr_gray_reg[0]_i_1\ : label is "soft_lutpair19";
   attribute SOFT_HLUTNM of \rd_ptr_gray_reg[10]_i_1\ : label is "soft_lutpair9";
   attribute SOFT_HLUTNM of \rd_ptr_gray_reg[11]_i_1\ : label is "soft_lutpair9";
@@ -576,7 +577,7 @@ mem_read_data_valid_reg_i_2: unisim.vcomponents.LUT1
     )
         port map (
       I0 => empty,
-      O => read
+      O => mem_read_data_valid_reg_i_2_n_0
     );
 mem_read_data_valid_reg_reg: unisim.vcomponents.FDRE
     generic map(
@@ -585,7 +586,7 @@ mem_read_data_valid_reg_reg: unisim.vcomponents.FDRE
         port map (
       C => m00_axis_aclk,
       CE => rd_ptr_next1,
-      D => read,
+      D => mem_read_data_valid_reg_i_2_n_0,
       Q => mem_read_data_valid_reg,
       R => m00_rst_sync3_reg
     );
@@ -636,10 +637,10 @@ mem_reg_0: unisim.vcomponents.RAMB36E1
       DIPBDIP(3 downto 0) => B"0001",
       DOADO(31 downto 0) => NLW_mem_reg_0_DOADO_UNCONNECTED(31 downto 0),
       DOBDO(31 downto 8) => NLW_mem_reg_0_DOBDO_UNCONNECTED(31 downto 8),
-      DOBDO(7 downto 0) => mem_read_data_reg(7 downto 0),
+      DOBDO(7 downto 0) => pcpin_mem_read_data_reg(7 downto 0),
       DOPADOP(3 downto 0) => NLW_mem_reg_0_DOPADOP_UNCONNECTED(3 downto 0),
       DOPBDOP(3 downto 1) => NLW_mem_reg_0_DOPBDOP_UNCONNECTED(3 downto 1),
-      DOPBDOP(0) => mem_read_data_reg(8),
+      DOPBDOP(0) => pcpin_mem_read_data_reg(8),
       ECCPARITY(7 downto 0) => NLW_mem_reg_0_ECCPARITY_UNCONNECTED(7 downto 0),
       ENARDEN => s00_axis_tvalid,
       ENBWREN => mem_reg_3_i_1_n_0,
@@ -647,16 +648,16 @@ mem_reg_0: unisim.vcomponents.RAMB36E1
       INJECTSBITERR => NLW_mem_reg_0_INJECTSBITERR_UNCONNECTED,
       RDADDRECC(8 downto 0) => NLW_mem_reg_0_RDADDRECC_UNCONNECTED(8 downto 0),
       REGCEAREGCE => '0',
-      REGCEB => mem_reg_3_i_2_n_0,
+      REGCEB => store_output,
       RSTRAMARSTRAM => '0',
       RSTRAMB => '0',
       RSTREGARSTREG => '0',
       RSTREGB => '0',
       SBITERR => NLW_mem_reg_0_SBITERR_UNCONNECTED,
-      WEA(3) => s00_axis_tready03_in,
-      WEA(2) => s00_axis_tready03_in,
-      WEA(1) => s00_axis_tready03_in,
-      WEA(0) => s00_axis_tready03_in,
+      WEA(3) => s00_axis_tready0,
+      WEA(2) => s00_axis_tready0,
+      WEA(1) => s00_axis_tready0,
+      WEA(0) => s00_axis_tready0,
       WEBWE(7 downto 0) => B"00000000"
     );
 mem_reg_1: unisim.vcomponents.RAMB36E1
@@ -706,10 +707,10 @@ mem_reg_1: unisim.vcomponents.RAMB36E1
       DIPBDIP(3 downto 0) => B"0001",
       DOADO(31 downto 0) => NLW_mem_reg_1_DOADO_UNCONNECTED(31 downto 0),
       DOBDO(31 downto 8) => NLW_mem_reg_1_DOBDO_UNCONNECTED(31 downto 8),
-      DOBDO(7 downto 0) => mem_read_data_reg(16 downto 9),
+      DOBDO(7 downto 0) => pcpin_mem_read_data_reg(16 downto 9),
       DOPADOP(3 downto 0) => NLW_mem_reg_1_DOPADOP_UNCONNECTED(3 downto 0),
       DOPBDOP(3 downto 1) => NLW_mem_reg_1_DOPBDOP_UNCONNECTED(3 downto 1),
-      DOPBDOP(0) => mem_read_data_reg(17),
+      DOPBDOP(0) => pcpin_mem_read_data_reg(17),
       ECCPARITY(7 downto 0) => NLW_mem_reg_1_ECCPARITY_UNCONNECTED(7 downto 0),
       ENARDEN => s00_axis_tvalid,
       ENBWREN => mem_reg_3_i_1_n_0,
@@ -717,16 +718,16 @@ mem_reg_1: unisim.vcomponents.RAMB36E1
       INJECTSBITERR => NLW_mem_reg_1_INJECTSBITERR_UNCONNECTED,
       RDADDRECC(8 downto 0) => NLW_mem_reg_1_RDADDRECC_UNCONNECTED(8 downto 0),
       REGCEAREGCE => '0',
-      REGCEB => mem_reg_3_i_2_n_0,
+      REGCEB => store_output,
       RSTRAMARSTRAM => '0',
       RSTRAMB => '0',
       RSTREGARSTREG => '0',
       RSTREGB => '0',
       SBITERR => NLW_mem_reg_1_SBITERR_UNCONNECTED,
-      WEA(3) => s00_axis_tready03_in,
-      WEA(2) => s00_axis_tready03_in,
-      WEA(1) => s00_axis_tready03_in,
-      WEA(0) => s00_axis_tready03_in,
+      WEA(3) => s00_axis_tready0,
+      WEA(2) => s00_axis_tready0,
+      WEA(1) => s00_axis_tready0,
+      WEA(0) => s00_axis_tready0,
       WEBWE(7 downto 0) => B"00000000"
     );
 mem_reg_2: unisim.vcomponents.RAMB36E1
@@ -776,10 +777,10 @@ mem_reg_2: unisim.vcomponents.RAMB36E1
       DIPBDIP(3 downto 0) => B"0001",
       DOADO(31 downto 0) => NLW_mem_reg_2_DOADO_UNCONNECTED(31 downto 0),
       DOBDO(31 downto 8) => NLW_mem_reg_2_DOBDO_UNCONNECTED(31 downto 8),
-      DOBDO(7 downto 0) => mem_read_data_reg(25 downto 18),
+      DOBDO(7 downto 0) => pcpin_mem_read_data_reg(25 downto 18),
       DOPADOP(3 downto 0) => NLW_mem_reg_2_DOPADOP_UNCONNECTED(3 downto 0),
       DOPBDOP(3 downto 1) => NLW_mem_reg_2_DOPBDOP_UNCONNECTED(3 downto 1),
-      DOPBDOP(0) => mem_read_data_reg(26),
+      DOPBDOP(0) => pcpin_mem_read_data_reg(26),
       ECCPARITY(7 downto 0) => NLW_mem_reg_2_ECCPARITY_UNCONNECTED(7 downto 0),
       ENARDEN => s00_axis_tvalid,
       ENBWREN => mem_reg_3_i_1_n_0,
@@ -787,16 +788,16 @@ mem_reg_2: unisim.vcomponents.RAMB36E1
       INJECTSBITERR => NLW_mem_reg_2_INJECTSBITERR_UNCONNECTED,
       RDADDRECC(8 downto 0) => NLW_mem_reg_2_RDADDRECC_UNCONNECTED(8 downto 0),
       REGCEAREGCE => '0',
-      REGCEB => mem_reg_3_i_2_n_0,
+      REGCEB => store_output,
       RSTRAMARSTRAM => '0',
       RSTRAMB => '0',
       RSTREGARSTREG => '0',
       RSTREGB => '0',
       SBITERR => NLW_mem_reg_2_SBITERR_UNCONNECTED,
-      WEA(3) => s00_axis_tready03_in,
-      WEA(2) => s00_axis_tready03_in,
-      WEA(1) => s00_axis_tready03_in,
-      WEA(0) => s00_axis_tready03_in,
+      WEA(3) => s00_axis_tready0,
+      WEA(2) => s00_axis_tready0,
+      WEA(1) => s00_axis_tready0,
+      WEA(0) => s00_axis_tready0,
       WEBWE(7 downto 0) => B"00000000"
     );
 mem_reg_3: unisim.vcomponents.RAMB36E1
@@ -840,12 +841,13 @@ mem_reg_3: unisim.vcomponents.RAMB36E1
       DBITERR => NLW_mem_reg_3_DBITERR_UNCONNECTED,
       DIADI(31 downto 6) => B"00000000000000000000000000",
       DIADI(5 downto 0) => mem_write_data(32 downto 27),
-      DIBDI(31 downto 0) => B"00000000000000000000000000111111",
+      DIBDI(31 downto 0) => B"00000000000000000000000001111111",
       DIPADIP(3 downto 0) => B"0000",
       DIPBDIP(3 downto 0) => B"0000",
       DOADO(31 downto 0) => NLW_mem_reg_3_DOADO_UNCONNECTED(31 downto 0),
-      DOBDO(31 downto 6) => NLW_mem_reg_3_DOBDO_UNCONNECTED(31 downto 6),
-      DOBDO(5 downto 0) => mem_read_data_reg(32 downto 27),
+      DOBDO(31 downto 7) => NLW_mem_reg_3_DOBDO_UNCONNECTED(31 downto 7),
+      DOBDO(6) => mem_reg_3_n_61,
+      DOBDO(5 downto 0) => pcpin_mem_read_data_reg(32 downto 27),
       DOPADOP(3 downto 0) => NLW_mem_reg_3_DOPADOP_UNCONNECTED(3 downto 0),
       DOPBDOP(3 downto 0) => NLW_mem_reg_3_DOPBDOP_UNCONNECTED(3 downto 0),
       ECCPARITY(7 downto 0) => NLW_mem_reg_3_ECCPARITY_UNCONNECTED(7 downto 0),
@@ -855,16 +857,16 @@ mem_reg_3: unisim.vcomponents.RAMB36E1
       INJECTSBITERR => NLW_mem_reg_3_INJECTSBITERR_UNCONNECTED,
       RDADDRECC(8 downto 0) => NLW_mem_reg_3_RDADDRECC_UNCONNECTED(8 downto 0),
       REGCEAREGCE => '0',
-      REGCEB => mem_reg_3_i_2_n_0,
+      REGCEB => store_output,
       RSTRAMARSTRAM => '0',
       RSTRAMB => '0',
       RSTREGARSTREG => '0',
       RSTREGB => '0',
       SBITERR => NLW_mem_reg_3_SBITERR_UNCONNECTED,
-      WEA(3) => s00_axis_tready03_in,
-      WEA(2) => s00_axis_tready03_in,
-      WEA(1) => s00_axis_tready03_in,
-      WEA(0) => s00_axis_tready03_in,
+      WEA(3) => s00_axis_tready0,
+      WEA(2) => s00_axis_tready0,
+      WEA(1) => s00_axis_tready0,
+      WEA(0) => s00_axis_tready0,
       WEBWE(7 downto 0) => B"00000000"
     );
 mem_reg_3_i_1: unisim.vcomponents.LUT4
@@ -885,7 +887,7 @@ mem_reg_3_i_2: unisim.vcomponents.LUT2
         port map (
       I0 => m00_axis_tready,
       I1 => \^m00_axis_tvalid_reg_reg_0\,
-      O => mem_reg_3_i_2_n_0
+      O => store_output
     );
 mem_reg_3_i_3: unisim.vcomponents.LUT5
     generic map(
@@ -897,7 +899,7 @@ mem_reg_3_i_3: unisim.vcomponents.LUT5
       I2 => p_0_in,
       I3 => p_0_in0_in,
       I4 => p_1_in1_in,
-      O => s00_axis_tready03_in
+      O => s00_axis_tready0
     );
 \rd_addr_reg[0]_i_1\: unisim.vcomponents.LUT5
     generic map(
@@ -3376,10 +3378,10 @@ inst: entity work.design_1_myIP2_0_1_axis_fifo_v1_0
       m00_axis_aresetn => m00_axis_aresetn,
       m00_axis_tready => m00_axis_tready,
       m00_axis_tvalid_reg_reg_0 => m00_axis_tvalid,
-      mem_read_data_reg(32) => m00_axis_tlast,
-      mem_read_data_reg(31 downto 0) => m00_axis_tdata(31 downto 0),
       mem_write_data(32) => s00_axis_tlast,
       mem_write_data(31 downto 0) => s00_axis_tdata(31 downto 0),
+      pcpin_mem_read_data_reg(32) => m00_axis_tlast,
+      pcpin_mem_read_data_reg(31 downto 0) => m00_axis_tdata(31 downto 0),
       s00_axis_aclk => s00_axis_aclk,
       s00_axis_aresetn => s00_axis_aresetn,
       s00_axis_tready => s00_axis_tready,

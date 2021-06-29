@@ -1,7 +1,7 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-// Date        : Mon Jun 28 18:04:22 2021
+// Date        : Mon Jun 28 18:38:49 2021
 // Host        : KAMANTA running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.srcs/sources_1/bd/design_1/ip/design_1_myIP2_0_1/design_1_myIP2_0_1_sim_netlist.v
@@ -62,8 +62,8 @@ module design_1_myIP2_0_1
         .m00_axis_aresetn(m00_axis_aresetn),
         .m00_axis_tready(m00_axis_tready),
         .m00_axis_tvalid_reg_reg_0(m00_axis_tvalid),
-        .mem_read_data_reg({m00_axis_tlast,m00_axis_tdata}),
         .mem_write_data({s00_axis_tlast,s00_axis_tdata}),
+        .pcpin_mem_read_data_reg({m00_axis_tlast,m00_axis_tdata}),
         .s00_axis_aclk(s00_axis_aclk),
         .s00_axis_aresetn(s00_axis_aresetn),
         .s00_axis_tready(s00_axis_tready),
@@ -74,7 +74,7 @@ endmodule
 module design_1_myIP2_0_1_axis_fifo_v1_0
    (s00_axis_tready,
     m00_axis_tvalid_reg_reg_0,
-    mem_read_data_reg,
+    pcpin_mem_read_data_reg,
     s00_axis_tvalid,
     m00_axis_tready,
     s00_axis_aclk,
@@ -84,7 +84,7 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
     m00_axis_aresetn);
   output s00_axis_tready;
   output m00_axis_tvalid_reg_reg_0;
-  output [32:0]mem_read_data_reg;
+  output [32:0]pcpin_mem_read_data_reg;
   input s00_axis_tvalid;
   input m00_axis_tready;
   input s00_axis_aclk;
@@ -124,15 +124,16 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
   wire m00_rst_sync2_reg_i_1_n_0;
   wire m00_rst_sync3_reg;
   wire m00_rst_sync3_reg_i_1_n_0;
-  wire [32:0]mem_read_data_reg;
   wire mem_read_data_valid_reg;
+  wire mem_read_data_valid_reg_i_2_n_0;
   wire mem_reg_3_i_1_n_0;
-  wire mem_reg_3_i_2_n_0;
+  wire mem_reg_3_n_61;
   wire [32:0]mem_write_data;
   wire p_0_in;
   wire p_0_in0_in;
   wire p_1_in;
   wire p_1_in1_in;
+  wire [32:0]pcpin_mem_read_data_reg;
   wire [11:0]rd_addr_reg;
   wire \rd_addr_reg[0]_i_1_n_0 ;
   wire \rd_addr_reg[10]_i_1_n_0 ;
@@ -178,11 +179,10 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
   wire rd_ptr_next1;
   wire [12:0]rd_ptr_reg;
   wire \rd_ptr_reg[0]_i_1_n_0 ;
-  wire read;
   wire s00_axis_aclk;
   wire s00_axis_aresetn;
   wire s00_axis_tready;
-  wire s00_axis_tready03_in;
+  wire s00_axis_tready0;
   wire s00_axis_tvalid;
   wire s00_rst_sync1_reg;
   wire s00_rst_sync1_reg_i_1_n_0;
@@ -190,6 +190,7 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
   wire s00_rst_sync2_reg_i_1_n_0;
   wire s00_rst_sync3_reg;
   wire s00_rst_sync3_reg_i_1_n_0;
+  wire store_output;
   wire [11:0]wr_addr_reg;
   wire \wr_addr_reg[0]_i_1_n_0 ;
   wire \wr_addr_reg[10]_i_1_n_0 ;
@@ -282,7 +283,7 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
   wire NLW_mem_reg_3_INJECTSBITERR_UNCONNECTED;
   wire NLW_mem_reg_3_SBITERR_UNCONNECTED;
   wire [31:0]NLW_mem_reg_3_DOADO_UNCONNECTED;
-  wire [31:6]NLW_mem_reg_3_DOBDO_UNCONNECTED;
+  wire [31:7]NLW_mem_reg_3_DOBDO_UNCONNECTED;
   wire [3:0]NLW_mem_reg_3_DOPADOP_UNCONNECTED;
   wire [3:0]NLW_mem_reg_3_DOPBDOP_UNCONNECTED;
   wire [7:0]NLW_mem_reg_3_ECCPARITY_UNCONNECTED;
@@ -466,13 +467,13 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
     .INIT(2'h1)) 
     mem_read_data_valid_reg_i_2
        (.I0(empty),
-        .O(read));
+        .O(mem_read_data_valid_reg_i_2_n_0));
   FDRE #(
     .INIT(1'b0)) 
     mem_read_data_valid_reg_reg
        (.C(m00_axis_aclk),
         .CE(rd_ptr_next1),
-        .D(read),
+        .D(mem_read_data_valid_reg_i_2_n_0),
         .Q(mem_read_data_valid_reg),
         .R(m00_rst_sync3_reg));
   (* \MEM.PORTA.DATA_BIT_LAYOUT  = "p1_d8" *) 
@@ -526,9 +527,9 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
         .DIPADIP({1'b0,1'b0,1'b0,mem_write_data[8]}),
         .DIPBDIP({1'b0,1'b0,1'b0,1'b1}),
         .DOADO(NLW_mem_reg_0_DOADO_UNCONNECTED[31:0]),
-        .DOBDO({NLW_mem_reg_0_DOBDO_UNCONNECTED[31:8],mem_read_data_reg[7:0]}),
+        .DOBDO({NLW_mem_reg_0_DOBDO_UNCONNECTED[31:8],pcpin_mem_read_data_reg[7:0]}),
         .DOPADOP(NLW_mem_reg_0_DOPADOP_UNCONNECTED[3:0]),
-        .DOPBDOP({NLW_mem_reg_0_DOPBDOP_UNCONNECTED[3:1],mem_read_data_reg[8]}),
+        .DOPBDOP({NLW_mem_reg_0_DOPBDOP_UNCONNECTED[3:1],pcpin_mem_read_data_reg[8]}),
         .ECCPARITY(NLW_mem_reg_0_ECCPARITY_UNCONNECTED[7:0]),
         .ENARDEN(s00_axis_tvalid),
         .ENBWREN(mem_reg_3_i_1_n_0),
@@ -536,13 +537,13 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
         .INJECTSBITERR(NLW_mem_reg_0_INJECTSBITERR_UNCONNECTED),
         .RDADDRECC(NLW_mem_reg_0_RDADDRECC_UNCONNECTED[8:0]),
         .REGCEAREGCE(1'b0),
-        .REGCEB(mem_reg_3_i_2_n_0),
+        .REGCEB(store_output),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
         .RSTREGARSTREG(1'b0),
         .RSTREGB(1'b0),
         .SBITERR(NLW_mem_reg_0_SBITERR_UNCONNECTED),
-        .WEA({s00_axis_tready03_in,s00_axis_tready03_in,s00_axis_tready03_in,s00_axis_tready03_in}),
+        .WEA({s00_axis_tready0,s00_axis_tready0,s00_axis_tready0,s00_axis_tready0}),
         .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
   (* \MEM.PORTA.DATA_BIT_LAYOUT  = "p1_d8" *) 
   (* \MEM.PORTB.DATA_BIT_LAYOUT  = "p1_d8" *) 
@@ -595,9 +596,9 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
         .DIPADIP({1'b0,1'b0,1'b0,mem_write_data[17]}),
         .DIPBDIP({1'b0,1'b0,1'b0,1'b1}),
         .DOADO(NLW_mem_reg_1_DOADO_UNCONNECTED[31:0]),
-        .DOBDO({NLW_mem_reg_1_DOBDO_UNCONNECTED[31:8],mem_read_data_reg[16:9]}),
+        .DOBDO({NLW_mem_reg_1_DOBDO_UNCONNECTED[31:8],pcpin_mem_read_data_reg[16:9]}),
         .DOPADOP(NLW_mem_reg_1_DOPADOP_UNCONNECTED[3:0]),
-        .DOPBDOP({NLW_mem_reg_1_DOPBDOP_UNCONNECTED[3:1],mem_read_data_reg[17]}),
+        .DOPBDOP({NLW_mem_reg_1_DOPBDOP_UNCONNECTED[3:1],pcpin_mem_read_data_reg[17]}),
         .ECCPARITY(NLW_mem_reg_1_ECCPARITY_UNCONNECTED[7:0]),
         .ENARDEN(s00_axis_tvalid),
         .ENBWREN(mem_reg_3_i_1_n_0),
@@ -605,13 +606,13 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
         .INJECTSBITERR(NLW_mem_reg_1_INJECTSBITERR_UNCONNECTED),
         .RDADDRECC(NLW_mem_reg_1_RDADDRECC_UNCONNECTED[8:0]),
         .REGCEAREGCE(1'b0),
-        .REGCEB(mem_reg_3_i_2_n_0),
+        .REGCEB(store_output),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
         .RSTREGARSTREG(1'b0),
         .RSTREGB(1'b0),
         .SBITERR(NLW_mem_reg_1_SBITERR_UNCONNECTED),
-        .WEA({s00_axis_tready03_in,s00_axis_tready03_in,s00_axis_tready03_in,s00_axis_tready03_in}),
+        .WEA({s00_axis_tready0,s00_axis_tready0,s00_axis_tready0,s00_axis_tready0}),
         .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
   (* \MEM.PORTA.DATA_BIT_LAYOUT  = "p1_d8" *) 
   (* \MEM.PORTB.DATA_BIT_LAYOUT  = "p1_d8" *) 
@@ -664,9 +665,9 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
         .DIPADIP({1'b0,1'b0,1'b0,mem_write_data[26]}),
         .DIPBDIP({1'b0,1'b0,1'b0,1'b1}),
         .DOADO(NLW_mem_reg_2_DOADO_UNCONNECTED[31:0]),
-        .DOBDO({NLW_mem_reg_2_DOBDO_UNCONNECTED[31:8],mem_read_data_reg[25:18]}),
+        .DOBDO({NLW_mem_reg_2_DOBDO_UNCONNECTED[31:8],pcpin_mem_read_data_reg[25:18]}),
         .DOPADOP(NLW_mem_reg_2_DOPADOP_UNCONNECTED[3:0]),
-        .DOPBDOP({NLW_mem_reg_2_DOPBDOP_UNCONNECTED[3:1],mem_read_data_reg[26]}),
+        .DOPBDOP({NLW_mem_reg_2_DOPBDOP_UNCONNECTED[3:1],pcpin_mem_read_data_reg[26]}),
         .ECCPARITY(NLW_mem_reg_2_ECCPARITY_UNCONNECTED[7:0]),
         .ENARDEN(s00_axis_tvalid),
         .ENBWREN(mem_reg_3_i_1_n_0),
@@ -674,27 +675,27 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
         .INJECTSBITERR(NLW_mem_reg_2_INJECTSBITERR_UNCONNECTED),
         .RDADDRECC(NLW_mem_reg_2_RDADDRECC_UNCONNECTED[8:0]),
         .REGCEAREGCE(1'b0),
-        .REGCEB(mem_reg_3_i_2_n_0),
+        .REGCEB(store_output),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
         .RSTREGARSTREG(1'b0),
         .RSTREGB(1'b0),
         .SBITERR(NLW_mem_reg_2_SBITERR_UNCONNECTED),
-        .WEA({s00_axis_tready03_in,s00_axis_tready03_in,s00_axis_tready03_in,s00_axis_tready03_in}),
+        .WEA({s00_axis_tready0,s00_axis_tready0,s00_axis_tready0,s00_axis_tready0}),
         .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
-  (* \MEM.PORTA.DATA_BIT_LAYOUT  = "p0_d6" *) 
-  (* \MEM.PORTB.DATA_BIT_LAYOUT  = "p0_d6" *) 
+  (* \MEM.PORTA.DATA_BIT_LAYOUT  = "p0_d7" *) 
+  (* \MEM.PORTB.DATA_BIT_LAYOUT  = "p0_d7" *) 
   (* METHODOLOGY_DRC_VIOS = "" *) 
   (* RTL_RAM_BITS = "139264" *) 
   (* RTL_RAM_NAME = "mem" *) 
   (* bram_addr_begin = "0" *) 
   (* bram_addr_end = "4095" *) 
   (* bram_slice_begin = "27" *) 
-  (* bram_slice_end = "32" *) 
+  (* bram_slice_end = "33" *) 
   (* ram_addr_begin = "0" *) 
   (* ram_addr_end = "4095" *) 
   (* ram_slice_begin = "27" *) 
-  (* ram_slice_end = "32" *) 
+  (* ram_slice_end = "33" *) 
   RAMB36E1 #(
     .DOA_REG(0),
     .DOB_REG(1),
@@ -729,11 +730,11 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
         .CLKBWRCLK(m00_axis_aclk),
         .DBITERR(NLW_mem_reg_3_DBITERR_UNCONNECTED),
         .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,mem_write_data[32:27]}),
-        .DIBDI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .DIBDI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .DIPADIP({1'b0,1'b0,1'b0,1'b0}),
         .DIPBDIP({1'b0,1'b0,1'b0,1'b0}),
         .DOADO(NLW_mem_reg_3_DOADO_UNCONNECTED[31:0]),
-        .DOBDO({NLW_mem_reg_3_DOBDO_UNCONNECTED[31:6],mem_read_data_reg[32:27]}),
+        .DOBDO({NLW_mem_reg_3_DOBDO_UNCONNECTED[31:7],mem_reg_3_n_61,pcpin_mem_read_data_reg[32:27]}),
         .DOPADOP(NLW_mem_reg_3_DOPADOP_UNCONNECTED[3:0]),
         .DOPBDOP(NLW_mem_reg_3_DOPBDOP_UNCONNECTED[3:0]),
         .ECCPARITY(NLW_mem_reg_3_ECCPARITY_UNCONNECTED[7:0]),
@@ -743,13 +744,13 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
         .INJECTSBITERR(NLW_mem_reg_3_INJECTSBITERR_UNCONNECTED),
         .RDADDRECC(NLW_mem_reg_3_RDADDRECC_UNCONNECTED[8:0]),
         .REGCEAREGCE(1'b0),
-        .REGCEB(mem_reg_3_i_2_n_0),
+        .REGCEB(store_output),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
         .RSTREGARSTREG(1'b0),
         .RSTREGB(1'b0),
         .SBITERR(NLW_mem_reg_3_SBITERR_UNCONNECTED),
-        .WEA({s00_axis_tready03_in,s00_axis_tready03_in,s00_axis_tready03_in,s00_axis_tready03_in}),
+        .WEA({s00_axis_tready0,s00_axis_tready0,s00_axis_tready0,s00_axis_tready0}),
         .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
   LUT4 #(
     .INIT(16'h00DF)) 
@@ -764,7 +765,7 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
     mem_reg_3_i_2
        (.I0(m00_axis_tready),
         .I1(m00_axis_tvalid_reg_reg_0),
-        .O(mem_reg_3_i_2_n_0));
+        .O(store_output));
   LUT5 #(
     .INIT(32'hFFD7D7FF)) 
     mem_reg_3_i_3
@@ -773,7 +774,7 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
         .I2(p_0_in),
         .I3(p_0_in0_in),
         .I4(p_1_in1_in),
-        .O(s00_axis_tready03_in));
+        .O(s00_axis_tready0));
   LUT5 #(
     .INIT(32'hAEAA5155)) 
     \rd_addr_reg[0]_i_1 
