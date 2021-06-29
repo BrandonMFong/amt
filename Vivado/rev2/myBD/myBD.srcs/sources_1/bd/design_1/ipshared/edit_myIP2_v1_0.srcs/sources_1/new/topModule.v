@@ -251,6 +251,10 @@ always @* begin
     end
 end
 
+reg [63 : 0] counter = 0;
+reg lastBit;
+reg [C_AXIS_TDATA_WIDTH-1:0] data;
+
 always @(posedge m00_axis_aclk) begin
     if (m00_rst_sync3_reg) begin
         m00_axis_tvalid_reg <= 1'b0;
