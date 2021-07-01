@@ -269,9 +269,10 @@ end
 
 /** Brando **/
 PCP mod0 (
-    .inputValue(pcpin_mem_read_data_reg), 
-    .outputValue(pcpout_mem_read_data_reg), 
-    .isReady(pcpReady)
+    .inputValue     (pcpin_mem_read_data_reg), 
+    .outputValue    (pcpout_mem_read_data_reg), 
+    .isReady        (pcpReady),
+    .masterReady    (m00_axis_tready)
 );
 
 endmodule

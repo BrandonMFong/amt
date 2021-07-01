@@ -24,13 +24,25 @@ module PCP #(
     parameter ADDR_WIDTH = 12,
     parameter C_AXIS_TDATA_WIDTH = 32
 )(   
+    /* INPUT */
     input wire [C_AXIS_TDATA_WIDTH+2-1:0] inputValue,
+    input wire masterReady,
     
+    /* OUTPUT */
     output wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue,
     output wire isReady
 );
 
-    assign outputValue = inputValue;
+    reg [C_AXIS_TDATA_WIDTH+2-1:0] outputBuffer;
+    
+    /*
+    I am going to take this step by step 
+    */
+    always @(*) begin 
+        outputBuffer = inputValue;
+    end 
+
+    assign outputValue = outputBuffer;
     assign isReady = 1;
     
 endmodule
