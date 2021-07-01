@@ -1,7 +1,7 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Wed Jun 30 17:39:41 2021
+-- Date        : Wed Jun 30 18:07:50 2021
 -- Host        : KAMANTA running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.srcs/sources_1/bd/design_1/ip/design_1_myIP2_0_1/design_1_myIP2_0_1_sim_netlist.vhdl
@@ -21,23 +21,69 @@ entity design_1_myIP2_0_1_PCP is
     rd_ptr_next1 : out STD_LOGIC;
     readyBuffer_reg_1 : out STD_LOGIC;
     mem_read_data_valid_reg_reg : out STD_LOGIC;
-    m00_axis_tready : in STD_LOGIC;
     m00_axis_aclk : in STD_LOGIC;
     mem_read_data_valid_reg : in STD_LOGIC;
     mem_reg_3 : in STD_LOGIC;
-    CO : in STD_LOGIC_VECTOR ( 0 to 0 )
+    CO : in STD_LOGIC_VECTOR ( 0 to 0 );
+    m00_axis_tready : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of design_1_myIP2_0_1_PCP : entity is "PCP";
 end design_1_myIP2_0_1_PCP;
 
 architecture STRUCTURE of design_1_myIP2_0_1_PCP is
+  signal counter : STD_LOGIC_VECTOR ( 1 downto 0 );
+  signal \counter[0]_i_1_n_0\ : STD_LOGIC;
+  signal \counter[1]_i_1_n_0\ : STD_LOGIC;
+  signal readyBuffer_i_1_n_0 : STD_LOGIC;
   signal \^readybuffer_reg_0\ : STD_LOGIC;
   attribute SOFT_HLUTNM : string;
+  attribute SOFT_HLUTNM of \counter[1]_i_1\ : label is "soft_lutpair1";
   attribute SOFT_HLUTNM of m00_axis_tvalid_reg_i_1 : label is "soft_lutpair0";
   attribute SOFT_HLUTNM of mem_read_data_valid_reg_i_1 : label is "soft_lutpair0";
+  attribute SOFT_HLUTNM of readyBuffer_i_1 : label is "soft_lutpair1";
 begin
   readyBuffer_reg_0 <= \^readybuffer_reg_0\;
+\counter[0]_i_1\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"9"
+    )
+        port map (
+      I0 => counter(1),
+      I1 => counter(0),
+      O => \counter[0]_i_1_n_0\
+    );
+\counter[1]_i_1\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"E"
+    )
+        port map (
+      I0 => counter(1),
+      I1 => counter(0),
+      O => \counter[1]_i_1_n_0\
+    );
+\counter_reg[0]\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => m00_axis_aclk,
+      CE => '1',
+      D => \counter[0]_i_1_n_0\,
+      Q => counter(0),
+      R => '0'
+    );
+\counter_reg[1]\: unisim.vcomponents.FDRE
+    generic map(
+      INIT => '0'
+    )
+        port map (
+      C => m00_axis_aclk,
+      CE => '1',
+      D => \counter[1]_i_1_n_0\,
+      Q => counter(1),
+      R => '0'
+    );
 m00_axis_tvalid_reg_i_1: unisim.vcomponents.LUT3
     generic map(
       INIT => X"BA"
@@ -78,11 +124,24 @@ mem_reg_3_i_2: unisim.vcomponents.LUT2
       I1 => mem_reg_3,
       O => readyBuffer_reg_1
     );
+readyBuffer_i_1: unisim.vcomponents.LUT3
+    generic map(
+      INIT => X"B8"
+    )
+        port map (
+      I0 => m00_axis_tready,
+      I1 => counter(1),
+      I2 => \^readybuffer_reg_0\,
+      O => readyBuffer_i_1_n_0
+    );
 readyBuffer_reg: unisim.vcomponents.FDRE
-     port map (
+    generic map(
+      INIT => '0'
+    )
+        port map (
       C => m00_axis_aclk,
       CE => '1',
-      D => m00_axis_tready,
+      D => readyBuffer_i_1_n_0,
       Q => \^readybuffer_reg_0\,
       R => '0'
     );
@@ -100,9 +159,9 @@ entity design_1_myIP2_0_1_axis_fifo_v1_0 is
     s00_axis_aclk : in STD_LOGIC;
     m00_axis_aclk : in STD_LOGIC;
     mem_write_data : in STD_LOGIC_VECTOR ( 32 downto 0 );
-    m00_axis_tready : in STD_LOGIC;
     s00_axis_aresetn : in STD_LOGIC;
-    m00_axis_aresetn : in STD_LOGIC
+    m00_axis_aresetn : in STD_LOGIC;
+    m00_axis_tready : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of design_1_myIP2_0_1_axis_fifo_v1_0 : entity is "axis_fifo_v1_0";
@@ -299,9 +358,9 @@ architecture STRUCTURE of design_1_myIP2_0_1_axis_fifo_v1_0 is
   signal \NLW_rd_ptr_next0_carry__1_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
   signal \NLW_wr_ptr_next0_carry__1_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of m00_rst_sync2_reg_i_1 : label is "soft_lutpair5";
-  attribute SOFT_HLUTNM of m00_rst_sync3_reg_i_1 : label is "soft_lutpair5";
-  attribute SOFT_HLUTNM of mem_read_data_valid_reg_i_2 : label is "soft_lutpair9";
+  attribute SOFT_HLUTNM of m00_rst_sync2_reg_i_1 : label is "soft_lutpair6";
+  attribute SOFT_HLUTNM of m00_rst_sync3_reg_i_1 : label is "soft_lutpair6";
+  attribute SOFT_HLUTNM of mem_read_data_valid_reg_i_2 : label is "soft_lutpair10";
   attribute \MEM.PORTA.DATA_BIT_LAYOUT\ : string;
   attribute \MEM.PORTA.DATA_BIT_LAYOUT\ of mem_reg_0 : label is "p1_d8";
   attribute \MEM.PORTB.DATA_BIT_LAYOUT\ : string;
@@ -367,43 +426,43 @@ architecture STRUCTURE of design_1_myIP2_0_1_axis_fifo_v1_0 is
   attribute ram_addr_end of mem_reg_3 : label is 4095;
   attribute ram_slice_begin of mem_reg_3 : label is 27;
   attribute ram_slice_end of mem_reg_3 : label is 33;
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[0]_i_1\ : label is "soft_lutpair16";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[10]_i_1\ : label is "soft_lutpair10";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[11]_i_1\ : label is "soft_lutpair10";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[1]_i_1\ : label is "soft_lutpair16";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[2]_i_1\ : label is "soft_lutpair14";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[3]_i_1\ : label is "soft_lutpair14";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[4]_i_1\ : label is "soft_lutpair19";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[5]_i_1\ : label is "soft_lutpair19";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[6]_i_1\ : label is "soft_lutpair18";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[7]_i_1\ : label is "soft_lutpair18";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[8]_i_1\ : label is "soft_lutpair17";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[9]_i_1\ : label is "soft_lutpair17";
-  attribute SOFT_HLUTNM of \rd_ptr_reg[0]_i_1\ : label is "soft_lutpair2";
-  attribute SOFT_HLUTNM of \rd_ptr_reg[10]_i_1\ : label is "soft_lutpair3";
-  attribute SOFT_HLUTNM of \rd_ptr_reg[11]_i_1\ : label is "soft_lutpair2";
-  attribute SOFT_HLUTNM of \rd_ptr_reg[12]_i_1\ : label is "soft_lutpair6";
-  attribute SOFT_HLUTNM of \rd_ptr_reg[1]_i_1\ : label is "soft_lutpair3";
-  attribute SOFT_HLUTNM of \rd_ptr_reg[2]_i_1\ : label is "soft_lutpair4";
-  attribute SOFT_HLUTNM of \rd_ptr_reg[3]_i_1\ : label is "soft_lutpair6";
-  attribute SOFT_HLUTNM of \rd_ptr_reg[4]_i_1\ : label is "soft_lutpair7";
-  attribute SOFT_HLUTNM of \rd_ptr_reg[5]_i_1\ : label is "soft_lutpair8";
-  attribute SOFT_HLUTNM of \rd_ptr_reg[6]_i_1\ : label is "soft_lutpair9";
-  attribute SOFT_HLUTNM of \rd_ptr_reg[7]_i_1\ : label is "soft_lutpair8";
-  attribute SOFT_HLUTNM of \rd_ptr_reg[8]_i_1\ : label is "soft_lutpair7";
-  attribute SOFT_HLUTNM of \rd_ptr_reg[9]_i_1\ : label is "soft_lutpair4";
-  attribute SOFT_HLUTNM of s00_rst_sync2_reg_i_1 : label is "soft_lutpair1";
-  attribute SOFT_HLUTNM of s00_rst_sync3_reg_i_1 : label is "soft_lutpair1";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[10]_i_1\ : label is "soft_lutpair20";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[11]_i_1\ : label is "soft_lutpair20";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[1]_i_1\ : label is "soft_lutpair15";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[2]_i_1\ : label is "soft_lutpair15";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[3]_i_1\ : label is "soft_lutpair13";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[4]_i_1\ : label is "soft_lutpair13";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[5]_i_1\ : label is "soft_lutpair12";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[6]_i_1\ : label is "soft_lutpair12";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[7]_i_1\ : label is "soft_lutpair11";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[8]_i_1\ : label is "soft_lutpair11";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[0]_i_1\ : label is "soft_lutpair17";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[10]_i_1\ : label is "soft_lutpair11";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[11]_i_1\ : label is "soft_lutpair11";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[1]_i_1\ : label is "soft_lutpair17";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[2]_i_1\ : label is "soft_lutpair15";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[3]_i_1\ : label is "soft_lutpair15";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[4]_i_1\ : label is "soft_lutpair20";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[5]_i_1\ : label is "soft_lutpair20";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[6]_i_1\ : label is "soft_lutpair19";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[7]_i_1\ : label is "soft_lutpair19";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[8]_i_1\ : label is "soft_lutpair18";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[9]_i_1\ : label is "soft_lutpair18";
+  attribute SOFT_HLUTNM of \rd_ptr_reg[0]_i_1\ : label is "soft_lutpair3";
+  attribute SOFT_HLUTNM of \rd_ptr_reg[10]_i_1\ : label is "soft_lutpair4";
+  attribute SOFT_HLUTNM of \rd_ptr_reg[11]_i_1\ : label is "soft_lutpair3";
+  attribute SOFT_HLUTNM of \rd_ptr_reg[12]_i_1\ : label is "soft_lutpair7";
+  attribute SOFT_HLUTNM of \rd_ptr_reg[1]_i_1\ : label is "soft_lutpair4";
+  attribute SOFT_HLUTNM of \rd_ptr_reg[2]_i_1\ : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of \rd_ptr_reg[3]_i_1\ : label is "soft_lutpair7";
+  attribute SOFT_HLUTNM of \rd_ptr_reg[4]_i_1\ : label is "soft_lutpair8";
+  attribute SOFT_HLUTNM of \rd_ptr_reg[5]_i_1\ : label is "soft_lutpair9";
+  attribute SOFT_HLUTNM of \rd_ptr_reg[6]_i_1\ : label is "soft_lutpair10";
+  attribute SOFT_HLUTNM of \rd_ptr_reg[7]_i_1\ : label is "soft_lutpair9";
+  attribute SOFT_HLUTNM of \rd_ptr_reg[8]_i_1\ : label is "soft_lutpair8";
+  attribute SOFT_HLUTNM of \rd_ptr_reg[9]_i_1\ : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of s00_rst_sync2_reg_i_1 : label is "soft_lutpair2";
+  attribute SOFT_HLUTNM of s00_rst_sync3_reg_i_1 : label is "soft_lutpair2";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[10]_i_1\ : label is "soft_lutpair21";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[11]_i_1\ : label is "soft_lutpair21";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[1]_i_1\ : label is "soft_lutpair16";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[2]_i_1\ : label is "soft_lutpair16";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[3]_i_1\ : label is "soft_lutpair14";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[4]_i_1\ : label is "soft_lutpair14";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[5]_i_1\ : label is "soft_lutpair13";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[6]_i_1\ : label is "soft_lutpair13";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[7]_i_1\ : label is "soft_lutpair12";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[8]_i_1\ : label is "soft_lutpair12";
 begin
   m00_axis_tvalid_reg_reg_0 <= \^m00_axis_tvalid_reg_reg_0\;
 empty_carry: unisim.vcomponents.CARRY4

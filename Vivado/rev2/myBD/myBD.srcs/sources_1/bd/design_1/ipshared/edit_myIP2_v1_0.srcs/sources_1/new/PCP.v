@@ -33,10 +33,21 @@ module PCP #(
     output wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue,
     output wire isReady
 );
+    /* LOCAL PARAMETERS */
+    localparam kMaxCount = 2;
 
+    /* REGISTERS */
     reg [C_AXIS_TDATA_WIDTH+2-1:0] outputBuffer;
     reg readyBuffer;
+    reg [3 : 0] counter;
     
+    /* INITIALIZATION */
+    initial begin 
+        counter     = 0;
+        readyBuffer = 0;
+    end 
+    
+    /* COMBINATION LOGIC */
     /*
     I am going to take this step by step 
     */
@@ -44,10 +55,20 @@ module PCP #(
         outputBuffer = inputValue;
     end 
     
+    /* BEHAVIORAL LOGIC */
     always @(posedge clk) begin 
-        readyBuffer <= masterReady;
+        if (counter < kMaxCount) begin
+            counter <= counter + 1;
+        end else begin 
+//            counter <= 0; // reset 
+            
+            // Pass the ready buffer
+            readyBuffer <= masterReady;
+        end 
+        
     end 
 
+    /* ASSIGNMENTS */
     assign outputValue = outputBuffer;
     assign isReady = readyBuffer;
     
