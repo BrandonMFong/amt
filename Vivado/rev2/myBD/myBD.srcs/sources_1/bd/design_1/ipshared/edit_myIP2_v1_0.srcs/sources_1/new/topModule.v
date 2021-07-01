@@ -198,8 +198,15 @@ always @(posedge m00_axis_aclk) begin
 end
 
 // Read logic
+
+reg [C_AXIS_TDATA_WIDTH+2-1:0] pcpin_mem_read_data_reg;
+wire [C_AXIS_TDATA_WIDTH+2-1:0] pcpout_mem_read_data_reg;
+reg readyFlag;
+
 always @* begin
     read = 1'b0;
+            
+    readyFlag = 1'b0;
 
     rd_ptr_next = rd_ptr_reg;
     rd_ptr_gray_next = rd_ptr_gray_reg;
@@ -214,15 +221,14 @@ always @* begin
             mem_read_data_valid_next = 1'b1;
             rd_ptr_next = rd_ptr_reg + 1;
             rd_ptr_gray_next = rd_ptr_next ^ (rd_ptr_next >> 1);
+            
+            readyFlag = 1'b1;
         end else begin
             // empty, invalidate
             mem_read_data_valid_next = 1'b0;
         end
     end
 end
-
-reg [C_AXIS_TDATA_WIDTH+2-1:0] pcpin_mem_read_data_reg;
-wire [C_AXIS_TDATA_WIDTH+2-1:0] pcpout_mem_read_data_reg;
 
 always @(posedge m00_axis_aclk) begin
     if (m00_rst_sync3_reg) begin
@@ -271,7 +277,7 @@ PCP mod0 (
     .clk            (m00_axis_aclk),
     .inputValue     (pcpin_mem_read_data_reg), 
     .outputValue    (pcpout_mem_read_data_reg), 
-    .outputReady    (store_output)
+    .outputReady    (readyFlag)
 );
 
 endmodule

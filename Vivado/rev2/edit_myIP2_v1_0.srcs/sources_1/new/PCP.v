@@ -36,23 +36,24 @@ module PCP #(
 
     /* REGISTERS */
     reg lastDataFlag;
-    reg [C_AXIS_TDATA_WIDTH-1:0] data;
+    reg [C_AXIS_TDATA_WIDTH-1:0] data, nextData, outData;
     
     /* INITIALIZATION */
     initial begin 
-        lastDataFlag = 0;
+        lastDataFlag    = 0;
         data = 0;
+        nextData = 0;
+        outData = 0;
     end 
     
     /* COMBINATION LOGIC */
-    /*
-    I am going to take this step by step 
-    */
     always @(*) begin 
-        if (outputReady) begin
-            data = data + 1;
+        nextData = data;
+        
+        if (outputReady) begin 
+            nextData = data + 1;
             
-            if (data < 4) begin
+            if (nextData < 9) begin
                 lastDataFlag = 1'b0;
             end else begin 
                 lastDataFlag = 1'b1;
@@ -62,10 +63,11 @@ module PCP #(
     
     /* BEHAVIORAL LOGIC */
     always @(posedge clk) begin 
-    
+        data <= nextData;
+        outData <= nextData; 
     end 
 
     /* ASSIGNMENTS */
-    assign outputValue  = {lastDataFlag, data};
+    assign outputValue  = {lastDataFlag, outData};
     
 endmodule
