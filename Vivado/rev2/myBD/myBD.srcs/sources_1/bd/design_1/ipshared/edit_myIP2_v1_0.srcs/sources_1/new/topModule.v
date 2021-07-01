@@ -223,7 +223,6 @@ end
 
 reg [C_AXIS_TDATA_WIDTH+2-1:0] pcpin_mem_read_data_reg;
 wire [C_AXIS_TDATA_WIDTH+2-1:0] pcpout_mem_read_data_reg;
-wire pcpReady;
 
 always @(posedge m00_axis_aclk) begin
     if (m00_rst_sync3_reg) begin
@@ -249,8 +248,7 @@ always @* begin
 
     m00_axis_tvalid_next = m00_axis_tvalid_reg;
 
-//    if ((m00_axis_tready | ~m00_axis_tvalid) & pcpReady) begin
-    if (pcpReady | ~m00_axis_tvalid) begin
+    if (m00_axis_tready | ~m00_axis_tvalid) begin
         store_output = 1'b1;
         m00_axis_tvalid_next = mem_read_data_valid_reg;
     end
@@ -273,8 +271,7 @@ PCP mod0 (
     .clk            (m00_axis_aclk),
     .inputValue     (pcpin_mem_read_data_reg), 
     .outputValue    (pcpout_mem_read_data_reg), 
-    .isReady        (pcpReady),
-    .masterReady    (m00_axis_tready)
+    .outputReady    (store_output)
 );
 
 endmodule

@@ -27,24 +27,21 @@ module PCP #(
     /* INPUT */
     input wire clk,
     input wire [C_AXIS_TDATA_WIDTH+2-1:0] inputValue,
-    input wire masterReady,
+    input wire outputReady,
     
     /* OUTPUT */
-    output wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue,
-    output wire isReady
+    output wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue
 );
     /* LOCAL PARAMETERS */
-    localparam kMaxCount = 2;
 
     /* REGISTERS */
-    reg [C_AXIS_TDATA_WIDTH+2-1:0] outputBuffer;
-    reg readyBuffer;
-    reg [3 : 0] counter;
+    reg lastDataFlag;
+    reg [C_AXIS_TDATA_WIDTH-1:0] data;
     
     /* INITIALIZATION */
     initial begin 
-        counter     = 0;
-        readyBuffer = 0;
+        lastDataFlag = 0;
+        data = 0;
     end 
     
     /* COMBINATION LOGIC */
@@ -52,23 +49,23 @@ module PCP #(
     I am going to take this step by step 
     */
     always @(*) begin 
-        outputBuffer = inputValue;
+        if (outputReady) begin
+            data = data + 1;
+            
+            if (data < 4) begin
+                lastDataFlag = 1'b0;
+            end else begin 
+                lastDataFlag = 1'b1;
+            end 
+        end 
     end 
     
     /* BEHAVIORAL LOGIC */
     always @(posedge clk) begin 
-        if (counter < kMaxCount) begin
-            counter <= counter + 1;
-        end else begin 
-//            counter <= 0; // reset 
-            
-            // Pass the ready buffer
-            readyBuffer <= masterReady;
-        end 
+    
     end 
 
     /* ASSIGNMENTS */
-    assign outputValue = outputBuffer;
-    assign isReady = readyBuffer;
+    assign outputValue  = {lastDataFlag, data};
     
 endmodule
