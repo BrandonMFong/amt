@@ -1,7 +1,7 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-// Date        : Wed Jun 30 17:09:19 2021
+// Date        : Wed Jun 30 17:24:26 2021
 // Host        : KAMANTA running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.srcs/sources_1/bd/design_1/ip/design_1_myIP2_0_1/design_1_myIP2_0_1_sim_netlist.v
@@ -127,6 +127,7 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
   wire mem_read_data_valid_reg;
   wire mem_read_data_valid_reg_i_2_n_0;
   wire mem_reg_3_i_1_n_0;
+  wire mem_reg_3_i_2_n_0;
   wire mem_reg_3_n_61;
   wire [32:0]mem_write_data;
   wire p_0_in;
@@ -190,7 +191,6 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
   wire s00_rst_sync2_reg_i_1_n_0;
   wire s00_rst_sync3_reg;
   wire s00_rst_sync3_reg_i_1_n_0;
-  wire store_output;
   wire [11:0]wr_addr_reg;
   wire \wr_addr_reg[0]_i_1_n_0 ;
   wire \wr_addr_reg[10]_i_1_n_0 ;
@@ -537,7 +537,7 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
         .INJECTSBITERR(NLW_mem_reg_0_INJECTSBITERR_UNCONNECTED),
         .RDADDRECC(NLW_mem_reg_0_RDADDRECC_UNCONNECTED[8:0]),
         .REGCEAREGCE(1'b0),
-        .REGCEB(store_output),
+        .REGCEB(mem_reg_3_i_2_n_0),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
         .RSTREGARSTREG(1'b0),
@@ -606,7 +606,7 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
         .INJECTSBITERR(NLW_mem_reg_1_INJECTSBITERR_UNCONNECTED),
         .RDADDRECC(NLW_mem_reg_1_RDADDRECC_UNCONNECTED[8:0]),
         .REGCEAREGCE(1'b0),
-        .REGCEB(store_output),
+        .REGCEB(mem_reg_3_i_2_n_0),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
         .RSTREGARSTREG(1'b0),
@@ -675,7 +675,7 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
         .INJECTSBITERR(NLW_mem_reg_2_INJECTSBITERR_UNCONNECTED),
         .RDADDRECC(NLW_mem_reg_2_RDADDRECC_UNCONNECTED[8:0]),
         .REGCEAREGCE(1'b0),
-        .REGCEB(store_output),
+        .REGCEB(mem_reg_3_i_2_n_0),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
         .RSTREGARSTREG(1'b0),
@@ -744,7 +744,7 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
         .INJECTSBITERR(NLW_mem_reg_3_INJECTSBITERR_UNCONNECTED),
         .RDADDRECC(NLW_mem_reg_3_RDADDRECC_UNCONNECTED[8:0]),
         .REGCEAREGCE(1'b0),
-        .REGCEB(store_output),
+        .REGCEB(mem_reg_3_i_2_n_0),
         .RSTRAMARSTRAM(1'b0),
         .RSTRAMB(1'b0),
         .RSTREGARSTREG(1'b0),
@@ -765,7 +765,7 @@ module design_1_myIP2_0_1_axis_fifo_v1_0
     mem_reg_3_i_2
        (.I0(m00_axis_tready),
         .I1(m00_axis_tvalid_reg_reg_0),
-        .O(store_output));
+        .O(mem_reg_3_i_2_n_0));
   LUT5 #(
     .INIT(32'hFFD7D7FF)) 
     mem_reg_3_i_3

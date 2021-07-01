@@ -43,6 +43,6 @@ module PCP #(
     end 
 
     assign outputValue = outputBuffer;
-    assign isReady = 1;
+    assign isReady = masterReady;
     
 endmodule

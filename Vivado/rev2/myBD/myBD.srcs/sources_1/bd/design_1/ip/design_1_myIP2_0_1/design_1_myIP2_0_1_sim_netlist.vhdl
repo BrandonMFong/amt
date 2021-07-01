@@ -1,7 +1,7 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Wed Jun 30 17:09:19 2021
+-- Date        : Wed Jun 30 17:24:26 2021
 -- Host        : KAMANTA running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.srcs/sources_1/bd/design_1/ip/design_1_myIP2_0_1/design_1_myIP2_0_1_sim_netlist.vhdl
@@ -63,6 +63,7 @@ architecture STRUCTURE of design_1_myIP2_0_1_axis_fifo_v1_0 is
   signal mem_read_data_valid_reg : STD_LOGIC;
   signal mem_read_data_valid_reg_i_2_n_0 : STD_LOGIC;
   signal mem_reg_3_i_1_n_0 : STD_LOGIC;
+  signal mem_reg_3_i_2_n_0 : STD_LOGIC;
   signal mem_reg_3_n_61 : STD_LOGIC;
   signal p_0_in : STD_LOGIC;
   signal p_0_in0_in : STD_LOGIC;
@@ -120,7 +121,6 @@ architecture STRUCTURE of design_1_myIP2_0_1_axis_fifo_v1_0 is
   signal s00_rst_sync2_reg_i_1_n_0 : STD_LOGIC;
   signal s00_rst_sync3_reg : STD_LOGIC;
   signal s00_rst_sync3_reg_i_1_n_0 : STD_LOGIC;
-  signal store_output : STD_LOGIC;
   signal wr_addr_reg : STD_LOGIC_VECTOR ( 11 downto 0 );
   signal \wr_addr_reg[0]_i_1_n_0\ : STD_LOGIC;
   signal \wr_addr_reg[10]_i_1_n_0\ : STD_LOGIC;
@@ -648,7 +648,7 @@ mem_reg_0: unisim.vcomponents.RAMB36E1
       INJECTSBITERR => NLW_mem_reg_0_INJECTSBITERR_UNCONNECTED,
       RDADDRECC(8 downto 0) => NLW_mem_reg_0_RDADDRECC_UNCONNECTED(8 downto 0),
       REGCEAREGCE => '0',
-      REGCEB => store_output,
+      REGCEB => mem_reg_3_i_2_n_0,
       RSTRAMARSTRAM => '0',
       RSTRAMB => '0',
       RSTREGARSTREG => '0',
@@ -718,7 +718,7 @@ mem_reg_1: unisim.vcomponents.RAMB36E1
       INJECTSBITERR => NLW_mem_reg_1_INJECTSBITERR_UNCONNECTED,
       RDADDRECC(8 downto 0) => NLW_mem_reg_1_RDADDRECC_UNCONNECTED(8 downto 0),
       REGCEAREGCE => '0',
-      REGCEB => store_output,
+      REGCEB => mem_reg_3_i_2_n_0,
       RSTRAMARSTRAM => '0',
       RSTRAMB => '0',
       RSTREGARSTREG => '0',
@@ -788,7 +788,7 @@ mem_reg_2: unisim.vcomponents.RAMB36E1
       INJECTSBITERR => NLW_mem_reg_2_INJECTSBITERR_UNCONNECTED,
       RDADDRECC(8 downto 0) => NLW_mem_reg_2_RDADDRECC_UNCONNECTED(8 downto 0),
       REGCEAREGCE => '0',
-      REGCEB => store_output,
+      REGCEB => mem_reg_3_i_2_n_0,
       RSTRAMARSTRAM => '0',
       RSTRAMB => '0',
       RSTREGARSTREG => '0',
@@ -857,7 +857,7 @@ mem_reg_3: unisim.vcomponents.RAMB36E1
       INJECTSBITERR => NLW_mem_reg_3_INJECTSBITERR_UNCONNECTED,
       RDADDRECC(8 downto 0) => NLW_mem_reg_3_RDADDRECC_UNCONNECTED(8 downto 0),
       REGCEAREGCE => '0',
-      REGCEB => store_output,
+      REGCEB => mem_reg_3_i_2_n_0,
       RSTRAMARSTRAM => '0',
       RSTRAMB => '0',
       RSTREGARSTREG => '0',
@@ -887,7 +887,7 @@ mem_reg_3_i_2: unisim.vcomponents.LUT2
         port map (
       I0 => m00_axis_tready,
       I1 => \^m00_axis_tvalid_reg_reg_0\,
-      O => store_output
+      O => mem_reg_3_i_2_n_0
     );
 mem_reg_3_i_3: unisim.vcomponents.LUT5
     generic map(

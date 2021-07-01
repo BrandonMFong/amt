@@ -249,7 +249,8 @@ always @* begin
 
     m00_axis_tvalid_next = m00_axis_tvalid_reg;
 
-    if ((m00_axis_tready | ~m00_axis_tvalid) & pcpReady) begin
+//    if ((m00_axis_tready | ~m00_axis_tvalid) & pcpReady) begin
+    if (pcpReady | ~m00_axis_tvalid) begin
         store_output = 1'b1;
         m00_axis_tvalid_next = mem_read_data_valid_reg;
     end
