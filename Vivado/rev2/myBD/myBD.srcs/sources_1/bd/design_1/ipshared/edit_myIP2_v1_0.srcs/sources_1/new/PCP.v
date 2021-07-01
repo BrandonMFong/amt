@@ -25,6 +25,7 @@ module PCP #(
     parameter C_AXIS_TDATA_WIDTH = 32
 )(   
     /* INPUT */
+    input wire clk,
     input wire [C_AXIS_TDATA_WIDTH+2-1:0] inputValue,
     input wire masterReady,
     
