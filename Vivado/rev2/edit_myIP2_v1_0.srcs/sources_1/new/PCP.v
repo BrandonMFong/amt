@@ -35,6 +35,7 @@ module PCP #(
 );
 
     reg [C_AXIS_TDATA_WIDTH+2-1:0] outputBuffer;
+    reg readyBuffer;
     
     /*
     I am going to take this step by step 
@@ -42,8 +43,12 @@ module PCP #(
     always @(*) begin 
         outputBuffer = inputValue;
     end 
+    
+    always @(posedge clk) begin 
+        readyBuffer <= masterReady;
+    end 
 
     assign outputValue = outputBuffer;
-    assign isReady = masterReady;
+    assign isReady = readyBuffer;
     
 endmodule
