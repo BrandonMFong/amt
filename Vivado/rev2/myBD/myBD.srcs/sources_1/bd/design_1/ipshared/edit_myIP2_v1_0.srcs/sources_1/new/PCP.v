@@ -33,39 +33,41 @@ module PCP #(
     output wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue
 );
     /* LOCAL PARAMETERS */
+    localparam kMaxAddressSpace = 12;
 
     /* REGISTERS */
-    reg lastDataFlag;
-    reg [C_AXIS_TDATA_WIDTH-1:0] data, nextData, outData, mockData;
-    reg [C_AXIS_TDATA_WIDTH-1:0] pcpMem [(2**ADDR_WIDTH)-1:0];
-    reg pcpReady;
-    reg [ADDR_WIDTH:0] inAddr, outAddr;
+    reg [1 : 0] lastDataFlag = 2'b00;
+    reg [C_AXIS_TDATA_WIDTH-1:0]    outData = {C_AXIS_TDATA_WIDTH{1'b0}}, 
+                                    mockData = {C_AXIS_TDATA_WIDTH{1'b0}};
+    reg [C_AXIS_TDATA_WIDTH-1:0] pcpMem [kMaxAddressSpace - 1 : 0];
+    reg pcpReady = 1'b0;
+    reg [ADDR_WIDTH:0]  inAddr = {ADDR_WIDTH{1'b0}}, 
+                        outAddr = {ADDR_WIDTH{1'b0}}, 
+                        outAddrBuffer = {ADDR_WIDTH{1'b0}};
     
     /* Wires */
     wire isReady;
     
     /* INITIALIZATION */
     initial begin 
-        lastDataFlag = 0;
-        data = 0;
-        nextData = 0;
+        lastDataFlag = 2'b00;
         outData = 0;
         pcpReady = 0;
         mockData = 0;
         inAddr = 0;
+        outAddrBuffer = 0;
+        outAddr = 0;
     end 
     
     /* COMBINATION LOGIC */
     always @(*) begin 
-        nextData = data;
-        
+                
         if (isReady) begin 
-            nextData = data + 1;
-            
-            if (nextData < 9) begin
-                lastDataFlag = 1'b0;
+            if (outAddrBuffer < kMaxAddressSpace) begin 
+                lastDataFlag = 2'b00;
+                outAddr = outAddrBuffer;
             end else begin 
-                lastDataFlag = 1'b1;
+                lastDataFlag = 2'b11;
             end 
         end 
     end 
@@ -74,11 +76,11 @@ module PCP #(
     // Load the mem block with mock data
     // This should represent the pcp vector
     always @(posedge clk) begin
-        if (mockData < 12) begin 
+        if (inAddr < kMaxAddressSpace) begin 
             pcpReady <= 1'b0; // We are not ready yet 
             
             pcpMem[inAddr] <= mockData;
-            mockData <= mockData + 1;
+            mockData <= mockData + 2; // Values by 2 
             inAddr <= inAddr + 1;
         end else begin 
             pcpReady <= 1'b1;
@@ -87,8 +89,12 @@ module PCP #(
     
     // Read data
     always @(posedge clk) begin 
-        data <= nextData; // Loop data 
-        outData <= nextData; // Assign data 
+        outAddrBuffer <= outAddr;
+        
+        if (isReady) begin 
+            outData <= pcpMem[outAddr];
+            outAddrBuffer <= outAddr + 1;
+        end 
     end 
 
     /* ASSIGNMENTS */
