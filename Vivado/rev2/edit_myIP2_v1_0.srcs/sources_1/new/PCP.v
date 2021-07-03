@@ -36,7 +36,7 @@ module PCP #(
     localparam kMaxAddressSpace = 12;
 
     /* REGISTERS */
-    reg [1 : 0] lastDataFlag = 2'b00;
+    reg lastDataFlag = 1'b0;
     reg [C_AXIS_TDATA_WIDTH-1:0]    outData = {C_AXIS_TDATA_WIDTH{1'b0}}, 
                                     mockData = {C_AXIS_TDATA_WIDTH{1'b0}};
     reg [C_AXIS_TDATA_WIDTH-1:0] pcpMem [kMaxAddressSpace - 1 : 0];
@@ -50,7 +50,7 @@ module PCP #(
     
     /* INITIALIZATION */
     initial begin 
-        lastDataFlag = 2'b00;
+        lastDataFlag = 0;
         outData = 0;
         pcpReady = 0;
         mockData = 0;
@@ -60,14 +60,13 @@ module PCP #(
     end 
     
     /* COMBINATION LOGIC */
-    always @(*) begin 
-                
+    always @(*) begin    
         if (isReady) begin 
             if (outAddrBuffer < kMaxAddressSpace) begin 
-                lastDataFlag = 2'b00;
+                lastDataFlag = 1'b0;
                 outAddr = outAddrBuffer;
             end else begin 
-                lastDataFlag = 2'b11;
+                lastDataFlag = 1'b1;
             end 
         end 
     end 
