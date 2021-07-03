@@ -39,7 +39,7 @@ module PCP #(
     reg [C_AXIS_TDATA_WIDTH-1:0] data, nextData, outData, mockData;
     reg [C_AXIS_TDATA_WIDTH-1:0] pcpMem [(2**ADDR_WIDTH)-1:0];
     reg pcpReady;
-    reg [ADDR_WIDTH:0] memAddr;
+    reg [ADDR_WIDTH:0] inAddr, outAddr;
     
     /* Wires */
     wire isReady;
@@ -52,7 +52,7 @@ module PCP #(
         outData = 0;
         pcpReady = 0;
         mockData = 0;
-        memAddr = 0;
+        inAddr = 0;
     end 
     
     /* COMBINATION LOGIC */
@@ -77,17 +77,18 @@ module PCP #(
         if (mockData < 12) begin 
             pcpReady <= 1'b0; // We are not ready yet 
             
-            pcpMem[memAddr] <= mockData;
+            pcpMem[inAddr] <= mockData;
             mockData <= mockData + 1;
-            memAddr <= memAddr + 1;
+            inAddr <= inAddr + 1;
         end else begin 
             pcpReady <= 1'b1;
         end 
     end 
     
+    // Read data
     always @(posedge clk) begin 
-        data <= nextData;
-        outData <= nextData; 
+        data <= nextData; // Loop data 
+        outData <= nextData; // Assign data 
     end 
 
     /* ASSIGNMENTS */
