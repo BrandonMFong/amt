@@ -63,7 +63,7 @@ module PCP #(
     always @(*) begin    
         if (isReady) begin 
             if (outAddrBuffer < kMaxAddressSpace) begin 
-                lastDataFlag = 1'b0;
+                lastDataFlag = 1'b1;
                 outAddr = outAddrBuffer;
             end else begin 
                 lastDataFlag = 1'b1;
