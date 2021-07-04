@@ -1,7 +1,7 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Sun Jul  4 09:20:01 2021
+-- Date        : Sun Jul  4 09:47:46 2021
 -- Host        : KAMANTA running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.srcs/sources_1/bd/design_1/ip/design_1_myIP2_0_1/design_1_myIP2_0_1_sim_netlist.vhdl
@@ -17,15 +17,8 @@ use UNISIM.VCOMPONENTS.ALL;
 entity design_1_myIP2_0_1_PCP is
   port (
     D : out STD_LOGIC_VECTOR ( 32 downto 0 );
-    S : out STD_LOGIC_VECTOR ( 0 to 0 );
-    \wr_ptr_gray_sync2_reg_reg[11]\ : out STD_LOGIC_VECTOR ( 3 downto 0 );
     m00_axis_aclk : in STD_LOGIC;
-    Q : in STD_LOGIC_VECTOR ( 12 downto 0 );
-    \empty_carry__0\ : in STD_LOGIC_VECTOR ( 12 downto 0 );
-    CO : in STD_LOGIC_VECTOR ( 0 to 0 );
-    mem_read_data_valid_reg : in STD_LOGIC;
-    m00_axis_tready : in STD_LOGIC;
-    \outData_reg[0]_0\ : in STD_LOGIC
+    m00_axis_tready : in STD_LOGIC
   );
   attribute ORIG_REF_NAME : string;
   attribute ORIG_REF_NAME of design_1_myIP2_0_1_PCP : entity is "PCP";
@@ -34,6 +27,9 @@ end design_1_myIP2_0_1_PCP;
 architecture STRUCTURE of design_1_myIP2_0_1_PCP is
   signal inAddr_reg : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal lastDataFlag_reg_i_1_n_0 : STD_LOGIC;
+  signal lastDataFlag_reg_i_2_n_0 : STD_LOGIC;
+  signal lastDataFlag_reg_i_3_n_0 : STD_LOGIC;
+  signal lastDataFlag_reg_i_4_n_0 : STD_LOGIC;
   signal \mockData[1]_i_2_n_0\ : STD_LOGIC;
   signal mockData_reg : STD_LOGIC_VECTOR ( 31 downto 1 );
   signal \mockData_reg[13]_i_1_n_0\ : STD_LOGIC;
@@ -125,8 +121,6 @@ architecture STRUCTURE of design_1_myIP2_0_1_PCP is
   signal \outAddrBuffer_reg_n_0_[7]\ : STD_LOGIC;
   signal \outAddrBuffer_reg_n_0_[8]\ : STD_LOGIC;
   signal \outAddrBuffer_reg_n_0_[9]\ : STD_LOGIC;
-  signal \outAddr_reg[12]_i_2_n_0\ : STD_LOGIC;
-  signal \outAddr_reg[12]_i_3_n_0\ : STD_LOGIC;
   signal \outAddr_reg_n_0_[10]\ : STD_LOGIC;
   signal \outAddr_reg_n_0_[11]\ : STD_LOGIC;
   signal \outAddr_reg_n_0_[12]\ : STD_LOGIC;
@@ -155,15 +149,17 @@ architecture STRUCTURE of design_1_myIP2_0_1_PCP is
   signal NLW_pcpMem_reg_0_15_30_31_DOD_UNCONNECTED : STD_LOGIC_VECTOR ( 1 downto 0 );
   signal NLW_pcpMem_reg_0_15_6_11_DOD_UNCONNECTED : STD_LOGIC_VECTOR ( 1 downto 0 );
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \inAddr[0]_i_1\ : label is "soft_lutpair1";
-  attribute SOFT_HLUTNM of \inAddr[1]_i_1\ : label is "soft_lutpair1";
-  attribute SOFT_HLUTNM of \inAddr[2]_i_1\ : label is "soft_lutpair0";
-  attribute SOFT_HLUTNM of \inAddr[3]_i_1\ : label is "soft_lutpair0";
+  attribute SOFT_HLUTNM of \inAddr[0]_i_1\ : label is "soft_lutpair2";
+  attribute SOFT_HLUTNM of \inAddr[1]_i_1\ : label is "soft_lutpair2";
+  attribute SOFT_HLUTNM of \inAddr[2]_i_1\ : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of \inAddr[3]_i_1\ : label is "soft_lutpair1";
   attribute XILINX_LEGACY_PRIM : string;
   attribute XILINX_LEGACY_PRIM of lastDataFlag_reg : label is "LD";
+  attribute SOFT_HLUTNM of lastDataFlag_reg_i_1 : label is "soft_lutpair0";
   attribute XILINX_LEGACY_PRIM of \outAddr_reg[10]\ : label is "LD";
   attribute XILINX_LEGACY_PRIM of \outAddr_reg[11]\ : label is "LD";
   attribute XILINX_LEGACY_PRIM of \outAddr_reg[12]\ : label is "LD";
+  attribute SOFT_HLUTNM of \outAddr_reg[12]_i_1\ : label is "soft_lutpair0";
   attribute XILINX_LEGACY_PRIM of \outAddr_reg[4]\ : label is "LD";
   attribute XILINX_LEGACY_PRIM of \outAddr_reg[5]\ : label is "LD";
   attribute XILINX_LEGACY_PRIM of \outAddr_reg[6]\ : label is "LD";
@@ -210,67 +206,6 @@ architecture STRUCTURE of design_1_myIP2_0_1_PCP is
   attribute ram_slice_begin of pcpMem_reg_0_15_6_11 : label is 6;
   attribute ram_slice_end of pcpMem_reg_0_15_6_11 : label is 11;
 begin
-\empty_carry__0_i_1\: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"9"
-    )
-        port map (
-      I0 => Q(12),
-      I1 => \empty_carry__0\(12),
-      O => S(0)
-    );
-empty_carry_i_1: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"9009000000009009"
-    )
-        port map (
-      I0 => Q(11),
-      I1 => \empty_carry__0\(11),
-      I2 => Q(10),
-      I3 => \empty_carry__0\(10),
-      I4 => \empty_carry__0\(9),
-      I5 => Q(9),
-      O => \wr_ptr_gray_sync2_reg_reg[11]\(3)
-    );
-empty_carry_i_2: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"9009000000009009"
-    )
-        port map (
-      I0 => Q(8),
-      I1 => \empty_carry__0\(8),
-      I2 => Q(7),
-      I3 => \empty_carry__0\(7),
-      I4 => \empty_carry__0\(6),
-      I5 => Q(6),
-      O => \wr_ptr_gray_sync2_reg_reg[11]\(2)
-    );
-empty_carry_i_3: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"9009000000009009"
-    )
-        port map (
-      I0 => Q(5),
-      I1 => \empty_carry__0\(5),
-      I2 => Q(4),
-      I3 => \empty_carry__0\(4),
-      I4 => \empty_carry__0\(3),
-      I5 => Q(3),
-      O => \wr_ptr_gray_sync2_reg_reg[11]\(1)
-    );
-empty_carry_i_4: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"9009000000009009"
-    )
-        port map (
-      I0 => Q(2),
-      I1 => \empty_carry__0\(2),
-      I2 => Q(1),
-      I3 => \empty_carry__0\(1),
-      I4 => \empty_carry__0\(0),
-      I5 => Q(0),
-      O => \wr_ptr_gray_sync2_reg_reg[11]\(0)
-    );
 \inAddr[0]_i_1\: unisim.vcomponents.LUT1
     generic map(
       INIT => X"1"
@@ -360,21 +295,52 @@ lastDataFlag_reg: unisim.vcomponents.LDCE
         port map (
       CLR => '0',
       D => lastDataFlag_reg_i_1_n_0,
-      G => lastDataFlag_reg_i_1_n_0,
+      G => lastDataFlag_reg_i_2_n_0,
       GE => '1',
       Q => D(32)
     );
-lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
+lastDataFlag_reg_i_1: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"0000A2AA"
+      INIT => X"EA"
     )
         port map (
-      I0 => pcpReady,
-      I1 => \outData_reg[0]_0\,
-      I2 => m00_axis_tready,
-      I3 => mem_read_data_valid_reg,
-      I4 => CO(0),
+      I0 => lastDataFlag_reg_i_3_n_0,
+      I1 => \outAddrBuffer_reg_n_0_[3]\,
+      I2 => \outAddrBuffer_reg_n_0_[2]\,
       O => lastDataFlag_reg_i_1_n_0
+    );
+lastDataFlag_reg_i_2: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"8"
+    )
+        port map (
+      I0 => m00_axis_tready,
+      I1 => pcpReady,
+      O => lastDataFlag_reg_i_2_n_0
+    );
+lastDataFlag_reg_i_3: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"FFFFFFFE"
+    )
+        port map (
+      I0 => lastDataFlag_reg_i_4_n_0,
+      I1 => \outAddrBuffer_reg_n_0_[7]\,
+      I2 => \outAddrBuffer_reg_n_0_[8]\,
+      I3 => \outAddrBuffer_reg_n_0_[9]\,
+      I4 => \outAddrBuffer_reg_n_0_[10]\,
+      O => lastDataFlag_reg_i_3_n_0
+    );
+lastDataFlag_reg_i_4: unisim.vcomponents.LUT5
+    generic map(
+      INIT => X"FFFFFFFE"
+    )
+        port map (
+      I0 => \outAddrBuffer_reg_n_0_[4]\,
+      I1 => \outAddrBuffer_reg_n_0_[5]\,
+      I2 => \outAddrBuffer_reg_n_0_[6]\,
+      I3 => \outAddrBuffer_reg_n_0_[12]\,
+      I4 => \outAddrBuffer_reg_n_0_[11]\,
+      O => lastDataFlag_reg_i_4_n_0
     );
 \mockData[1]_i_2\: unisim.vcomponents.LUT1
     generic map(
@@ -846,17 +812,14 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
       O(0) => \mockData_reg[9]_i_1_n_7\,
       S(3 downto 0) => mockData_reg(12 downto 9)
     );
-\outAddrBuffer[3]_i_2\: unisim.vcomponents.LUT6
+\outAddrBuffer[3]_i_2\: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"99A99999AAAAAAAA"
+      INIT => X"6A"
     )
         port map (
       I0 => \outAddr_reg_rep__0\(0),
-      I1 => CO(0),
-      I2 => mem_read_data_valid_reg,
-      I3 => m00_axis_tready,
-      I4 => \outData_reg[0]_0\,
-      I5 => pcpReady,
+      I1 => pcpReady,
+      I2 => m00_axis_tready,
       O => \outAddrBuffer[3]_i_2_n_0\
     );
 \outAddrBuffer_reg[0]\: unisim.vcomponents.FDRE
@@ -1090,44 +1053,17 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
       GE => '1',
       Q => \outAddr_reg_n_0_[12]\
     );
-\outAddr_reg[12]_i_1\: unisim.vcomponents.LUT6
+\outAddr_reg[12]_i_1\: unisim.vcomponents.LUT5
     generic map(
-      INIT => X"5155000000000000"
+      INIT => X"00080808"
     )
         port map (
-      I0 => CO(0),
-      I1 => mem_read_data_valid_reg,
-      I2 => m00_axis_tready,
-      I3 => \outData_reg[0]_0\,
-      I4 => \outAddr_reg[12]_i_2_n_0\,
-      I5 => \outAddr_reg[12]_i_3_n_0\,
+      I0 => pcpReady,
+      I1 => m00_axis_tready,
+      I2 => lastDataFlag_reg_i_3_n_0,
+      I3 => \outAddrBuffer_reg_n_0_[3]\,
+      I4 => \outAddrBuffer_reg_n_0_[2]\,
       O => outAddr
-    );
-\outAddr_reg[12]_i_2\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"0000000100010001"
-    )
-        port map (
-      I0 => \outAddrBuffer_reg_n_0_[6]\,
-      I1 => \outAddrBuffer_reg_n_0_[7]\,
-      I2 => \outAddrBuffer_reg_n_0_[4]\,
-      I3 => \outAddrBuffer_reg_n_0_[5]\,
-      I4 => \outAddrBuffer_reg_n_0_[3]\,
-      I5 => \outAddrBuffer_reg_n_0_[2]\,
-      O => \outAddr_reg[12]_i_2_n_0\
-    );
-\outAddr_reg[12]_i_3\: unisim.vcomponents.LUT6
-    generic map(
-      INIT => X"0000000100000000"
-    )
-        port map (
-      I0 => \outAddrBuffer_reg_n_0_[10]\,
-      I1 => \outAddrBuffer_reg_n_0_[11]\,
-      I2 => \outAddrBuffer_reg_n_0_[8]\,
-      I3 => \outAddrBuffer_reg_n_0_[9]\,
-      I4 => \outAddrBuffer_reg_n_0_[12]\,
-      I5 => pcpReady,
-      O => \outAddr_reg[12]_i_3_n_0\
     );
 \outAddr_reg[4]\: unisim.vcomponents.LDCE
     generic map(
@@ -1245,7 +1181,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(0),
       Q => D(0),
       R => '0'
@@ -1256,7 +1192,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(10),
       Q => D(10),
       R => '0'
@@ -1267,7 +1203,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(11),
       Q => D(11),
       R => '0'
@@ -1278,7 +1214,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(12),
       Q => D(12),
       R => '0'
@@ -1289,7 +1225,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(13),
       Q => D(13),
       R => '0'
@@ -1300,7 +1236,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(14),
       Q => D(14),
       R => '0'
@@ -1311,7 +1247,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(15),
       Q => D(15),
       R => '0'
@@ -1322,7 +1258,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(16),
       Q => D(16),
       R => '0'
@@ -1333,7 +1269,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(17),
       Q => D(17),
       R => '0'
@@ -1344,7 +1280,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(18),
       Q => D(18),
       R => '0'
@@ -1355,7 +1291,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(19),
       Q => D(19),
       R => '0'
@@ -1366,7 +1302,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(1),
       Q => D(1),
       R => '0'
@@ -1377,7 +1313,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(20),
       Q => D(20),
       R => '0'
@@ -1388,7 +1324,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(21),
       Q => D(21),
       R => '0'
@@ -1399,7 +1335,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(22),
       Q => D(22),
       R => '0'
@@ -1410,7 +1346,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(23),
       Q => D(23),
       R => '0'
@@ -1421,7 +1357,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(24),
       Q => D(24),
       R => '0'
@@ -1432,7 +1368,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(25),
       Q => D(25),
       R => '0'
@@ -1443,7 +1379,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(26),
       Q => D(26),
       R => '0'
@@ -1454,7 +1390,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(27),
       Q => D(27),
       R => '0'
@@ -1465,7 +1401,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(28),
       Q => D(28),
       R => '0'
@@ -1476,7 +1412,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(29),
       Q => D(29),
       R => '0'
@@ -1487,7 +1423,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(2),
       Q => D(2),
       R => '0'
@@ -1498,7 +1434,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(30),
       Q => D(30),
       R => '0'
@@ -1509,7 +1445,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(31),
       Q => D(31),
       R => '0'
@@ -1520,7 +1456,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(3),
       Q => D(3),
       R => '0'
@@ -1531,7 +1467,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(4),
       Q => D(4),
       R => '0'
@@ -1542,7 +1478,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(5),
       Q => D(5),
       R => '0'
@@ -1553,7 +1489,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(6),
       Q => D(6),
       R => '0'
@@ -1564,7 +1500,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(7),
       Q => D(7),
       R => '0'
@@ -1575,7 +1511,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(8),
       Q => D(8),
       R => '0'
@@ -1586,7 +1522,7 @@ lastDataFlag_reg_i_1: unisim.vcomponents.LUT5
     )
         port map (
       C => m00_axis_aclk,
-      CE => lastDataFlag_reg_i_1_n_0,
+      CE => lastDataFlag_reg_i_2_n_0,
       D => outData0(9),
       Q => D(9),
       R => '0'
@@ -1770,6 +1706,11 @@ end design_1_myIP2_0_1_axis_fifo_v1_0;
 
 architecture STRUCTURE of design_1_myIP2_0_1_axis_fifo_v1_0 is
   signal empty : STD_LOGIC;
+  signal \empty_carry__0_i_1_n_0\ : STD_LOGIC;
+  signal empty_carry_i_1_n_0 : STD_LOGIC;
+  signal empty_carry_i_2_n_0 : STD_LOGIC;
+  signal empty_carry_i_3_n_0 : STD_LOGIC;
+  signal empty_carry_i_4_n_0 : STD_LOGIC;
   signal empty_carry_n_0 : STD_LOGIC;
   signal empty_carry_n_1 : STD_LOGIC;
   signal empty_carry_n_2 : STD_LOGIC;
@@ -1794,11 +1735,6 @@ architecture STRUCTURE of design_1_myIP2_0_1_axis_fifo_v1_0 is
   signal m00_rst_sync3_reg_i_1_n_0 : STD_LOGIC;
   signal mem_read_data_valid_reg : STD_LOGIC;
   signal mem_read_data_valid_reg_i_1_n_0 : STD_LOGIC;
-  signal mod0_n_33 : STD_LOGIC;
-  signal mod0_n_34 : STD_LOGIC;
-  signal mod0_n_35 : STD_LOGIC;
-  signal mod0_n_36 : STD_LOGIC;
-  signal mod0_n_37 : STD_LOGIC;
   signal outData : STD_LOGIC_VECTOR ( 31 downto 0 );
   signal p_0_in : STD_LOGIC;
   signal p_0_in0_in : STD_LOGIC;
@@ -1807,8 +1743,7 @@ architecture STRUCTURE of design_1_myIP2_0_1_axis_fifo_v1_0 is
   signal pcpout_mem_read_data_reg : STD_LOGIC_VECTOR ( 32 to 32 );
   signal rd_ptr_gray_next : STD_LOGIC;
   signal rd_ptr_gray_reg : STD_LOGIC_VECTOR ( 12 downto 0 );
-  signal rd_ptr_gray_reg0 : STD_LOGIC_VECTOR ( 11 downto 1 );
-  signal \rd_ptr_gray_reg[0]_i_1_n_0\ : STD_LOGIC;
+  signal rd_ptr_gray_reg0 : STD_LOGIC_VECTOR ( 11 downto 0 );
   signal rd_ptr_gray_sync1_reg : STD_LOGIC_VECTOR ( 12 downto 0 );
   signal \rd_ptr_gray_sync2_reg_reg_n_0_[0]\ : STD_LOGIC;
   signal \rd_ptr_gray_sync2_reg_reg_n_0_[10]\ : STD_LOGIC;
@@ -1883,32 +1818,30 @@ architecture STRUCTURE of design_1_myIP2_0_1_axis_fifo_v1_0 is
   attribute SOFT_HLUTNM : string;
   attribute SOFT_HLUTNM of m00_rst_sync2_reg_i_1 : label is "soft_lutpair4";
   attribute SOFT_HLUTNM of m00_rst_sync3_reg_i_1 : label is "soft_lutpair4";
-  attribute SOFT_HLUTNM of mem_read_data_valid_reg_i_1 : label is "soft_lutpair2";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[0]_i_1\ : label is "soft_lutpair10";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[10]_i_1\ : label is "soft_lutpair9";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[11]_i_2\ : label is "soft_lutpair9";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[1]_i_1\ : label is "soft_lutpair10";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[2]_i_1\ : label is "soft_lutpair6";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[3]_i_1\ : label is "soft_lutpair6";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[4]_i_1\ : label is "soft_lutpair5";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[5]_i_1\ : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of mem_read_data_valid_reg_i_1 : label is "soft_lutpair3";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[10]_i_1\ : label is "soft_lutpair10";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[1]_i_1\ : label is "soft_lutpair8";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[2]_i_1\ : label is "soft_lutpair8";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[4]_i_1\ : label is "soft_lutpair6";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[5]_i_1\ : label is "soft_lutpair6";
   attribute SOFT_HLUTNM of \rd_ptr_gray_reg[6]_i_1\ : label is "soft_lutpair7";
   attribute SOFT_HLUTNM of \rd_ptr_gray_reg[7]_i_1\ : label is "soft_lutpair7";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[8]_i_1\ : label is "soft_lutpair8";
-  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[9]_i_1\ : label is "soft_lutpair8";
-  attribute SOFT_HLUTNM of \rd_ptr_reg[0]_i_1\ : label is "soft_lutpair2";
-  attribute SOFT_HLUTNM of s00_rst_sync2_reg_i_1 : label is "soft_lutpair3";
-  attribute SOFT_HLUTNM of s00_rst_sync3_reg_i_1 : label is "soft_lutpair3";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[0]_i_1\ : label is "soft_lutpair15";
+  attribute SOFT_HLUTNM of \rd_ptr_gray_reg[9]_i_1\ : label is "soft_lutpair10";
+  attribute SOFT_HLUTNM of \rd_ptr_reg[0]_i_1\ : label is "soft_lutpair3";
+  attribute SOFT_HLUTNM of s00_rst_sync2_reg_i_1 : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of s00_rst_sync3_reg_i_1 : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[0]_i_1\ : label is "soft_lutpair9";
   attribute SOFT_HLUTNM of \wr_ptr_gray_reg[10]_i_1\ : label is "soft_lutpair14";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[1]_i_1\ : label is "soft_lutpair15";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[2]_i_1\ : label is "soft_lutpair11";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[3]_i_1\ : label is "soft_lutpair11";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[5]_i_1\ : label is "soft_lutpair12";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[11]_i_1\ : label is "soft_lutpair14";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[1]_i_1\ : label is "soft_lutpair9";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[2]_i_1\ : label is "soft_lutpair15";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[3]_i_1\ : label is "soft_lutpair15";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[4]_i_1\ : label is "soft_lutpair11";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[5]_i_1\ : label is "soft_lutpair11";
   attribute SOFT_HLUTNM of \wr_ptr_gray_reg[6]_i_1\ : label is "soft_lutpair12";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[7]_i_1\ : label is "soft_lutpair13";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[7]_i_1\ : label is "soft_lutpair12";
   attribute SOFT_HLUTNM of \wr_ptr_gray_reg[8]_i_1\ : label is "soft_lutpair13";
-  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[9]_i_1\ : label is "soft_lutpair14";
+  attribute SOFT_HLUTNM of \wr_ptr_gray_reg[9]_i_1\ : label is "soft_lutpair13";
 begin
   m00_axis_tvalid_reg_reg_0 <= \^m00_axis_tvalid_reg_reg_0\;
 empty_carry: unisim.vcomponents.CARRY4
@@ -1921,10 +1854,10 @@ empty_carry: unisim.vcomponents.CARRY4
       CYINIT => '1',
       DI(3 downto 0) => B"0000",
       O(3 downto 0) => NLW_empty_carry_O_UNCONNECTED(3 downto 0),
-      S(3) => mod0_n_34,
-      S(2) => mod0_n_35,
-      S(1) => mod0_n_36,
-      S(0) => mod0_n_37
+      S(3) => empty_carry_i_1_n_0,
+      S(2) => empty_carry_i_2_n_0,
+      S(1) => empty_carry_i_3_n_0,
+      S(0) => empty_carry_i_4_n_0
     );
 \empty_carry__0\: unisim.vcomponents.CARRY4
      port map (
@@ -1935,7 +1868,68 @@ empty_carry: unisim.vcomponents.CARRY4
       DI(3 downto 0) => B"0000",
       O(3 downto 0) => \NLW_empty_carry__0_O_UNCONNECTED\(3 downto 0),
       S(3 downto 1) => B"000",
-      S(0) => mod0_n_33
+      S(0) => \empty_carry__0_i_1_n_0\
+    );
+\empty_carry__0_i_1\: unisim.vcomponents.LUT2
+    generic map(
+      INIT => X"9"
+    )
+        port map (
+      I0 => wr_ptr_gray_sync2_reg(12),
+      I1 => rd_ptr_gray_reg(12),
+      O => \empty_carry__0_i_1_n_0\
+    );
+empty_carry_i_1: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"9009000000009009"
+    )
+        port map (
+      I0 => rd_ptr_gray_reg(10),
+      I1 => wr_ptr_gray_sync2_reg(10),
+      I2 => rd_ptr_gray_reg(9),
+      I3 => wr_ptr_gray_sync2_reg(9),
+      I4 => wr_ptr_gray_sync2_reg(11),
+      I5 => rd_ptr_gray_reg(11),
+      O => empty_carry_i_1_n_0
+    );
+empty_carry_i_2: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"9009000000009009"
+    )
+        port map (
+      I0 => rd_ptr_gray_reg(7),
+      I1 => wr_ptr_gray_sync2_reg(7),
+      I2 => rd_ptr_gray_reg(6),
+      I3 => wr_ptr_gray_sync2_reg(6),
+      I4 => wr_ptr_gray_sync2_reg(8),
+      I5 => rd_ptr_gray_reg(8),
+      O => empty_carry_i_2_n_0
+    );
+empty_carry_i_3: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"9009000000009009"
+    )
+        port map (
+      I0 => rd_ptr_gray_reg(4),
+      I1 => wr_ptr_gray_sync2_reg(4),
+      I2 => rd_ptr_gray_reg(3),
+      I3 => wr_ptr_gray_sync2_reg(3),
+      I4 => wr_ptr_gray_sync2_reg(5),
+      I5 => rd_ptr_gray_reg(5),
+      O => empty_carry_i_3_n_0
+    );
+empty_carry_i_4: unisim.vcomponents.LUT6
+    generic map(
+      INIT => X"9009000000009009"
+    )
+        port map (
+      I0 => rd_ptr_gray_reg(1),
+      I1 => wr_ptr_gray_sync2_reg(1),
+      I2 => rd_ptr_gray_reg(0),
+      I3 => wr_ptr_gray_sync2_reg(0),
+      I4 => wr_ptr_gray_sync2_reg(2),
+      I5 => rd_ptr_gray_reg(2),
+      O => empty_carry_i_4_n_0
     );
 full0_carry: unisim.vcomponents.CARRY4
      port map (
@@ -2479,20 +2473,10 @@ mem_read_data_valid_reg_reg: unisim.vcomponents.FDRE
     );
 mod0: entity work.design_1_myIP2_0_1_PCP
      port map (
-      CO(0) => empty,
       D(32) => pcpout_mem_read_data_reg(32),
       D(31 downto 0) => outData(31 downto 0),
-      Q(12 downto 0) => wr_ptr_gray_sync2_reg(12 downto 0),
-      S(0) => mod0_n_33,
-      \empty_carry__0\(12 downto 0) => rd_ptr_gray_reg(12 downto 0),
       m00_axis_aclk => m00_axis_aclk,
-      m00_axis_tready => m00_axis_tready,
-      mem_read_data_valid_reg => mem_read_data_valid_reg,
-      \outData_reg[0]_0\ => \^m00_axis_tvalid_reg_reg_0\,
-      \wr_ptr_gray_sync2_reg_reg[11]\(3) => mod0_n_34,
-      \wr_ptr_gray_sync2_reg_reg[11]\(2) => mod0_n_35,
-      \wr_ptr_gray_sync2_reg_reg[11]\(1) => mod0_n_36,
-      \wr_ptr_gray_sync2_reg_reg[11]\(0) => mod0_n_37
+      m00_axis_tready => m00_axis_tready
     );
 \rd_ptr_gray_reg[0]_i_1\: unisim.vcomponents.LUT2
     generic map(
@@ -2501,7 +2485,7 @@ mod0: entity work.design_1_myIP2_0_1_PCP
         port map (
       I0 => rd_ptr_next0(1),
       I1 => rd_ptr_reg(0),
-      O => \rd_ptr_gray_reg[0]_i_1_n_0\
+      O => rd_ptr_gray_reg0(0)
     );
 \rd_ptr_gray_reg[10]_i_1\: unisim.vcomponents.LUT2
     generic map(
@@ -2620,7 +2604,7 @@ mod0: entity work.design_1_myIP2_0_1_PCP
         port map (
       C => m00_axis_aclk,
       CE => rd_ptr_gray_next,
-      D => \rd_ptr_gray_reg[0]_i_1_n_0\,
+      D => rd_ptr_gray_reg0(0),
       Q => rd_ptr_gray_reg(0),
       R => m00_rst_sync3_reg
     );

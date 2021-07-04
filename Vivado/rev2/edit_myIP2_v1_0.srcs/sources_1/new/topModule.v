@@ -277,7 +277,7 @@ PCP mod0 (
     .clk            (m00_axis_aclk),
     .inputValue     (pcpin_mem_read_data_reg), 
     .outputValue    (pcpout_mem_read_data_reg), 
-    .outputReady    (readyFlag)
+    .outputReady    (m00_axis_tready)
 );
 
 endmodule
