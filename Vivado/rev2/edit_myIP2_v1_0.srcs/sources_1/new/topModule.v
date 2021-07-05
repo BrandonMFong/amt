@@ -112,7 +112,7 @@ reg store_output;
 
 assign s00_axis_tready = ~full & ~s00_rst_sync3_reg;
 
-assign m00_axis_tvalid = m00_axis_tvalid_reg;
+//assign m00_axis_tvalid = m00_axis_tvalid_reg;
 
 assign mem_write_data = {s00_axis_tlast, s00_axis_tdata};
 assign {m00_axis_tlast, m00_axis_tdata} = m00_data_reg;
@@ -277,7 +277,8 @@ PCP mod0 (
     .clk            (m00_axis_aclk),
     .inputValue     (pcpin_mem_read_data_reg), 
     .outputValue    (pcpout_mem_read_data_reg), 
-    .outputReady    (m00_axis_tready)
+    .outputReady    (m00_axis_tready),
+    .outputValid    (m00_axis_tvalid)
 );
 
 endmodule

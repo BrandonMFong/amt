@@ -30,20 +30,22 @@ module PCP #(
     input wire outputReady,
     
     /* OUTPUT */
-    output wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue
+    output wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue,
+    output wire outputValid
 );
     /* LOCAL PARAMETERS */
     localparam kMaxAddressSpace = 12;
 
     /* REGISTERS */
     reg lastDataFlag = 1'b0;
-    reg [C_AXIS_TDATA_WIDTH-1:0]    outData = {C_AXIS_TDATA_WIDTH{1'b0}}, 
-                                    mockData = {C_AXIS_TDATA_WIDTH{1'b0}};
+    reg [C_AXIS_TDATA_WIDTH-1:0]    outData, 
+                                    mockData;
     reg [C_AXIS_TDATA_WIDTH-1:0] pcpMem [kMaxAddressSpace - 1 : 0];
     reg pcpReady = 1'b0;
     reg [ADDR_WIDTH:0]  inAddr = {ADDR_WIDTH{1'b0}}, 
                         outAddr = {ADDR_WIDTH{1'b0}}, 
                         outAddrBuffer = {ADDR_WIDTH{1'b0}};
+    reg validOutputData;
     
     /* Wires */
     wire isReady;
@@ -57,6 +59,7 @@ module PCP #(
         inAddr = 0;
         outAddrBuffer = 0;
         outAddr = 0;
+        validOutputData = 0;
     end 
     
     /* COMBINATION LOGIC */
@@ -93,11 +96,15 @@ module PCP #(
         if (isReady) begin 
             outData <= pcpMem[outAddr];
             outAddrBuffer <= outAddr + 1;
+            validOutputData <= 1'b1;
+        end else begin 
+            validOutputData <= 1'b0;
         end 
     end 
 
     /* ASSIGNMENTS */
     assign outputValue  = {lastDataFlag, outData};
     assign isReady = outputReady & pcpReady;
+    assign outputValid = validOutputData;
     
 endmodule
