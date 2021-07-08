@@ -35,6 +35,7 @@ module PCP #(
 );
     /* LOCAL PARAMETERS */
     localparam kMaxAddressSpace = 12;
+    localparam kMaxCount = 250; 
 
     /* REGISTERS */
     reg lastDataFlag = 1'b0;
@@ -46,6 +47,8 @@ module PCP #(
                         outAddr = {ADDR_WIDTH{1'b0}}, 
                         outAddrBuffer = {ADDR_WIDTH{1'b0}};
     reg validOutputData;
+    reg [8 : 0] counter;
+    reg delayReady;
     
     /* Wires */
     wire isReady;
@@ -60,6 +63,8 @@ module PCP #(
         outAddrBuffer = 0;
         outAddr = 0;
         validOutputData = 0;
+        delayReady = 0;
+        counter = 0;
     end 
     
     /* COMBINATION LOGIC */
@@ -101,10 +106,20 @@ module PCP #(
             validOutputData <= 1'b0;
         end 
     end 
+    
+    // Delay output for debugging 
+    always @(posedge clk) begin 
+        if (counter < kMaxCount) begin 
+            counter <= counter + 1;
+            delayReady <= 1'b0;
+        end else begin 
+            delayReady <= 1'b1;
+        end 
+    end 
 
     /* ASSIGNMENTS */
     assign outputValue  = {lastDataFlag, outData};
-    assign isReady = outputReady & pcpReady;
+    assign isReady = outputReady & pcpReady & delayReady;
     assign outputValid = validOutputData;
     
 endmodule
