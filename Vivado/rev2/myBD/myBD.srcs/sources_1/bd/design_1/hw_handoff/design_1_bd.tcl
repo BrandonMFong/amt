@@ -171,6 +171,7 @@ proc create_hier_cell_stream { parentCell nameHier } {
   set_property -dict [ list \
    CONFIG.c_include_sg {0} \
    CONFIG.c_sg_include_stscntrl_strm {0} \
+   CONFIG.c_sg_length_width {26} \
  ] $dma
 
   # Create instance: myIP, and set properties
