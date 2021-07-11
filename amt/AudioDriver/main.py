@@ -123,6 +123,7 @@ class AudioDriver:
         self._startTime     = datetime.now()
         self._endTime       = datetime.now()
         self._cmaMemReader  = Xlnk()
+        self._serialDft     = None
 
         if okayToContinue:
             if spectrumMax is not None:
@@ -234,7 +235,8 @@ class AudioDriver:
             # self.record(recordInterval)
 
             # Get spectrum from wavFile
-            self.getSpectrum()
+            # self.getSpectrum()
+            self.getSpectrum2()
 
             # Analyze spectrum 
             self.analyze()
@@ -257,6 +259,46 @@ class AudioDriver:
         if okayToContinue:
             pass
 
+    def getSpectrum2(self):
+        """
+        Gets spectrum from wav file sent by client 
+        """
+        okayToContinue = True 
+        result = list()
+
+        okayToContinue = path.exists(self._wavFile)
+
+        if okayToContinue:
+            # Get the wavefile
+            with wave.open(self._wavFile, 'r') as wav_file:
+                raw_frames      = wav_file.readframes(-1)
+                num_frames      = wav_file.getnframes()
+                num_channels    = wav_file.getnchannels()
+                sample_rate     = wav_file.getframerate()
+                sample_width    = wav_file.getsampwidth()
+                
+            temp_buffer                         = np.empty((num_frames, num_channels, 4), dtype=np.uint8)
+            raw_bytes                           = np.frombuffer(raw_frames, dtype=np.uint8)
+            temp_buffer[:, :, :sample_width]    = raw_bytes.reshape(-1, num_channels, sample_width)
+            temp_buffer[:, :, sample_width:]    = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
+            frames                              = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
+
+            self._numFrames = num_frames
+
+            # Calculate the frequency spectrum 
+            for channel_index in range(num_channels):
+                temp = fft(x=frames[:, channel_index])
+                yf = temp[1:len(temp)//2]
+                xf = np.linspace(0.0, sample_rate/2, len(yf))
+
+            # Make serial data.  First freq, second magnitude 
+            for i in range(len(xf)):
+                result.append(xf[i])
+                result.append(abs(yf[i]))
+
+            # We need to send this to the pynq board like this
+            self._serialDft = np.array(result)
+            self._serialDft = self._serialDft.astype(int)
 
     def getSpectrum(self):
         """
@@ -411,9 +453,19 @@ class AudioDriver:
                 okayToContinue = False 
 
         if okayToContinue:
-            inBuffer    = self._cmaMemReader.cma_array(shape=(self._numFrames,), dtype=np.int32)
-            outBuffer   = self._cmaMemReader.cma_array(shape=(self._numFrames,), dtype=np.int32)
+            inBuffer = self._cmaMemReader.cma_array(shape=(self._numFrames,), dtype=np.int32)
+
+            if inBuffer is None: 
+                okayToContinue = False 
+
+        if okayToContinue:
+            outBuffer = self._cmaMemReader.cma_array(shape=(self._numFrames,), dtype=np.int32)
             
+            if outBuffer is None:
+                okayToContinue = False 
+        
+        if okayToContinue:
+            pass 
 
         return result 
 

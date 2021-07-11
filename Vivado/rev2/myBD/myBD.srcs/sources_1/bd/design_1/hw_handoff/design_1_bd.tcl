@@ -176,6 +176,9 @@ proc create_hier_cell_stream { parentCell nameHier } {
 
   # Create instance: myIP, and set properties
   set myIP [ create_bd_cell -type ip -vlnv xilinx.com:user:myIP2:1.0 myIP ]
+  set_property -dict [ list \
+   CONFIG.ADDR_WIDTH {12} \
+ ] $myIP
 
   # Create interface connections
   connect_bd_intf_net -intf_net axi_dma_0_M_AXIS_MM2S [get_bd_intf_pins dma/M_AXIS_MM2S] [get_bd_intf_pins myIP/S00_AXIS]

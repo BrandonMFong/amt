@@ -42,7 +42,7 @@ Modified by Jeff Johnson http://www.fpgadeveloper.com
  */
 module axis_fifo_v1_0 #
 (
-    parameter ADDR_WIDTH = 12,
+    parameter ADDR_WIDTH = 40,
     parameter C_AXIS_TDATA_WIDTH = 32
 )
 (
@@ -273,7 +273,10 @@ always @(posedge m00_axis_aclk) begin
 end
 
 /** Brando **/
-PCP mod0 (
+PCP #(
+    .ADDR_WIDTH         (ADDR_WIDTH),
+    .C_AXIS_TDATA_WIDTH (C_AXIS_TDATA_WIDTH)
+) mod0 (
     .clk            (m00_axis_aclk),
     .inputValue     (pcpin_mem_read_data_reg), 
     .outputValue    (pcpout_mem_read_data_reg), 

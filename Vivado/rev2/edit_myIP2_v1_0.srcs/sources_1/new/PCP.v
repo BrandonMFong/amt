@@ -17,6 +17,9 @@
 // Revision 0.01 - File Created
 // Additional Comments:
 // 
+// Refs:
+//  https://dsp.stackexchange.com/questions/13722/pitch-class-profiling
+//  https://dsp.stackexchange.com/questions/26927/what-is-a-frequency-bin
 //////////////////////////////////////////////////////////////////////////////////
 
 
@@ -41,14 +44,12 @@ module PCP #(
     reg lastDataFlag = 1'b0;
     reg [C_AXIS_TDATA_WIDTH-1:0]    outData, 
                                     mockData;
-    reg [C_AXIS_TDATA_WIDTH-1:0] pcpMem [kMaxAddressSpace - 1 : 0];
+    reg [C_AXIS_TDATA_WIDTH-1:0] pcpMem [(2**ADDR_WIDTH) - 1 : 0];
     reg pcpReady = 1'b0;
     reg [ADDR_WIDTH:0]  inAddr = {ADDR_WIDTH{1'b0}}, 
                         outAddr = {ADDR_WIDTH{1'b0}}, 
                         outAddrBuffer = {ADDR_WIDTH{1'b0}};
     reg validOutputData;
-    reg [8 : 0] counter;
-    reg delayReady;
     
     /* Wires */
     wire isReady;
@@ -63,8 +64,6 @@ module PCP #(
         outAddrBuffer = 0;
         outAddr = 0;
         validOutputData = 0;
-        delayReady = 0;
-        counter = 0;
     end 
     
     /* COMBINATION LOGIC */
@@ -106,20 +105,10 @@ module PCP #(
             validOutputData <= 1'b0;
         end 
     end 
-    
-    // Delay output for debugging 
-    always @(posedge clk) begin 
-        if (counter < kMaxCount) begin 
-            counter <= counter + 1;
-            delayReady <= 1'b0;
-        end else begin 
-            delayReady <= 1'b1;
-        end 
-    end 
 
     /* ASSIGNMENTS */
     assign outputValue  = {lastDataFlag, outData};
-    assign isReady = outputReady & pcpReady & delayReady;
-    assign outputValid = validOutputData;
+    assign isReady      = outputReady & pcpReady;
+    assign outputValid  = validOutputData;
     
 endmodule
