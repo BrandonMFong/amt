@@ -67,6 +67,8 @@ module PCP #(
     end 
     
     /* COMBINATION LOGIC */
+    // Signaling whether we are done filling up the
+    // output
     always @(*) begin    
         if (isReady) begin 
             if (outAddrBuffer < kMaxAddressSpace) begin 

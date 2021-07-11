@@ -169,6 +169,7 @@ proc create_hier_cell_stream { parentCell nameHier } {
   # Create instance: dma, and set properties
   set dma [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_dma:7.1 dma ]
   set_property -dict [ list \
+   CONFIG.c_addr_width {40} \
    CONFIG.c_include_sg {0} \
    CONFIG.c_sg_include_stscntrl_strm {0} \
    CONFIG.c_sg_length_width {26} \
@@ -178,6 +179,7 @@ proc create_hier_cell_stream { parentCell nameHier } {
   set myIP [ create_bd_cell -type ip -vlnv xilinx.com:user:myIP2:1.0 myIP ]
   set_property -dict [ list \
    CONFIG.ADDR_WIDTH {12} \
+   CONFIG.C_AXIS_TDATA_WIDTH {32} \
  ] $myIP
 
   # Create interface connections
