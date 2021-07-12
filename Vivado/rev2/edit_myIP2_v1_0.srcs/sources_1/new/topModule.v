@@ -274,7 +274,7 @@ end
 
 /** Brando **/
 PCP #(
-    .ADDR_WIDTH         (ADDR_WIDTH),
+//    .ADDR_WIDTH         (ADDR_WIDTH),
     .C_AXIS_TDATA_WIDTH (C_AXIS_TDATA_WIDTH)
 ) mod0 (
     .clk            (m00_axis_aclk),
