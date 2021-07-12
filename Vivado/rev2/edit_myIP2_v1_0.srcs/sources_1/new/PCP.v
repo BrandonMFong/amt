@@ -86,12 +86,12 @@ module PCP #(
     // Read data
     always @(posedge clk) begin 
         if (isReady) begin 
-            outData <= pcpMem[outAddr]; // TODO: this is X!
             validOutputData <= 1'b1;
             
             // Evaluate if we are done sending output
             if (outAddr < kMaxAddressSpace) begin 
                 lastDataFlag <= 1'b0;
+                outData <= pcpMem[outAddr]; // TODO: this is X!
                 outAddr <= outAddr + 1;
             end else begin 
                 lastDataFlag <= 1'b1;
