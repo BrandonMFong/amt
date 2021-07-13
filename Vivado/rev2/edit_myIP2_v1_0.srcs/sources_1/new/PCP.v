@@ -31,6 +31,7 @@ module PCP #(
     input wire clk,
     input wire [C_AXIS_TDATA_WIDTH+2-1:0] inputValue,
     input wire outputReady,
+    input wire reset, 
     
     /* OUTPUT */
     output wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue,
@@ -91,7 +92,7 @@ module PCP #(
             // Evaluate if we are done sending output
             if (outAddr < kMaxAddressSpace) begin 
                 lastDataFlag <= 1'b0;
-                outData <= pcpMem[outAddr]; // TODO: this is X!
+                outData <= pcpMem[outAddr];
                 outAddr <= outAddr + 1;
             end else begin 
                 lastDataFlag <= 1'b1;
