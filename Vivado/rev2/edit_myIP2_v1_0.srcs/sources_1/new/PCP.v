@@ -53,7 +53,7 @@ module PCP #(
     reg validOutputData;
     
     /* Wires */
-    wire isReady;
+    wire writeOutput;
     
     /* INITIALIZATION */
     initial begin 
@@ -73,20 +73,25 @@ module PCP #(
     // Load the mem block with mock data
     // This should represent the pcp vector
     always @(posedge clk) begin
-        if (inAddr < kMaxAddressSpace) begin 
-            pcpReady <= 1'b0; // We are not ready yet 
-            
-            pcpMem[inAddr] <= mockData;
-            mockData <= mockData + 2; // Values by 2 
-            inAddr <= inAddr + 1;
+        if (writeOutput) begin 
+        
         end else begin 
-            pcpReady <= 1'b1;
+            if (inAddr < kMaxAddressSpace) begin 
+                pcpReady <= 1'b0; // We are not ready yet 
+                
+                pcpMem[inAddr] <= mockData;
+                mockData <= mockData + 2; // Values by 2 
+                inAddr <= inAddr + 1;
+            end else begin 
+                pcpReady <= 1'b1;
+            end 
         end 
+        
     end 
     
     // Read data
     always @(posedge clk) begin 
-        if (isReady) begin 
+        if (writeOutput) begin 
             validOutputData <= 1'b1;
             
             // Evaluate if we are done sending output
@@ -104,7 +109,7 @@ module PCP #(
 
     /* ASSIGNMENTS */
     assign outputValue  = {lastDataFlag, outData};
-    assign isReady      = outputReady & pcpReady;
+    assign writeOutput  = outputReady & pcpReady;
     assign outputValid  = validOutputData;
     
 endmodule
