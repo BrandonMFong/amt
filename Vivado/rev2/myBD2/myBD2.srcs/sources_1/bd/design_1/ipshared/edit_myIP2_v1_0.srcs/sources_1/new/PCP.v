@@ -31,6 +31,7 @@ module PCP #(
     input wire clk,
     input wire [C_AXIS_TDATA_WIDTH+2-1:0] inputValue,
     input wire outputReady,
+    input wire reset, 
     
     /* OUTPUT */
     output wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue,
@@ -44,7 +45,7 @@ module PCP #(
     reg lastDataFlag = 1'b0;
     reg [C_AXIS_TDATA_WIDTH-1:0]    outData, 
                                     mockData;
-    reg [C_AXIS_TDATA_WIDTH-1:0] pcpMem [(2**ADDR_WIDTH) - 1 : 0];
+    reg [C_AXIS_TDATA_WIDTH-1:0] pcpMem [kMaxAddressSpace - 1 : 0];
     reg pcpReady = 1'b0;
     reg [ADDR_WIDTH:0]  inAddr = {ADDR_WIDTH{1'b0}}, 
                         outAddr = {ADDR_WIDTH{1'b0}}, 
@@ -86,12 +87,12 @@ module PCP #(
     // Read data
     always @(posedge clk) begin 
         if (isReady) begin 
-            outData <= pcpMem[outAddr];
             validOutputData <= 1'b1;
             
             // Evaluate if we are done sending output
             if (outAddr < kMaxAddressSpace) begin 
                 lastDataFlag <= 1'b0;
+                outData <= pcpMem[outAddr];
                 outAddr <= outAddr + 1;
             end else begin 
                 lastDataFlag <= 1'b1;

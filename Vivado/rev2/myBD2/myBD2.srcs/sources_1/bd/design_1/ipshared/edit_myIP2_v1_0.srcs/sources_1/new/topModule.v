@@ -274,14 +274,15 @@ end
 
 /** Brando **/
 PCP #(
-    .ADDR_WIDTH         (ADDR_WIDTH),
+//    .ADDR_WIDTH         (ADDR_WIDTH),
     .C_AXIS_TDATA_WIDTH (C_AXIS_TDATA_WIDTH)
 ) mod0 (
     .clk            (m00_axis_aclk),
     .inputValue     (pcpin_mem_read_data_reg), 
     .outputValue    (pcpout_mem_read_data_reg), 
     .outputReady    (m00_axis_tready),
-    .outputValid    (m00_axis_tvalid)
+    .outputValid    (m00_axis_tvalid),
+    .reset          (s00_rst_sync3_reg)
 );
 
 endmodule
