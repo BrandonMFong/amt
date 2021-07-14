@@ -1,7 +1,7 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-// Date        : Mon Jul 12 17:27:13 2021
+// Date        : Wed Jul 14 16:32:29 2021
 // Host        : KAMANTA running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD2/myBD2.srcs/sources_1/bd/design_1/ip/design_1_myIP2_0_0/design_1_myIP2_0_0_sim_netlist.v
@@ -93,9 +93,9 @@ module design_1_myIP2_0_0_PCP
 
   wire [0:0]CO;
   wire [0:0]E;
-  wire \__0/i__n_0 ;
+  wire \__2/i__n_0 ;
+  wire \inAddr[3]_i_1_n_0 ;
   wire [3:0]inAddr_reg__0;
-  wire isReady;
   wire lastDataFlag_i_1_n_0;
   wire m00_axis_aclk;
   wire [63:0]m00_axis_tdata;
@@ -236,13 +236,15 @@ module design_1_myIP2_0_0_PCP
   wire \outAddr[3]_i_1_n_0 ;
   wire [3:2]outAddr_reg;
   wire outData;
-  wire p_0_in;
   wire [3:0]p_0_in__0;
-  wire pcpReady;
+  wire p_1_in;
+  wire pcpReady0;
   wire pcpReady_i_1_n_0;
+  wire pcpReady_reg_n_0;
   wire [0:0]pcpout_mem_read_data_reg;
   wire rd_ptr_next1;
   wire validOutputData_reg_0;
+  wire writeOutput;
   wire [3:2]\NLW_mockData_reg[61]_i_1_CO_UNCONNECTED ;
   wire [3:3]\NLW_mockData_reg[61]_i_1_O_UNCONNECTED ;
   wire NLW_pcpMem_reg_CASCADEOUTA_UNCONNECTED;
@@ -256,12 +258,12 @@ module design_1_myIP2_0_0_PCP
 
   LUT4 #(
     .INIT(16'h0888)) 
-    \__0/i_ 
+    \__2/i_ 
        (.I0(m00_axis_tready),
-        .I1(pcpReady),
+        .I1(pcpReady_reg_n_0),
         .I2(outAddr_reg[2]),
         .I3(outAddr_reg[3]),
-        .O(\__0/i__n_0 ));
+        .O(\__2/i__n_0 ));
   (* SOFT_HLUTNM = "soft_lutpair4" *) 
   LUT1 #(
     .INIT(2'h1)) 
@@ -283,10 +285,18 @@ module design_1_myIP2_0_0_PCP
         .I1(inAddr_reg__0[1]),
         .I2(inAddr_reg__0[2]),
         .O(p_0_in__0[2]));
+  LUT4 #(
+    .INIT(16'h0777)) 
+    \inAddr[3]_i_1 
+       (.I0(inAddr_reg__0[3]),
+        .I1(inAddr_reg__0[2]),
+        .I2(pcpReady_reg_n_0),
+        .I3(m00_axis_tready),
+        .O(\inAddr[3]_i_1_n_0 ));
   (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT4 #(
     .INIT(16'h7F80)) 
-    \inAddr[3]_i_1 
+    \inAddr[3]_i_2 
        (.I0(inAddr_reg__0[1]),
         .I1(inAddr_reg__0[0]),
         .I2(inAddr_reg__0[2]),
@@ -296,7 +306,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \inAddr_reg[0] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(p_0_in__0[0]),
         .Q(inAddr_reg__0[0]),
         .R(1'b0));
@@ -304,7 +314,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \inAddr_reg[1] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(p_0_in__0[1]),
         .Q(inAddr_reg__0[1]),
         .R(1'b0));
@@ -312,7 +322,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \inAddr_reg[2] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(p_0_in__0[2]),
         .Q(inAddr_reg__0[2]),
         .R(1'b0));
@@ -320,7 +330,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \inAddr_reg[3] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(p_0_in__0[3]),
         .Q(inAddr_reg__0[3]),
         .R(1'b0));
@@ -332,7 +342,7 @@ module design_1_myIP2_0_0_PCP
         .I1(outAddr_reg[2]),
         .I2(outAddr_reg[3]),
         .I3(m00_axis_tready),
-        .I4(pcpReady),
+        .I4(pcpReady_reg_n_0),
         .O(lastDataFlag_i_1_n_0));
   FDRE #(
     .INIT(1'b0)) 
@@ -359,7 +369,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[10] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[9]_i_1_n_6 ),
         .Q(mockData_reg[10]),
         .R(1'b0));
@@ -367,7 +377,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[11] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[9]_i_1_n_5 ),
         .Q(mockData_reg[11]),
         .R(1'b0));
@@ -375,7 +385,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[12] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[9]_i_1_n_4 ),
         .Q(mockData_reg[12]),
         .R(1'b0));
@@ -383,7 +393,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[13] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[13]_i_1_n_7 ),
         .Q(mockData_reg[13]),
         .R(1'b0));
@@ -398,7 +408,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[14] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[13]_i_1_n_6 ),
         .Q(mockData_reg[14]),
         .R(1'b0));
@@ -406,7 +416,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[15] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[13]_i_1_n_5 ),
         .Q(mockData_reg[15]),
         .R(1'b0));
@@ -414,7 +424,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[16] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[13]_i_1_n_4 ),
         .Q(mockData_reg[16]),
         .R(1'b0));
@@ -422,7 +432,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[17] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[17]_i_1_n_7 ),
         .Q(mockData_reg[17]),
         .R(1'b0));
@@ -437,7 +447,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[18] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[17]_i_1_n_6 ),
         .Q(mockData_reg[18]),
         .R(1'b0));
@@ -445,7 +455,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[19] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[17]_i_1_n_5 ),
         .Q(mockData_reg[19]),
         .R(1'b0));
@@ -453,7 +463,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[1] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[1]_i_1_n_7 ),
         .Q(mockData_reg[1]),
         .R(1'b0));
@@ -468,7 +478,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[20] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[17]_i_1_n_4 ),
         .Q(mockData_reg[20]),
         .R(1'b0));
@@ -476,7 +486,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[21] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[21]_i_1_n_7 ),
         .Q(mockData_reg[21]),
         .R(1'b0));
@@ -491,7 +501,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[22] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[21]_i_1_n_6 ),
         .Q(mockData_reg[22]),
         .R(1'b0));
@@ -499,7 +509,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[23] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[21]_i_1_n_5 ),
         .Q(mockData_reg[23]),
         .R(1'b0));
@@ -507,7 +517,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[24] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[21]_i_1_n_4 ),
         .Q(mockData_reg[24]),
         .R(1'b0));
@@ -515,7 +525,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[25] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[25]_i_1_n_7 ),
         .Q(mockData_reg[25]),
         .R(1'b0));
@@ -530,7 +540,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[26] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[25]_i_1_n_6 ),
         .Q(mockData_reg[26]),
         .R(1'b0));
@@ -538,7 +548,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[27] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[25]_i_1_n_5 ),
         .Q(mockData_reg[27]),
         .R(1'b0));
@@ -546,7 +556,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[28] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[25]_i_1_n_4 ),
         .Q(mockData_reg[28]),
         .R(1'b0));
@@ -554,7 +564,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[29] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[29]_i_1_n_7 ),
         .Q(mockData_reg[29]),
         .R(1'b0));
@@ -569,7 +579,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[2] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[1]_i_1_n_6 ),
         .Q(mockData_reg[2]),
         .R(1'b0));
@@ -577,7 +587,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[30] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[29]_i_1_n_6 ),
         .Q(mockData_reg[30]),
         .R(1'b0));
@@ -585,7 +595,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[31] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[29]_i_1_n_5 ),
         .Q(mockData_reg[31]),
         .R(1'b0));
@@ -593,7 +603,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[32] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[29]_i_1_n_4 ),
         .Q(mockData_reg[32]),
         .R(1'b0));
@@ -601,7 +611,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[33] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[33]_i_1_n_7 ),
         .Q(mockData_reg[33]),
         .R(1'b0));
@@ -616,7 +626,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[34] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[33]_i_1_n_6 ),
         .Q(mockData_reg[34]),
         .R(1'b0));
@@ -624,7 +634,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[35] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[33]_i_1_n_5 ),
         .Q(mockData_reg[35]),
         .R(1'b0));
@@ -632,7 +642,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[36] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[33]_i_1_n_4 ),
         .Q(mockData_reg[36]),
         .R(1'b0));
@@ -640,7 +650,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[37] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[37]_i_1_n_7 ),
         .Q(mockData_reg[37]),
         .R(1'b0));
@@ -655,7 +665,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[38] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[37]_i_1_n_6 ),
         .Q(mockData_reg[38]),
         .R(1'b0));
@@ -663,7 +673,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[39] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[37]_i_1_n_5 ),
         .Q(mockData_reg[39]),
         .R(1'b0));
@@ -671,7 +681,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[3] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[1]_i_1_n_5 ),
         .Q(mockData_reg[3]),
         .R(1'b0));
@@ -679,7 +689,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[40] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[37]_i_1_n_4 ),
         .Q(mockData_reg[40]),
         .R(1'b0));
@@ -687,7 +697,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[41] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[41]_i_1_n_7 ),
         .Q(mockData_reg[41]),
         .R(1'b0));
@@ -702,7 +712,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[42] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[41]_i_1_n_6 ),
         .Q(mockData_reg[42]),
         .R(1'b0));
@@ -710,7 +720,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[43] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[41]_i_1_n_5 ),
         .Q(mockData_reg[43]),
         .R(1'b0));
@@ -718,7 +728,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[44] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[41]_i_1_n_4 ),
         .Q(mockData_reg[44]),
         .R(1'b0));
@@ -726,7 +736,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[45] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[45]_i_1_n_7 ),
         .Q(mockData_reg[45]),
         .R(1'b0));
@@ -741,7 +751,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[46] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[45]_i_1_n_6 ),
         .Q(mockData_reg[46]),
         .R(1'b0));
@@ -749,7 +759,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[47] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[45]_i_1_n_5 ),
         .Q(mockData_reg[47]),
         .R(1'b0));
@@ -757,7 +767,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[48] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[45]_i_1_n_4 ),
         .Q(mockData_reg[48]),
         .R(1'b0));
@@ -765,7 +775,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[49] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[49]_i_1_n_7 ),
         .Q(mockData_reg[49]),
         .R(1'b0));
@@ -780,7 +790,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[4] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[1]_i_1_n_4 ),
         .Q(mockData_reg[4]),
         .R(1'b0));
@@ -788,7 +798,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[50] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[49]_i_1_n_6 ),
         .Q(mockData_reg[50]),
         .R(1'b0));
@@ -796,7 +806,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[51] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[49]_i_1_n_5 ),
         .Q(mockData_reg[51]),
         .R(1'b0));
@@ -804,7 +814,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[52] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[49]_i_1_n_4 ),
         .Q(mockData_reg[52]),
         .R(1'b0));
@@ -812,7 +822,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[53] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[53]_i_1_n_7 ),
         .Q(mockData_reg[53]),
         .R(1'b0));
@@ -827,7 +837,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[54] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[53]_i_1_n_6 ),
         .Q(mockData_reg[54]),
         .R(1'b0));
@@ -835,7 +845,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[55] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[53]_i_1_n_5 ),
         .Q(mockData_reg[55]),
         .R(1'b0));
@@ -843,7 +853,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[56] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[53]_i_1_n_4 ),
         .Q(mockData_reg[56]),
         .R(1'b0));
@@ -851,7 +861,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[57] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[57]_i_1_n_7 ),
         .Q(mockData_reg[57]),
         .R(1'b0));
@@ -866,7 +876,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[58] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[57]_i_1_n_6 ),
         .Q(mockData_reg[58]),
         .R(1'b0));
@@ -874,7 +884,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[59] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[57]_i_1_n_5 ),
         .Q(mockData_reg[59]),
         .R(1'b0));
@@ -882,7 +892,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[5] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[5]_i_1_n_7 ),
         .Q(mockData_reg[5]),
         .R(1'b0));
@@ -897,7 +907,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[60] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[57]_i_1_n_4 ),
         .Q(mockData_reg[60]),
         .R(1'b0));
@@ -905,7 +915,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[61] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[61]_i_1_n_7 ),
         .Q(mockData_reg[61]),
         .R(1'b0));
@@ -920,7 +930,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[62] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[61]_i_1_n_6 ),
         .Q(mockData_reg[62]),
         .R(1'b0));
@@ -928,7 +938,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[63] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[61]_i_1_n_5 ),
         .Q(mockData_reg[63]),
         .R(1'b0));
@@ -936,7 +946,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[6] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[5]_i_1_n_6 ),
         .Q(mockData_reg[6]),
         .R(1'b0));
@@ -944,7 +954,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[7] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[5]_i_1_n_5 ),
         .Q(mockData_reg[7]),
         .R(1'b0));
@@ -952,7 +962,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[8] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[5]_i_1_n_4 ),
         .Q(mockData_reg[8]),
         .R(1'b0));
@@ -960,7 +970,7 @@ module design_1_myIP2_0_0_PCP
     .INIT(1'b0)) 
     \mockData_reg[9] 
        (.C(m00_axis_aclk),
-        .CE(p_0_in),
+        .CE(\inAddr[3]_i_1_n_0 ),
         .D(\mockData_reg[9]_i_1_n_7 ),
         .Q(mockData_reg[9]),
         .R(1'b0));
@@ -980,7 +990,7 @@ module design_1_myIP2_0_0_PCP
   LUT4 #(
     .INIT(16'h0888)) 
     \outAddr[1]_i_1 
-       (.I0(pcpReady),
+       (.I0(pcpReady_reg_n_0),
         .I1(m00_axis_tready),
         .I2(outAddr_reg[3]),
         .I3(outAddr_reg[2]),
@@ -1096,8 +1106,8 @@ module design_1_myIP2_0_0_PCP
         .DOPADOP(NLW_pcpMem_reg_DOPADOP_UNCONNECTED[3:0]),
         .DOPBDOP(NLW_pcpMem_reg_DOPBDOP_UNCONNECTED[3:0]),
         .ECCPARITY(NLW_pcpMem_reg_ECCPARITY_UNCONNECTED[7:0]),
-        .ENARDEN(\__0/i__n_0 ),
-        .ENBWREN(1'b1),
+        .ENARDEN(\__2/i__n_0 ),
+        .ENBWREN(pcpReady0),
         .INJECTDBITERR(1'b0),
         .INJECTSBITERR(1'b0),
         .RDADDRECC(NLW_pcpMem_reg_RDADDRECC_UNCONNECTED[8:0]),
@@ -1109,24 +1119,32 @@ module design_1_myIP2_0_0_PCP
         .RSTREGB(1'b0),
         .SBITERR(NLW_pcpMem_reg_SBITERR_UNCONNECTED),
         .WEA({1'b0,1'b0,1'b0,1'b0}),
-        .WEBWE({p_0_in,p_0_in,p_0_in,p_0_in,p_0_in,p_0_in,p_0_in,p_0_in}));
+        .WEBWE({p_1_in,p_1_in,p_1_in,p_1_in,p_1_in,p_1_in,p_1_in,p_1_in}));
+  LUT2 #(
+    .INIT(4'h7)) 
+    pcpMem_reg_i_1
+       (.I0(inAddr_reg__0[2]),
+        .I1(inAddr_reg__0[3]),
+        .O(pcpReady0));
   LUT2 #(
     .INIT(4'hB)) 
-    pcpMem_reg_i_1
+    pcpMem_reg_i_2
        (.I0(m00_axis_tready),
         .I1(validOutputData_reg_0),
         .O(m00_axis_tready_0));
   LUT2 #(
     .INIT(4'h7)) 
-    pcpMem_reg_i_2
-       (.I0(inAddr_reg__0[2]),
-        .I1(inAddr_reg__0[3]),
-        .O(p_0_in));
-  LUT2 #(
-    .INIT(4'h8)) 
+    pcpMem_reg_i_3
+       (.I0(pcpReady_reg_n_0),
+        .I1(m00_axis_tready),
+        .O(p_1_in));
+  LUT4 #(
+    .INIT(16'hF888)) 
     pcpReady_i_1
-       (.I0(inAddr_reg__0[3]),
-        .I1(inAddr_reg__0[2]),
+       (.I0(m00_axis_tready),
+        .I1(pcpReady_reg_n_0),
+        .I2(inAddr_reg__0[2]),
+        .I3(inAddr_reg__0[3]),
         .O(pcpReady_i_1_n_0));
   FDRE #(
     .INIT(1'b0)) 
@@ -1134,7 +1152,7 @@ module design_1_myIP2_0_0_PCP
        (.C(m00_axis_aclk),
         .CE(1'b1),
         .D(pcpReady_i_1_n_0),
-        .Q(pcpReady),
+        .Q(pcpReady_reg_n_0),
         .R(1'b0));
   (* SOFT_HLUTNM = "soft_lutpair1" *) 
   LUT4 #(
@@ -1150,14 +1168,14 @@ module design_1_myIP2_0_0_PCP
     .INIT(4'h8)) 
     validOutputData_i_1
        (.I0(m00_axis_tready),
-        .I1(pcpReady),
-        .O(isReady));
+        .I1(pcpReady_reg_n_0),
+        .O(writeOutput));
   FDRE #(
     .INIT(1'b0)) 
     validOutputData_reg
        (.C(m00_axis_aclk),
         .CE(1'b1),
-        .D(isReady),
+        .D(writeOutput),
         .Q(validOutputData_reg_0),
         .R(1'b0));
 endmodule
