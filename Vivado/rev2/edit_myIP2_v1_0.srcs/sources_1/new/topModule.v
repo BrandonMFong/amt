@@ -108,7 +108,7 @@ wire empty = rd_ptr_gray_reg == wr_ptr_gray_sync2_reg;
 // Brando
 reg [C_AXIS_TDATA_WIDTH+2-1:0] pcpin_mem_read_data_reg;
 wire [C_AXIS_TDATA_WIDTH+2-1:0] pcpout_mem_read_data_reg;
-reg readyFlag;
+reg readyFlag; // Notifies whether this is new data
 
 // control signals
 reg write;
@@ -204,11 +204,8 @@ always @(posedge m00_axis_aclk) begin
 end
 
 // Read logic
-
 always @* begin
     read = 1'b0;
-            
-    readyFlag = 1'b0;
 
     rd_ptr_next = rd_ptr_reg;
     rd_ptr_gray_next = rd_ptr_gray_reg;
@@ -228,6 +225,8 @@ always @* begin
         end else begin
             // empty, invalidate
             mem_read_data_valid_next = 1'b0;
+            
+            readyFlag = 1'b0;
         end
     end
 end
@@ -284,7 +283,8 @@ PCP #(
     .outputValue    (pcpout_mem_read_data_reg), 
     .outputReady    (m00_axis_tready),
     .outputValid    (m00_axis_tvalid),
-    .reset          (s00_rst_sync3_reg)
+    .reset          (s00_rst_sync3_reg),
+    .readyFlag      (readyFlag)
 );
 
 endmodule

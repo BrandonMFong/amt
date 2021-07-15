@@ -32,20 +32,22 @@ module PCP #(
     input wire [C_AXIS_TDATA_WIDTH+2-1:0] inputValue,
     input wire outputReady,
     input wire reset, 
+    input wire readyFlag,
     
     /* OUTPUT */
     output wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue,
     output wire outputValid
 );
     /* LOCAL PARAMETERS */
-    localparam kMaxAddressSpace = 12;
-    localparam kMaxCount = 250; 
+    localparam kMaxAddressSpace = (2**ADDR_WIDTH);
+//    localparam kMaxCount = 250; 
 
     /* REGISTERS */
     reg lastDataFlag = 1'b0;
     reg [C_AXIS_TDATA_WIDTH-1:0]    outData, 
                                     mockData;
     reg [C_AXIS_TDATA_WIDTH-1:0] pcpMem [kMaxAddressSpace - 1 : 0];
+    
     reg pcpReady = 1'b0;
     reg [ADDR_WIDTH:0]  inAddr = {ADDR_WIDTH{1'b0}}, 
                         outAddr = {ADDR_WIDTH{1'b0}}, 
@@ -72,13 +74,14 @@ module PCP #(
     /* BEHAVIORAL LOGIC */
     // Load the mem block with mock data
     // This should represent the pcp vector
+    // I should do the pcp logic here 
     always @(posedge clk) begin
         if (reset) begin 
             inAddr      <= {ADDR_WIDTH{1'b0}};
             mockData    <= {C_AXIS_TDATA_WIDTH{1'b0}};
             pcpReady    <= 1'b0;
         end else begin 
-            if (inAddr < kMaxAddressSpace) begin 
+            if ((readyFlag) && (inAddr < kMaxAddressSpace)) begin 
                 pcpReady <= 1'b0; // We are not ready yet 
                 
                 pcpMem[inAddr]  <= mockData;
