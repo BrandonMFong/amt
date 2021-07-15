@@ -37,7 +37,7 @@ module testPCP;
     );
     
     initial begin // initial block executes only once
-        reset = 0;
+        reset = 1;
         clk = 1;
         ready = 0;
         #5
@@ -58,6 +58,7 @@ module testPCP;
         clk = ~clk;
         #5
         clk = ~clk;
+        reset = 1;
         forever begin
             #5
             clk = ~clk;

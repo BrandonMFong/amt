@@ -73,38 +73,45 @@ module PCP #(
     // Load the mem block with mock data
     // This should represent the pcp vector
     always @(posedge clk) begin
-        if (writeOutput) begin 
-        
+        if (reset) begin 
+            inAddr      <= {ADDR_WIDTH{1'b0}};
+            mockData    <= {C_AXIS_TDATA_WIDTH{1'b0}};
         end else begin 
             if (inAddr < kMaxAddressSpace) begin 
                 pcpReady <= 1'b0; // We are not ready yet 
                 
-                pcpMem[inAddr] <= mockData;
-                mockData <= mockData + 2; // Values by 2 
-                inAddr <= inAddr + 1;
+                pcpMem[inAddr]  <= mockData;
+                mockData        <= mockData + 2; // Values by 2 
+                inAddr          <= inAddr + 1;
             end else begin 
                 pcpReady <= 1'b1;
             end 
-        end 
-        
+        end
     end 
     
     // Read data
     always @(posedge clk) begin 
-        if (writeOutput) begin 
-            validOutputData <= 1'b1;
-            
-            // Evaluate if we are done sending output
-            if (outAddr < kMaxAddressSpace) begin 
-                lastDataFlag <= 1'b0;
-                outData <= pcpMem[outAddr];
-                outAddr <= outAddr + 1;
-            end else begin 
-                lastDataFlag <= 1'b1;
-            end 
-        end else begin 
+        if (reset) begin
             validOutputData <= 1'b0;
-        end 
+            outAddr         <= {ADDR_WIDTH{1'b0}};
+            lastDataFlag    <= 1'b0;
+            outData         <= {C_AXIS_TDATA_WIDTH{1'b0}};
+        end else begin
+            if (writeOutput) begin 
+                validOutputData <= 1'b1;
+                
+                // Evaluate if we are done sending output
+                if (outAddr < kMaxAddressSpace) begin 
+                    lastDataFlag    <= 1'b0;
+                    outData         <= pcpMem[outAddr];
+                    outAddr         <= outAddr + 1;
+                end else begin 
+                    lastDataFlag <= 1'b1;
+                end 
+            end else begin 
+                validOutputData <= 1'b0;
+            end 
+        end
     end 
 
     /* ASSIGNMENTS */
