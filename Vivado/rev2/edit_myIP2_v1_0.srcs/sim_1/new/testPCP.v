@@ -28,12 +28,14 @@ module testPCP;
     reg reset;
     reg [31 : 0] counter;
     wire [15 : 0] outputValue;
+    wire outputValid;
     
     PCP UUT0 (
         .clk            (clk), 
         .outputReady    (ready), 
         .outputValue    (outputValue),
-        .reset          (reset)
+        .reset          (reset),
+        .outputValid    (outputValid)
     );
     
     initial begin // initial block executes only once

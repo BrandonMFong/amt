@@ -105,6 +105,11 @@ wire full = ((wr_ptr_gray_reg[ADDR_WIDTH] != rd_ptr_gray_sync2_reg[ADDR_WIDTH]) 
 // empty when pointers match exactly
 wire empty = rd_ptr_gray_reg == wr_ptr_gray_sync2_reg;
 
+// Brando
+reg [C_AXIS_TDATA_WIDTH+2-1:0] pcpin_mem_read_data_reg;
+wire [C_AXIS_TDATA_WIDTH+2-1:0] pcpout_mem_read_data_reg;
+reg readyFlag;
+
 // control signals
 reg write;
 reg read;
@@ -115,7 +120,8 @@ assign s00_axis_tready = ~full & ~s00_rst_sync3_reg;
 //assign m00_axis_tvalid = m00_axis_tvalid_reg;
 
 assign mem_write_data = {s00_axis_tlast, s00_axis_tdata};
-assign {m00_axis_tlast, m00_axis_tdata} = m00_data_reg;
+//assign {m00_axis_tlast, m00_axis_tdata} = m00_data_reg;
+assign {m00_axis_tlast, m00_axis_tdata} = pcpout_mem_read_data_reg;
 
 // reset synchronization
 always @(posedge s00_axis_aclk) begin
@@ -198,10 +204,6 @@ always @(posedge m00_axis_aclk) begin
 end
 
 // Read logic
-
-reg [C_AXIS_TDATA_WIDTH+2-1:0] pcpin_mem_read_data_reg;
-wire [C_AXIS_TDATA_WIDTH+2-1:0] pcpout_mem_read_data_reg;
-reg readyFlag;
 
 always @* begin
     read = 1'b0;

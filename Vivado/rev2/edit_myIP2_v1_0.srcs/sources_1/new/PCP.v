@@ -76,6 +76,7 @@ module PCP #(
         if (reset) begin 
             inAddr      <= {ADDR_WIDTH{1'b0}};
             mockData    <= {C_AXIS_TDATA_WIDTH{1'b0}};
+            pcpReady    <= 1'b0;
         end else begin 
             if (inAddr < kMaxAddressSpace) begin 
                 pcpReady <= 1'b0; // We are not ready yet 

@@ -1,7 +1,7 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Wed Jul 14 16:56:44 2021
+-- Date        : Wed Jul 14 17:25:30 2021
 -- Host        : KAMANTA running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD2/myBD2.srcs/sources_1/bd/design_1/ip/design_1_myIP2_0_0/design_1_myIP2_0_0_sim_netlist.vhdl
@@ -16,11 +16,10 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity design_1_myIP2_0_0_PCP is
   port (
-    validOutputData_reg_0 : out STD_LOGIC;
-    pcpout_mem_read_data_reg : out STD_LOGIC_VECTOR ( 0 to 0 );
+    m00_axis_tlast : out STD_LOGIC;
+    m00_axis_tvalid : out STD_LOGIC;
     E : out STD_LOGIC_VECTOR ( 0 to 0 );
     rd_ptr_next1 : out STD_LOGIC;
-    m00_axis_tready_0 : out STD_LOGIC;
     m00_axis_tdata : out STD_LOGIC_VECTOR ( 63 downto 0 );
     s00_rst_sync3_reg : in STD_LOGIC;
     m00_axis_aclk : in STD_LOGIC;
@@ -33,10 +32,10 @@ entity design_1_myIP2_0_0_PCP is
 end design_1_myIP2_0_0_PCP;
 
 architecture STRUCTURE of design_1_myIP2_0_0_PCP is
-  signal inAddr0 : STD_LOGIC;
   signal \inAddr_reg__0\ : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal lastDataFlag_i_1_n_0 : STD_LOGIC;
-  signal \^m00_axis_tready_0\ : STD_LOGIC;
+  signal \^m00_axis_tlast\ : STD_LOGIC;
+  signal \^m00_axis_tvalid\ : STD_LOGIC;
   signal \mockData[1]_i_2_n_0\ : STD_LOGIC;
   signal mockData_reg : STD_LOGIC_VECTOR ( 63 downto 1 );
   signal \mockData_reg[13]_i_1_n_0\ : STD_LOGIC;
@@ -172,13 +171,12 @@ architecture STRUCTURE of design_1_myIP2_0_0_PCP is
   signal \outAddr[3]_i_1_n_0\ : STD_LOGIC;
   signal outAddr_reg : STD_LOGIC_VECTOR ( 3 downto 2 );
   signal \p_0_in__0\ : STD_LOGIC_VECTOR ( 3 downto 0 );
-  signal p_1_in : STD_LOGIC;
   signal pcpMem_reg_i_1_n_0 : STD_LOGIC;
+  signal pcpMem_reg_i_2_n_0 : STD_LOGIC;
+  signal pcpMem_reg_i_3_n_0 : STD_LOGIC;
+  signal pcpReady : STD_LOGIC;
   signal pcpReady_i_1_n_0 : STD_LOGIC;
-  signal pcpReady_reg_n_0 : STD_LOGIC;
-  signal \^pcpout_mem_read_data_reg\ : STD_LOGIC_VECTOR ( 0 to 0 );
   signal validOutputData_i_1_n_0 : STD_LOGIC;
-  signal \^validoutputdata_reg_0\ : STD_LOGIC;
   signal \NLW_mockData_reg[61]_i_1_CO_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 downto 2 );
   signal \NLW_mockData_reg[61]_i_1_O_UNCONNECTED\ : STD_LOGIC_VECTOR ( 3 to 3 );
   signal NLW_pcpMem_reg_CASCADEOUTA_UNCONNECTED : STD_LOGIC;
@@ -190,21 +188,21 @@ architecture STRUCTURE of design_1_myIP2_0_0_PCP is
   signal NLW_pcpMem_reg_ECCPARITY_UNCONNECTED : STD_LOGIC_VECTOR ( 7 downto 0 );
   signal NLW_pcpMem_reg_RDADDRECC_UNCONNECTED : STD_LOGIC_VECTOR ( 8 downto 0 );
   attribute SOFT_HLUTNM : string;
-  attribute SOFT_HLUTNM of \inAddr[0]_i_1\ : label is "soft_lutpair4";
-  attribute SOFT_HLUTNM of \inAddr[1]_i_1\ : label is "soft_lutpair4";
-  attribute SOFT_HLUTNM of \inAddr[2]_i_1\ : label is "soft_lutpair1";
-  attribute SOFT_HLUTNM of \inAddr[3]_i_1\ : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of \inAddr[0]_i_1\ : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of \inAddr[1]_i_1\ : label is "soft_lutpair5";
+  attribute SOFT_HLUTNM of \inAddr[2]_i_1\ : label is "soft_lutpair2";
+  attribute SOFT_HLUTNM of \inAddr[3]_i_1\ : label is "soft_lutpair2";
   attribute SOFT_HLUTNM of mem_read_data_valid_reg_i_1 : label is "soft_lutpair0";
-  attribute SOFT_HLUTNM of \outAddr[0]_i_1\ : label is "soft_lutpair5";
-  attribute SOFT_HLUTNM of \outAddr[1]_i_2\ : label is "soft_lutpair5";
-  attribute SOFT_HLUTNM of \outAddr[2]_i_1\ : label is "soft_lutpair3";
-  attribute SOFT_HLUTNM of \outAddr[3]_i_1\ : label is "soft_lutpair3";
+  attribute SOFT_HLUTNM of \outAddr[0]_i_1\ : label is "soft_lutpair4";
+  attribute SOFT_HLUTNM of \outAddr[1]_i_2\ : label is "soft_lutpair4";
+  attribute SOFT_HLUTNM of \outAddr[2]_i_1\ : label is "soft_lutpair1";
+  attribute SOFT_HLUTNM of \outAddr[3]_i_1\ : label is "soft_lutpair1";
   attribute \MEM.PORTA.DATA_BIT_LAYOUT\ : string;
   attribute \MEM.PORTA.DATA_BIT_LAYOUT\ of pcpMem_reg : label is "p0_d64";
   attribute \MEM.PORTB.DATA_BIT_LAYOUT\ : string;
   attribute \MEM.PORTB.DATA_BIT_LAYOUT\ of pcpMem_reg : label is "p0_d64";
   attribute METHODOLOGY_DRC_VIOS : string;
-  attribute METHODOLOGY_DRC_VIOS of pcpMem_reg : label is "";
+  attribute METHODOLOGY_DRC_VIOS of pcpMem_reg : label is "{SYNTH-6 {cell *THIS*}}";
   attribute RTL_RAM_BITS : integer;
   attribute RTL_RAM_BITS of pcpMem_reg : label is 768;
   attribute RTL_RAM_NAME : string;
@@ -225,13 +223,12 @@ architecture STRUCTURE of design_1_myIP2_0_0_PCP is
   attribute ram_slice_begin of pcpMem_reg : label is 0;
   attribute ram_slice_end : integer;
   attribute ram_slice_end of pcpMem_reg : label is 63;
-  attribute SOFT_HLUTNM of pcpReady_i_1 : label is "soft_lutpair2";
+  attribute SOFT_HLUTNM of pcpReady_i_1 : label is "soft_lutpair3";
   attribute SOFT_HLUTNM of \rd_ptr_gray_reg[40]_i_1\ : label is "soft_lutpair0";
-  attribute SOFT_HLUTNM of validOutputData_i_1 : label is "soft_lutpair2";
+  attribute SOFT_HLUTNM of validOutputData_i_1 : label is "soft_lutpair3";
 begin
-  m00_axis_tready_0 <= \^m00_axis_tready_0\;
-  pcpout_mem_read_data_reg(0) <= \^pcpout_mem_read_data_reg\(0);
-  validOutputData_reg_0 <= \^validoutputdata_reg_0\;
+  m00_axis_tlast <= \^m00_axis_tlast\;
+  m00_axis_tvalid <= \^m00_axis_tvalid\;
 \inAddr[0]_i_1\: unisim.vcomponents.LUT1
     generic map(
       INIT => X"1"
@@ -276,7 +273,7 @@ begin
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \p_0_in__0\(0),
       Q => \inAddr_reg__0\(0),
       R => s00_rst_sync3_reg
@@ -287,7 +284,7 @@ begin
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \p_0_in__0\(1),
       Q => \inAddr_reg__0\(1),
       R => s00_rst_sync3_reg
@@ -298,7 +295,7 @@ begin
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \p_0_in__0\(2),
       Q => \inAddr_reg__0\(2),
       R => s00_rst_sync3_reg
@@ -309,7 +306,7 @@ begin
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \p_0_in__0\(3),
       Q => \inAddr_reg__0\(3),
       R => s00_rst_sync3_reg
@@ -319,8 +316,8 @@ lastDataFlag_i_1: unisim.vcomponents.LUT6
       INIT => X"00000000EA2A2A2A"
     )
         port map (
-      I0 => \^pcpout_mem_read_data_reg\(0),
-      I1 => pcpReady_reg_n_0,
+      I0 => \^m00_axis_tlast\,
+      I1 => pcpReady,
       I2 => m00_axis_tready,
       I3 => outAddr_reg(3),
       I4 => outAddr_reg(2),
@@ -335,16 +332,16 @@ lastDataFlag_reg: unisim.vcomponents.FDRE
       C => m00_axis_aclk,
       CE => '1',
       D => lastDataFlag_i_1_n_0,
-      Q => \^pcpout_mem_read_data_reg\(0),
+      Q => \^m00_axis_tlast\,
       R => '0'
     );
 mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"DF"
+      INIT => X"BF"
     )
         port map (
-      I0 => \^validoutputdata_reg_0\,
-      I1 => m00_axis_tready,
+      I0 => m00_axis_tready,
+      I1 => \^m00_axis_tvalid\,
       I2 => mem_read_data_valid_reg,
       O => rd_ptr_next1
     );
@@ -362,7 +359,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[9]_i_1_n_6\,
       Q => mockData_reg(10),
       R => s00_rst_sync3_reg
@@ -373,7 +370,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[9]_i_1_n_5\,
       Q => mockData_reg(11),
       R => s00_rst_sync3_reg
@@ -384,7 +381,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[9]_i_1_n_4\,
       Q => mockData_reg(12),
       R => s00_rst_sync3_reg
@@ -395,7 +392,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[13]_i_1_n_7\,
       Q => mockData_reg(13),
       R => s00_rst_sync3_reg
@@ -421,7 +418,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[13]_i_1_n_6\,
       Q => mockData_reg(14),
       R => s00_rst_sync3_reg
@@ -432,7 +429,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[13]_i_1_n_5\,
       Q => mockData_reg(15),
       R => s00_rst_sync3_reg
@@ -443,7 +440,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[13]_i_1_n_4\,
       Q => mockData_reg(16),
       R => s00_rst_sync3_reg
@@ -454,7 +451,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[17]_i_1_n_7\,
       Q => mockData_reg(17),
       R => s00_rst_sync3_reg
@@ -480,7 +477,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[17]_i_1_n_6\,
       Q => mockData_reg(18),
       R => s00_rst_sync3_reg
@@ -491,7 +488,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[17]_i_1_n_5\,
       Q => mockData_reg(19),
       R => s00_rst_sync3_reg
@@ -502,7 +499,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[1]_i_1_n_7\,
       Q => mockData_reg(1),
       R => s00_rst_sync3_reg
@@ -529,7 +526,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[17]_i_1_n_4\,
       Q => mockData_reg(20),
       R => s00_rst_sync3_reg
@@ -540,7 +537,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[21]_i_1_n_7\,
       Q => mockData_reg(21),
       R => s00_rst_sync3_reg
@@ -566,7 +563,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[21]_i_1_n_6\,
       Q => mockData_reg(22),
       R => s00_rst_sync3_reg
@@ -577,7 +574,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[21]_i_1_n_5\,
       Q => mockData_reg(23),
       R => s00_rst_sync3_reg
@@ -588,7 +585,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[21]_i_1_n_4\,
       Q => mockData_reg(24),
       R => s00_rst_sync3_reg
@@ -599,7 +596,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[25]_i_1_n_7\,
       Q => mockData_reg(25),
       R => s00_rst_sync3_reg
@@ -625,7 +622,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[25]_i_1_n_6\,
       Q => mockData_reg(26),
       R => s00_rst_sync3_reg
@@ -636,7 +633,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[25]_i_1_n_5\,
       Q => mockData_reg(27),
       R => s00_rst_sync3_reg
@@ -647,7 +644,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[25]_i_1_n_4\,
       Q => mockData_reg(28),
       R => s00_rst_sync3_reg
@@ -658,7 +655,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[29]_i_1_n_7\,
       Q => mockData_reg(29),
       R => s00_rst_sync3_reg
@@ -684,7 +681,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[1]_i_1_n_6\,
       Q => mockData_reg(2),
       R => s00_rst_sync3_reg
@@ -695,7 +692,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[29]_i_1_n_6\,
       Q => mockData_reg(30),
       R => s00_rst_sync3_reg
@@ -706,7 +703,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[29]_i_1_n_5\,
       Q => mockData_reg(31),
       R => s00_rst_sync3_reg
@@ -717,7 +714,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[29]_i_1_n_4\,
       Q => mockData_reg(32),
       R => s00_rst_sync3_reg
@@ -728,7 +725,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[33]_i_1_n_7\,
       Q => mockData_reg(33),
       R => s00_rst_sync3_reg
@@ -754,7 +751,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[33]_i_1_n_6\,
       Q => mockData_reg(34),
       R => s00_rst_sync3_reg
@@ -765,7 +762,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[33]_i_1_n_5\,
       Q => mockData_reg(35),
       R => s00_rst_sync3_reg
@@ -776,7 +773,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[33]_i_1_n_4\,
       Q => mockData_reg(36),
       R => s00_rst_sync3_reg
@@ -787,7 +784,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[37]_i_1_n_7\,
       Q => mockData_reg(37),
       R => s00_rst_sync3_reg
@@ -813,7 +810,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[37]_i_1_n_6\,
       Q => mockData_reg(38),
       R => s00_rst_sync3_reg
@@ -824,7 +821,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[37]_i_1_n_5\,
       Q => mockData_reg(39),
       R => s00_rst_sync3_reg
@@ -835,7 +832,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[1]_i_1_n_5\,
       Q => mockData_reg(3),
       R => s00_rst_sync3_reg
@@ -846,7 +843,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[37]_i_1_n_4\,
       Q => mockData_reg(40),
       R => s00_rst_sync3_reg
@@ -857,7 +854,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[41]_i_1_n_7\,
       Q => mockData_reg(41),
       R => s00_rst_sync3_reg
@@ -883,7 +880,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[41]_i_1_n_6\,
       Q => mockData_reg(42),
       R => s00_rst_sync3_reg
@@ -894,7 +891,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[41]_i_1_n_5\,
       Q => mockData_reg(43),
       R => s00_rst_sync3_reg
@@ -905,7 +902,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[41]_i_1_n_4\,
       Q => mockData_reg(44),
       R => s00_rst_sync3_reg
@@ -916,7 +913,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[45]_i_1_n_7\,
       Q => mockData_reg(45),
       R => s00_rst_sync3_reg
@@ -942,7 +939,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[45]_i_1_n_6\,
       Q => mockData_reg(46),
       R => s00_rst_sync3_reg
@@ -953,7 +950,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[45]_i_1_n_5\,
       Q => mockData_reg(47),
       R => s00_rst_sync3_reg
@@ -964,7 +961,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[45]_i_1_n_4\,
       Q => mockData_reg(48),
       R => s00_rst_sync3_reg
@@ -975,7 +972,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[49]_i_1_n_7\,
       Q => mockData_reg(49),
       R => s00_rst_sync3_reg
@@ -1001,7 +998,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[1]_i_1_n_4\,
       Q => mockData_reg(4),
       R => s00_rst_sync3_reg
@@ -1012,7 +1009,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[49]_i_1_n_6\,
       Q => mockData_reg(50),
       R => s00_rst_sync3_reg
@@ -1023,7 +1020,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[49]_i_1_n_5\,
       Q => mockData_reg(51),
       R => s00_rst_sync3_reg
@@ -1034,7 +1031,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[49]_i_1_n_4\,
       Q => mockData_reg(52),
       R => s00_rst_sync3_reg
@@ -1045,7 +1042,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[53]_i_1_n_7\,
       Q => mockData_reg(53),
       R => s00_rst_sync3_reg
@@ -1071,7 +1068,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[53]_i_1_n_6\,
       Q => mockData_reg(54),
       R => s00_rst_sync3_reg
@@ -1082,7 +1079,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[53]_i_1_n_5\,
       Q => mockData_reg(55),
       R => s00_rst_sync3_reg
@@ -1093,7 +1090,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[53]_i_1_n_4\,
       Q => mockData_reg(56),
       R => s00_rst_sync3_reg
@@ -1104,7 +1101,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[57]_i_1_n_7\,
       Q => mockData_reg(57),
       R => s00_rst_sync3_reg
@@ -1130,7 +1127,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[57]_i_1_n_6\,
       Q => mockData_reg(58),
       R => s00_rst_sync3_reg
@@ -1141,7 +1138,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[57]_i_1_n_5\,
       Q => mockData_reg(59),
       R => s00_rst_sync3_reg
@@ -1152,7 +1149,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[5]_i_1_n_7\,
       Q => mockData_reg(5),
       R => s00_rst_sync3_reg
@@ -1178,7 +1175,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[57]_i_1_n_4\,
       Q => mockData_reg(60),
       R => s00_rst_sync3_reg
@@ -1189,7 +1186,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[61]_i_1_n_7\,
       Q => mockData_reg(61),
       R => s00_rst_sync3_reg
@@ -1215,7 +1212,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[61]_i_1_n_6\,
       Q => mockData_reg(62),
       R => s00_rst_sync3_reg
@@ -1226,7 +1223,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[61]_i_1_n_5\,
       Q => mockData_reg(63),
       R => s00_rst_sync3_reg
@@ -1237,7 +1234,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[5]_i_1_n_6\,
       Q => mockData_reg(6),
       R => s00_rst_sync3_reg
@@ -1248,7 +1245,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[5]_i_1_n_5\,
       Q => mockData_reg(7),
       R => s00_rst_sync3_reg
@@ -1259,7 +1256,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[5]_i_1_n_4\,
       Q => mockData_reg(8),
       R => s00_rst_sync3_reg
@@ -1270,7 +1267,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     )
         port map (
       C => m00_axis_aclk,
-      CE => inAddr0,
+      CE => pcpMem_reg_i_2_n_0,
       D => \mockData_reg[9]_i_1_n_7\,
       Q => mockData_reg(9),
       R => s00_rst_sync3_reg
@@ -1303,7 +1300,7 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
       INIT => X"0888"
     )
         port map (
-      I0 => pcpReady_reg_n_0,
+      I0 => pcpReady,
       I1 => m00_axis_tready,
       I2 => outAddr_reg(3),
       I3 => outAddr_reg(2),
@@ -1385,8 +1382,8 @@ mem_read_data_valid_reg_i_1: unisim.vcomponents.LUT3
     );
 pcpMem_reg: unisim.vcomponents.RAMB36E1
     generic map(
-      DOA_REG => 1,
-      DOB_REG => 1,
+      DOA_REG => 0,
+      DOB_REG => 0,
       EN_ECC_READ => false,
       EN_ECC_WRITE => false,
       INIT_A => X"000000000",
@@ -1434,11 +1431,11 @@ pcpMem_reg: unisim.vcomponents.RAMB36E1
       DOPBDOP(3 downto 0) => NLW_pcpMem_reg_DOPBDOP_UNCONNECTED(3 downto 0),
       ECCPARITY(7 downto 0) => NLW_pcpMem_reg_ECCPARITY_UNCONNECTED(7 downto 0),
       ENARDEN => pcpMem_reg_i_1_n_0,
-      ENBWREN => inAddr0,
+      ENBWREN => pcpMem_reg_i_2_n_0,
       INJECTDBITERR => '0',
       INJECTSBITERR => '0',
       RDADDRECC(8 downto 0) => NLW_pcpMem_reg_RDADDRECC_UNCONNECTED(8 downto 0),
-      REGCEAREGCE => \^m00_axis_tready_0\,
+      REGCEAREGCE => '0',
       REGCEB => '0',
       RSTRAMARSTRAM => s00_rst_sync3_reg,
       RSTRAMB => '0',
@@ -1446,14 +1443,14 @@ pcpMem_reg: unisim.vcomponents.RAMB36E1
       RSTREGB => '0',
       SBITERR => NLW_pcpMem_reg_SBITERR_UNCONNECTED,
       WEA(3 downto 0) => B"0000",
-      WEBWE(7) => p_1_in,
-      WEBWE(6) => p_1_in,
-      WEBWE(5) => p_1_in,
-      WEBWE(4) => p_1_in,
-      WEBWE(3) => p_1_in,
-      WEBWE(2) => p_1_in,
-      WEBWE(1) => p_1_in,
-      WEBWE(0) => p_1_in
+      WEBWE(7) => pcpMem_reg_i_3_n_0,
+      WEBWE(6) => pcpMem_reg_i_3_n_0,
+      WEBWE(5) => pcpMem_reg_i_3_n_0,
+      WEBWE(4) => pcpMem_reg_i_3_n_0,
+      WEBWE(3) => pcpMem_reg_i_3_n_0,
+      WEBWE(2) => pcpMem_reg_i_3_n_0,
+      WEBWE(1) => pcpMem_reg_i_3_n_0,
+      WEBWE(0) => pcpMem_reg_i_3_n_0
     );
 pcpMem_reg_i_1: unisim.vcomponents.LUT5
     generic map(
@@ -1463,7 +1460,7 @@ pcpMem_reg_i_1: unisim.vcomponents.LUT5
       I0 => s00_rst_sync3_reg,
       I1 => outAddr_reg(3),
       I2 => outAddr_reg(2),
-      I3 => pcpReady_reg_n_0,
+      I3 => pcpReady,
       I4 => m00_axis_tready,
       O => pcpMem_reg_i_1_n_0
     );
@@ -1474,34 +1471,24 @@ pcpMem_reg_i_2: unisim.vcomponents.LUT2
         port map (
       I0 => \inAddr_reg__0\(2),
       I1 => \inAddr_reg__0\(3),
-      O => inAddr0
+      O => pcpMem_reg_i_2_n_0
     );
-pcpMem_reg_i_3: unisim.vcomponents.LUT2
-    generic map(
-      INIT => X"B"
-    )
-        port map (
-      I0 => m00_axis_tready,
-      I1 => \^validoutputdata_reg_0\,
-      O => \^m00_axis_tready_0\
-    );
-pcpMem_reg_i_4: unisim.vcomponents.LUT1
+pcpMem_reg_i_3: unisim.vcomponents.LUT1
     generic map(
       INIT => X"1"
     )
         port map (
       I0 => s00_rst_sync3_reg,
-      O => p_1_in
+      O => pcpMem_reg_i_3_n_0
     );
-pcpReady_i_1: unisim.vcomponents.LUT4
+pcpReady_i_1: unisim.vcomponents.LUT3
     generic map(
-      INIT => X"B888"
+      INIT => X"40"
     )
         port map (
-      I0 => pcpReady_reg_n_0,
-      I1 => s00_rst_sync3_reg,
+      I0 => s00_rst_sync3_reg,
+      I1 => \inAddr_reg__0\(3),
       I2 => \inAddr_reg__0\(2),
-      I3 => \inAddr_reg__0\(3),
       O => pcpReady_i_1_n_0
     );
 pcpReady_reg: unisim.vcomponents.FDRE
@@ -1512,17 +1499,17 @@ pcpReady_reg: unisim.vcomponents.FDRE
       C => m00_axis_aclk,
       CE => '1',
       D => pcpReady_i_1_n_0,
-      Q => pcpReady_reg_n_0,
+      Q => pcpReady,
       R => '0'
     );
 \rd_ptr_gray_reg[40]_i_1\: unisim.vcomponents.LUT4
     generic map(
-      INIT => X"00DF"
+      INIT => X"00F7"
     )
         port map (
       I0 => mem_read_data_valid_reg,
-      I1 => m00_axis_tready,
-      I2 => \^validoutputdata_reg_0\,
+      I1 => \^m00_axis_tvalid\,
+      I2 => m00_axis_tready,
       I3 => CO(0),
       O => E(0)
     );
@@ -1531,7 +1518,7 @@ validOutputData_i_1: unisim.vcomponents.LUT3
       INIT => X"08"
     )
         port map (
-      I0 => pcpReady_reg_n_0,
+      I0 => pcpReady,
       I1 => m00_axis_tready,
       I2 => s00_rst_sync3_reg,
       O => validOutputData_i_1_n_0
@@ -1544,7 +1531,7 @@ validOutputData_reg: unisim.vcomponents.FDRE
       C => m00_axis_aclk,
       CE => '1',
       D => validOutputData_i_1_n_0,
-      Q => \^validoutputdata_reg_0\,
+      Q => \^m00_axis_tvalid\,
       R => '0'
     );
 end STRUCTURE;
@@ -1554,12 +1541,12 @@ library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 entity design_1_myIP2_0_0_axis_fifo_v1_0 is
   port (
-    validOutputData_reg : out STD_LOGIC;
     s00_axis_tready : out STD_LOGIC;
+    m00_axis_tvalid : out STD_LOGIC;
     m00_axis_tdata : out STD_LOGIC_VECTOR ( 63 downto 0 );
     m00_axis_tlast : out STD_LOGIC;
-    m00_axis_tready : in STD_LOGIC;
     s00_axis_tvalid : in STD_LOGIC;
+    m00_axis_tready : in STD_LOGIC;
     m00_axis_aclk : in STD_LOGIC;
     s00_axis_aclk : in STD_LOGIC;
     m00_axis_aresetn : in STD_LOGIC;
@@ -1632,14 +1619,11 @@ architecture STRUCTURE of design_1_myIP2_0_0_axis_fifo_v1_0 is
   signal m00_rst_sync3_reg : STD_LOGIC;
   signal m00_rst_sync3_reg_i_1_n_0 : STD_LOGIC;
   signal mem_read_data_valid_reg : STD_LOGIC;
-  signal mem_read_data_valid_reg_i_2_n_0 : STD_LOGIC;
   signal mod0_n_2 : STD_LOGIC;
-  signal mod0_n_4 : STD_LOGIC;
   signal p_0_in : STD_LOGIC;
   signal p_0_in0_in : STD_LOGIC;
   signal p_1_in : STD_LOGIC;
   signal p_1_in1_in : STD_LOGIC;
-  signal pcpout_mem_read_data_reg : STD_LOGIC_VECTOR ( 64 to 64 );
   signal rd_ptr_gray_reg : STD_LOGIC_VECTOR ( 40 downto 0 );
   signal rd_ptr_gray_reg0 : STD_LOGIC_VECTOR ( 39 downto 1 );
   signal \rd_ptr_gray_reg[0]_i_1_n_0\ : STD_LOGIC;
@@ -1728,6 +1712,7 @@ architecture STRUCTURE of design_1_myIP2_0_0_axis_fifo_v1_0 is
   signal \rd_ptr_next__81\ : STD_LOGIC_VECTOR ( 40 downto 1 );
   signal rd_ptr_reg : STD_LOGIC_VECTOR ( 40 downto 0 );
   signal \rd_ptr_reg[0]_i_1_n_0\ : STD_LOGIC;
+  signal read : STD_LOGIC;
   signal s00_rst_sync1_reg : STD_LOGIC;
   signal s00_rst_sync1_reg_i_1_n_0 : STD_LOGIC;
   signal s00_rst_sync2_reg : STD_LOGIC;
@@ -2423,17 +2408,6 @@ full0_carry_i_4: unisim.vcomponents.LUT6
       I5 => \wr_ptr_gray_reg_reg_n_0_[1]\,
       O => full0_carry_i_4_n_0
     );
-\m00_data_reg_reg[64]\: unisim.vcomponents.FDRE
-    generic map(
-      INIT => '0'
-    )
-        port map (
-      C => m00_axis_aclk,
-      CE => mod0_n_4,
-      D => pcpout_mem_read_data_reg(64),
-      Q => m00_axis_tlast,
-      R => '0'
-    );
 m00_rst_sync1_reg_i_1: unisim.vcomponents.LUT1
     generic map(
       INIT => X"1"
@@ -2500,7 +2474,7 @@ mem_read_data_valid_reg_i_2: unisim.vcomponents.LUT1
     )
         port map (
       I0 => empty,
-      O => mem_read_data_valid_reg_i_2_n_0
+      O => read
     );
 mem_read_data_valid_reg_reg: unisim.vcomponents.FDRE
     generic map(
@@ -2509,7 +2483,7 @@ mem_read_data_valid_reg_reg: unisim.vcomponents.FDRE
         port map (
       C => m00_axis_aclk,
       CE => rd_ptr_next1,
-      D => mem_read_data_valid_reg_i_2_n_0,
+      D => read,
       Q => mem_read_data_valid_reg,
       R => m00_rst_sync3_reg
     );
@@ -2519,13 +2493,12 @@ mod0: entity work.design_1_myIP2_0_0_PCP
       E(0) => mod0_n_2,
       m00_axis_aclk => m00_axis_aclk,
       m00_axis_tdata(63 downto 0) => m00_axis_tdata(63 downto 0),
+      m00_axis_tlast => m00_axis_tlast,
       m00_axis_tready => m00_axis_tready,
-      m00_axis_tready_0 => mod0_n_4,
+      m00_axis_tvalid => m00_axis_tvalid,
       mem_read_data_valid_reg => mem_read_data_valid_reg,
-      pcpout_mem_read_data_reg(0) => pcpout_mem_read_data_reg(64),
       rd_ptr_next1 => rd_ptr_next1,
-      s00_rst_sync3_reg => s00_rst_sync3_reg,
-      validOutputData_reg_0 => validOutputData_reg
+      s00_rst_sync3_reg => s00_rst_sync3_reg
     );
 \rd_ptr_gray_reg[0]_i_1\: unisim.vcomponents.LUT2
     generic map(
@@ -8205,10 +8178,10 @@ inst: entity work.design_1_myIP2_0_0_axis_fifo_v1_0
       m00_axis_tdata(63 downto 0) => m00_axis_tdata(63 downto 0),
       m00_axis_tlast => m00_axis_tlast,
       m00_axis_tready => m00_axis_tready,
+      m00_axis_tvalid => m00_axis_tvalid,
       s00_axis_aclk => s00_axis_aclk,
       s00_axis_aresetn => s00_axis_aresetn,
       s00_axis_tready => s00_axis_tready,
-      s00_axis_tvalid => s00_axis_tvalid,
-      validOutputData_reg => m00_axis_tvalid
+      s00_axis_tvalid => s00_axis_tvalid
     );
 end STRUCTURE;
