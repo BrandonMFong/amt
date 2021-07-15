@@ -84,8 +84,9 @@ module PCP #(
             if ((readyFlag) && (inAddr < kMaxAddressSpace)) begin 
                 pcpReady <= 1'b0; // We are not ready yet 
                 
-                pcpMem[inAddr]  <= mockData;
-                mockData        <= mockData + 2; // Values by 2 
+//                pcpMem[inAddr]  <= mockData;
+//                mockData        <= mockData + 2; // Values by 2 
+                pcpMem[inAddr]  <= inputValue;
                 inAddr          <= inAddr + 1;
             end else begin 
                 pcpReady <= 1'b1;
