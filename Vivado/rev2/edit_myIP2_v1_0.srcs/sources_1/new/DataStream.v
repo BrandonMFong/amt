@@ -33,7 +33,7 @@ module DataStream #(
     /**
     *   The input stream
     */
-    input wire [C_AXIS_TDATA_WIDTH-1:0] inputValue,
+    input wire [C_AXIS_TDATA_WIDTH-1:0] inputStream,
     
     /**
     *   When this is one, we need to start reading
@@ -58,11 +58,11 @@ module DataStream #(
     reg [C_AXIS_TDATA_WIDTH-1:0] freqBuffer, magBuffer;
     
     initial begin 
-        state = FREQSTATE; 
-        outputBuffer = {OUTPUT_DATA_WIDTH{1'b0}};
-        calculateFlag = FALSE;
-        freqBuffer = {C_AXIS_TDATA_WIDTH{1'b0}};
-        magBuffer = {C_AXIS_TDATA_WIDTH{1'b0}};
+        state           = FREQSTATE; 
+        outputBuffer    = {OUTPUT_DATA_WIDTH{1'b0}};
+        calculateFlag   = FALSE;
+        freqBuffer      = {C_AXIS_TDATA_WIDTH{1'b0}};
+        magBuffer       = {C_AXIS_TDATA_WIDTH{1'b0}};
     end 
 
     /**
@@ -76,8 +76,9 @@ module DataStream #(
                 if (!startReading) begin 
                     state <= IDLE;
                 end else begin 
-                    calculateFlag <= FALSE;
-                    state <= MAGSTATE;
+                    freqBuffer      <= inputStream;
+                    calculateFlag   <= FALSE;
+                    state           <= MAGSTATE;
                 end
             end 
             
@@ -85,8 +86,9 @@ module DataStream #(
                 if (!startReading) begin 
                     state <= IDLE;
                 end else begin 
-                    calculateFlag <= TRUE;
-                    state <= FREQSTATE;
+                    magBuffer       <= inputStream;
+                    calculateFlag   <= TRUE;
+                    state           <= FREQSTATE;
                 end
             end 
             
