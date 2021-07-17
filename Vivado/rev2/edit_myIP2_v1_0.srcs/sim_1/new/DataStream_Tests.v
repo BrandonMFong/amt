@@ -43,6 +43,18 @@ module DataStream_Tests #(
         clk = 1;
         inData = 0;
         startReading = 0;
+        
+        #5 
+        clk = ~clk;
+        
+        #5
+        clk = ~clk;
+        
+        #5 
+        clk = ~clk;
+        
+        #5
+        clk = ~clk;
         forever begin
             #5
             clk = ~clk;

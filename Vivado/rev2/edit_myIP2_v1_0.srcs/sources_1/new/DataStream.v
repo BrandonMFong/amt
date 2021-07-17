@@ -53,16 +53,16 @@ module DataStream #(
     localparam TRUE = 1'b1, FALSE = 1'b0;
 
     reg [1 : 0] state;
-//    reg [OUTPUT_DATA_WIDTH - 1 : 0] outputBuffer;
     reg calculateFlag;
     reg [C_AXIS_TDATA_WIDTH-1:0] freqBuffer, magBuffer;
+    reg [C_AXIS_TDATA_WIDTH-1:0] inputBuffer; // Used to delay input
     
     initial begin 
-        state           = FREQSTATE; 
-//        outputBuffer    = {OUTPUT_DATA_WIDTH{1'b0}};
+        state           = IDLE; 
         calculateFlag   = FALSE;
         freqBuffer      = {C_AXIS_TDATA_WIDTH{1'b0}};
         magBuffer       = {C_AXIS_TDATA_WIDTH{1'b0}};
+        inputBuffer       = {C_AXIS_TDATA_WIDTH{1'b0}};
     end 
 
     /**
@@ -76,9 +76,10 @@ module DataStream #(
                 if (!startReading) begin 
                     state <= IDLE;
                 end else begin 
-                    freqBuffer      <= inputStream;
+                    freqBuffer      <= inputBuffer;
                     calculateFlag   <= FALSE;
                     state           <= MAGSTATE;
+                    inputBuffer     <= inputStream;
                 end
             end 
             
@@ -86,15 +87,17 @@ module DataStream #(
                 if (!startReading) begin 
                     state <= IDLE;
                 end else begin 
-                    magBuffer       <= inputStream;
+                    magBuffer       <= inputBuffer;
                     calculateFlag   <= TRUE;
                     state           <= FREQSTATE;
+                    inputBuffer     <= inputStream;
                 end
             end 
             
             IDLE : begin 
                 if (startReading) begin 
-                    state <= FREQSTATE;
+                    state       <= FREQSTATE;
+                    inputBuffer <= inputStream;
                 end 
             end 
         endcase 
@@ -113,7 +116,5 @@ module DataStream #(
         .calculateFlag(calculateFlag),
         .outputValue(outputValue)
     );
-    
-//    assign outputValue = outputBuffer;
     
 endmodule
