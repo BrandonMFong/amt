@@ -53,13 +53,13 @@ module DataStream #(
     localparam TRUE = 1'b1, FALSE = 1'b0;
 
     reg [1 : 0] state;
-    reg [OUTPUT_DATA_WIDTH - 1 : 0] outputBuffer;
+//    reg [OUTPUT_DATA_WIDTH - 1 : 0] outputBuffer;
     reg calculateFlag;
     reg [C_AXIS_TDATA_WIDTH-1:0] freqBuffer, magBuffer;
     
     initial begin 
         state           = FREQSTATE; 
-        outputBuffer    = {OUTPUT_DATA_WIDTH{1'b0}};
+//        outputBuffer    = {OUTPUT_DATA_WIDTH{1'b0}};
         calculateFlag   = FALSE;
         freqBuffer      = {C_AXIS_TDATA_WIDTH{1'b0}};
         magBuffer       = {C_AXIS_TDATA_WIDTH{1'b0}};
@@ -100,6 +100,20 @@ module DataStream #(
         endcase 
     end 
     
-    assign outputValue = outputBuffer;
+    /**
+    *   With the frequency and magnitude value, calculate the output pcp value
+    */
+    Profiler #(
+        .ADDR_WIDTH(ADDR_WIDTH),
+        .C_AXIS_TDATA_WIDTH(C_AXIS_TDATA_WIDTH),
+        .OUTPUT_DATA_WIDTH(OUTPUT_DATA_WIDTH)
+    ) mod0 (
+        .frequencyValue(freqBuffer),
+        .magnitudeValue(magBuffer),
+        .calculateFlag(calculateFlag),
+        .outputValue(outputValue)
+    );
+    
+//    assign outputValue = outputBuffer;
     
 endmodule
