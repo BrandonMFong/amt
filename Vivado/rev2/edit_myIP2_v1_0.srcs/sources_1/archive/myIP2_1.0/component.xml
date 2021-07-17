@@ -224,7 +224,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>5729b6a4</spirit:value>
+            <spirit:value>595242de</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -240,7 +240,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>5729b6a4</spirit:value>
+            <spirit:value>595242de</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -276,14 +276,14 @@
         <spirit:name>xilinx_testbench</spirit:name>
         <spirit:displayName>Test Bench</spirit:displayName>
         <spirit:envIdentifier>:vivado.xilinx.com:simulation.testbench</spirit:envIdentifier>
-        <spirit:modelName>testPCP</spirit:modelName>
+        <spirit:modelName>DataStream_Tests</spirit:modelName>
         <spirit:fileSetRef>
           <spirit:localName>xilinx_testbench_view_fileset</spirit:localName>
         </spirit:fileSetRef>
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>4a95c044</spirit:value>
+            <spirit:value>24cd7e80</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -516,11 +516,19 @@
     <spirit:fileSet>
       <spirit:name>xilinx_verilogsynthesis_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>../edit_myIP2_v1_0.srcs/sources_1/new/PCP.v</spirit:name>
+        <spirit:name>../../new/DataStream.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../edit_myIP2_v1_0.srcs/sources_1/new/topModule.v</spirit:name>
+        <spirit:name>../../new/PCP.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../new/Profiler.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../new/topModule.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>CHECKSUM_9e45f5b3</spirit:userFileType>
       </spirit:file>
@@ -528,11 +536,19 @@
     <spirit:fileSet>
       <spirit:name>xilinx_verilogbehavioralsimulation_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>../edit_myIP2_v1_0.srcs/sources_1/new/PCP.v</spirit:name>
+        <spirit:name>../../new/DataStream.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
       <spirit:file>
-        <spirit:name>../edit_myIP2_v1_0.srcs/sources_1/new/topModule.v</spirit:name>
+        <spirit:name>../../new/PCP.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../new/Profiler.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../new/topModule.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
       </spirit:file>
     </spirit:fileSet>
@@ -555,7 +571,7 @@
     <spirit:fileSet>
       <spirit:name>xilinx_testbench_view_fileset</spirit:name>
       <spirit:file>
-        <spirit:name>../edit_myIP2_v1_0.srcs/sim_1/new/testPCP.v</spirit:name>
+        <spirit:name>../../../sim_1/new/DataStream_Tests.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_implementation</spirit:userFileType>
         <spirit:userFileType>USED_IN_simulation</spirit:userFileType>
@@ -589,8 +605,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>myIP2_v1.0</xilinx:displayName>
-      <xilinx:coreRevision>155</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-07-17T17:03:21Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>156</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-07-17T18:44:10Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@299ae5a1_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@48800e3d_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
@@ -2999,12 +3015,23 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@2a4e9ff7_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@8c38d81_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4b45c7c5_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@398b77fd_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/edit_myIP2_v1_0.srcs/sources_1/imports/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@17fd5858_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/edit_myIP2_v1_0.srcs/sources_1/imports/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@77172438_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/edit_myIP2_v1_0.srcs/sources_1/imports/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5f0766d2_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/edit_myIP2_v1_0.srcs/sources_1/imports/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4574dfb3_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/edit_myIP2_v1_0.srcs/sources_1/imports/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6da90722_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/edit_myIP2_v1_0.srcs/sources_1/imports/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3eac2250_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/edit_myIP2_v1_0.srcs/sources_1/imports/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4930fcd7_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/edit_myIP2_v1_0.srcs/sources_1/imports/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@45b1154d_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/edit_myIP2_v1_0.srcs/sources_1/imports/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@25aae742_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/edit_myIP2_v1_0.srcs/sources_1/imports/myIP2_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@419aaba5_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev2/edit_myIP2_v1_0.srcs/sources_1/imports/myIP2_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2018.3</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="29a15928"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="0c0b4671"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="ea3a3a3c"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="29201825"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="e3f3ef66"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="3ad0accc"/>

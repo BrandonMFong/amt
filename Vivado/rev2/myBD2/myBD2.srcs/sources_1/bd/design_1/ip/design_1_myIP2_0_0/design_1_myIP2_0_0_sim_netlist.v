@@ -1,7 +1,7 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-// Date        : Sat Jul 17 10:05:15 2021
+// Date        : Sat Jul 17 11:51:12 2021
 // Host        : KAMANTA running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD2/myBD2.srcs/sources_1/bd/design_1/ip/design_1_myIP2_0_0/design_1_myIP2_0_0_sim_netlist.v
@@ -1291,6 +1291,15 @@ module design_1_myIP2_0_0_PCP
         .Q(pcpReady),
         .R(1'b0));
   (* SOFT_HLUTNM = "soft_lutpair0" *) 
+  LUT4 #(
+    .INIT(16'h00F7)) 
+    \pcpin_mem_read_data_reg[63]_i_1 
+       (.I0(mem_read_data_valid_reg),
+        .I1(validOutputData_reg_0),
+        .I2(m00_axis_tready),
+        .I3(CO),
+        .O(E));
+  (* SOFT_HLUTNM = "soft_lutpair0" *) 
   LUT5 #(
     .INIT(32'hBAAA4555)) 
     \rd_addr_reg[0]_i_1 
@@ -1300,15 +1309,6 @@ module design_1_myIP2_0_0_PCP
         .I3(mem_read_data_valid_reg),
         .I4(rd_ptr_reg),
         .O(m00_axis_tready_0));
-  (* SOFT_HLUTNM = "soft_lutpair0" *) 
-  LUT4 #(
-    .INIT(16'h00F7)) 
-    \rd_ptr_gray_reg[40]_i_1 
-       (.I0(mem_read_data_valid_reg),
-        .I1(validOutputData_reg_0),
-        .I2(m00_axis_tready),
-        .I3(CO),
-        .O(E));
   LUT3 #(
     .INIT(8'hBF)) 
     readyFlag_reg_i_2
@@ -1426,6 +1426,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
   wire m00_rst_sync3_reg;
   wire m00_rst_sync3_reg_i_1_n_0;
   wire mem_read_data_valid_reg;
+  wire mem_reg_0_1_0_5_i_1_n_0;
   wire mem_reg_0_1_60_65_n_4;
   wire mem_reg_0_1_60_65_n_5;
   wire [64:0]mem_write_data;
@@ -1543,7 +1544,6 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
   wire \wr_addr_reg[0]_i_1_n_0 ;
   wire [39:1]wr_ptr_gray_reg0;
   wire \wr_ptr_gray_reg[0]_i_1_n_0 ;
-  wire \wr_ptr_gray_reg[40]_i_1_n_0 ;
   wire \wr_ptr_gray_reg_reg_n_0_[0] ;
   wire \wr_ptr_gray_reg_reg_n_0_[10] ;
   wire \wr_ptr_gray_reg_reg_n_0_[11] ;
@@ -2048,7 +2048,17 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
         .DOC(pcpin_mem_read_data_reg0[5:4]),
         .DOD(NLW_mem_reg_0_1_0_5_DOD_UNCONNECTED[1:0]),
         .WCLK(s00_axis_aclk),
-        .WE(\wr_ptr_gray_reg[40]_i_1_n_0 ));
+        .WE(mem_reg_0_1_0_5_i_1_n_0));
+  LUT6 #(
+    .INIT(64'hAAAAA22AA22AAAAA)) 
+    mem_reg_0_1_0_5_i_1
+       (.I0(s00_axis_tvalid),
+        .I1(full0),
+        .I2(p_1_in),
+        .I3(p_0_in),
+        .I4(p_0_in0_in),
+        .I5(p_1_in1_in),
+        .O(mem_reg_0_1_0_5_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "" *) 
   (* ram_addr_begin = "-1" *) 
   (* ram_addr_end = "0" *) 
@@ -2068,7 +2078,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
         .DOC(pcpin_mem_read_data_reg0[17:16]),
         .DOD(NLW_mem_reg_0_1_12_17_DOD_UNCONNECTED[1:0]),
         .WCLK(s00_axis_aclk),
-        .WE(\wr_ptr_gray_reg[40]_i_1_n_0 ));
+        .WE(mem_reg_0_1_0_5_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "" *) 
   (* ram_addr_begin = "-1" *) 
   (* ram_addr_end = "0" *) 
@@ -2088,7 +2098,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
         .DOC(pcpin_mem_read_data_reg0[23:22]),
         .DOD(NLW_mem_reg_0_1_18_23_DOD_UNCONNECTED[1:0]),
         .WCLK(s00_axis_aclk),
-        .WE(\wr_ptr_gray_reg[40]_i_1_n_0 ));
+        .WE(mem_reg_0_1_0_5_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "" *) 
   (* ram_addr_begin = "-1" *) 
   (* ram_addr_end = "0" *) 
@@ -2108,7 +2118,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
         .DOC(pcpin_mem_read_data_reg0[29:28]),
         .DOD(NLW_mem_reg_0_1_24_29_DOD_UNCONNECTED[1:0]),
         .WCLK(s00_axis_aclk),
-        .WE(\wr_ptr_gray_reg[40]_i_1_n_0 ));
+        .WE(mem_reg_0_1_0_5_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "" *) 
   (* ram_addr_begin = "-1" *) 
   (* ram_addr_end = "0" *) 
@@ -2128,7 +2138,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
         .DOC(pcpin_mem_read_data_reg0[35:34]),
         .DOD(NLW_mem_reg_0_1_30_35_DOD_UNCONNECTED[1:0]),
         .WCLK(s00_axis_aclk),
-        .WE(\wr_ptr_gray_reg[40]_i_1_n_0 ));
+        .WE(mem_reg_0_1_0_5_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "" *) 
   (* ram_addr_begin = "-1" *) 
   (* ram_addr_end = "0" *) 
@@ -2148,7 +2158,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
         .DOC(pcpin_mem_read_data_reg0[41:40]),
         .DOD(NLW_mem_reg_0_1_36_41_DOD_UNCONNECTED[1:0]),
         .WCLK(s00_axis_aclk),
-        .WE(\wr_ptr_gray_reg[40]_i_1_n_0 ));
+        .WE(mem_reg_0_1_0_5_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "" *) 
   (* ram_addr_begin = "-1" *) 
   (* ram_addr_end = "0" *) 
@@ -2168,7 +2178,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
         .DOC(pcpin_mem_read_data_reg0[47:46]),
         .DOD(NLW_mem_reg_0_1_42_47_DOD_UNCONNECTED[1:0]),
         .WCLK(s00_axis_aclk),
-        .WE(\wr_ptr_gray_reg[40]_i_1_n_0 ));
+        .WE(mem_reg_0_1_0_5_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "" *) 
   (* ram_addr_begin = "-1" *) 
   (* ram_addr_end = "0" *) 
@@ -2188,7 +2198,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
         .DOC(pcpin_mem_read_data_reg0[53:52]),
         .DOD(NLW_mem_reg_0_1_48_53_DOD_UNCONNECTED[1:0]),
         .WCLK(s00_axis_aclk),
-        .WE(\wr_ptr_gray_reg[40]_i_1_n_0 ));
+        .WE(mem_reg_0_1_0_5_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "" *) 
   (* ram_addr_begin = "-1" *) 
   (* ram_addr_end = "0" *) 
@@ -2208,7 +2218,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
         .DOC(pcpin_mem_read_data_reg0[59:58]),
         .DOD(NLW_mem_reg_0_1_54_59_DOD_UNCONNECTED[1:0]),
         .WCLK(s00_axis_aclk),
-        .WE(\wr_ptr_gray_reg[40]_i_1_n_0 ));
+        .WE(mem_reg_0_1_0_5_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "" *) 
   (* ram_addr_begin = "-1" *) 
   (* ram_addr_end = "0" *) 
@@ -2228,7 +2238,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
         .DOC({mem_reg_0_1_60_65_n_4,mem_reg_0_1_60_65_n_5}),
         .DOD(NLW_mem_reg_0_1_60_65_DOD_UNCONNECTED[1:0]),
         .WCLK(s00_axis_aclk),
-        .WE(\wr_ptr_gray_reg[40]_i_1_n_0 ));
+        .WE(mem_reg_0_1_0_5_i_1_n_0));
   (* METHODOLOGY_DRC_VIOS = "" *) 
   (* ram_addr_begin = "-1" *) 
   (* ram_addr_end = "0" *) 
@@ -2248,7 +2258,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
         .DOC(pcpin_mem_read_data_reg0[11:10]),
         .DOD(NLW_mem_reg_0_1_6_11_DOD_UNCONNECTED[1:0]),
         .WCLK(s00_axis_aclk),
-        .WE(\wr_ptr_gray_reg[40]_i_1_n_0 ));
+        .WE(mem_reg_0_1_0_5_i_1_n_0));
   design_1_myIP2_0_0_PCP mod0
        (.CO(empty),
         .E(mod0_n_2),
@@ -4974,16 +4984,6 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
        (.I0(wr_ptr_next0[4]),
         .I1(wr_ptr_next0[3]),
         .O(wr_ptr_gray_reg0[3]));
-  LUT6 #(
-    .INIT(64'hAAAAA22AA22AAAAA)) 
-    \wr_ptr_gray_reg[40]_i_1 
-       (.I0(s00_axis_tvalid),
-        .I1(full0),
-        .I2(p_1_in),
-        .I3(p_0_in),
-        .I4(p_0_in0_in),
-        .I5(p_1_in1_in),
-        .O(\wr_ptr_gray_reg[40]_i_1_n_0 ));
   (* SOFT_HLUTNM = "soft_lutpair61" *) 
   LUT2 #(
     .INIT(4'h6)) 
@@ -5030,7 +5030,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[0] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(\wr_ptr_gray_reg[0]_i_1_n_0 ),
         .Q(\wr_ptr_gray_reg_reg_n_0_[0] ),
         .R(s00_rst_sync3_reg));
@@ -5038,7 +5038,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[10] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[10]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[10] ),
         .R(s00_rst_sync3_reg));
@@ -5046,7 +5046,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[11] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[11]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[11] ),
         .R(s00_rst_sync3_reg));
@@ -5054,7 +5054,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[12] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[12]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[12] ),
         .R(s00_rst_sync3_reg));
@@ -5062,7 +5062,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[13] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[13]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[13] ),
         .R(s00_rst_sync3_reg));
@@ -5070,7 +5070,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[14] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[14]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[14] ),
         .R(s00_rst_sync3_reg));
@@ -5078,7 +5078,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[15] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[15]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[15] ),
         .R(s00_rst_sync3_reg));
@@ -5086,7 +5086,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[16] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[16]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[16] ),
         .R(s00_rst_sync3_reg));
@@ -5094,7 +5094,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[17] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[17]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[17] ),
         .R(s00_rst_sync3_reg));
@@ -5102,7 +5102,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[18] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[18]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[18] ),
         .R(s00_rst_sync3_reg));
@@ -5110,7 +5110,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[19] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[19]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[19] ),
         .R(s00_rst_sync3_reg));
@@ -5118,7 +5118,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[1] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[1]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[1] ),
         .R(s00_rst_sync3_reg));
@@ -5126,7 +5126,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[20] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[20]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[20] ),
         .R(s00_rst_sync3_reg));
@@ -5134,7 +5134,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[21] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[21]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[21] ),
         .R(s00_rst_sync3_reg));
@@ -5142,7 +5142,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[22] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[22]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[22] ),
         .R(s00_rst_sync3_reg));
@@ -5150,7 +5150,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[23] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[23]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[23] ),
         .R(s00_rst_sync3_reg));
@@ -5158,7 +5158,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[24] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[24]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[24] ),
         .R(s00_rst_sync3_reg));
@@ -5166,7 +5166,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[25] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[25]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[25] ),
         .R(s00_rst_sync3_reg));
@@ -5174,7 +5174,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[26] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[26]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[26] ),
         .R(s00_rst_sync3_reg));
@@ -5182,7 +5182,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[27] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[27]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[27] ),
         .R(s00_rst_sync3_reg));
@@ -5190,7 +5190,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[28] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[28]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[28] ),
         .R(s00_rst_sync3_reg));
@@ -5198,7 +5198,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[29] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[29]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[29] ),
         .R(s00_rst_sync3_reg));
@@ -5206,7 +5206,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[2] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[2]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[2] ),
         .R(s00_rst_sync3_reg));
@@ -5214,7 +5214,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[30] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[30]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[30] ),
         .R(s00_rst_sync3_reg));
@@ -5222,7 +5222,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[31] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[31]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[31] ),
         .R(s00_rst_sync3_reg));
@@ -5230,7 +5230,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[32] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[32]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[32] ),
         .R(s00_rst_sync3_reg));
@@ -5238,7 +5238,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[33] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[33]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[33] ),
         .R(s00_rst_sync3_reg));
@@ -5246,7 +5246,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[34] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[34]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[34] ),
         .R(s00_rst_sync3_reg));
@@ -5254,7 +5254,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[35] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[35]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[35] ),
         .R(s00_rst_sync3_reg));
@@ -5262,7 +5262,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[36] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[36]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[36] ),
         .R(s00_rst_sync3_reg));
@@ -5270,7 +5270,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[37] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[37]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[37] ),
         .R(s00_rst_sync3_reg));
@@ -5278,7 +5278,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[38] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[38]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[38] ),
         .R(s00_rst_sync3_reg));
@@ -5286,7 +5286,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[39] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[39]),
         .Q(p_1_in),
         .R(s00_rst_sync3_reg));
@@ -5294,7 +5294,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[3] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[3]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[3] ),
         .R(s00_rst_sync3_reg));
@@ -5302,7 +5302,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[40] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_next0__0),
         .Q(p_1_in1_in),
         .R(s00_rst_sync3_reg));
@@ -5310,7 +5310,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[4] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[4]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[4] ),
         .R(s00_rst_sync3_reg));
@@ -5318,7 +5318,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[5] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[5]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[5] ),
         .R(s00_rst_sync3_reg));
@@ -5326,7 +5326,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[6] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[6]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[6] ),
         .R(s00_rst_sync3_reg));
@@ -5334,7 +5334,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[7] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[7]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[7] ),
         .R(s00_rst_sync3_reg));
@@ -5342,7 +5342,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[8] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[8]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[8] ),
         .R(s00_rst_sync3_reg));
@@ -5350,7 +5350,7 @@ module design_1_myIP2_0_0_axis_fifo_v1_0
     .INIT(1'b0)) 
     \wr_ptr_gray_reg_reg[9] 
        (.C(s00_axis_aclk),
-        .CE(\wr_ptr_gray_reg[40]_i_1_n_0 ),
+        .CE(mem_reg_0_1_0_5_i_1_n_0),
         .D(wr_ptr_gray_reg0[9]),
         .Q(\wr_ptr_gray_reg_reg_n_0_[9] ),
         .R(s00_rst_sync3_reg));

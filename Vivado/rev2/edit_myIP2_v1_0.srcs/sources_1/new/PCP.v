@@ -115,6 +115,18 @@ module PCP #(
             end 
         end
     end 
+    
+    /**
+    *   Parse the data stream and output the pcp value
+    */
+    DataStream #(
+        .ADDR_WIDTH(ADDR_WIDTH),
+        .C_AXIS_TDATA_WIDTH(C_AXIS_TDATA_WIDTH)
+    ) mod0 (
+        .clk(clk),
+        .inputStream(inputValue),
+        .startReading(readyFlag)
+    );
 
     /* ASSIGNMENTS */
     assign outputValue  = {lastDataFlag, outData};

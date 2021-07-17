@@ -40,7 +40,6 @@ module PCP #(
 );
     /* LOCAL PARAMETERS */
     localparam kMaxAddressSpace = (2**ADDR_WIDTH);
-//    localparam kMaxCount = 250; 
 
     /* REGISTERS */
     reg lastDataFlag = 1'b0;
@@ -84,8 +83,6 @@ module PCP #(
             if ((readyFlag) && (inAddr < kMaxAddressSpace)) begin 
                 pcpReady <= 1'b0; // We are not ready yet 
                 
-//                pcpMem[inAddr]  <= mockData;
-//                mockData        <= mockData + 2; // Values by 2 
                 pcpMem[inAddr]  <= inputValue;
                 inAddr          <= inAddr + 1;
             end else begin 
@@ -118,6 +115,18 @@ module PCP #(
             end 
         end
     end 
+    
+    /**
+    *   Parse the data stream and output the pcp value
+    */
+    DataStream #(
+        .ADDR_WIDTH(ADDR_WIDTH),
+        .C_AXIS_TDATA_WIDTH(C_AXIS_TDATA_WIDTH)
+    ) mod0 (
+        .clk(clk),
+        .inputStream(inputValue),
+        .startReading(readyFlag)
+    );
 
     /* ASSIGNMENTS */
     assign outputValue  = {lastDataFlag, outData};
