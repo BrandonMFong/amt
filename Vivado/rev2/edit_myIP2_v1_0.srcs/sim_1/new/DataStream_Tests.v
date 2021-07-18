@@ -80,10 +80,10 @@ module DataStream_Tests #(
         end
     end
     
-    always @(*) begin 
+    always @(ready) begin 
         if (ready) begin 
             $display("Hello");
-//            `assert(magnitudeOutput, magnitudeInput - 1);
+            `assert(magnitudeOutput, magnitudeInput - 1);
         end 
     end 
     
