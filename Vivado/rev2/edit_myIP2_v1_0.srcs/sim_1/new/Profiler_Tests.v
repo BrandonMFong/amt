@@ -48,9 +48,25 @@ module Profiler_Tests#(
     );
     
     initial begin 
+        #5
         frequencyValue = 23999;
         #5
         `assert(outputValue, 7);
+        
+        #5
+        frequencyValue = 1166;
+        #5
+        `assert(outputValue, 2);
+        
+        #5
+        frequencyValue = 6485;
+        #5
+        `assert(outputValue, 8);
+        
+        #5
+        frequencyValue = 17094;
+        #5
+        `assert(outputValue, 1);
     end  
    
 
