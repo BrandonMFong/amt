@@ -22,9 +22,10 @@
 `ifndef assert
     `define assert(signal, value) \
         if (signal !== value) begin \
-            $display("===== ASSERTION FAILED in %m ====="); \
-            $display("-----> %d != %d", signal, value); \
+            $display("ASSERTION FAILED in %m: %0d != %0d", signal, value); \
             $finish; \
+        end else begin \
+            $display("PASSED: %0d == %0d", signal, value); \
         end
 `endif
 
@@ -49,7 +50,7 @@ module Profiler_Tests#(
     initial begin 
         frequencyValue = 23999;
         #5
-        `assert(outputValue, 8);
+        `assert(outputValue, 7);
     end  
    
 
