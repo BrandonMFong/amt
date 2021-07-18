@@ -69,14 +69,15 @@ module DataStream #(
     *   and the magnitude value to calculate the pcp class value
     */
     always @(posedge clk) begin 
+        inputBuffer <= inputStream;
+        
         case (state)
             FREQSTATE : begin 
                 if (!startReading) begin 
                     state <= IDLE;
                 end else begin 
-                    freqBuffer      <= inputBuffer;
-                    state           <= MAGSTATE;
-                    inputBuffer     <= inputStream;
+                    freqBuffer  <= inputBuffer;
+                    state       <= MAGSTATE;
                 end
             end 
             
@@ -84,16 +85,14 @@ module DataStream #(
                 if (!startReading) begin 
                     state <= IDLE;
                 end else begin 
-                    magBuffer       <= inputBuffer;
-                    state           <= FREQSTATE;
-                    inputBuffer     <= inputStream;
+                    magBuffer   <= inputBuffer;
+                    state       <= FREQSTATE;
                 end
             end 
             
             IDLE : begin 
                 if (startReading) begin 
-                    state       <= FREQSTATE;
-                    inputBuffer <= inputStream;
+                    state <= FREQSTATE;
                 end 
             end 
         endcase 
@@ -103,12 +102,12 @@ module DataStream #(
     *   With the frequency and magnitude value, calculate the output pcp value
     */
     Profiler #(
-        .ADDR_WIDTH(ADDR_WIDTH),
-        .C_AXIS_TDATA_WIDTH(C_AXIS_TDATA_WIDTH),
-        .OUTPUT_DATA_WIDTH(OUTPUT_DATA_WIDTH)
+        .ADDR_WIDTH         (ADDR_WIDTH),
+        .C_AXIS_TDATA_WIDTH (C_AXIS_TDATA_WIDTH),
+        .OUTPUT_DATA_WIDTH  (OUTPUT_DATA_WIDTH)
     ) mod0 (
-        .frequencyValue(freqBuffer),
-        .outputValue(outputValue)
+        .frequencyValue (freqBuffer),
+        .outputValue    (outputValue)
     );
     
 endmodule
