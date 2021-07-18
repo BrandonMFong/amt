@@ -36,7 +36,9 @@ module DataStream_Tests #(
 );
     localparam freqValue = 17094;
     localparam magValue = 174711591;
+    localparam kMaxClockPeriods = 200;
     
+    integer i;
     reg clk;
     reg startReading;
     reg [C_AXIS_TDATA_WIDTH-1:0] inputStream;
@@ -57,10 +59,10 @@ module DataStream_Tests #(
     );
     
     initial begin
-        clk = 1;
-        inData = 0;
-        startReading = 0;
-        magnitudeInput = 0;
+        clk             = 1;
+        inData          = 0;
+        startReading    = 0;
+        magnitudeInput  = 0;
         
         #5 
         clk = ~clk;
@@ -73,16 +75,16 @@ module DataStream_Tests #(
         
         #5
         clk = ~clk;
-        forever begin
+        
+        for (i = 0; i < kMaxClockPeriods; i = i + 1) begin 
             #5
             clk = ~clk;
             startReading = 1;
-        end
+        end 
     end
     
     always @(ready) begin 
         if (ready) begin 
-            $display("Hello");
             `assert(magnitudeOutput, magnitudeInput - 1);
         end 
     end 
