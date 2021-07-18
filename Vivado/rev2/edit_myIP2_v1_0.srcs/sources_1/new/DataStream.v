@@ -62,7 +62,7 @@ module DataStream #(
         calculateFlag   = FALSE;
         freqBuffer      = {C_AXIS_TDATA_WIDTH{1'b0}};
         magBuffer       = {C_AXIS_TDATA_WIDTH{1'b0}};
-        inputBuffer       = {C_AXIS_TDATA_WIDTH{1'b0}};
+        inputBuffer     = {C_AXIS_TDATA_WIDTH{1'b0}};
     end 
 
     /**
@@ -112,8 +112,6 @@ module DataStream #(
         .OUTPUT_DATA_WIDTH(OUTPUT_DATA_WIDTH)
     ) mod0 (
         .frequencyValue(freqBuffer),
-        .magnitudeValue(magBuffer),
-        .calculateFlag(calculateFlag),
         .outputValue(outputValue)
     );
     

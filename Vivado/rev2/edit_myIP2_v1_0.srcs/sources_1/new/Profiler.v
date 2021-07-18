@@ -28,25 +28,15 @@
 
 
 module Profiler #(
-    parameter ADDR_WIDTH = 12,
-    parameter C_AXIS_TDATA_WIDTH = 64,
-    parameter OUTPUT_DATA_WIDTH = 4
+    parameter ADDR_WIDTH            = 12,
+    parameter C_AXIS_TDATA_WIDTH    = 64,
+    parameter OUTPUT_DATA_WIDTH     = 4
 )(
 
     /**
     *   Holds frequency value
     */
     input wire [C_AXIS_TDATA_WIDTH - 1 : 0] frequencyValue,
-    
-    /**
-    *   Holds frequency value
-    */
-    input wire [C_AXIS_TDATA_WIDTH - 1 : 0] magnitudeValue, 
-    
-    /**
-    *   Lets us know when we are read to calculate the pcp value with the frequency and magnitude
-    */
-    input wire calculateFlag, 
     
     /**
     * Output value has to be between 0 to 11.  We need 
@@ -56,16 +46,20 @@ module Profiler #(
 );
     localparam k32BitWidth = 32;
     
-    integer intFrequencyValue;
-    real logResult;
-    real logResultScaledByTwelve;
-    integer roundedLogResult; // I don't need more than 255
-    reg [k32BitWidth - 1 : 0] logRegResult;
+    integer                         intFrequencyValue;
+    real                            logResult;
+    real                            logResultScaledByTwelve;
+    integer                         roundedLogResult; // I don't need more than 255
+    reg [k32BitWidth - 1 : 0]       logRegResult;
     reg [OUTPUT_DATA_WIDTH - 1 : 0] outputBuffer;
     
     initial begin 
-        outputBuffer = {OUTPUT_DATA_WIDTH{1'b0}};
-        logResult = {C_AXIS_TDATA_WIDTH{1'b0}};
+        intFrequencyValue       = 0;
+        logResult               = 0.0;
+        logResultScaledByTwelve = 0.0;
+        roundedLogResult        = 0;
+        logRegResult            = {k32BitWidth{1'b0}};
+        outputBuffer            = {OUTPUT_DATA_WIDTH{1'b0}};
     end 
 
     /**
