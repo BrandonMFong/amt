@@ -53,13 +53,11 @@ module DataStream #(
     localparam TRUE = 1'b1, FALSE = 1'b0;
 
     reg [1 : 0] state;
-    reg calculateFlag;
     reg [C_AXIS_TDATA_WIDTH-1:0] freqBuffer, magBuffer;
     reg [C_AXIS_TDATA_WIDTH-1:0] inputBuffer; // Used to delay input
     
     initial begin 
         state           = IDLE; 
-        calculateFlag   = FALSE;
         freqBuffer      = {C_AXIS_TDATA_WIDTH{1'b0}};
         magBuffer       = {C_AXIS_TDATA_WIDTH{1'b0}};
         inputBuffer     = {C_AXIS_TDATA_WIDTH{1'b0}};
@@ -77,7 +75,6 @@ module DataStream #(
                     state <= IDLE;
                 end else begin 
                     freqBuffer      <= inputBuffer;
-                    calculateFlag   <= FALSE;
                     state           <= MAGSTATE;
                     inputBuffer     <= inputStream;
                 end
@@ -88,7 +85,6 @@ module DataStream #(
                     state <= IDLE;
                 end else begin 
                     magBuffer       <= inputBuffer;
-                    calculateFlag   <= TRUE;
                     state           <= FREQSTATE;
                     inputBuffer     <= inputStream;
                 end

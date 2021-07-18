@@ -34,6 +34,9 @@ module DataStream_Tests #(
     parameter C_AXIS_TDATA_WIDTH = 64,
     parameter OUTPUT_DATA_WIDTH = 4
 );
+    localparam freqValue = 17094;
+    localparam magValue = 174711591;
+    
     reg clk;
     reg startReading;
     reg [C_AXIS_TDATA_WIDTH-1:0] inputStream;
@@ -71,7 +74,11 @@ module DataStream_Tests #(
             // posedge 
             if (clk) begin 
                 startReading = 1;
-                inputStream = inData;
+                if (!inData) begin 
+                    inputStream = freqValue;
+                end else begin 
+                    inputStream = magValue;
+                end 
                 inData = ~inData;
             end 
         end
