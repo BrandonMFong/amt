@@ -21,9 +21,9 @@
 
 
 module DataStream #(
-    parameter ADDR_WIDTH = 12,
-    parameter C_AXIS_TDATA_WIDTH = 64,
-    parameter OUTPUT_DATA_WIDTH = 4
+    parameter ADDR_WIDTH            = 12,
+    parameter C_AXIS_TDATA_WIDTH    = 64,
+    parameter OUTPUT_DATA_WIDTH     = 4
 )(
     /**
     *   Input Clock 
@@ -41,20 +41,32 @@ module DataStream #(
     input wire startReading,
     
     /**
+    *   The data stream output is good to be recorded to pcp vector
+    */
+    output reg ready,
+    
+    /**
     * Output value has to be between 0 to 11.  We need 
     * 4 bits to represent that number
     */
-    output wire [OUTPUT_DATA_WIDTH - 1 : 0] outputValue
+    output wire [OUTPUT_DATA_WIDTH - 1 : 0] profileNumber,
+    
+    /**
+    *   The magnitude value read from data stream
+    */
+    output wire [C_AXIS_TDATA_WIDTH - 1 : 0] magnitudeValue
 );
     localparam  IDLE        = 2'b00, // Do nothing
                 FREQSTATE   = 2'b01, // First in stream is frequency
                 MAGSTATE    = 2'b10; // then after is magnitude
     
-    localparam TRUE = 1'b1, FALSE = 1'b0;
+    localparam  TRUE = 1'b1, 
+                FALSE = 1'b0;
 
-    reg [1 : 0] state;
-    reg [C_AXIS_TDATA_WIDTH-1:0] freqBuffer, magBuffer;
-    reg [C_AXIS_TDATA_WIDTH-1:0] inputBuffer; // Used to delay input
+    reg [1 : 0]                     state;
+    reg [C_AXIS_TDATA_WIDTH-1:0]    freqBuffer, 
+                                    magBuffer;
+    reg [C_AXIS_TDATA_WIDTH-1:0]    inputBuffer; // Used to delay input
     
     initial begin 
         state           = IDLE; 
@@ -78,6 +90,7 @@ module DataStream #(
                 end else begin 
                     freqBuffer  <= inputBuffer;
                     state       <= MAGSTATE;
+                    ready       <= FALSE;
                 end
             end 
             
@@ -87,6 +100,7 @@ module DataStream #(
                 end else begin 
                     magBuffer   <= inputBuffer;
                     state       <= FREQSTATE;
+                    ready       <= TRUE;
                 end
             end 
             
@@ -107,7 +121,9 @@ module DataStream #(
         .OUTPUT_DATA_WIDTH  (OUTPUT_DATA_WIDTH)
     ) mod0 (
         .frequencyValue (freqBuffer),
-        .outputValue    (outputValue)
+        .outputValue    (profileNumber)
     );
+    
+    assign magnitudeValue = magBuffer;
     
 endmodule

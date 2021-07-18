@@ -40,7 +40,9 @@ module DataStream_Tests #(
     reg clk;
     reg startReading;
     reg [C_AXIS_TDATA_WIDTH-1:0] inputStream;
-    wire [OUTPUT_DATA_WIDTH - 1 : 0] outputValue;
+    wire [OUTPUT_DATA_WIDTH - 1 : 0] profileNumber;
+    wire ready;
+    wire [C_AXIS_TDATA_WIDTH-1:0] magnitudeValue;
     
     reg inData;
     
@@ -48,7 +50,9 @@ module DataStream_Tests #(
         .clk(clk),
         .inputStream(inputStream),
         .startReading(startReading),
-        .outputValue(outputValue)
+        .ready(ready),
+        .profileNumber(profileNumber),
+        .magnitudeValue(magnitudeValue)
     );
     
     initial begin
