@@ -40,25 +40,27 @@ module DataStream_Tests #(
     reg clk;
     reg startReading;
     reg [C_AXIS_TDATA_WIDTH-1:0] inputStream;
+    reg [C_AXIS_TDATA_WIDTH-1:0] magnitudeInput;
     wire [OUTPUT_DATA_WIDTH - 1 : 0] profileNumber;
     wire ready;
-    wire [C_AXIS_TDATA_WIDTH-1:0] magnitudeValue;
+    wire [C_AXIS_TDATA_WIDTH-1:0] magnitudeOutput;
     
     reg inData;
     
     DataStream mod0 (
-        .clk(clk),
-        .inputStream(inputStream),
-        .startReading(startReading),
-        .ready(ready),
-        .profileNumber(profileNumber),
-        .magnitudeValue(magnitudeValue)
+        .clk            (clk),
+        .inputStream    (inputStream),
+        .startReading   (startReading),
+        .ready          (ready),
+        .profileNumber  (profileNumber),
+        .magnitudeValue (magnitudeOutput)
     );
     
     initial begin
         clk = 1;
         inData = 0;
         startReading = 0;
+        magnitudeInput = 0;
         
         #5 
         clk = ~clk;
@@ -74,17 +76,26 @@ module DataStream_Tests #(
         forever begin
             #5
             clk = ~clk;
-            
-            // posedge 
-            if (clk) begin 
-                startReading = 1;
-                if (!inData) begin 
-                    inputStream = freqValue;
-                end else begin 
-                    inputStream = magValue;
-                end 
-                inData = ~inData;
-            end 
+            startReading = 1;
         end
     end
+    
+    always @(*) begin 
+        if (ready) begin 
+            $display("Hello");
+//            `assert(magnitudeOutput, magnitudeInput - 1);
+        end 
+    end 
+    
+    always @(posedge clk) begin 
+        if (startReading) begin 
+            if (!inData) begin 
+                inputStream <= freqValue;
+            end else begin 
+                inputStream <= magnitudeInput;
+                magnitudeInput <= magnitudeInput + 1;
+            end 
+            inData <= ~inData;
+        end
+    end 
 endmodule

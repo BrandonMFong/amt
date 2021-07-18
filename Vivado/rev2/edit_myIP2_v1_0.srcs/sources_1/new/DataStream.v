@@ -69,6 +69,7 @@ module DataStream #(
     reg [C_AXIS_TDATA_WIDTH-1:0]    inputBuffer; // Used to delay input
     
     initial begin 
+        ready           = FALSE;
         state           = IDLE; 
         freqBuffer      = {C_AXIS_TDATA_WIDTH{1'b0}};
         magBuffer       = {C_AXIS_TDATA_WIDTH{1'b0}};
@@ -88,7 +89,7 @@ module DataStream #(
                 if (!startReading) begin 
                     state <= IDLE;
                 end else begin 
-                    freqBuffer  <= inputBuffer;
+                    freqBuffer  <= inputStream;
                     state       <= MAGSTATE;
                     ready       <= FALSE;
                 end
@@ -98,7 +99,7 @@ module DataStream #(
                 if (!startReading) begin 
                     state <= IDLE;
                 end else begin 
-                    magBuffer   <= inputBuffer;
+                    magBuffer   <= inputStream;
                     state       <= FREQSTATE;
                     ready       <= TRUE;
                 end
