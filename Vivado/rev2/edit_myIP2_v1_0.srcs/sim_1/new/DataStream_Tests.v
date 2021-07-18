@@ -1,10 +1,4 @@
 `timescale 1ns / 1ps
-
-`define assert(signal, value) \
-        if (signal !== value) begin \
-            $display("ASSERTION FAILED in %m: signal != value"); \
-            $finish; \
-        end
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -25,6 +19,15 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+`ifndef assert
+    `define assert(signal, value) \
+        if (signal !== value) begin \
+            $display("%c[1;31m",27); \
+            $display("ASSERTION FAILED in %m: signal != value"); \
+            $display("%c[0m",27); \
+            $finish; \
+        end
+`endif
 
 module DataStream_Tests #(
     parameter ADDR_WIDTH = 12,
