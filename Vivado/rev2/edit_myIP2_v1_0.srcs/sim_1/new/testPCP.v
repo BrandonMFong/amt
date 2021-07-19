@@ -33,7 +33,7 @@ module testPCP;
     
     PCP UUT0 (
         .clk            (clk), 
-        .outputReady    (ready), 
+        .axiReady       (ready), 
         .outputValue    (outputValue),
         .reset          (reset),
         .outputValid    (outputValid),

@@ -28,43 +28,69 @@ module PCP #(
     parameter C_AXIS_TDATA_WIDTH = 32
 )(   
     /* INPUT */
+    
+    /**
+    *   Input clock 
+    */
     input wire clk,
+    
+    /**
+    *   Input values, should have the last data bit and actual axi stream value
+    */
     input wire [C_AXIS_TDATA_WIDTH+2-1:0] inputValue,
-    input wire outputReady,
+    
+    /**
+    *   If master axi interface is ready to start transferring data
+    */
+    input wire axiReady,
+    
+    /**
+    *   Initiates a reset
+    */
     input wire reset, 
+    
+    /**
+    *   If we can start readying input.  If true, the inputValue will be expected to
+    *   change every clock period
+    */
     input wire readyFlag,
     
     /* OUTPUT */
+    
+    /**
+    *   Holds output value, including the last bit flag 
+    */
     output wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue,
+    
+    /**
+    *   If the data in outputValue is valid
+    */
     output wire outputValid
 );
     /* LOCAL PARAMETERS */
-    localparam kMaxAddressSpace = (2**ADDR_WIDTH);
+    localparam kMaxAddressSpace = (2**ADDR_WIDTH); // Max address space
 
     /* REGISTERS */
-    reg lastDataFlag = 1'b0;
-    reg [C_AXIS_TDATA_WIDTH-1:0]    outData, 
-                                    mockData;
-    reg [C_AXIS_TDATA_WIDTH-1:0] pcpMem [kMaxAddressSpace - 1 : 0];
+    reg validOutputData;                                            // If value at outputValue is valid
+    reg lastDataFlag = 1'b0;                                        // Indicates the last data value in output stream
+    reg [C_AXIS_TDATA_WIDTH-1:0]    outData;                        // Outbound data
+    reg [C_AXIS_TDATA_WIDTH-1:0] pcpMem [kMaxAddressSpace - 1 : 0]; // PCP vector
+    reg pcpReady = 1'b0;                                            // If PCP is ready to write to output
+    reg [ADDR_WIDTH:0]  inAddr,                                     // Address for writing
+                        outAddr,                                    // Address for reading
+                        outAddrBuffer;                              // Buffer address for reading. TODO: delete
     
-    reg pcpReady = 1'b0;
-    reg [ADDR_WIDTH:0]  inAddr = {ADDR_WIDTH{1'b0}}, 
-                        outAddr = {ADDR_WIDTH{1'b0}}, 
-                        outAddrBuffer = {ADDR_WIDTH{1'b0}};
-    reg validOutputData;
-    
-    /* Wires */
-    wire writeOutput;
+    /* WIRES */
+    wire writeOutput; // 1 if we are writing to outputValue
     
     /* INITIALIZATION */
     initial begin 
-        lastDataFlag = 0;
-        outData = 0;
-        pcpReady = 0;
-        mockData = 0;
-        inAddr = 0;
-        outAddrBuffer = 0;
-        outAddr = 0;
+        lastDataFlag    = 0;
+        outData         = {C_AXIS_TDATA_WIDTH{1'b0}};
+        pcpReady        = 0;
+        inAddr          = {ADDR_WIDTH{1'b0}};
+        outAddrBuffer   = {ADDR_WIDTH{1'b0}};
+        outAddr         = {ADDR_WIDTH{1'b0}};
         validOutputData = 0;
     end 
     
@@ -77,7 +103,6 @@ module PCP #(
     always @(posedge clk) begin
         if (reset) begin 
             inAddr      <= {ADDR_WIDTH{1'b0}};
-            mockData    <= {C_AXIS_TDATA_WIDTH{1'b0}};
             pcpReady    <= 1'b0;
         end else begin 
             if ((readyFlag) && (inAddr < kMaxAddressSpace)) begin 
@@ -130,7 +155,7 @@ module PCP #(
 
     /* ASSIGNMENTS */
     assign outputValue  = {lastDataFlag, outData};
-    assign writeOutput  = outputReady & pcpReady;
+    assign writeOutput  = axiReady & pcpReady;
     assign outputValid  = validOutputData;
     
 endmodule

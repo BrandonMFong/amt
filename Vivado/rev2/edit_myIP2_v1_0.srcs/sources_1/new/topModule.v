@@ -281,7 +281,7 @@ PCP #(
     .clk            (m00_axis_aclk),
     .inputValue     (pcpin_mem_read_data_reg), 
     .outputValue    (pcpout_mem_read_data_reg), 
-    .outputReady    (m00_axis_tready),
+    .axiReady       (m00_axis_tready),
     .outputValid    (m00_axis_tvalid),
     .reset          (s00_rst_sync3_reg),
     .readyFlag      (readyFlag)
