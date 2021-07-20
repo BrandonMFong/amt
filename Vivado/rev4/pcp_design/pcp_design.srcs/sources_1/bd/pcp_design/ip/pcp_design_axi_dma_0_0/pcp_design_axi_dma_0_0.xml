@@ -5138,6 +5138,10 @@ Note: This value must be greater than or equal to the largest expected packet to
         </spirit:fileSetRef>
         <spirit:parameters>
           <spirit:parameter>
+            <spirit:name>GENtimestamp</spirit:name>
+            <spirit:value>Tue Jul 20 02:04:43 UTC 2021</spirit:value>
+          </spirit:parameter>
+          <spirit:parameter>
             <spirit:name>outputProductCRC</spirit:name>
             <spirit:value>9:04ce28f3</spirit:value>
           </spirit:parameter>

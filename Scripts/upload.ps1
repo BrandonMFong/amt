@@ -4,9 +4,9 @@
 [string]$logPath              = "\sftp.log"
 
 # Copy files 
-Copy-Item $PSScriptRoot\..\Vivado\rev4\pcp_design\pcp_design.runs\impl_1\design_1_wrapper.tcl $PSScriptRoot\..\hardware\myIP\pcp.tcl -Force -Verbose
-Copy-Item $PSScriptRoot\..\Vivado\rev4\pcp_design\pcp_design.runs\impl_1\design_1_wrapper.bit $PSScriptRoot\..\hardware\myIP\pcp.bit -Force -Verbose
-Copy-Item $PSScriptRoot\..\Vivado\rev4\pcp_design\pcp_design.srcs\sources_1\bd\design_1\hw_handoff\design_1.hwh $PSScriptRoot\..\hardware\myIP\pcp.hwh -Force -Verbose
+Copy-Item $PSScriptRoot\..\Vivado\rev4\pcp_design\pcp_design.runs\impl_1\pcp_design_wrapper.tcl $PSScriptRoot\..\hardware\myIP\pcp.tcl -Force -Verbose
+Copy-Item $PSScriptRoot\..\Vivado\rev4\pcp_design\pcp_design.runs\impl_1\pcp_design_wrapper.bit $PSScriptRoot\..\hardware\myIP\pcp.bit -Force -Verbose
+Copy-Item $PSScriptRoot\..\Vivado\rev4\pcp_design\pcp_design.srcs\sources_1\bd\pcp_design\hw_handoff\pcp_design.hwh $PSScriptRoot\..\hardware\myIP\pcp.hwh -Force -Verbose
 
 # Remove the .dat file 
 if(Test-Path ".\amt\*.dat")
