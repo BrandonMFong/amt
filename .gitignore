@@ -28,6 +28,7 @@ results.txt
 *.sim
 *.cache
 *.str
+*.runs
 
 # archives
 archive
