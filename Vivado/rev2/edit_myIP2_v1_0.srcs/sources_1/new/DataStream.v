@@ -49,7 +49,7 @@ module DataStream #(
     * Output value has to be between 0 to 11.  We need 
     * 4 bits to represent that number
     */
-    output wire [OUTPUT_DATA_WIDTH - 1 : 0] profileNumber,
+    output wire [2**OUTPUT_DATA_WIDTH - 1 : 0] profileNumber,
     
     /**
     *   The magnitude value read from data stream

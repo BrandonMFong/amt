@@ -42,7 +42,7 @@ module Profiler #(
     * Output value has to be between 0 to 11.  We need 
     * 4 bits to represent that number
     */
-    output wire [OUTPUT_DATA_WIDTH - 1 : 0] outputValue
+    output wire [2**OUTPUT_DATA_WIDTH - 1 : 0] outputValue
 );
     localparam k32BitWidth = 32;
     
@@ -51,7 +51,7 @@ module Profiler #(
     real                            logResultScaledByTwelve;
     integer                         roundedLogResult; // I don't need more than 255
     reg [k32BitWidth - 1 : 0]       logRegResult;
-    reg [OUTPUT_DATA_WIDTH - 1 : 0] outputBuffer;
+    reg [2**OUTPUT_DATA_WIDTH - 1 : 0] outputBuffer;
     
     initial begin 
         intFrequencyValue       = 0;
@@ -59,7 +59,7 @@ module Profiler #(
         logResultScaledByTwelve = 0.0;
         roundedLogResult        = 0;
         logRegResult            = {k32BitWidth{1'b0}};
-        outputBuffer            = {OUTPUT_DATA_WIDTH{1'b0}};
+        outputBuffer            = {2**OUTPUT_DATA_WIDTH{1'b0}};
     end 
 
     /**
