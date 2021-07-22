@@ -1,7 +1,7 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Wed Jul 21 16:49:40 2021
+-- Date        : Wed Jul 21 18:11:07 2021
 -- Host        : KAMANTA running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               B:/COLLEGE/Thesis/Source/Vivado/rev4/pcp_design/pcp_design.srcs/sources_1/bd/pcp_design/ip/pcp_design_axis_fifo_v1_0_0_0/pcp_design_axis_fifo_v1_0_0_0_sim_netlist.vhdl
@@ -63,6 +63,7 @@ architecture STRUCTURE of pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0 is
   signal mem_read_data_valid_reg : STD_LOGIC;
   signal mem_reg_3_i_1_n_0 : STD_LOGIC;
   signal mem_reg_3_i_2_n_0 : STD_LOGIC;
+  signal mem_reg_3_n_61 : STD_LOGIC;
   signal p_0_in : STD_LOGIC;
   signal p_0_in0_in : STD_LOGIC;
   signal p_1_in : STD_LOGIC;
@@ -212,7 +213,7 @@ architecture STRUCTURE of pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0 is
   signal NLW_mem_reg_3_INJECTSBITERR_UNCONNECTED : STD_LOGIC;
   signal NLW_mem_reg_3_SBITERR_UNCONNECTED : STD_LOGIC;
   signal NLW_mem_reg_3_DOADO_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 0 );
-  signal NLW_mem_reg_3_DOBDO_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 6 );
+  signal NLW_mem_reg_3_DOBDO_UNCONNECTED : STD_LOGIC_VECTOR ( 31 downto 7 );
   signal NLW_mem_reg_3_DOPADOP_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal NLW_mem_reg_3_DOPBDOP_UNCONNECTED : STD_LOGIC_VECTOR ( 3 downto 0 );
   signal NLW_mem_reg_3_ECCPARITY_UNCONNECTED : STD_LOGIC_VECTOR ( 7 downto 0 );
@@ -275,19 +276,19 @@ architecture STRUCTURE of pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0 is
   attribute ram_addr_end of mem_reg_2 : label is 4095;
   attribute ram_slice_begin of mem_reg_2 : label is 18;
   attribute ram_slice_end of mem_reg_2 : label is 26;
-  attribute \MEM.PORTA.DATA_BIT_LAYOUT\ of mem_reg_3 : label is "p0_d6";
-  attribute \MEM.PORTB.DATA_BIT_LAYOUT\ of mem_reg_3 : label is "p0_d6";
+  attribute \MEM.PORTA.DATA_BIT_LAYOUT\ of mem_reg_3 : label is "p0_d7";
+  attribute \MEM.PORTB.DATA_BIT_LAYOUT\ of mem_reg_3 : label is "p0_d7";
   attribute METHODOLOGY_DRC_VIOS of mem_reg_3 : label is "";
   attribute RTL_RAM_BITS of mem_reg_3 : label is 139264;
   attribute RTL_RAM_NAME of mem_reg_3 : label is "mem";
   attribute bram_addr_begin of mem_reg_3 : label is 0;
   attribute bram_addr_end of mem_reg_3 : label is 4095;
   attribute bram_slice_begin of mem_reg_3 : label is 27;
-  attribute bram_slice_end of mem_reg_3 : label is 32;
+  attribute bram_slice_end of mem_reg_3 : label is 33;
   attribute ram_addr_begin of mem_reg_3 : label is 0;
   attribute ram_addr_end of mem_reg_3 : label is 4095;
   attribute ram_slice_begin of mem_reg_3 : label is 27;
-  attribute ram_slice_end of mem_reg_3 : label is 32;
+  attribute ram_slice_end of mem_reg_3 : label is 33;
   attribute SOFT_HLUTNM of \rd_ptr_gray_reg[0]_i_1\ : label is "soft_lutpair19";
   attribute SOFT_HLUTNM of \rd_ptr_gray_reg[10]_i_1\ : label is "soft_lutpair9";
   attribute SOFT_HLUTNM of \rd_ptr_gray_reg[11]_i_1\ : label is "soft_lutpair9";
@@ -840,11 +841,12 @@ mem_reg_3: unisim.vcomponents.RAMB36E1
       DBITERR => NLW_mem_reg_3_DBITERR_UNCONNECTED,
       DIADI(31 downto 6) => B"00000000000000000000000000",
       DIADI(5 downto 0) => mem_write_data(32 downto 27),
-      DIBDI(31 downto 0) => B"00000000000000000000000000111111",
+      DIBDI(31 downto 0) => B"00000000000000000000000001111111",
       DIPADIP(3 downto 0) => B"0000",
       DIPBDIP(3 downto 0) => B"0000",
       DOADO(31 downto 0) => NLW_mem_reg_3_DOADO_UNCONNECTED(31 downto 0),
-      DOBDO(31 downto 6) => NLW_mem_reg_3_DOBDO_UNCONNECTED(31 downto 6),
+      DOBDO(31 downto 7) => NLW_mem_reg_3_DOBDO_UNCONNECTED(31 downto 7),
+      DOBDO(6) => mem_reg_3_n_61,
       DOBDO(5 downto 0) => mem_read_data_reg(32 downto 27),
       DOPADOP(3 downto 0) => NLW_mem_reg_3_DOPADOP_UNCONNECTED(3 downto 0),
       DOPBDOP(3 downto 0) => NLW_mem_reg_3_DOPBDOP_UNCONNECTED(3 downto 0),

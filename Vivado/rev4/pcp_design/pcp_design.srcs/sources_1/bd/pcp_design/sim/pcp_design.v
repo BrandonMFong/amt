@@ -1,7 +1,7 @@
 //Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-//Date        : Wed Jul 21 16:48:11 2021
+//Date        : Wed Jul 21 18:10:04 2021
 //Host        : KAMANTA running 64-bit major release  (build 9200)
 //Command     : generate_target pcp_design.bd
 //Design      : pcp_design
@@ -54,7 +54,7 @@ module pcp_design
   (* X_INTERFACE_INFO = "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_PORB" *) inout FIXED_IO_ps_porb;
   (* X_INTERFACE_INFO = "xilinx.com:display_processing_system7:fixedio:1.0 FIXED_IO PS_SRSTB" *) inout FIXED_IO_ps_srstb;
 
-  wire [31:0]axi_dma_0_M_AXI_MM2S_ARADDR;
+  wire [63:0]axi_dma_0_M_AXI_MM2S_ARADDR;
   wire [1:0]axi_dma_0_M_AXI_MM2S_ARBURST;
   wire [3:0]axi_dma_0_M_AXI_MM2S_ARCACHE;
   wire [7:0]axi_dma_0_M_AXI_MM2S_ARLEN;
@@ -178,7 +178,7 @@ module pcp_design
   wire ps7_0_axi_periph_M00_AXI_WREADY;
   wire ps7_0_axi_periph_M00_AXI_WVALID;
   wire [0:0]rst_ps7_0_100M_peripheral_aresetn;
-  wire [31:0]stream_M_AXI_S2MM_AWADDR;
+  wire [63:0]stream_M_AXI_S2MM_AWADDR;
   wire [1:0]stream_M_AXI_S2MM_AWBURST;
   wire [3:0]stream_M_AXI_S2MM_AWCACHE;
   wire [7:0]stream_M_AXI_S2MM_AWLEN;
@@ -1123,7 +1123,7 @@ module stream_imp_1YF5SKV
     S_AXI_LITE_wvalid,
     m00_axis_aresetn,
     m_axi_mm2s_aclk);
-  output [31:0]M_AXI_MM2S_araddr;
+  output [63:0]M_AXI_MM2S_araddr;
   output [1:0]M_AXI_MM2S_arburst;
   output [3:0]M_AXI_MM2S_arcache;
   output [7:0]M_AXI_MM2S_arlen;
@@ -1136,7 +1136,7 @@ module stream_imp_1YF5SKV
   output M_AXI_MM2S_rready;
   input [1:0]M_AXI_MM2S_rresp;
   input M_AXI_MM2S_rvalid;
-  output [31:0]M_AXI_S2MM_awaddr;
+  output [63:0]M_AXI_S2MM_awaddr;
   output [1:0]M_AXI_S2MM_awburst;
   output [3:0]M_AXI_S2MM_awcache;
   output [7:0]M_AXI_S2MM_awlen;
@@ -1171,7 +1171,7 @@ module stream_imp_1YF5SKV
   input m00_axis_aresetn;
   input m_axi_mm2s_aclk;
 
-  wire [31:0]Conn1_AWADDR;
+  wire [63:0]Conn1_AWADDR;
   wire [1:0]Conn1_AWBURST;
   wire [3:0]Conn1_AWCACHE;
   wire [7:0]Conn1_AWLEN;
@@ -1191,7 +1191,7 @@ module stream_imp_1YF5SKV
   wire axi_dma_0_M_AXIS_MM2S_TLAST;
   wire axi_dma_0_M_AXIS_MM2S_TREADY;
   wire axi_dma_0_M_AXIS_MM2S_TVALID;
-  wire [31:0]axi_dma_0_M_AXI_MM2S_ARADDR;
+  wire [63:0]axi_dma_0_M_AXI_MM2S_ARADDR;
   wire [1:0]axi_dma_0_M_AXI_MM2S_ARBURST;
   wire [3:0]axi_dma_0_M_AXI_MM2S_ARCACHE;
   wire [7:0]axi_dma_0_M_AXI_MM2S_ARLEN;
@@ -1231,7 +1231,7 @@ module stream_imp_1YF5SKV
   assign Conn1_BRESP = M_AXI_S2MM_bresp[1:0];
   assign Conn1_BVALID = M_AXI_S2MM_bvalid;
   assign Conn1_WREADY = M_AXI_S2MM_wready;
-  assign M_AXI_MM2S_araddr[31:0] = axi_dma_0_M_AXI_MM2S_ARADDR;
+  assign M_AXI_MM2S_araddr[63:0] = axi_dma_0_M_AXI_MM2S_ARADDR;
   assign M_AXI_MM2S_arburst[1:0] = axi_dma_0_M_AXI_MM2S_ARBURST;
   assign M_AXI_MM2S_arcache[3:0] = axi_dma_0_M_AXI_MM2S_ARCACHE;
   assign M_AXI_MM2S_arlen[7:0] = axi_dma_0_M_AXI_MM2S_ARLEN;
@@ -1239,7 +1239,7 @@ module stream_imp_1YF5SKV
   assign M_AXI_MM2S_arsize[2:0] = axi_dma_0_M_AXI_MM2S_ARSIZE;
   assign M_AXI_MM2S_arvalid = axi_dma_0_M_AXI_MM2S_ARVALID;
   assign M_AXI_MM2S_rready = axi_dma_0_M_AXI_MM2S_RREADY;
-  assign M_AXI_S2MM_awaddr[31:0] = Conn1_AWADDR;
+  assign M_AXI_S2MM_awaddr[63:0] = Conn1_AWADDR;
   assign M_AXI_S2MM_awburst[1:0] = Conn1_AWBURST;
   assign M_AXI_S2MM_awcache[3:0] = Conn1_AWCACHE;
   assign M_AXI_S2MM_awlen[7:0] = Conn1_AWLEN;

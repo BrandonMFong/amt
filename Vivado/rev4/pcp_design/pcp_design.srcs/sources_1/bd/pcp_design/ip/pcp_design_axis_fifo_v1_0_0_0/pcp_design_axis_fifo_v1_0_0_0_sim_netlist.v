@@ -1,7 +1,7 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-// Date        : Wed Jul 21 16:49:40 2021
+// Date        : Wed Jul 21 18:11:07 2021
 // Host        : KAMANTA running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               B:/COLLEGE/Thesis/Source/Vivado/rev4/pcp_design/pcp_design.srcs/sources_1/bd/pcp_design/ip/pcp_design_axis_fifo_v1_0_0_0/pcp_design_axis_fifo_v1_0_0_0_sim_netlist.v
@@ -129,6 +129,7 @@ module pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0
   wire mem_read_data_valid_reg;
   wire mem_reg_3_i_1_n_0;
   wire mem_reg_3_i_2_n_0;
+  wire mem_reg_3_n_61;
   wire [32:0]mem_write_data;
   wire p_0_in;
   wire p_0_in0_in;
@@ -283,7 +284,7 @@ module pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0
   wire NLW_mem_reg_3_INJECTSBITERR_UNCONNECTED;
   wire NLW_mem_reg_3_SBITERR_UNCONNECTED;
   wire [31:0]NLW_mem_reg_3_DOADO_UNCONNECTED;
-  wire [31:6]NLW_mem_reg_3_DOBDO_UNCONNECTED;
+  wire [31:7]NLW_mem_reg_3_DOBDO_UNCONNECTED;
   wire [3:0]NLW_mem_reg_3_DOPADOP_UNCONNECTED;
   wire [3:0]NLW_mem_reg_3_DOPBDOP_UNCONNECTED;
   wire [7:0]NLW_mem_reg_3_ECCPARITY_UNCONNECTED;
@@ -683,19 +684,19 @@ module pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0
         .SBITERR(NLW_mem_reg_2_SBITERR_UNCONNECTED),
         .WEA({s00_axis_tready03_in,s00_axis_tready03_in,s00_axis_tready03_in,s00_axis_tready03_in}),
         .WEBWE({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}));
-  (* \MEM.PORTA.DATA_BIT_LAYOUT  = "p0_d6" *) 
-  (* \MEM.PORTB.DATA_BIT_LAYOUT  = "p0_d6" *) 
+  (* \MEM.PORTA.DATA_BIT_LAYOUT  = "p0_d7" *) 
+  (* \MEM.PORTB.DATA_BIT_LAYOUT  = "p0_d7" *) 
   (* METHODOLOGY_DRC_VIOS = "" *) 
   (* RTL_RAM_BITS = "139264" *) 
   (* RTL_RAM_NAME = "mem" *) 
   (* bram_addr_begin = "0" *) 
   (* bram_addr_end = "4095" *) 
   (* bram_slice_begin = "27" *) 
-  (* bram_slice_end = "32" *) 
+  (* bram_slice_end = "33" *) 
   (* ram_addr_begin = "0" *) 
   (* ram_addr_end = "4095" *) 
   (* ram_slice_begin = "27" *) 
-  (* ram_slice_end = "32" *) 
+  (* ram_slice_end = "33" *) 
   RAMB36E1 #(
     .DOA_REG(0),
     .DOB_REG(1),
@@ -730,11 +731,11 @@ module pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0
         .CLKBWRCLK(m00_axis_aclk),
         .DBITERR(NLW_mem_reg_3_DBITERR_UNCONNECTED),
         .DIADI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,mem_write_data[32:27]}),
-        .DIBDI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
+        .DIBDI({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1,1'b1}),
         .DIPADIP({1'b0,1'b0,1'b0,1'b0}),
         .DIPBDIP({1'b0,1'b0,1'b0,1'b0}),
         .DOADO(NLW_mem_reg_3_DOADO_UNCONNECTED[31:0]),
-        .DOBDO({NLW_mem_reg_3_DOBDO_UNCONNECTED[31:6],mem_read_data_reg[32:27]}),
+        .DOBDO({NLW_mem_reg_3_DOBDO_UNCONNECTED[31:7],mem_reg_3_n_61,mem_read_data_reg[32:27]}),
         .DOPADOP(NLW_mem_reg_3_DOPADOP_UNCONNECTED[3:0]),
         .DOPBDOP(NLW_mem_reg_3_DOPBDOP_UNCONNECTED[3:0]),
         .ECCPARITY(NLW_mem_reg_3_ECCPARITY_UNCONNECTED[7:0]),

@@ -43,7 +43,7 @@ Modified by Jeff Johnson http://www.fpgadeveloper.com
 module axis_fifo_v1_0 #
 (
     parameter ADDR_WIDTH = 12,
-    parameter C_AXIS_TDATA_WIDTH = 32
+    parameter C_AXIS_TDATA_WIDTH = 64
 )
 (
     /*
@@ -110,12 +110,15 @@ reg write;
 reg read;
 reg store_output;
 
+wire [C_AXIS_TDATA_WIDTH+2-1:0] pcpOutput;
+
 assign s00_axis_tready = ~full & ~s00_rst_sync3_reg;
 
 assign m00_axis_tvalid = m00_axis_tvalid_reg;
 
 assign mem_write_data = {s00_axis_tlast, s00_axis_tdata};
-assign {m00_axis_tlast, m00_axis_tdata} = m00_data_reg;
+//assign {m00_axis_tlast, m00_axis_tdata} = m00_data_reg;
+assign {m00_axis_tlast, m00_axis_tdata} = pcpOutput;
 
 // reset synchronization
 always @(posedge s00_axis_aclk) begin
@@ -262,5 +265,13 @@ always @(posedge m00_axis_aclk) begin
         m00_data_reg <= mem_read_data_reg;
     end
 end
+
+PCP #(
+    .ADDR_WIDTH(ADDR_WIDTH),
+    .C_AXIS_TDATA_WIDTH(C_AXIS_TDATA_WIDTH)
+) mod0 (
+    .inputValue(m00_data_reg),
+    .outputValue(pcpOutput)
+);
 
 endmodule
