@@ -271,7 +271,8 @@ PCP #(
     .C_AXIS_TDATA_WIDTH(C_AXIS_TDATA_WIDTH)
 ) mod0 (
     .inputValue(m00_data_reg),
-    .outputValue(pcpOutput)
+    .outputValue(pcpOutput),
+    .axiReady(m00_axis_tready)
 );
 
 endmodule
