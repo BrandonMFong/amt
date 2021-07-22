@@ -62,6 +62,15 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
+      <File Path="$PSRCDIR/sources_1/imports/new/DataStream.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../archive/rev3/PCPIP/PCPIP.srcs/sources_1/imports/new/DataStream.v"/>
+          <Attr Name="ImportTime" Val="1626739292"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PSRCDIR/sources_1/imports/new/PCP.v">
         <FileInfo>
           <Attr Name="ImportPath" Val="$PPRDIR/../../archive/rev3/PCPIP/PCPIP.srcs/sources_1/imports/new/PCP.v"/>
@@ -71,16 +80,8 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/new/pcp_stream.v">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <File Path="$PSRCDIR/sources_1/imports/new/Profiler.v">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/../../archive/rev3/PCPIP/PCPIP.srcs/sources_1/imports/new/Profiler.v"/>
           <Attr Name="ImportTime" Val="1626739317"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -88,11 +89,8 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sources_1/imports/new/DataStream.v">
+      <File Path="$PSRCDIR/sources_1/new/pcp_stream.v">
         <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../archive/rev3/PCPIP/PCPIP.srcs/sources_1/imports/new/DataStream.v"/>
-          <Attr Name="ImportTime" Val="1626739292"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -114,8 +112,18 @@
     </FileSet>
     <FileSet Name="sim_1" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sim_1">
       <Filter Type="Srcs"/>
+      <File Path="$PSRCDIR/sim_1/imports/new/testPCP.v">
+        <FileInfo>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../archive/rev2/edit_myIP2_v1_0.srcs/sim_1/new/testPCP.v"/>
+          <Attr Name="ImportTime" Val="1626738055"/>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="implementation"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PSRCDIR/sim_1/imports/new/Profiler_Tests.v">
         <FileInfo>
+          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/../../archive/rev2/edit_myIP2_v1_0.srcs/sim_1/new/Profiler_Tests.v"/>
           <Attr Name="ImportTime" Val="1626627060"/>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -133,19 +141,9 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sim_1/imports/new/testPCP.v">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../archive/rev2/edit_myIP2_v1_0.srcs/sim_1/new/testPCP.v"/>
-          <Attr Name="ImportTime" Val="1626738055"/>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="Profiler_Tests"/>
+        <Option Name="TopModule" Val="testPCP"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
         <Option Name="TransportPathDelay" Val="0"/>
         <Option Name="TransportIntDelay" Val="0"/>
