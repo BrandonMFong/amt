@@ -47,19 +47,26 @@ module Profiler #(
     localparam k32BitWidth = 32;
     
     integer                         intFrequencyValue;
-    real                            logResult;
-    real                            logResultScaledByTwelve;
+    reg [C_AXIS_TDATA_WIDTH - 1 : 0] logResult;
     integer                         roundedLogResult; // I don't need more than 255
     reg [k32BitWidth - 1 : 0]       logRegResult;
     reg [2**OUTPUT_DATA_WIDTH - 1 : 0] outputBuffer;
+    reg [C_AXIS_TDATA_WIDTH - 1 : 0] log2LUT [(2**C_AXIS_TDATA_WIDTH) - 1 : 0];
+    integer i;
     
     initial begin 
         intFrequencyValue       = 0;
         logResult               = 0.0;
-        logResultScaledByTwelve = 0.0;
         roundedLogResult        = 0;
         logRegResult            = {k32BitWidth{1'b0}};
         outputBuffer            = {2**OUTPUT_DATA_WIDTH{1'b0}};
+        
+        // initialize LUT
+        // Maximum value would be C_AXIS_TDATA_WIDTH
+        for (i = 0; i < 2**C_AXIS_TDATA_WIDTH; i = i + 1) begin 
+            log2LUT[i] = 12 * ($log10(i) / $log10(2));
+        end 
+        
     end 
 
     /**
@@ -67,9 +74,8 @@ module Profiler #(
     */
     always @(*) begin 
         intFrequencyValue       = frequencyValue;
-        logResult               = $log10(intFrequencyValue) / $log10(2);
-        logResultScaledByTwelve = 12 * logResult;
-        roundedLogResult        = logResultScaledByTwelve; // float to int which will round the value
+        logResult               = log2LUT[intFrequencyValue];
+        roundedLogResult        = logResult; // float to int which will round the value
         logRegResult            = roundedLogResult;
         outputBuffer            = logRegResult % 12;
     end 
