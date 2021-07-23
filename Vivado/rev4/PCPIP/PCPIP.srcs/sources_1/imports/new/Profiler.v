@@ -30,7 +30,8 @@
 module Profiler #(
     parameter ADDR_WIDTH            = 12,
     parameter C_AXIS_TDATA_WIDTH    = 64,
-    parameter OUTPUT_DATA_WIDTH     = 4
+    parameter OUTPUT_DATA_WIDTH     = 4, 
+    parameter SAMPLING_RATE         = 44100
 )(
 
     /**
@@ -51,8 +52,8 @@ module Profiler #(
     integer                         roundedLogResult; // I don't need more than 255
     reg [k32BitWidth - 1 : 0]       logRegResult;
     reg [2**OUTPUT_DATA_WIDTH - 1 : 0] outputBuffer;
-    reg [C_AXIS_TDATA_WIDTH - 1 : 0] log2LUT [(2**C_AXIS_TDATA_WIDTH) - 1 : 0];
     integer i;
+    reg [10 : 0] log2x12LUT [0 : (2**$clog2(SAMPLING_RATE)) - 1];
     
     initial begin 
         intFrequencyValue       = 0;
@@ -62,23 +63,22 @@ module Profiler #(
         outputBuffer            = {2**OUTPUT_DATA_WIDTH{1'b0}};
         
         // initialize LUT
-        // Maximum value would be C_AXIS_TDATA_WIDTH
-        for (i = 0; i < 2**C_AXIS_TDATA_WIDTH; i = i + 1) begin 
-            log2LUT[i] = 12 * ($log10(i) / $log10(2));
-        end 
-        
+        // Maximum value would be SAMPLING_RATE
+        for (i = 0; i < SAMPLING_RATE; i = i + 1) begin 
+            log2x12LUT[i] = 12 * ($log10(i) / $log10(2));
+        end
     end 
 
-    /**
-    *   Should calculate the pcp vector 
-    */
-    always @(*) begin 
-        intFrequencyValue       = frequencyValue;
-        logResult               = log2LUT[intFrequencyValue];
-        roundedLogResult        = logResult; // float to int which will round the value
-        logRegResult            = roundedLogResult;
-        outputBuffer            = logRegResult % 12;
-    end 
+//    /**
+//    *   Should calculate the pcp vector 
+//    */
+//    always @(*) begin 
+//        intFrequencyValue       = frequencyValue;
+//        logResult               = log2LUT[intFrequencyValue];
+//        roundedLogResult        = logResult; // float to int which will round the value
+//        logRegResult            = roundedLogResult;
+//        outputBuffer            = logRegResult % 12;
+//    end 
     
     assign outputValue = outputBuffer;
 
