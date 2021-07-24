@@ -67,12 +67,36 @@ module PCP #(
     */
     output wire outputValid
 );
+    localparam IDLE = 0, READ = 1, WRITE = 2;
 
     wire [C_AXIS_TDATA_WIDTH - 1 : 0]   dataStream;
     wire                                lastDataFlag;
     wire                                recordPCPValue; // If Datastream has finished parsing current data
     wire [PCP_ADDR_WIDTH - 1 : 0]       profileNumber;
     wire [C_AXIS_TDATA_WIDTH-1:0]       magnitudeOutput;
+    
+    reg [1 : 0] state;
+    reg [PCP_ADDR_WIDTH - 1 : 0] pcpVector [0 : 11];
+    
+    initial begin 
+        state = IDLE;
+    end 
+    
+    always @(posedge clk) begin 
+        case (state)  
+            READ: begin 
+                
+            end 
+            
+            WRITE: begin 
+            
+            end 
+            
+            IDLE: begin 
+            
+            end
+        endcase 
+    end 
     
     DataStream mod0 (
         .clk            (clk),

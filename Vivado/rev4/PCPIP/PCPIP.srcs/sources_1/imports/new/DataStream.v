@@ -54,7 +54,12 @@ module DataStream #(
     /**
     *   The magnitude value read from data stream
     */
-    output wire [C_AXIS_TDATA_WIDTH - 1 : 0] magnitudeValue
+    output wire [C_AXIS_TDATA_WIDTH - 1 : 0] magnitudeValue,
+    
+    /**
+    *   Returns the frequency value for the corresponding profile number and magnitude value 
+    */
+    output wire [C_AXIS_TDATA_WIDTH - 1 : 0] frequencyValue
 );
     localparam  IDLE        = 2'b00, // Do nothing
                 FREQSTATE   = 2'b01, // First in stream is frequency
@@ -126,5 +131,6 @@ module DataStream #(
     );
     
     assign magnitudeValue = magBuffer;
+    assign frequencyValue = freqBuffer;
     
 endmodule

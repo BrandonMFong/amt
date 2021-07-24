@@ -34,8 +34,8 @@ module DataStream_Tests #(
     parameter C_AXIS_TDATA_WIDTH = 64,
     parameter OUTPUT_DATA_WIDTH = 4
 );
-    localparam freqValue = 17094;
-    localparam magValue = 174711591;
+//    localparam freqValue = 17094;
+//    localparam magValue = 174711591;
     localparam kMaxClockPeriods = 200;
     
     integer i;
@@ -43,9 +43,11 @@ module DataStream_Tests #(
     reg startReading;
     reg [C_AXIS_TDATA_WIDTH-1:0] inputStream;
     reg [C_AXIS_TDATA_WIDTH-1:0] magnitudeInput;
+    reg [C_AXIS_TDATA_WIDTH-1:0] frequencyInput;
     wire [OUTPUT_DATA_WIDTH - 1 : 0] profileNumber;
     wire ready;
     wire [C_AXIS_TDATA_WIDTH-1:0] magnitudeOutput;
+    wire [C_AXIS_TDATA_WIDTH-1:0] frequencyOutput;
     
     reg inData;
     
@@ -55,7 +57,8 @@ module DataStream_Tests #(
         .startReading   (startReading),
         .ready          (ready),
         .profileNumber  (profileNumber),
-        .magnitudeValue (magnitudeOutput)
+        .magnitudeValue (magnitudeOutput),
+        .frequencyValue (frequencyOutput)
     );
     
     initial begin
@@ -63,6 +66,7 @@ module DataStream_Tests #(
         inData          = 0;
         startReading    = 0;
         magnitudeInput  = 0;
+        frequencyInput  = 0;
         
         #5 
         clk = ~clk;
@@ -85,14 +89,16 @@ module DataStream_Tests #(
     
     always @(ready) begin 
         if (ready) begin 
-            `assert(magnitudeOutput, magnitudeInput - 1);
+            `assert(magnitudeOutput, magnitudeInput - 1); // One behind 
+            `assert(frequencyOutput, frequencyInput - 2); // Two behind
         end 
     end 
     
     always @(posedge clk) begin 
         if (startReading) begin 
             if (!inData) begin 
-                inputStream <= freqValue;
+                inputStream <= frequencyInput;
+                frequencyInput <= frequencyInput + 1;
             end else begin 
                 inputStream <= magnitudeInput;
                 magnitudeInput <= magnitudeInput + 1;
