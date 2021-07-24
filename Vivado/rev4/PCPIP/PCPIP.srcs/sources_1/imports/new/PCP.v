@@ -74,6 +74,7 @@ module PCP #(
     wire                                recordPCPValue; // If Datastream has finished parsing current data
     wire [PCP_ADDR_WIDTH - 1 : 0]       profileNumber;
     wire [C_AXIS_TDATA_WIDTH-1:0]       magnitudeOutput;
+    wire [C_AXIS_TDATA_WIDTH-1:0]       frequencyOutput;
     
     reg [1 : 0] state;
     reg [PCP_ADDR_WIDTH - 1 : 0] pcpVector [0 : 11];
