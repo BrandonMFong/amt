@@ -45,7 +45,7 @@ module testPCP #(
     );
     
     initial begin
-        clk = 0;
+        clk = 1;
         inputValid = 1'b0;
         inData = FREQ; // First is frequency
         inputStream = {C_AXIS_TDATA_WIDTH{1'b0}};

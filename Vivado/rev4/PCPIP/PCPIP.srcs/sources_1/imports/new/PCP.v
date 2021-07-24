@@ -68,6 +68,8 @@ module PCP #(
     output wire outputValid
 );
     localparam IDLE = 0, READ = 1, WRITE = 2;
+    
+    integer i;
 
     wire [C_AXIS_TDATA_WIDTH - 1 : 0]   dataStream;
     wire                                lastDataFlag;
@@ -77,16 +79,22 @@ module PCP #(
     wire [C_AXIS_TDATA_WIDTH-1:0]       frequencyOutput;
     
     reg [1 : 0] state;
-    reg [PCP_ADDR_WIDTH - 1 : 0] pcpVector [0 : 11];
+    reg [C_AXIS_TDATA_WIDTH - 1 : 0] pcpVector [0 : 11];
     
     initial begin 
         state = IDLE;
+        
+        for (i = 0; i < 2**PCP_ADDR_WIDTH; i = i + 1) begin 
+            pcpVector[i] = {PCP_ADDR_WIDTH{1'b0}};
+        end 
     end 
     
     always @(posedge clk) begin 
         case (state)  
             READ: begin 
-                
+                if (recordPCPValue) begin 
+                    pcpVector[profileNumber] <= magnitudeOutput; // TODO: get mean 
+                end 
             end 
             
             WRITE: begin 
@@ -94,7 +102,9 @@ module PCP #(
             end 
             
             IDLE: begin 
-            
+                if (inputValid) begin 
+                    state <= READ;
+                end 
             end
         endcase 
     end 
@@ -105,7 +115,8 @@ module PCP #(
         .startReading   (inputValid),
         .ready          (recordPCPValue),
         .profileNumber  (profileNumber),
-        .magnitudeValue (magnitudeOutput)
+        .magnitudeValue (magnitudeOutput),
+        .frequencyValue (frequencyOutput)
     );
 
     assign {lastDataFlag, dataStream} = inputValue;
