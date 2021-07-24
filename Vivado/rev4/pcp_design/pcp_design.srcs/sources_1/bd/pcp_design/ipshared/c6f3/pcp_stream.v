@@ -110,6 +110,7 @@ reg write;
 reg read;
 reg store_output;
 
+reg inputValid;
 wire [C_AXIS_TDATA_WIDTH+2-1:0] pcpOutput;
 
 assign s00_axis_tready = ~full & ~s00_rst_sync3_reg;
@@ -263,16 +264,21 @@ always @(posedge m00_axis_aclk) begin
 
     if (store_output) begin
         m00_data_reg <= mem_read_data_reg;
-    end
+        inputValid <= 1'b1;
+    end else begin
+        inputValid <= 1'b0;
+    end 
 end
 
 PCP #(
     .ADDR_WIDTH(ADDR_WIDTH),
     .C_AXIS_TDATA_WIDTH(C_AXIS_TDATA_WIDTH)
 ) mod0 (
+    .clk(m00_axis_aclk),
     .inputValue(m00_data_reg),
     .outputValue(pcpOutput),
-    .axiReady(m00_axis_tready)
+    .axiReady(m00_axis_tready),
+    .inputValid(inputValid)
 );
 
 endmodule
