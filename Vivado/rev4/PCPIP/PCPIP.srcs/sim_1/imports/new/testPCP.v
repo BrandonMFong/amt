@@ -31,7 +31,7 @@ module testPCP #(
     reg clk;
     reg inputValid;
     reg inData;
-    reg [C_AXIS_TDATA_WIDTH-1:0] inputStream;
+    reg [C_AXIS_TDATA_WIDTH+2-1:0] inputStream;
     reg [C_AXIS_TDATA_WIDTH-1:0] magnitudeInput;
     reg [C_AXIS_TDATA_WIDTH-1:0] frequencyInput;
 
@@ -67,11 +67,11 @@ module testPCP #(
     always @(posedge clk) begin 
         if (inputValid) begin 
             if (inData == FREQ) begin 
-                inputStream <= frequencyInput;
+                inputStream <= {1'b0, frequencyInput};
                 frequencyInput <= frequencyInput + 1;
                 inData <= MAG;
             end else begin 
-                inputStream <= magnitudeInput;
+                inputStream <= {1'b0, magnitudeInput};
                 magnitudeInput <= magnitudeInput + 1;
                 inData <= FREQ;
             end 
