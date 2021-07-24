@@ -34,7 +34,7 @@
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSABoardId" Val="pynq-z2"/>
     <Option Name="DSANumComputeUnits" Val="60"/>
-    <Option Name="WTXSimLaunchSim" Val="2"/>
+    <Option Name="WTXSimLaunchSim" Val="23"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -112,20 +112,20 @@
     </FileSet>
     <FileSet Name="sim_1" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sim_1">
       <Filter Type="Srcs"/>
-      <File Path="$PSRCDIR/sim_1/imports/new/testPCP.v">
+      <File Path="$PSRCDIR/sim_1/imports/new/Profiler_Tests.v">
         <FileInfo>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../archive/rev2/edit_myIP2_v1_0.srcs/sim_1/new/testPCP.v"/>
-          <Attr Name="ImportTime" Val="1626738055"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../archive/rev2/edit_myIP2_v1_0.srcs/sim_1/new/Profiler_Tests.v"/>
+          <Attr Name="ImportTime" Val="1626627060"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PSRCDIR/sim_1/imports/new/Profiler_Tests.v">
+      <File Path="$PSRCDIR/sim_1/imports/new/testPCP.v">
         <FileInfo>
           <Attr Name="AutoDisabled" Val="1"/>
-          <Attr Name="ImportPath" Val="$PPRDIR/../../archive/rev2/edit_myIP2_v1_0.srcs/sim_1/new/Profiler_Tests.v"/>
-          <Attr Name="ImportTime" Val="1626627060"/>
+          <Attr Name="ImportPath" Val="$PPRDIR/../../archive/rev2/edit_myIP2_v1_0.srcs/sim_1/new/testPCP.v"/>
+          <Attr Name="ImportTime" Val="1626738055"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -143,7 +143,7 @@
       </File>
       <Config>
         <Option Name="DesignMode" Val="RTL"/>
-        <Option Name="TopModule" Val="testPCP"/>
+        <Option Name="TopModule" Val="Profiler_Tests"/>
         <Option Name="TopLib" Val="xil_defaultlib"/>
         <Option Name="TransportPathDelay" Val="0"/>
         <Option Name="TransportIntDelay" Val="0"/>

@@ -30,11 +30,12 @@
 module Profiler #(
     parameter ADDR_WIDTH            = 12,
     parameter C_AXIS_TDATA_WIDTH    = 64,
-    parameter OUTPUT_DATA_WIDTH     = 4
+    parameter OUTPUT_DATA_WIDTH     = 4, 
+    parameter SAMPLING_RATE         = 44100
 )(
 
     /**
-    *   Holds frequency value
+    *   Holds frequency value from 0 to SAMPLING_RATE 
     */
     input wire [C_AXIS_TDATA_WIDTH - 1 : 0] frequencyValue,
     
@@ -42,38 +43,30 @@ module Profiler #(
     * Output value has to be between 0 to 11.  We need 
     * 4 bits to represent that number
     */
-    output wire [2**OUTPUT_DATA_WIDTH - 1 : 0] outputValue
+    output wire [OUTPUT_DATA_WIDTH - 1 : 0] outputValue
 );
-    localparam k32BitWidth = 32;
-    
-    integer                         intFrequencyValue;
-    real                            logResult;
-    real                            logResultScaledByTwelve;
-    integer                         roundedLogResult; // I don't need more than 255
-    reg [k32BitWidth - 1 : 0]       logRegResult;
-    reg [2**OUTPUT_DATA_WIDTH - 1 : 0] outputBuffer;
+    integer i;
+    real logResultReal;
+    integer logResultInt;
+    reg [OUTPUT_DATA_WIDTH - 1 : 0] outputBuffer;
+    reg [OUTPUT_DATA_WIDTH - 1 : 0] pcpNumLUT [0 : SAMPLING_RATE - 1];
     
     initial begin 
-        intFrequencyValue       = 0;
-        logResult               = 0.0;
-        logResultScaledByTwelve = 0.0;
-        roundedLogResult        = 0;
-        logRegResult            = {k32BitWidth{1'b0}};
-        outputBuffer            = {2**OUTPUT_DATA_WIDTH{1'b0}};
-    end 
-
-    /**
-    *   Should calculate the pcp vector 
-    */
-    always @(*) begin 
-        intFrequencyValue       = frequencyValue;
-        logResult               = $log10(intFrequencyValue) / $log10(2);
-        logResultScaledByTwelve = 12 * logResult;
-        roundedLogResult        = logResultScaledByTwelve; // float to int which will round the value
-        logRegResult            = roundedLogResult;
-        outputBuffer            = logRegResult % 12;
+        outputBuffer = {2**OUTPUT_DATA_WIDTH{1'b0}};
+        
+        pcpNumLUT[0] = {OUTPUT_DATA_WIDTH{1'b0}};
+        
+        // initialize LUT
+        // Maximum value would be SAMPLING_RATE
+        for (i = 1; i < SAMPLING_RATE; i = i + 1) begin 
+            logResultReal = $log10(i) / $log10(2);
+            logResultReal = 12 * logResultReal;
+            logResultInt = logResultReal;
+            logResultInt = logResultInt % 12;
+            pcpNumLUT[i] = logResultInt;
+        end
     end 
     
-    assign outputValue = outputBuffer;
+    assign outputValue = pcpNumLUT[frequencyValue];
 
 endmodule
