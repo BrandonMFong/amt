@@ -271,14 +271,13 @@ always @(posedge m00_axis_aclk) begin
 end
 
 PCP #(
-    .ADDR_WIDTH(ADDR_WIDTH),
-    .C_AXIS_TDATA_WIDTH(C_AXIS_TDATA_WIDTH)
+    .ADDR_WIDTH         (ADDR_WIDTH),
+    .C_AXIS_TDATA_WIDTH (C_AXIS_TDATA_WIDTH)
 ) mod0 (
-    .clk(m00_axis_aclk),
-    .inputValue(m00_data_reg),
-    .outputValue(pcpOutput),
-    .axiReady(m00_axis_tready),
-    .inputValid(inputValid)
+    .clk            (m00_axis_aclk),
+    .inputValid     (inputValid),
+    .inputValue     (m00_data_reg),
+    .outputValue    (pcpOutput)
 );
 
 endmodule

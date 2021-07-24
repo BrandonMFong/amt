@@ -45,10 +45,10 @@ module PCP #(
     */
     input wire inputValid,
     
-    /**
-    *   If master axi interface is ready to start transferring data
-    */
-    input wire axiReady,
+//    /**
+//    *   If master axi interface is ready to start transferring data
+//    */
+//    input wire axiReady,
     
     /**
     *   Initiates a reset. This shoud be driven by the axi slave's reset
