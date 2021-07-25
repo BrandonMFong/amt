@@ -85,14 +85,14 @@ module PCP #(
     reg                                 outputValidBuffer;
     reg [1 : 0]                         state;
     reg [kPCPVectorAddrLength - 1 : 0]  vecAddr;
-    reg [C_AXIS_TDATA_WIDTH - 1 : 0]    pcpIntensityValues; // Will hold each value inside the pcp vector
+    reg [C_AXIS_TDATA_WIDTH - 1 : 0]    pcpIntensityValue; // Will hold each value inside the pcp vector
     reg                                 pcpLastDataFlag;    // Will hold the value that indicates we are done transmitting the pcp values
     reg [C_AXIS_TDATA_WIDTH - 1 : 0]    pcpVector [0 : kPCPVectorLength - 1];
     
     initial begin 
         state               = IDLE;
         vecAddr             = {kPCPVectorAddrLength{1'b0}};
-        pcpIntensityValues  = {C_AXIS_TDATA_WIDTH{1'b0}};
+        pcpIntensityValue   = {C_AXIS_TDATA_WIDTH{1'b0}};
         pcpLastDataFlag     = 1'b0;
         outputValidBuffer   = 1'b0;
         
@@ -118,18 +118,25 @@ module PCP #(
                 end 
             end 
             
-            WRITE: begin 
-                outputValidBuffer   <= 1'b1;
-                pcpIntensityValues  <= pcpVector[vecAddr]; // Write to output 
-                
+            WRITE: begin
                 // Check if we still have things to send 
                 if (vecAddr < kPCPVectorLength) begin
-                    pcpLastDataFlag <= 1'b0; // We still have more to send 
-                    vecAddr         <= vecAddr + 1;
+                    pcpIntensityValue   <= pcpVector[vecAddr]; // Write to output 
+                    outputValidBuffer   <= 1'b1;
+                    vecAddr             <= vecAddr + 1;
+                    
+                    // See if this was the last of the vector data 
+                    if (vecAddr + 1 == kPCPVectorLength) begin 
+                        pcpLastDataFlag <= 1'b1; // We are done
+                    end else begin 
+                        pcpLastDataFlag <= 1'b0; // We still have more 
+                    end 
                 end else begin
-                    pcpLastDataFlag <= 1'b1; // We are done
-                    vecAddr         <= {kPCPVectorAddrLength{1'b0}};
-                    state           <= IDLE;
+                    pcpLastDataFlag     <= 1'b0; // reset this flag
+                    pcpIntensityValue   <= {C_AXIS_TDATA_WIDTH{1'b0}}; 
+                    vecAddr             <= {kPCPVectorAddrLength{1'b0}};
+                    outputValidBuffer   <= 1'b0;
+                    state               <= IDLE;
                 end 
             end 
             
@@ -154,9 +161,8 @@ module PCP #(
         .frequencyValue (frequencyOutput),
         .lastDataFlag   (lastDataFlag)
     );
-
-//    assign {lastDataFlag, dataStream}   = inputValue;
-    assign outputValue                  = {pcpLastDataFlag, pcpIntensityValues};
-    assign outputValid                  = outputValidBuffer;
+    
+    assign outputValue  = {pcpLastDataFlag, pcpIntensityValue};
+    assign outputValid  = outputValidBuffer;
     
 endmodule

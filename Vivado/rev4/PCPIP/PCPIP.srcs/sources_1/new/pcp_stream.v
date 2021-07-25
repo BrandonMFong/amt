@@ -115,7 +115,7 @@ wire [C_AXIS_TDATA_WIDTH+2-1:0] pcpOutput;
 
 assign s00_axis_tready = ~full & ~s00_rst_sync3_reg;
 
-assign m00_axis_tvalid = m00_axis_tvalid_reg;
+assign m00_axis_tvalid = m00_axis_tvalid_reg; // TODO: assign to outputValid of PCP module
 
 assign mem_write_data = {s00_axis_tlast, s00_axis_tdata};
 //assign {m00_axis_tlast, m00_axis_tdata} = m00_data_reg;
@@ -277,7 +277,8 @@ PCP #(
     .clk            (m00_axis_aclk),
     .inputValid     (inputValid),
     .inputValue     (m00_data_reg),
-    .outputValue    (pcpOutput)
+    .outputValue    (pcpOutput),
+    .outputValid    ()
 );
 
 endmodule
