@@ -67,7 +67,11 @@ module PCP #(
     */
     output wire outputValid
 );
-    localparam IDLE = 0, READ = 1, WRITE = 2;
+    localparam  IDLE                    = 0, 
+                READ                    = 1, 
+                WRITE                   = 2;
+    localparam  kPCPVectorLength        = 12;
+    localparam  kPCPVectorAddrLength    = $clog2(kPCPVectorLength);
     
     integer i;
 
@@ -78,11 +82,19 @@ module PCP #(
     wire [C_AXIS_TDATA_WIDTH-1:0]       magnitudeOutput;
     wire [C_AXIS_TDATA_WIDTH-1:0]       frequencyOutput;
     
-    reg [1 : 0] state;
-    reg [C_AXIS_TDATA_WIDTH - 1 : 0] pcpVector [0 : 11];
+    reg                                 outputValidBuffer;
+    reg [1 : 0]                         state;
+    reg [kPCPVectorAddrLength - 1 : 0]  vecAddr;
+    reg [C_AXIS_TDATA_WIDTH - 1 : 0]    pcpIntensityValues; // Will hold each value inside the pcp vector
+    reg                                 pcpLastDataFlag;    // Will hold the value that indicates we are done transmitting the pcp values
+    reg [C_AXIS_TDATA_WIDTH - 1 : 0]    pcpVector [0 : kPCPVectorLength - 1];
     
     initial begin 
-        state = IDLE;
+        state               = IDLE;
+        vecAddr             = {kPCPVectorAddrLength{1'b0}};
+        pcpIntensityValues  = {C_AXIS_TDATA_WIDTH{1'b0}};
+        pcpLastDataFlag     = 1'b0;
+        outputValidBuffer   = 1'b0;
         
         for (i = 0; i < 2**PCP_ADDR_WIDTH; i = i + 1) begin 
             pcpVector[i] = {PCP_ADDR_WIDTH{1'b0}};
@@ -92,16 +104,38 @@ module PCP #(
     always @(posedge clk) begin 
         case (state)  
             READ: begin 
+                outputValidBuffer   <= 1'b0;
+                pcpLastDataFlag     <= 1'b0; // Making sure we don't mislead the axi stream
+                
                 if (recordPCPValue) begin 
-                    pcpVector[profileNumber] <= magnitudeOutput; // TODO: get mean 
+                    pcpVector[profileNumber] <= pcpVector[profileNumber] + magnitudeOutput; // TODO: get mean 
+                end 
+                
+                // Catch when the last piece of data is streamed
+                if (lastDataFlag) begin 
+                    state   <= WRITE; // change states
+                    vecAddr <= {kPCPVectorAddrLength{1'b0}}; // Set the addr to zero
                 end 
             end 
             
             WRITE: begin 
-            
+                outputValidBuffer   <= 1'b1;
+                pcpIntensityValues  <= pcpVector[vecAddr]; // Write to output 
+                
+                // Check if we still have things to send 
+                if (vecAddr < kPCPVectorLength) begin
+                    pcpLastDataFlag <= 1'b0; // We still have more to send 
+                    vecAddr         <= vecAddr + 1;
+                end else begin
+                    pcpLastDataFlag <= 1'b1; // We are done
+                    vecAddr         <= {kPCPVectorAddrLength{1'b0}};
+                end 
             end 
             
             IDLE: begin 
+                outputValidBuffer   <= 1'b0;
+                pcpLastDataFlag     <= 1'b0; // Making sure we don't mislead the axi stream
+                
                 if (inputValid) begin 
                     state <= READ;
                 end 
@@ -119,7 +153,8 @@ module PCP #(
         .frequencyValue (frequencyOutput)
     );
 
-    assign {lastDataFlag, dataStream} = inputValue;
-    assign outputValue = inputValue;
+    assign {lastDataFlag, dataStream}   = inputValue;
+    assign outputValue                  = {pcpLastDataFlag, pcpIntensityValues};
+    assign outputValid                  = outputValidBuffer;
     
 endmodule

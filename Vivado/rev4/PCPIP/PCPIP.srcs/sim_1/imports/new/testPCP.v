@@ -34,14 +34,17 @@ module testPCP #(
     reg [C_AXIS_TDATA_WIDTH+2-1:0] inputStream;
     reg [C_AXIS_TDATA_WIDTH-1:0] magnitudeInput;
     reg [C_AXIS_TDATA_WIDTH-1:0] frequencyInput;
+    reg reset;
+    wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue;
+    wire outputValid;
 
     PCP uut (
-        .clk(clk),
-        .inputValue(inputStream),
-        .inputValid(inputValid),
-        .reset(),
-        .outputValue(),
-        .outputValid()
+        .clk            (clk),
+        .inputValue     (inputStream),
+        .inputValid     (inputValid),
+        .reset          (reset),
+        .outputValue    (outputValue),
+        .outputValid    (outputValid)
     );
     
     initial begin
@@ -51,6 +54,7 @@ module testPCP #(
         inputStream = {C_AXIS_TDATA_WIDTH{1'b0}};
         magnitudeInput = {C_AXIS_TDATA_WIDTH{1'b0}};
         frequencyInput = {C_AXIS_TDATA_WIDTH{1'b0}};
+        reset = 1'b1;
         
         for (i = 0; i < 20; i = i + 1) begin 
             #5
@@ -58,6 +62,7 @@ module testPCP #(
         end 
         
         inputValid = 1'b1;
+        reset = 1'b0;
         for (i = 0; i < kMaxLoop; i = i + 1) begin 
             #5
             clk = ~clk;
