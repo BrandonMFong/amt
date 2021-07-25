@@ -62,9 +62,11 @@ module DataStream #(
     output wire [C_AXIS_TDATA_WIDTH - 1 : 0] frequencyValue,
     
     /**
-    *   Signals that the inputstream is the last piece of data being passed 
+    *   Signals that the inputstream is the last piece of data being passed.
+    *   We assume and require that this last data bit value should be concatenated
+    *   with the magnitude value. To be safe, we check this flag in the frequency staged 
     */
-    output wire lastDataFlag
+    output reg lastDataFlag
 );
     localparam  IDLE        = 2'b00, // Do nothing
                 FREQSTATE   = 2'b01, // First in stream is frequency
@@ -73,8 +75,10 @@ module DataStream #(
     localparam  TRUE = 1'b1, 
                 FALSE = 1'b0;
                 
-    wire [C_AXIS_TDATA_WIDTH - 1 : 0] dataStream;
-
+    wire                                lastDataBit; // Holds last data bit value from inputstream
+    wire [C_AXIS_TDATA_WIDTH - 1 : 0]   dataStream;
+    
+    reg                             lastDataFlagBuffer; // Buffers last data bit value
     reg [1 : 0]                     state;
     reg [C_AXIS_TDATA_WIDTH-1:0]    freqBuffer, 
                                     magBuffer;
@@ -97,9 +101,10 @@ module DataStream #(
                 if (!startReading) begin 
                     state <= IDLE;
                 end else begin 
-                    freqBuffer  <= dataStream;
-                    state       <= MAGSTATE;
-                    ready       <= FALSE;
+                    lastDataFlag    <= lastDataBit;
+                    freqBuffer      <= dataStream;
+                    state           <= MAGSTATE;
+                    ready           <= FALSE;
                 end
             end 
             
@@ -107,9 +112,10 @@ module DataStream #(
                 if (!startReading) begin 
                     state <= IDLE;
                 end else begin 
-                    magBuffer   <= dataStream;
-                    state       <= FREQSTATE;
-                    ready       <= TRUE;
+                    lastDataFlag    <= lastDataBit;
+                    magBuffer       <= dataStream;
+                    state           <= FREQSTATE;
+                    ready           <= TRUE;
                 end
             end 
             
@@ -133,7 +139,7 @@ module DataStream #(
         .outputValue    (profileNumber)
     );
     
-    assign {lastDataFlag, dataStream} = inputStream;
+    assign {lastDataBit, dataStream} = inputStream;
     assign magnitudeValue = magBuffer;
     assign frequencyValue = freqBuffer;
     

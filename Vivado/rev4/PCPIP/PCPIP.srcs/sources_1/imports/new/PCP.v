@@ -76,7 +76,7 @@ module PCP #(
     integer i;
 
 //    wire [C_AXIS_TDATA_WIDTH - 1 : 0]   dataStream;
-//    wire                                lastDataFlag;
+    wire                                lastDataFlag;
     wire                                recordPCPValue; // If Datastream has finished parsing current data
     wire [PCP_ADDR_WIDTH - 1 : 0]       profileNumber;
     wire [C_AXIS_TDATA_WIDTH-1:0]       magnitudeOutput;
@@ -150,7 +150,8 @@ module PCP #(
         .ready          (recordPCPValue),
         .profileNumber  (profileNumber),
         .magnitudeValue (magnitudeOutput),
-        .frequencyValue (frequencyOutput)
+        .frequencyValue (frequencyOutput),
+        .lastDataFlag   (lastDataFlag)
     );
 
 //    assign {lastDataFlag, dataStream}   = inputValue;
