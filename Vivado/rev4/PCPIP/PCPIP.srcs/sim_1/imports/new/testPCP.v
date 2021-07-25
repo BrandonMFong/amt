@@ -28,15 +28,17 @@ module testPCP #(
     localparam FREQ = 1, MAG = 0;
     
     integer i;
-    reg clk;
-    reg inputValid;
-    reg inData;
-    reg [C_AXIS_TDATA_WIDTH+2-1:0] inputStream;
-    reg [C_AXIS_TDATA_WIDTH-1:0] magnitudeInput;
-    reg [C_AXIS_TDATA_WIDTH-1:0] frequencyInput;
-    reg reset;
+    
+    reg                             clk;
+    reg                             inputValid;
+    reg                             reset;
+    reg                             inData;
+    reg [C_AXIS_TDATA_WIDTH+2-1:0]  inputStream;
+    reg [C_AXIS_TDATA_WIDTH-1:0]    magnitudeInput;
+    reg [C_AXIS_TDATA_WIDTH-1:0]    frequencyInput;
+    
     wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue;
-    wire outputValid;
+    wire                            outputValid;
 
     PCP uut (
         .clk            (clk),
@@ -48,21 +50,21 @@ module testPCP #(
     );
     
     initial begin
-        clk = 1;
-        inputValid = 1'b0;
-        inData = FREQ; // First is frequency
-        inputStream = {C_AXIS_TDATA_WIDTH{1'b0}};
-        magnitudeInput = {C_AXIS_TDATA_WIDTH{1'b0}};
-        frequencyInput = {C_AXIS_TDATA_WIDTH{1'b0}};
-        reset = 1'b1;
+        clk             = 1;
+        inputValid      = 1'b0;
+        inData          = FREQ; // First is frequency
+        inputStream     = {C_AXIS_TDATA_WIDTH{1'b0}};
+        magnitudeInput  = {C_AXIS_TDATA_WIDTH{1'b0}};
+        frequencyInput  = {C_AXIS_TDATA_WIDTH{1'b0}};
+        reset           = 1'b1;
         
         for (i = 0; i < 20; i = i + 1) begin 
             #5
             clk = ~clk;
         end 
         
-        inputValid = 1'b1;
-        reset = 1'b0;
+        inputValid  = 1'b1;
+        reset       = 1'b0;
         for (i = 0; i < kMaxLoop; i = i + 1) begin 
             #5
             clk = ~clk;
@@ -72,13 +74,13 @@ module testPCP #(
     always @(posedge clk) begin 
         if (inputValid) begin 
             if (inData == FREQ) begin 
-                inputStream <= {1'b0, frequencyInput};
-                frequencyInput <= frequencyInput + 1;
-                inData <= MAG;
+                inputStream     <= {1'b0, frequencyInput};
+                frequencyInput  <= frequencyInput + 1;
+                inData          <= MAG;
             end else begin 
-                inputStream <= {1'b0, magnitudeInput};
-                magnitudeInput <= magnitudeInput + 1;
-                inData <= FREQ;
+                inputStream     <= {1'b0, magnitudeInput};
+                magnitudeInput  <= magnitudeInput + 1;
+                inData          <= FREQ;
             end 
         end
     end 
