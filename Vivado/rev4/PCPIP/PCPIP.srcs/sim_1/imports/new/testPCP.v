@@ -33,6 +33,7 @@ module testPCP #(
     reg                             inputValid;
     reg                             reset;
     reg                             inData;
+    reg                             lastData;
     reg [C_AXIS_TDATA_WIDTH+2-1:0]  inputStream;
     reg [C_AXIS_TDATA_WIDTH-1:0]    magnitudeInput;
     reg [C_AXIS_TDATA_WIDTH-1:0]    frequencyInput;
@@ -57,6 +58,7 @@ module testPCP #(
         magnitudeInput  = {C_AXIS_TDATA_WIDTH{1'b0}};
         frequencyInput  = {C_AXIS_TDATA_WIDTH{1'b0}};
         reset           = 1'b1;
+        lastData        = 1'b0;
         
         for (i = 0; i < 20; i = i + 1) begin 
             #5
@@ -65,6 +67,12 @@ module testPCP #(
         
         inputValid  = 1'b1;
         reset       = 1'b0;
+        for (i = 0; i < kMaxLoop; i = i + 1) begin 
+            #5
+            clk = ~clk;
+        end 
+        
+        lastData = 1'b1;
         for (i = 0; i < kMaxLoop; i = i + 1) begin 
             #5
             clk = ~clk;
@@ -78,7 +86,7 @@ module testPCP #(
                 frequencyInput  <= frequencyInput + 1;
                 inData          <= MAG;
             end else begin 
-                inputStream     <= {1'b0, magnitudeInput};
+                inputStream     <= {lastData, magnitudeInput};
                 magnitudeInput  <= magnitudeInput + 1;
                 inData          <= FREQ;
             end 

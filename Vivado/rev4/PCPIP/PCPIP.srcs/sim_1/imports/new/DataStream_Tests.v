@@ -41,7 +41,7 @@ module DataStream_Tests #(
     integer i;
     reg clk;
     reg startReading;
-    reg [C_AXIS_TDATA_WIDTH-1:0] inputStream;
+    reg [C_AXIS_TDATA_WIDTH+2-1:0] inputStream;
     reg [C_AXIS_TDATA_WIDTH-1:0] magnitudeInput;
     reg [C_AXIS_TDATA_WIDTH-1:0] frequencyInput;
     wire [OUTPUT_DATA_WIDTH - 1 : 0] profileNumber;
@@ -97,10 +97,10 @@ module DataStream_Tests #(
     always @(posedge clk) begin 
         if (startReading) begin 
             if (!inData) begin 
-                inputStream <= frequencyInput;
+                inputStream <= {1'b0, frequencyInput};
                 frequencyInput <= frequencyInput + 1;
             end else begin 
-                inputStream <= magnitudeInput;
+                inputStream <= {1'b0, magnitudeInput};
                 magnitudeInput <= magnitudeInput + 1;
             end 
             inData <= ~inData;
