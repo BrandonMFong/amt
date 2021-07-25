@@ -129,6 +129,7 @@ module PCP #(
                 end else begin
                     pcpLastDataFlag <= 1'b1; // We are done
                     vecAddr         <= {kPCPVectorAddrLength{1'b0}};
+                    state           <= IDLE;
                 end 
             end 
             

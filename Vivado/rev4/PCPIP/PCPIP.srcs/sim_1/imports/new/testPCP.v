@@ -80,7 +80,7 @@ module testPCP #(
     end 
     
     always @(posedge clk) begin 
-        if (inputValid) begin 
+        if (inputValid) begin // TODO: drive the inputValid flag 
             if (inData == FREQ) begin 
                 inputStream     <= {1'b0, frequencyInput};
                 frequencyInput  <= frequencyInput + 1;
@@ -89,6 +89,10 @@ module testPCP #(
                 inputStream     <= {lastData, magnitudeInput};
                 magnitudeInput  <= magnitudeInput + 1;
                 inData          <= FREQ;
+                
+                if (lastData) begin
+                    inputValid <= 1'b0;
+                end 
             end 
         end
     end 

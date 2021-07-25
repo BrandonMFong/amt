@@ -97,26 +97,31 @@ module DataStream #(
     */
     always @(posedge clk) begin 
         case (state)
-            FREQSTATE : begin 
+            FREQSTATE : begin
+                lastDataFlag    <= lastDataBit;
+                freqBuffer      <= dataStream;
+                ready           <= FALSE;
+                
                 if (!startReading) begin 
                     state <= IDLE;
                 end else begin 
-                    lastDataFlag    <= lastDataBit;
-                    freqBuffer      <= dataStream;
-                    state           <= MAGSTATE;
-                    ready           <= FALSE;
-                end
+                    state <= MAGSTATE;
+                end 
             end 
             
             MAGSTATE : begin 
-                if (!startReading) begin 
+                lastDataFlag    <= lastDataBit;
+                magBuffer       <= dataStream;
+                ready           <= TRUE;
+                
+                // If the data we currently have is the last one of the stream
+                // we need to assert the idle state to make sure we don't waste
+                // time doing something while the PCP module is writing to output 
+                if (lastDataBit | !startReading) begin
                     state <= IDLE;
                 end else begin 
-                    lastDataFlag    <= lastDataBit;
-                    magBuffer       <= dataStream;
-                    state           <= FREQSTATE;
-                    ready           <= TRUE;
-                end
+                    state <= FREQSTATE;
+                end 
             end 
             
             IDLE : begin 
