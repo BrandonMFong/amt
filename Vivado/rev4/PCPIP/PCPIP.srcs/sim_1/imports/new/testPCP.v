@@ -19,6 +19,16 @@
 // 
 //////////////////////////////////////////////////////////////////////////////////
 
+`ifndef assertFalse
+    `define assertFalse(signal, value) \
+        if (signal == value) begin \
+            $display("ASSERTION FAILED in %m: %0d == %0d", signal, value); \
+            $finish; \
+        end else begin \
+            $display("PASSED: %0d != %0d", signal, value); \
+        end
+`endif
+
 module testPCP #(
     parameter ADDR_WIDTH            = 12,
     parameter C_AXIS_TDATA_WIDTH    = 64,
@@ -95,6 +105,12 @@ module testPCP #(
                 end 
             end 
         end
+    end 
+    
+    always @(posedge clk) begin
+        if (lastData & outputValid) begin 
+            `assertFalse(outputValue, 0);
+        end 
     end 
 
 endmodule
