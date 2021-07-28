@@ -68,20 +68,20 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
+        <CompFileExtendedInfo CompFileName="pcp_design.bd" FileRelPathName="ip/pcp_design_rst_ps7_0_100M_0/pcp_design_rst_ps7_0_100M_0.xci">
+          <Proxy FileSetName="pcp_design_rst_ps7_0_100M_0"/>
+        </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="pcp_design.bd" FileRelPathName="ip/pcp_design_axis_fifo_v1_0_0_0/pcp_design_axis_fifo_v1_0_0_0.xci">
           <Proxy FileSetName="pcp_design_axis_fifo_v1_0_0_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="pcp_design.bd" FileRelPathName="ip/pcp_design_processing_system7_0_0/pcp_design_processing_system7_0_0.xci">
           <Proxy FileSetName="pcp_design_processing_system7_0_0"/>
         </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="pcp_design.bd" FileRelPathName="ip/pcp_design_rst_ps7_0_100M_0/pcp_design_rst_ps7_0_100M_0.xci">
-          <Proxy FileSetName="pcp_design_rst_ps7_0_100M_0"/>
+        <CompFileExtendedInfo CompFileName="pcp_design.bd" FileRelPathName="ip/pcp_design_axi_dma_0_0/pcp_design_axi_dma_0_0.xci">
+          <Proxy FileSetName="pcp_design_axi_dma_0_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="pcp_design.bd" FileRelPathName="ip/pcp_design_axi_smc_0/pcp_design_axi_smc_0.xci">
           <Proxy FileSetName="pcp_design_axi_smc_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="pcp_design.bd" FileRelPathName="ip/pcp_design_axi_dma_0_0/pcp_design_axi_dma_0_0.xci">
-          <Proxy FileSetName="pcp_design_axi_dma_0_0"/>
         </CompFileExtendedInfo>
       </File>
       <File Path="$PSRCDIR/sources_1/bd/pcp_design/hdl/pcp_design_wrapper.v">

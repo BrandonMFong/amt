@@ -212,7 +212,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>2b89cf5a</spirit:value>
+            <spirit:value>f78a142a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -228,7 +228,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>2b89cf5a</spirit:value>
+            <spirit:value>f78a142a</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -250,13 +250,14 @@
         <spirit:name>xilinx_testbench</spirit:name>
         <spirit:displayName>Test Bench</spirit:displayName>
         <spirit:envIdentifier>:vivado.xilinx.com:simulation.testbench</spirit:envIdentifier>
+        <spirit:modelName>Profiler_Tests</spirit:modelName>
         <spirit:fileSetRef>
           <spirit:localName>xilinx_testbench_view_fileset</spirit:localName>
         </spirit:fileSetRef>
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>7abc329c</spirit:value>
+            <spirit:value>aee38934</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -511,7 +512,7 @@
       <spirit:file>
         <spirit:name>pcp_stream.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_e19a0b83</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_0e90b1db</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
@@ -546,6 +547,20 @@
       <spirit:name>xilinx_testbench_view_fileset</spirit:name>
       <spirit:file>
         <spirit:name>../../sim_1/imports/new/DataStream_Tests.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_implementation</spirit:userFileType>
+        <spirit:userFileType>USED_IN_simulation</spirit:userFileType>
+        <spirit:userFileType>USED_IN_synthesis</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../sim_1/imports/new/Profiler_Tests.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+        <spirit:userFileType>USED_IN_implementation</spirit:userFileType>
+        <spirit:userFileType>USED_IN_simulation</spirit:userFileType>
+        <spirit:userFileType>USED_IN_synthesis</spirit:userFileType>
+      </spirit:file>
+      <spirit:file>
+        <spirit:name>../../sim_1/imports/new/testPCP.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
         <spirit:userFileType>USED_IN_implementation</spirit:userFileType>
         <spirit:userFileType>USED_IN_simulation</spirit:userFileType>
@@ -600,8 +615,8 @@
       </xilinx:taxonomies>
       <xilinx:displayName>axis_fifo_v1_0_v1_0</xilinx:displayName>
       <xilinx:definitionSource>package_project</xilinx:definitionSource>
-      <xilinx:coreRevision>11</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2021-07-24T17:18:31Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>15</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2021-07-28T00:15:21Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@59da65ea_ARCHIVE_LOCATION">b:/college/thesis/source/vivado/rev4/pcpip/pcpip.srcs/sources_1/new</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4b83f8c3_ARCHIVE_LOCATION">b:/college/thesis/source/vivado/rev4/pcpip/pcpip.srcs/sources_1/new</xilinx:tag>
@@ -715,12 +730,62 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@7477e3e3_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@caf04a_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@d42fef8_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@76de21a4_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@38c95d18_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@c9fa1a1_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ddc7747_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5a344ae8_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7d0f1a3a_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@43f40a33_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@51e580fd_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2d3a5f73_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@15c9ccf7_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@21cd3373_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@34e27ba3_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@c416811_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@fdd4c35_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@482257e5_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7a451ea1_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6afa4dda_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3894f507_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@8f1bebb_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6c0d3628_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@89d1fa0_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@75b475dc_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@67cf6e86_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5e0aee8a_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2b28c477_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@c07183a_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3ee3664d_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@67f9f41c_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@49b569d3_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@61113786_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3b41f237_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@516a14a7_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6bd1061a_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@32fdeb1b_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@79075428_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3c4578d4_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@60b390d3_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@346c97da_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@304b94bd_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1626e34d_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4228b798_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7db58e69_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3bc5e0a2_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@f8fdb6a_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@661eeab6_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@45863f4a_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@490704ae_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7a321cb2_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@69533c08_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2257872a_ARCHIVE_LOCATION">b:/COLLEGE/Thesis/Source/Vivado/rev4/PCPIP/PCPIP.srcs/sources_1/new</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2018.3</xilinx:xilinxVersion>
       <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="78b4f2ab"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="fd0cc5e0"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="04129614"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="becddc53"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="322e8b81"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="0caeb2b4"/>

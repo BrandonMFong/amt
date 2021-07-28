@@ -33,7 +33,7 @@ module DataStream #(
     /**
     *   The input stream
     */
-    input wire [C_AXIS_TDATA_WIDTH-1:0] inputStream,
+    input wire [C_AXIS_TDATA_WIDTH+2-1:0] inputStream,
     
     /**
     *   When this is one, we need to start reading
@@ -54,7 +54,19 @@ module DataStream #(
     /**
     *   The magnitude value read from data stream
     */
-    output wire [C_AXIS_TDATA_WIDTH - 1 : 0] magnitudeValue
+    output wire [C_AXIS_TDATA_WIDTH - 1 : 0] magnitudeValue,
+    
+    /**
+    *   Returns the frequency value for the corresponding profile number and magnitude value 
+    */
+    output wire [C_AXIS_TDATA_WIDTH - 1 : 0] frequencyValue,
+    
+    /**
+    *   Signals that the inputstream is the last piece of data being passed.
+    *   We assume and require that this last data bit value should be concatenated
+    *   with the magnitude value. To be safe, we check this flag in the frequency staged 
+    */
+    output reg lastDataFlag
 );
     localparam  IDLE        = 2'b00, // Do nothing
                 FREQSTATE   = 2'b01, // First in stream is frequency
@@ -62,18 +74,20 @@ module DataStream #(
     
     localparam  TRUE = 1'b1, 
                 FALSE = 1'b0;
-
+                
+    wire                                lastDataBit; // Holds last data bit value from inputstream
+    wire [C_AXIS_TDATA_WIDTH - 1 : 0]   dataStream;
+    
+    reg                             lastDataFlagBuffer; // Buffers last data bit value
     reg [1 : 0]                     state;
     reg [C_AXIS_TDATA_WIDTH-1:0]    freqBuffer, 
                                     magBuffer;
-    reg [C_AXIS_TDATA_WIDTH-1:0]    inputBuffer; // Used to delay input
     
     initial begin 
-        ready           = FALSE;
-        state           = IDLE; 
-        freqBuffer      = {C_AXIS_TDATA_WIDTH{1'b0}};
-        magBuffer       = {C_AXIS_TDATA_WIDTH{1'b0}};
-        inputBuffer     = {C_AXIS_TDATA_WIDTH{1'b0}};
+        ready       = FALSE;
+        state       = IDLE; 
+        freqBuffer  = {C_AXIS_TDATA_WIDTH{1'b0}};
+        magBuffer   = {C_AXIS_TDATA_WIDTH{1'b0}};
     end 
 
     /**
@@ -82,27 +96,39 @@ module DataStream #(
     *   and the magnitude value to calculate the pcp class value
     */
     always @(posedge clk) begin 
-        inputBuffer <= inputStream;
-        
         case (state)
-            FREQSTATE : begin 
+            FREQSTATE : begin
+                lastDataFlag    <= lastDataBit;
+                freqBuffer      <= dataStream;
+                ready           <= FALSE;
+                
+//                // If we get a signal that in this frequency state this data
+//                // is the last of the stream (which is not supposed to happen),
+//                // then we need to force assert the lastDataFlag to keep that value
+//                if (lastDataBit | !lastDataFlag) begin 
+//                    lastDataFlag <= lastDataBit;
+//                end 
+                
                 if (!startReading) begin 
                     state <= IDLE;
                 end else begin 
-                    freqBuffer  <= inputStream;
-                    state       <= MAGSTATE;
-                    ready       <= FALSE;
-                end
+                    state <= MAGSTATE;
+                end 
             end 
             
             MAGSTATE : begin 
-                if (!startReading) begin 
+                lastDataFlag    <= lastDataBit;
+                magBuffer       <= dataStream;
+                ready           <= TRUE;
+                
+                // If the data we currently have is the last one of the stream
+                // we need to assert the idle state to make sure we don't waste
+                // time doing something while the PCP module is writing to output 
+                if (lastDataBit | !startReading) begin
                     state <= IDLE;
                 end else begin 
-                    magBuffer   <= inputStream;
-                    state       <= FREQSTATE;
-                    ready       <= TRUE;
-                end
+                    state <= FREQSTATE;
+                end 
             end 
             
             IDLE : begin 
@@ -125,6 +151,8 @@ module DataStream #(
         .outputValue    (profileNumber)
     );
     
+    assign {lastDataBit, dataStream} = inputStream;
     assign magnitudeValue = magBuffer;
+    assign frequencyValue = freqBuffer;
     
 endmodule

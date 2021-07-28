@@ -163,6 +163,8 @@ module PCP #(
     );
     
     assign outputValue  = {pcpLastDataFlag, pcpIntensityValue};
-    assign outputValid  = outputValidBuffer;
+//    assign outputValue = inputValue;
+//    assign outputValid  = outputValidBuffer;
+    assign outputValid = 1'b1;
     
 endmodule
