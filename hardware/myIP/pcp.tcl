@@ -69,22 +69,22 @@ set rc [catch {
   set_property board_part tul.com.tw:pynq-z2:part0:1.0 [current_project]
   set_property design_mode GateLvl [current_fileset]
   set_param project.singleFileAddWarning.threshold 0
-  set_property webtalk.parent_dir B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.cache/wt [current_project]
-  set_property parent.project_path B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.xpr [current_project]
-  set_property ip_repo_paths B:/COLLEGE/Thesis/Source/Vivado/rev2 [current_project]
+  set_property webtalk.parent_dir B:/COLLEGE/Thesis/Source/Vivado/rev4/pcp_design/pcp_design.cache/wt [current_project]
+  set_property parent.project_path B:/COLLEGE/Thesis/Source/Vivado/rev4/pcp_design/pcp_design.xpr [current_project]
+  set_property ip_repo_paths B:/COLLEGE/Thesis/Source/Vivado/rev4 [current_project]
   update_ip_catalog
-  set_property ip_output_repo B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.cache/ip [current_project]
+  set_property ip_output_repo B:/COLLEGE/Thesis/Source/Vivado/rev4/pcp_design/pcp_design.cache/ip [current_project]
   set_property ip_cache_permissions {read write} [current_project]
   set_property XPM_LIBRARIES {XPM_CDC XPM_FIFO XPM_MEMORY} [current_project]
-  add_files -quiet B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.runs/synth_1/design_1_wrapper.dcp
+  add_files -quiet B:/COLLEGE/Thesis/Source/Vivado/rev4/pcp_design/pcp_design.runs/synth_1/pcp_design_wrapper.dcp
   set_msg_config -source 4 -id {BD 41-1661} -limit 0
   set_param project.isImplRun true
-  add_files B:/COLLEGE/Thesis/Source/Vivado/rev2/myBD/myBD.srcs/sources_1/bd/design_1/design_1.bd
+  add_files B:/COLLEGE/Thesis/Source/Vivado/rev4/pcp_design/pcp_design.srcs/sources_1/bd/pcp_design/pcp_design.bd
   set_param project.isImplRun false
   set_param project.isImplRun true
-  link_design -top design_1_wrapper -part xc7z020clg400-1
+  link_design -top pcp_design_wrapper -part xc7z020clg400-1
   set_param project.isImplRun false
-  write_hwdef -force -file design_1_wrapper.hwdef
+  write_hwdef -force -file pcp_design_wrapper.hwdef
   close_msg_db -file init_design.pb
 } RESULT]
 if {$rc} {
@@ -100,8 +100,8 @@ set ACTIVE_STEP opt_design
 set rc [catch {
   create_msg_db opt_design.pb
   opt_design 
-  write_checkpoint -force design_1_wrapper_opt.dcp
-  create_report "impl_1_opt_report_drc_0" "report_drc -file design_1_wrapper_drc_opted.rpt -pb design_1_wrapper_drc_opted.pb -rpx design_1_wrapper_drc_opted.rpx"
+  write_checkpoint -force pcp_design_wrapper_opt.dcp
+  create_report "impl_1_opt_report_drc_0" "report_drc -file pcp_design_wrapper_drc_opted.rpt -pb pcp_design_wrapper_drc_opted.pb -rpx pcp_design_wrapper_drc_opted.rpx"
   close_msg_db -file opt_design.pb
 } RESULT]
 if {$rc} {
@@ -120,10 +120,10 @@ set rc [catch {
     implement_debug_core 
   } 
   place_design 
-  write_checkpoint -force design_1_wrapper_placed.dcp
-  create_report "impl_1_place_report_io_0" "report_io -file design_1_wrapper_io_placed.rpt"
-  create_report "impl_1_place_report_utilization_0" "report_utilization -file design_1_wrapper_utilization_placed.rpt -pb design_1_wrapper_utilization_placed.pb"
-  create_report "impl_1_place_report_control_sets_0" "report_control_sets -verbose -file design_1_wrapper_control_sets_placed.rpt"
+  write_checkpoint -force pcp_design_wrapper_placed.dcp
+  create_report "impl_1_place_report_io_0" "report_io -file pcp_design_wrapper_io_placed.rpt"
+  create_report "impl_1_place_report_utilization_0" "report_utilization -file pcp_design_wrapper_utilization_placed.rpt -pb pcp_design_wrapper_utilization_placed.pb"
+  create_report "impl_1_place_report_control_sets_0" "report_control_sets -verbose -file pcp_design_wrapper_control_sets_placed.rpt"
   close_msg_db -file place_design.pb
 } RESULT]
 if {$rc} {
@@ -139,19 +139,19 @@ set ACTIVE_STEP route_design
 set rc [catch {
   create_msg_db route_design.pb
   route_design 
-  write_checkpoint -force design_1_wrapper_routed.dcp
-  create_report "impl_1_route_report_drc_0" "report_drc -file design_1_wrapper_drc_routed.rpt -pb design_1_wrapper_drc_routed.pb -rpx design_1_wrapper_drc_routed.rpx"
-  create_report "impl_1_route_report_methodology_0" "report_methodology -file design_1_wrapper_methodology_drc_routed.rpt -pb design_1_wrapper_methodology_drc_routed.pb -rpx design_1_wrapper_methodology_drc_routed.rpx"
-  create_report "impl_1_route_report_power_0" "report_power -file design_1_wrapper_power_routed.rpt -pb design_1_wrapper_power_summary_routed.pb -rpx design_1_wrapper_power_routed.rpx"
-  create_report "impl_1_route_report_route_status_0" "report_route_status -file design_1_wrapper_route_status.rpt -pb design_1_wrapper_route_status.pb"
-  create_report "impl_1_route_report_timing_summary_0" "report_timing_summary -max_paths 10 -file design_1_wrapper_timing_summary_routed.rpt -pb design_1_wrapper_timing_summary_routed.pb -rpx design_1_wrapper_timing_summary_routed.rpx -warn_on_violation "
-  create_report "impl_1_route_report_incremental_reuse_0" "report_incremental_reuse -file design_1_wrapper_incremental_reuse_routed.rpt"
-  create_report "impl_1_route_report_clock_utilization_0" "report_clock_utilization -file design_1_wrapper_clock_utilization_routed.rpt"
-  create_report "impl_1_route_report_bus_skew_0" "report_bus_skew -warn_on_violation -file design_1_wrapper_bus_skew_routed.rpt -pb design_1_wrapper_bus_skew_routed.pb -rpx design_1_wrapper_bus_skew_routed.rpx"
+  write_checkpoint -force pcp_design_wrapper_routed.dcp
+  create_report "impl_1_route_report_drc_0" "report_drc -file pcp_design_wrapper_drc_routed.rpt -pb pcp_design_wrapper_drc_routed.pb -rpx pcp_design_wrapper_drc_routed.rpx"
+  create_report "impl_1_route_report_methodology_0" "report_methodology -file pcp_design_wrapper_methodology_drc_routed.rpt -pb pcp_design_wrapper_methodology_drc_routed.pb -rpx pcp_design_wrapper_methodology_drc_routed.rpx"
+  create_report "impl_1_route_report_power_0" "report_power -file pcp_design_wrapper_power_routed.rpt -pb pcp_design_wrapper_power_summary_routed.pb -rpx pcp_design_wrapper_power_routed.rpx"
+  create_report "impl_1_route_report_route_status_0" "report_route_status -file pcp_design_wrapper_route_status.rpt -pb pcp_design_wrapper_route_status.pb"
+  create_report "impl_1_route_report_timing_summary_0" "report_timing_summary -max_paths 10 -file pcp_design_wrapper_timing_summary_routed.rpt -pb pcp_design_wrapper_timing_summary_routed.pb -rpx pcp_design_wrapper_timing_summary_routed.rpx -warn_on_violation "
+  create_report "impl_1_route_report_incremental_reuse_0" "report_incremental_reuse -file pcp_design_wrapper_incremental_reuse_routed.rpt"
+  create_report "impl_1_route_report_clock_utilization_0" "report_clock_utilization -file pcp_design_wrapper_clock_utilization_routed.rpt"
+  create_report "impl_1_route_report_bus_skew_0" "report_bus_skew -warn_on_violation -file pcp_design_wrapper_bus_skew_routed.rpt -pb pcp_design_wrapper_bus_skew_routed.pb -rpx pcp_design_wrapper_bus_skew_routed.rpx"
   close_msg_db -file route_design.pb
 } RESULT]
 if {$rc} {
-  write_checkpoint -force design_1_wrapper_routed_error.dcp
+  write_checkpoint -force pcp_design_wrapper_routed_error.dcp
   step_failed route_design
   return -code error $RESULT
 } else {
@@ -164,11 +164,11 @@ set ACTIVE_STEP write_bitstream
 set rc [catch {
   create_msg_db write_bitstream.pb
   set_property XPM_LIBRARIES {XPM_CDC XPM_FIFO XPM_MEMORY} [current_project]
-  catch { write_mem_info -force design_1_wrapper.mmi }
-  write_bitstream -force design_1_wrapper.bit 
-  catch { write_sysdef -hwdef design_1_wrapper.hwdef -bitfile design_1_wrapper.bit -meminfo design_1_wrapper.mmi -file design_1_wrapper.sysdef }
-  catch {write_debug_probes -quiet -force design_1_wrapper}
-  catch {file copy -force design_1_wrapper.ltx debug_nets.ltx}
+  catch { write_mem_info -force pcp_design_wrapper.mmi }
+  write_bitstream -force pcp_design_wrapper.bit 
+  catch { write_sysdef -hwdef pcp_design_wrapper.hwdef -bitfile pcp_design_wrapper.bit -meminfo pcp_design_wrapper.mmi -file pcp_design_wrapper.sysdef }
+  catch {write_debug_probes -quiet -force pcp_design_wrapper}
+  catch {file copy -force pcp_design_wrapper.ltx debug_nets.ltx}
   close_msg_db -file write_bitstream.pb
 } RESULT]
 if {$rc} {

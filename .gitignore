@@ -22,27 +22,16 @@ site/*/node_modules/*
 # Chord File
 results.txt
 
-# Vivado 
-.apc
-.settings
-.autopilot
-.tcls
-.Xil
-.cproject
-.project
-.vivado_hls_log_all.xml
-*.cache
-*.ip_user_files
-*.runs
-*.sim
-*.hw
-*.str
+# Vivado files
 *.jou
-*.hwdef
-*.bxml
-*.ui
-*.bd
-*.dcp
+*.ip_user_files
+*.sim
+*.cache
+*.str
+*.runs
+
+# archives
+archive
 
 # Logs
 *.log

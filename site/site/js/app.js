@@ -21,17 +21,17 @@ var stream;				// Audio Media object
 AudioContext = window.AudioContext || window.webkitAudioContext; 
 
 // Bind html elements 
-streamButton = document.getElementById("streamButton");
-stopStreamButton = document.getElementById("stopStreamButton");
-chordOutput = document.getElementById("chordOutput");
+streamButton 		= document.getElementById("streamButton");
+stopStreamButton 	= document.getElementById("stopStreamButton");
+chordOutput 		= document.getElementById("chordOutput");
 
 // Add events to those 2 buttons
 streamButton.addEventListener("click", streamRecording);
 stopStreamButton.addEventListener("click", stopStreaming);
 
 // Init button state 
-streamButton.disabled = false;
-stopStreamButton.disabled = true;
+streamButton.disabled 		= false;
+stopStreamButton.disabled 	= true;
 
 // Do not stream 
 stopStreamingFlag = false;
@@ -44,8 +44,8 @@ constraints = { audio:true, video:false};
  * Does not stop server program 
  */
 function stopStreaming() {
-	stopStreamingFlag = true;
-	stopStreamButton.disabled = true;
+	stopStreamingFlag 			= true;
+	stopStreamButton.disabled 	= true;
 }
 
 /**
@@ -57,7 +57,7 @@ async function streamRecording() {
 	var success = true;
 
 	// Get user's media outlet
-	stream = await navigator.mediaDevices.getUserMedia(constraints);
+	stream 	= await navigator.mediaDevices.getUserMedia(constraints);
 	success = (stream == null) ? false : true;
 
 	if (!stopStreamingFlag) {
