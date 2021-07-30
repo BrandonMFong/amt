@@ -50,6 +50,8 @@ module testPCP #(
     
     wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue;
     wire                            outputValid;
+    wire [C_AXIS_TDATA_WIDTH - 1 : 0] outputDataValue;
+    wire outputBitValue;
 
     PCP uut (
         .clk            (clk),
@@ -112,5 +114,7 @@ module testPCP #(
             `assertFalse(outputValue, 0);
         end 
     end 
+    
+    assign {outputBitValue, outputDataValue} = outputValue;
 
 endmodule
