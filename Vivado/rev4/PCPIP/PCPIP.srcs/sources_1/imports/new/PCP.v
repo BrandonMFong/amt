@@ -45,10 +45,10 @@ module PCP #(
     */
     input wire inputValid,
     
-//    /**
-//    *   If master axi interface is ready to start transferring data
-//    */
-//    input wire axiReady,
+    /**
+    *   If master axi interface is ready to start transferring data
+    */
+    input wire axiReady,
     
     /**
     *   Initiates a reset. This shoud be driven by the axi slave's reset
@@ -68,7 +68,8 @@ module PCP #(
     output wire outputValid
 );
     localparam  IDLE                    = 0, 
-                READ                    = 1, 
+                READ                    = 1,
+                READY                   = 3,
                 WRITE                   = 2;
     localparam  kPCPVectorLength        = 12;
     localparam  kPCPVectorAddrLength    = $clog2(kPCPVectorLength);
@@ -113,8 +114,19 @@ module PCP #(
                 
                 // Catch when the last piece of data is streamed
                 if (lastDataFlag) begin 
-                    state   <= WRITE; // change states
+                    state   <= READY; // change states
                     vecAddr <= {kPCPVectorAddrLength{1'b0}}; // Set the addr to zero
+                end 
+            end 
+            
+            // As stated here: https://developer.arm.com/documentation/ihi0051/a/Interface-Signals/Transfer-signaling/Handshake-process
+            // I must wait until slave is ready
+            READY: begin 
+                outputValidBuffer <= 1'b1; // Signal that we are ready to send data 
+                
+                // Wait until the axis ready before writing to output 
+                if (axiReady) begin 
+                    state <= WRITE;
                 end 
             end 
             
@@ -163,8 +175,6 @@ module PCP #(
     );
     
     assign outputValue  = {pcpLastDataFlag, pcpIntensityValue};
-//    assign outputValue = inputValue;
     assign outputValid  = outputValidBuffer;
-//    assign outputValid = 1'b1;
     
 endmodule
