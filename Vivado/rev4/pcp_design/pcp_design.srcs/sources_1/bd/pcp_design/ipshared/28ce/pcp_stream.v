@@ -279,7 +279,7 @@ PCP #(
     .inputValid     (inputValid),
     .reset          (),
     .outputValue    (pcpOutput),
-//    .outputValid    ()
+    .axiReady       (m00_axis_tready),
     .outputValid    (m00_axis_tvalid)
 );
 

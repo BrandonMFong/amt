@@ -44,14 +44,16 @@ module testPCP #(
     reg                             reset;
     reg                             inData;
     reg                             lastData;
+    reg                             tready;
+    reg                             passedReadyFlag;
     reg [C_AXIS_TDATA_WIDTH+2-1:0]  inputStream;
     reg [C_AXIS_TDATA_WIDTH-1:0]    magnitudeInput;
     reg [C_AXIS_TDATA_WIDTH-1:0]    frequencyInput;
     
-    wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue;
-    wire                            outputValid;
-    wire [C_AXIS_TDATA_WIDTH - 1 : 0] outputDataValue;
-    wire outputBitValue;
+    wire [C_AXIS_TDATA_WIDTH+2-1:0]     outputValue;
+    wire                                outputValid;
+    wire [C_AXIS_TDATA_WIDTH - 1 : 0]   outputDataValue;
+    wire                                outputBitValue;
 
     PCP uut (
         .clk            (clk),
@@ -59,6 +61,7 @@ module testPCP #(
         .inputValid     (inputValid),
         .reset          (reset),
         .outputValue    (outputValue),
+        .axiReady       (tready),
         .outputValid    (outputValid)
     );
     
@@ -71,6 +74,8 @@ module testPCP #(
         frequencyInput  = {C_AXIS_TDATA_WIDTH{1'b0}};
         reset           = 1'b1;
         lastData        = 1'b0;
+        tready          = 1'b0;
+        passedReadyFlag = 1'b0;
         
         for (i = 0; i < 20; i = i + 1) begin 
             #5
@@ -85,6 +90,11 @@ module testPCP #(
         end 
         
         lastData = 1'b1;
+        for (i = 0; i < 5; i = i + 1) begin 
+            #5
+            clk = ~clk;
+        end 
+        
         for (i = 0; i < kMaxLoop; i = i + 1) begin 
             #5
             clk = ~clk;
@@ -109,10 +119,31 @@ module testPCP #(
         end
     end 
     
-    always @(posedge clk) begin
-        if (lastData & outputValid) begin 
+    /**
+    *   Only assert the tready flag for one clock period 
+    */
+    always @(posedge clk) begin 
+        if (outputValid) begin
+            if (!passedReadyFlag) begin 
+                tready          <= 1'b1;
+                passedReadyFlag <= 1'b1;
+            end else begin 
+                tready <= 1'b0;
+            end
+        end
+    end 
+    
+//    always @(posedge clk) begin
+//        if (lastData & outputValid & passedReadyFlag) begin 
+//            `assertFalse(outputValue, 0);
+//        end 
+//    end 
+
+    always @(outputValue) begin 
+        if (outputValid) begin 
             `assertFalse(outputValue, 0);
         end 
+        
     end 
     
     assign {outputBitValue, outputDataValue} = outputValue;
