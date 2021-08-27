@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Wed Aug 25 21:37:00 2021" VIVADOVERSION="2018.3">
+
+  <SYSTEMINFO ARCH="zynq" BOARD="tul.com.tw:pynq-z2:part0:1.0" DEVICE="7z020" NAME="ex_sim" PACKAGE="clg400" SPEEDGRADE="-1"/>
+
+  <EXTERNALPORTS>
+    <PORT CLKFREQUENCY="300000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="External_Ports_aclk">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="axi4stream_vip_mst" PORT="aclk"/>
+        <CONNECTION INSTANCE="axi4stream_vip_slv" PORT="aclk"/>
+        <CONNECTION INSTANCE="axis_fifo_v1_0_0" PORT="s00_axis_aclk"/>
+        <CONNECTION INSTANCE="axis_fifo_v1_0_0" PORT="m00_axis_aclk"/>
+      </CONNECTIONS>
+    </PORT>
+    <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="External_Ports_aresetn">
+      <CONNECTIONS>
+        <CONNECTION INSTANCE="axi4stream_vip_mst" PORT="aresetn"/>
+        <CONNECTION INSTANCE="axi4stream_vip_slv" PORT="aresetn"/>
+        <CONNECTION INSTANCE="axis_fifo_v1_0_0" PORT="m00_axis_aresetn"/>
+        <CONNECTION INSTANCE="axis_fifo_v1_0_0" PORT="s00_axis_aresetn"/>
+      </CONNECTIONS>
+    </PORT>
+  </EXTERNALPORTS>
+
+  <EXTERNALINTERFACES/>
+
+  <MODULES>
+    <MODULE COREREVISION="4" FULLNAME="/axi4stream_vip_mst" HWVERSION="1.1" INSTANCE="axi4stream_vip_mst" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi4stream_vip" VLNV="xilinx.com:ip:axi4stream_vip:1.1">
+      <DOCUMENTS>
+        <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axi4stream_vip;v=v1_1;d=pg277-axi4stream-vip.pdf"/>
+      </DOCUMENTS>
+      <PARAMETERS>
+        <PARAMETER NAME="C_AXI4STREAM_SIGNAL_SET" VALUE="0b00000000000000000000000000010011"/>
+        <PARAMETER NAME="C_AXI4STREAM_INTERFACE_MODE" VALUE="0"/>
+        <PARAMETER NAME="C_AXI4STREAM_DATA_WIDTH" VALUE="512"/>
+        <PARAMETER NAME="C_AXI4STREAM_USER_BITS_PER_BYTE" VALUE="0"/>
+        <PARAMETER NAME="C_AXI4STREAM_ID_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="C_AXI4STREAM_DEST_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="C_AXI4STREAM_USER_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="C_AXI4STREAM_HAS_ARESETN" VALUE="1"/>
+        <PARAMETER NAME="INTERFACE_MODE" VALUE="MASTER"/>
+        <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="64"/>
+        <PARAMETER NAME="USER_BITS_PER_BYTE" VALUE="0"/>
+        <PARAMETER NAME="HAS_TUSER_BITS_PER_BYTE" VALUE="0"/>
+        <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+        <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+        <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+        <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
+        <PARAMETER NAME="HAS_ACLKEN" VALUE="0"/>
+        <PARAMETER NAME="HAS_ARESETN" VALUE="1"/>
+        <PARAMETER NAME="Component_Name" VALUE="ex_sim_axi4stream_vip_mst_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="300000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="External_Ports_aclk">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="aclk"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="External_Ports_aresetn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="aresetn"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="m_axis_tvalid" RIGHT="0" SIGIS="undef" SIGNAME="axi4stream_vip_mst_m_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_fifo_v1_0_0" PORT="s00_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="m_axis_tready" RIGHT="0" SIGIS="undef" SIGNAME="axi4stream_vip_mst_m_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_fifo_v1_0_0" PORT="s00_axis_tready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="511" NAME="m_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi4stream_vip_mst_m_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_fifo_v1_0_0" PORT="s00_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="m_axis_tlast" RIGHT="0" SIGIS="undef" SIGNAME="axi4stream_vip_mst_m_axis_tlast">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_fifo_v1_0_0" PORT="s00_axis_tlast"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="axi4stream_vip_mst_M_AXIS" NAME="M_AXIS" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="64"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="0"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="300000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_sim_clk_wiz_0_0_clk_out1"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="m_axis_tdata"/>
+            <PORTMAP LOGICAL="TLAST" PHYSICAL="m_axis_tlast"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="m_axis_tready"/>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="m_axis_tvalid"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
+    </MODULE>
+    <MODULE COREREVISION="4" FULLNAME="/axi4stream_vip_slv" HWVERSION="1.1" INSTANCE="axi4stream_vip_slv" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axi4stream_vip" VLNV="xilinx.com:ip:axi4stream_vip:1.1">
+      <DOCUMENTS>
+        <DOCUMENT SOURCE="http://www.xilinx.com/cgi-bin/docs/ipdoc?c=axi4stream_vip;v=v1_1;d=pg277-axi4stream-vip.pdf"/>
+      </DOCUMENTS>
+      <PARAMETERS>
+        <PARAMETER NAME="C_AXI4STREAM_SIGNAL_SET" VALUE="0b00000000000000000000000000010111"/>
+        <PARAMETER NAME="C_AXI4STREAM_INTERFACE_MODE" VALUE="2"/>
+        <PARAMETER NAME="C_AXI4STREAM_DATA_WIDTH" VALUE="64"/>
+        <PARAMETER NAME="C_AXI4STREAM_USER_BITS_PER_BYTE" VALUE="0"/>
+        <PARAMETER NAME="C_AXI4STREAM_ID_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="C_AXI4STREAM_DEST_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="C_AXI4STREAM_USER_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="C_AXI4STREAM_HAS_ARESETN" VALUE="1"/>
+        <PARAMETER NAME="INTERFACE_MODE" VALUE="SLAVE"/>
+        <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="8"/>
+        <PARAMETER NAME="USER_BITS_PER_BYTE" VALUE="0"/>
+        <PARAMETER NAME="HAS_TUSER_BITS_PER_BYTE" VALUE="0"/>
+        <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+        <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+        <PARAMETER NAME="HAS_TSTRB" VALUE="1"/>
+        <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+        <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
+        <PARAMETER NAME="HAS_ACLKEN" VALUE="0"/>
+        <PARAMETER NAME="HAS_ARESETN" VALUE="1"/>
+        <PARAMETER NAME="Component_Name" VALUE="ex_sim_axi4stream_vip_slv_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="300000000" DIR="I" NAME="aclk" SIGIS="clk" SIGNAME="External_Ports_aclk">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="aclk"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="aresetn" SIGIS="rst" SIGNAME="External_Ports_aresetn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="aresetn"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="s_axis_tvalid" RIGHT="0" SIGIS="undef" SIGNAME="axi4stream_vip_slv_s_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_fifo_v1_0_0" PORT="m00_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="0" NAME="s_axis_tready" RIGHT="0" SIGIS="undef" SIGNAME="axi4stream_vip_slv_s_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_fifo_v1_0_0" PORT="m00_axis_tready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="63" NAME="s_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi4stream_vip_slv_s_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_fifo_v1_0_0" PORT="m00_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="7" NAME="s_axis_tstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi4stream_vip_slv_s_axis_tstrb">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_fifo_v1_0_0" PORT="m00_axis_tstrb"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="0" NAME="s_axis_tlast" RIGHT="0" SIGIS="undef" SIGNAME="axi4stream_vip_slv_s_axis_tlast">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axis_fifo_v1_0_0" PORT="m00_axis_tlast"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="axis_fifo_v1_0_0_m00_axis" NAME="S_AXIS" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="8"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="1"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="300000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_sim_clk_wiz_0_0_clk_out1"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="s_axis_tdata"/>
+            <PORTMAP LOGICAL="TLAST" PHYSICAL="s_axis_tlast"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="s_axis_tready"/>
+            <PORTMAP LOGICAL="TSTRB" PHYSICAL="s_axis_tstrb"/>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="s_axis_tvalid"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
+    </MODULE>
+    <MODULE COREREVISION="18" FULLNAME="/axis_fifo_v1_0_0" HWVERSION="1.0" INSTANCE="axis_fifo_v1_0_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_fifo_v1_0" VLNV="xilinx.com:user:axis_fifo_v1_0:1.0">
+      <DOCUMENTS/>
+      <PARAMETERS>
+        <PARAMETER NAME="ADDR_WIDTH" VALUE="12"/>
+        <PARAMETER NAME="C_AXIS_TDATA_WIDTH" VALUE="64"/>
+        <PARAMETER NAME="Component_Name" VALUE="ex_sim_axis_fifo_v1_0_0_0"/>
+        <PARAMETER NAME="EDK_IPTYPE" VALUE="PERIPHERAL"/>
+      </PARAMETERS>
+      <PORTS>
+        <PORT CLKFREQUENCY="300000000" DIR="I" NAME="s00_axis_aclk" SIGIS="clk" SIGNAME="External_Ports_aclk">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="aclk"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s00_axis_aresetn" SIGIS="rst" SIGNAME="External_Ports_aresetn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="aresetn"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="63" NAME="s00_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi4stream_vip_mst_m_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi4stream_vip_mst" PORT="m_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" LEFT="7" NAME="s00_axis_tstrb" RIGHT="0" SIGIS="undef"/>
+        <PORT DIR="I" NAME="s00_axis_tvalid" SIGIS="undef" SIGNAME="axi4stream_vip_mst_m_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi4stream_vip_mst" PORT="m_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="s00_axis_tready" SIGIS="undef" SIGNAME="axi4stream_vip_mst_m_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi4stream_vip_mst" PORT="m_axis_tready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="s00_axis_tlast" SIGIS="undef" SIGNAME="axi4stream_vip_mst_m_axis_tlast">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi4stream_vip_mst" PORT="m_axis_tlast"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT CLKFREQUENCY="300000000" DIR="I" NAME="m00_axis_aclk" SIGIS="clk" SIGNAME="External_Ports_aclk">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="aclk"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="m00_axis_aresetn" SIGIS="rst" SIGNAME="External_Ports_aresetn">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="External_Ports" PORT="aresetn"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="63" NAME="m00_axis_tdata" RIGHT="0" SIGIS="undef" SIGNAME="axi4stream_vip_slv_s_axis_tdata">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi4stream_vip_slv" PORT="s_axis_tdata"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" LEFT="7" NAME="m00_axis_tstrb" RIGHT="0" SIGIS="undef" SIGNAME="axi4stream_vip_slv_s_axis_tstrb">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi4stream_vip_slv" PORT="s_axis_tstrb"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="m00_axis_tvalid" SIGIS="undef" SIGNAME="axi4stream_vip_slv_s_axis_tvalid">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi4stream_vip_slv" PORT="s_axis_tvalid"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="I" NAME="m00_axis_tready" SIGIS="undef" SIGNAME="axi4stream_vip_slv_s_axis_tready">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi4stream_vip_slv" PORT="s_axis_tready"/>
+          </CONNECTIONS>
+        </PORT>
+        <PORT DIR="O" NAME="m00_axis_tlast" SIGIS="undef" SIGNAME="axi4stream_vip_slv_s_axis_tlast">
+          <CONNECTIONS>
+            <CONNECTION INSTANCE="axi4stream_vip_slv" PORT="s_axis_tlast"/>
+          </CONNECTIONS>
+        </PORT>
+      </PORTS>
+      <BUSINTERFACES>
+        <BUSINTERFACE BUSNAME="axis_fifo_v1_0_0_m00_axis" NAME="m00_axis" TYPE="INITIATOR" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="8"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="1"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="300000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_sim_clk_wiz_0_0_clk_out1"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="m00_axis_tdata"/>
+            <PORTMAP LOGICAL="TSTRB" PHYSICAL="m00_axis_tstrb"/>
+            <PORTMAP LOGICAL="TLAST" PHYSICAL="m00_axis_tlast"/>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="m00_axis_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="m00_axis_tready"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+        <BUSINTERFACE BUSNAME="axi4stream_vip_mst_M_AXIS" NAME="s00_axis" TYPE="TARGET" VLNV="xilinx.com:interface:axis:1.0">
+          <PARAMETER NAME="TDATA_NUM_BYTES" VALUE="8"/>
+          <PARAMETER NAME="TDEST_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TID_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="TUSER_WIDTH" VALUE="0"/>
+          <PARAMETER NAME="HAS_TREADY" VALUE="1"/>
+          <PARAMETER NAME="HAS_TSTRB" VALUE="1"/>
+          <PARAMETER NAME="HAS_TKEEP" VALUE="0"/>
+          <PARAMETER NAME="HAS_TLAST" VALUE="1"/>
+          <PARAMETER NAME="FREQ_HZ" VALUE="300000000"/>
+          <PARAMETER NAME="PHASE" VALUE="0.0"/>
+          <PARAMETER NAME="CLK_DOMAIN" VALUE="design_sim_clk_wiz_0_0_clk_out1"/>
+          <PARAMETER NAME="LAYERED_METADATA" VALUE="undef"/>
+          <PARAMETER NAME="INSERT_VIP" VALUE="0"/>
+          <PORTMAPS>
+            <PORTMAP LOGICAL="TDATA" PHYSICAL="s00_axis_tdata"/>
+            <PORTMAP LOGICAL="TSTRB" PHYSICAL="s00_axis_tstrb"/>
+            <PORTMAP LOGICAL="TLAST" PHYSICAL="s00_axis_tlast"/>
+            <PORTMAP LOGICAL="TVALID" PHYSICAL="s00_axis_tvalid"/>
+            <PORTMAP LOGICAL="TREADY" PHYSICAL="s00_axis_tready"/>
+          </PORTMAPS>
+        </BUSINTERFACE>
+      </BUSINTERFACES>
+    </MODULE>
+  </MODULES>
+
+</EDKSYSTEM>

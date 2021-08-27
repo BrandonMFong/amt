@@ -20,10 +20,12 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 import axi4stream_vip_pkg::*;
-import design_1_axi4stream_vip_0_0_pkg::*;
-import design_1_axi4stream_vip_1_0_pkg::*;
+import design_1_axis_fifo_v1_0_0_0_pkg::*;
 
 module tb_axis(
 
     );
+    
+  design_1_axis_fifo_v1_0_0_0_mst_t mst_agent;
+  
 endmodule
