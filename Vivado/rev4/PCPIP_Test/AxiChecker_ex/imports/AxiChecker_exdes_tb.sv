@@ -238,13 +238,13 @@ module AxiChecker_exdes_tb(
 //        end  
         $display("Looped master to slave transfers example with randomization completes");
 //        send_a_packet(40*64);
-        SendStream();
+        SendStream(0);
       end
       begin
         slv_gen_tready();
       end
     join_any
-  
+    
 //    while(passthrough_cmd_switch_cnt ==0) begin
 //      @(passthrough_mastermode_start_event);
 //      passthrough_cmd_switch_cnt++;
@@ -467,18 +467,19 @@ task automatic send_a_packet(xil_axi4stream_uint num_words);
   end
 endtask  :send_a_packet
 
-task SendStream();
+task SendStream(bit lastbit);
     axi4stream_transaction wr_transaction; 
-    automatic xil_axi4stream_data_byte InputData[2:0] = '{3{'{8'h04}}};
+    automatic xil_axi4stream_data_byte InputData[7:0] = '{
+        8'h01, 8'h00, 8'h00, 8'h00, 
+        8'h00, 8'h00, 8'h00, 8'h00
+    };
     
     wr_transaction = mst_agent.driver.create_transaction("Master VIP write transaction");
-    wr_transaction.set_last(0);
     
+    wr_transaction.set_last(lastbit);
     wr_transaction.set_data(InputData);
     mst_agent.driver.send(wr_transaction);
     
-    wr_transaction.set_data(InputData);
-    mst_agent.driver.send(wr_transaction);
     $display("Finished SendStream()");
 endtask
 

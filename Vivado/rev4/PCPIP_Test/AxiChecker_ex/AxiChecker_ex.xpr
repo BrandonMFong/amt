@@ -34,7 +34,7 @@
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSABoardId" Val="pynq-z2"/>
     <Option Name="DSANumComputeUnits" Val="60"/>
-    <Option Name="WTXSimLaunchSim" Val="103"/>
+    <Option Name="WTXSimLaunchSim" Val="130"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -68,14 +68,14 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
-        <CompFileExtendedInfo CompFileName="ex_sim.bd" FileRelPathName="ip/ex_sim_axi4stream_vip_mst_0/ex_sim_axi4stream_vip_mst_0.xci">
-          <Proxy FileSetName="ex_sim_axi4stream_vip_mst_0"/>
-        </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="ex_sim.bd" FileRelPathName="ip/ex_sim_axis_fifo_v1_0_0_0/ex_sim_axis_fifo_v1_0_0_0.xci">
           <Proxy FileSetName="ex_sim_axis_fifo_v1_0_0_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="ex_sim.bd" FileRelPathName="ip/ex_sim_axi4stream_vip_slv_0/ex_sim_axi4stream_vip_slv_0.xci">
           <Proxy FileSetName="ex_sim_axi4stream_vip_slv_0"/>
+        </CompFileExtendedInfo>
+        <CompFileExtendedInfo CompFileName="ex_sim.bd" FileRelPathName="ip/ex_sim_axi4stream_vip_mst_0/ex_sim_axi4stream_vip_mst_0.xci">
+          <Proxy FileSetName="ex_sim_axi4stream_vip_mst_0"/>
         </CompFileExtendedInfo>
       </File>
       <File Path="$PPRDIR/imports/AxiChecker_chip.sv">
@@ -168,9 +168,7 @@
     </Run>
     <Run Id="ex_sim_axi4stream_vip_mst_0_synth_1" Type="Ft3:Synth" SrcSet="ex_sim_axi4stream_vip_mst_0" Part="xc7z020clg400-1" ConstrsSet="ex_sim_axi4stream_vip_mst_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/ex_sim_axi4stream_vip_mst_0_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
@@ -179,23 +177,18 @@
     </Run>
     <Run Id="ex_sim_axi4stream_vip_slv_0_synth_1" Type="Ft3:Synth" SrcSet="ex_sim_axi4stream_vip_slv_0" Part="xc7z020clg400-1" ConstrsSet="ex_sim_axi4stream_vip_slv_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/ex_sim_axi4stream_vip_slv_0_synth_1" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
         <Step Id="synth_design"/>
       </Strategy>
       <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
-    <Run Id="ex_sim_axis_fifo_v1_0_0_0_synth_1" Type="Ft3:Synth" SrcSet="ex_sim_axis_fifo_v1_0_0_0" Part="xc7z020clg400-1" ConstrsSet="ex_sim_axis_fifo_v1_0_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" Dir="$PRUNDIR/ex_sim_axis_fifo_v1_0_0_0_synth_1" IncludeInArchive="true">
+    <Run Id="ex_sim_axis_fifo_v1_0_0_0_synth_1" Type="Ft3:Synth" SrcSet="ex_sim_axis_fifo_v1_0_0_0" Part="xc7z020clg400-1" ConstrsSet="ex_sim_axis_fifo_v1_0_0_0" Description="Vivado Synthesis Defaults" AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" IncludeInArchive="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018">
-          <Desc>Vivado Synthesis Defaults</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2018"/>
         <Step Id="synth_design"/>
       </Strategy>
-      <GeneratedRun Dir="$PRUNDIR" File="gen_run.xml"/>
       <ReportStrategy Name="Vivado Synthesis Default Reports" Flow="Vivado Synthesis 2018"/>
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
@@ -217,9 +210,7 @@
     </Run>
     <Run Id="ex_sim_axi4stream_vip_mst_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="ex_sim_axi4stream_vip_mst_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="ex_sim_axi4stream_vip_mst_0_synth_1" IncludeInArchive="false" GenFullBitstream="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -235,9 +226,7 @@
     </Run>
     <Run Id="ex_sim_axi4stream_vip_slv_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="ex_sim_axi4stream_vip_slv_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="ex_sim_axi4stream_vip_slv_0_synth_1" IncludeInArchive="false" GenFullBitstream="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
@@ -253,9 +242,7 @@
     </Run>
     <Run Id="ex_sim_axis_fifo_v1_0_0_0_impl_1" Type="Ft2:EntireDesign" Part="xc7z020clg400-1" ConstrsSet="ex_sim_axis_fifo_v1_0_0_0" Description="Default settings for Implementation." AutoIncrementalCheckpoint="false" WriteIncrSynthDcp="false" SynthRun="ex_sim_axis_fifo_v1_0_0_0_synth_1" IncludeInArchive="false" GenFullBitstream="true">
       <Strategy Version="1" Minor="2">
-        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018">
-          <Desc>Default settings for Implementation.</Desc>
-        </StratHandle>
+        <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2018"/>
         <Step Id="init_design"/>
         <Step Id="opt_design"/>
         <Step Id="power_opt_design"/>
