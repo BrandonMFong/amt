@@ -229,18 +229,30 @@ module AxiChecker_exdes_tb(
     * Passthrough VIP starts to monitor 
     ***************************************************************************************************/
 
+//    fork
+//      begin
+////        mst_gen_transaction();
+////        $display("Simple master to slave transfer example with randomization completes");
+////        for(int i = 0; i < 4;i++) begin
+////          mst_gen_transaction();
+////        end  
+//        $display("Looped master to slave transfers example with randomization completes");
+////        send_a_packet(40*64);
+//        SendStream(0);
+//      end
+//      begin
+//        slv_gen_tready();
+//      end
+//    join_any
+    
     fork
       begin
-//        mst_gen_transaction();
-//        $display("Simple master to slave transfer example with randomization completes");
-//        for(int i = 0; i < 4;i++) begin
-//          mst_gen_transaction();
-//        end  
-        $display("Looped master to slave transfers example with randomization completes");
-//        send_a_packet(40*64);
+        $display("Sending data");
         SendStream(0);
+        SendStream(1);
       end
       begin
+        slv_gen_tready();
         slv_gen_tready();
       end
     join_any
