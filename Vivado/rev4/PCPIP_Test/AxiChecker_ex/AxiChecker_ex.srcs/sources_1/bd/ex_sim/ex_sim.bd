@@ -143,8 +143,8 @@
           "aresetn",
           "axi4stream_vip_mst/aresetn",
           "axi4stream_vip_slv/aresetn",
-          "axis_fifo_v1_0_0/m00_axis_aresetn",
-          "axis_fifo_v1_0_0/s00_axis_aresetn"
+          "axis_fifo_v1_0_0/s00_axis_aresetn",
+          "axis_fifo_v1_0_0/m00_axis_aresetn"
         ]
       }
     }

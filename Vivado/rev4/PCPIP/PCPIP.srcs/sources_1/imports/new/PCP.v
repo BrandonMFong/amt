@@ -189,6 +189,6 @@ module PCP #(
     );
     
     assign outputValue  = {pcpLastDataFlag, pcpIntensityValue};
-    assign outputValid  = outputValidBuffer;
+    assign outputValid  = ~outputValidBuffer; // pcp stream has active low valid flag
     
 endmodule

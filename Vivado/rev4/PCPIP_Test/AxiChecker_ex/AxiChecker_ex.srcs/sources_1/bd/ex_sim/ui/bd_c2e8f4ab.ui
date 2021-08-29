@@ -11,7 +11,7 @@ preplace netloc axi4stream_vip_mst_M_AXIS 1 1 1 N
 preplace netloc axis_fifo_v1_0_0_m00_axis 1 2 1 N
 preplace netloc aresetn_1 1 0 3 20 150 230 220 490J
 preplace netloc aclk_1 1 0 3 20 10 220 20 490
-levelinfo -pg 1 0 120 360 590 690 -top 0 -bot 230
+levelinfo -pg 1 0 120 360 590 700 -top 0 -bot 230
 "
 }
-
+0

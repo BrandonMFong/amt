@@ -231,11 +231,11 @@ module AxiChecker_exdes_tb(
 
     fork
       begin
-        mst_gen_transaction();
-        $display("Simple master to slave transfer example with randomization completes");
-        for(int i = 0; i < 4;i++) begin
-          mst_gen_transaction();
-        end  
+//        mst_gen_transaction();
+//        $display("Simple master to slave transfer example with randomization completes");
+//        for(int i = 0; i < 4;i++) begin
+//          mst_gen_transaction();
+//        end  
         $display("Looped master to slave transfers example with randomization completes");
         send_a_packet(40*64);
       end
@@ -282,16 +282,16 @@ module AxiChecker_exdes_tb(
 //    passthrough_agent.set_agent_tag("Passthrough VIP in Slave mode");
 //    passthrough_agent.stop_master();
 //    passthrough_agent.start_slave();
-    $display("EXAMPLE TEST  : Change Passthrough IP into runtime slave mode");
-    fork
-      begin
-        for(int i = 0; i < 2;i++) begin
-          mst_gen_transaction();
-        end
-      end
+//    $display("EXAMPLE TEST  : Change Passthrough IP into runtime slave mode");
+//    fork
+//      begin
+//        for(int i = 0; i < 2;i++) begin
+//          mst_gen_transaction();
+//        end
+//      end
 //      passthrough_gen_tready();
   
-    join_any
+//    join_any
     
 //    while(passthrough_cmd_switch_cnt ==2) begin
 //      @(passthrough_slavemode_end_event);
@@ -450,14 +450,18 @@ task automatic send_a_packet(xil_axi4stream_uint num_words);
     end  
     wr_transaction = mst_agent.driver.create_transaction("Master VIP write transaction");
     wr_transactionc = mst_agent.driver.create_transaction("Master VIP write transactionc");
-    wr_transaction.set_driver_return_item_policy(XIL_AXI4STREAM_AT_ACCEPT_RETURN );
+//    wr_transaction.set_driver_return_item_policy(XIL_AXI4STREAM_AT_ACCEPT_RETURN );
+    wr_transaction.set_driver_return_item_policy(XIL_AXI4STREAM_AT_ASSERT_RETURN );
     SEND_PACKET_FAILURE: assert(wr_transaction.randomize());
     wr_transaction.set_data_beat(data_beat);
+    
+    $display("Index %d == %d", i, total_transfer-1);
     wr_transaction.set_last(0);
     if(i == total_transfer-1) begin
       wr_transaction.set_last(1);  
     end     
     mst_agent.driver.send(wr_transaction);
+    $display("Test!");
     mst_agent.driver.seq_item_port.get_next_rsp(wr_transactionc);
   end
 endtask  :send_a_packet
