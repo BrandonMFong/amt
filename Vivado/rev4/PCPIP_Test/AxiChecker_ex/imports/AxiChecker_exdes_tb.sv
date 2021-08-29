@@ -237,7 +237,8 @@ module AxiChecker_exdes_tb(
 //          mst_gen_transaction();
 //        end  
         $display("Looped master to slave transfers example with randomization completes");
-        send_a_packet(40*64);
+//        send_a_packet(40*64);
+        SendStream();
       end
       begin
         slv_gen_tready();
@@ -466,6 +467,20 @@ task automatic send_a_packet(xil_axi4stream_uint num_words);
   end
 endtask  :send_a_packet
 
+task SendStream();
+    axi4stream_transaction wr_transaction; 
+    automatic xil_axi4stream_data_byte InputData[2:0] = '{3{'{8'h04}}};
+    
+    wr_transaction = mst_agent.driver.create_transaction("Master VIP write transaction");
+    wr_transaction.set_last(0);
+    
+    wr_transaction.set_data(InputData);
+    mst_agent.driver.send(wr_transaction);
+    
+    wr_transaction.set_data(InputData);
+    mst_agent.driver.send(wr_transaction);
+    $display("Finished SendStream()");
+endtask
 
   /***************************************************************************************************
   * Get monitor transaction from master VIP monitor analysis port
