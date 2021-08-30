@@ -244,23 +244,21 @@ module AxiChecker_exdes_tb(
 //        slv_gen_tready();
 //      end
 //    join_any
-    
-    fork
-      begin
-        $display("Sending data");
-        SendStream(0);
-        SendStream(1);
-      end
-      begin
+
+    $display("Sending data");
+    fork begin
+        SendStream();
+    end begin
         slv_gen_tready();
-        slv_gen_tready();
-      end
+    end
     join_any
     
 //    while(passthrough_cmd_switch_cnt ==0) begin
 //      @(passthrough_mastermode_start_event);
 //      passthrough_cmd_switch_cnt++;
 //    end
+    #1ns;
+    
     #1ns;
  
     /***************************************************************************************************
@@ -310,13 +308,13 @@ module AxiChecker_exdes_tb(
 //      @(passthrough_slavemode_end_event);
 //      passthrough_cmd_switch_cnt++;
 //    end
-    #1ns;
-    if(error_cnt ==0) begin
-      $display("EXAMPLE TEST DONE : Test Completed Successfully");
-    end else begin  
-      $display("EXAMPLE TEST DONE ",$sformatf("Test Failed: %d Comparison Failed", error_cnt));
-    end 
-    $finish;
+//    #1ns;
+//    if(error_cnt ==0) begin
+//      $display("EXAMPLE TEST DONE : Test Completed Successfully");
+//    end else begin  
+//      $display("EXAMPLE TEST DONE ",$sformatf("Test Failed: %d Comparison Failed", error_cnt));
+//    end 
+//    $finish;
   end
 
   /*****************************************************************************************************************
@@ -479,18 +477,25 @@ task automatic send_a_packet(xil_axi4stream_uint num_words);
   end
 endtask  :send_a_packet
 
-task SendStream(bit lastbit);
-    axi4stream_transaction wr_transaction; 
-    automatic xil_axi4stream_data_byte InputData[7:0] = '{
-        8'h01, 8'h00, 8'h00, 8'h00, 
-        8'h00, 8'h00, 8'h00, 8'h00
-    };
+task SendStream();
+    reg [7 : 0] data;
+    xil_axi4stream_data_byte InputData[7:0];
+    axi4stream_transaction wr_transaction = mst_agent.driver.create_transaction("Master VIP write transaction");
     
-    wr_transaction = mst_agent.driver.create_transaction("Master VIP write transaction");
-    
-    wr_transaction.set_last(lastbit);
-    wr_transaction.set_data(InputData);
-    mst_agent.driver.send(wr_transaction);
+    for (data = 0; data < 8; data++) begin 
+        InputData = '{
+            data, 8'h00, 8'h00, 8'h00, 
+            8'h00, 8'h00, 8'h00, 8'h00
+        };
+        wr_transaction.set_data(InputData);
+        
+        if (data == 7) begin 
+            wr_transaction.set_last(1);
+        end else begin 
+            wr_transaction.set_last(0);
+        end 
+        mst_agent.driver.send(wr_transaction);
+    end
     
     $display("Finished SendStream()");
 endtask

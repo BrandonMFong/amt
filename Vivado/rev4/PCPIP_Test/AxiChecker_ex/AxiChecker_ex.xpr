@@ -34,7 +34,7 @@
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSABoardId" Val="pynq-z2"/>
     <Option Name="DSANumComputeUnits" Val="60"/>
-    <Option Name="WTXSimLaunchSim" Val="134"/>
+    <Option Name="WTXSimLaunchSim" Val="167"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -68,14 +68,14 @@
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
+        <CompFileExtendedInfo CompFileName="ex_sim.bd" FileRelPathName="ip/ex_sim_axi4stream_vip_mst_0/ex_sim_axi4stream_vip_mst_0.xci">
+          <Proxy FileSetName="ex_sim_axi4stream_vip_mst_0"/>
+        </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="ex_sim.bd" FileRelPathName="ip/ex_sim_axis_fifo_v1_0_0_0/ex_sim_axis_fifo_v1_0_0_0.xci">
           <Proxy FileSetName="ex_sim_axis_fifo_v1_0_0_0"/>
         </CompFileExtendedInfo>
         <CompFileExtendedInfo CompFileName="ex_sim.bd" FileRelPathName="ip/ex_sim_axi4stream_vip_slv_0/ex_sim_axi4stream_vip_slv_0.xci">
           <Proxy FileSetName="ex_sim_axi4stream_vip_slv_0"/>
-        </CompFileExtendedInfo>
-        <CompFileExtendedInfo CompFileName="ex_sim.bd" FileRelPathName="ip/ex_sim_axi4stream_vip_mst_0/ex_sim_axi4stream_vip_mst_0.xci">
-          <Proxy FileSetName="ex_sim_axi4stream_vip_mst_0"/>
         </CompFileExtendedInfo>
       </File>
       <File Path="$PPRDIR/imports/AxiChecker_chip.sv">
