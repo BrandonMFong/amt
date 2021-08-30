@@ -66,7 +66,6 @@
 import axi4stream_vip_pkg::*;
 import ex_sim_axi4stream_vip_mst_0_pkg::*;
 import ex_sim_axi4stream_vip_slv_0_pkg::*;
-//import ex_sim_axis_fifo_v1_0_0_0_pkg::*;
 
 module AxiChecker_exdes_tb(
   );
@@ -151,9 +150,6 @@ module AxiChecker_exdes_tb(
   ***************************************************************************************************/
   ex_sim_axi4stream_vip_mst_0_mst_t                              mst_agent;
   ex_sim_axi4stream_vip_slv_0_slv_t                              slv_agent;
-//  ex_sim_axi4stream_vip_passthrough_0_passthrough_t              passthrough_agent;
-
-  
      
   // Clock signal
   bit                                     clock;
@@ -175,75 +171,23 @@ module AxiChecker_exdes_tb(
 
   //Main process
   initial begin
-    /*mst_monitor_transaction = new("master monitor transaction");
-    slv_monitor_transaction = new("slave monitor transaction");*/
-
-    /***************************************************************************************************
-    * The hierarchy path of the AXI4STREAM VIP's interface is passed to the agent when it is newed. 
-    * Method to find the hierarchy path of AXI4STREAM VIP is to run simulation without agents being newed,
-    * message like "Xilinx AXI4STREAM VIP Found at Path: 
-    * my_ip_exdes_tb.DUT.ex_design.axi4stream_vip_mst.inst" will be printed out.
-    ***************************************************************************************************/
 
     mst_agent = new("master vip agent",DUT.ex_design.axi4stream_vip_mst.inst.IF);
     slv_agent = new("slave vip agent",DUT.ex_design.axi4stream_vip_slv.inst.IF);
-//    passthrough_agent = new("passthrough vip agent",DUT.ex_design.axi4stream_vip_passthrough.inst.IF);
+    
     $timeformat (-12, 1, " ps", 1);
-
-    /***************************************************************************************************
-    * When bus is in idle, it must drive everything to 0.otherwise it will 
-    * trigger false assertion failure from axi_protocol_chekcer
-    ***************************************************************************************************/
     
     mst_agent.vif_proxy.set_dummy_drive_type(XIL_AXI4STREAM_VIF_DRIVE_NONE);
     slv_agent.vif_proxy.set_dummy_drive_type(XIL_AXI4STREAM_VIF_DRIVE_NONE);
-//    passthrough_agent.vif_proxy.set_dummy_drive_type(XIL_AXI4STREAM_VIF_DRIVE_NONE);
-
-    /***************************************************************************************************
-    * Set tag for agents for easy debug,if not set here, it will be hard to tell which driver is filing 
-    * if multiple agents are called in one testbench
-    ***************************************************************************************************/
     
     mst_agent.set_agent_tag("Master VIP");
     slv_agent.set_agent_tag("Slave VIP");
-//    passthrough_agent.set_agent_tag("Passthrough VIP");
-    // set print out verbosity level.
+    
     mst_agent.set_verbosity(mst_agent_verbosity);
     slv_agent.set_verbosity(slv_agent_verbosity);
-//    passthrough_agent.set_verbosity(passthrough_agent_verbosity);
-
-    /***************************************************************************************************
-    * Master,slave agents start to run 
-    * Turn on passthrough agent monitor 
-    ***************************************************************************************************/
     
     mst_agent.start_master();
     slv_agent.start_slave();
-//    exdes_state = EXDES_PASSTHROUGH;
-//    passthrough_agent.start_monitor();
-
-    /***************************************************************************************************
-    * Fork off the process
-    * Master VIP create transaction
-    * Slave VIP create TREADY if it is on
-    * Passthrough VIP starts to monitor 
-    ***************************************************************************************************/
-
-//    fork
-//      begin
-////        mst_gen_transaction();
-////        $display("Simple master to slave transfer example with randomization completes");
-////        for(int i = 0; i < 4;i++) begin
-////          mst_gen_transaction();
-////        end  
-//        $display("Looped master to slave transfers example with randomization completes");
-////        send_a_packet(40*64);
-//        SendStream(0);
-//      end
-//      begin
-//        slv_gen_tready();
-//      end
-//    join_any
 
     $display("Sending data");
     fork begin
@@ -252,100 +196,8 @@ module AxiChecker_exdes_tb(
         slv_gen_tready();
     end
     join_any
-    
-//    while(passthrough_cmd_switch_cnt ==0) begin
-//      @(passthrough_mastermode_start_event);
-//      passthrough_cmd_switch_cnt++;
-//    end
-    #1ns;
-    
-    #1ns;
- 
-    /***************************************************************************************************
-    * DESCRIPTION:
-    * Passthrough VIP switch to run time master mode
-    * Passthrough VIP behaves as master VIP
-    * Create transcation and send out transaction
-    ***************************************************************************************************/
-//    AxiChecker_exdes_tb.DUT.ex_design.axi4stream_vip_passthrough.inst.set_master_mode();
-//    exdes_state = EXDES_PASSTHROUGH_MASTER;
-//    passthrough_agent.set_agent_tag("Passthrough VIP in Master mode");
-//    passthrough_agent.start_master();
-//    $display("Change Passthrough IP into runtime master mode and generate transfers with Randomization");
-//    for(int i = 0; i < 2;i++) begin
-//       passthrough_gen_transaction();
-//    end  
-//    $display("Passthrough IP change into runtime master transfers example with randomization completes");
-    
-    /***************************************************************************************************
-    * DESCRIPTION:
-    * Passthrough VIP switch to run time slave mode
-    * Passthrough VIP behaves as slave VIP
-    * Generate ready signal when TREADY is on
-    ***************************************************************************************************/
-//    while(passthrough_cmd_switch_cnt ==1) begin
-//      @(passthrough_mastermode_end_event);
-//      passthrough_cmd_switch_cnt++;
-//    end
-    #1ns;
-//    AxiChecker_exdes_tb.DUT.ex_design.axi4stream_vip_passthrough.inst.set_slave_mode();
-//    exdes_state = EXDES_PASSTHROUGH_SLAVE;
-//    passthrough_agent.set_agent_tag("Passthrough VIP in Slave mode");
-//    passthrough_agent.stop_master();
-//    passthrough_agent.start_slave();
-//    $display("EXAMPLE TEST  : Change Passthrough IP into runtime slave mode");
-//    fork
-//      begin
-//        for(int i = 0; i < 2;i++) begin
-//          mst_gen_transaction();
-//        end
-//      end
-//      passthrough_gen_tready();
-  
-//    join_any
-    
-//    while(passthrough_cmd_switch_cnt ==2) begin
-//      @(passthrough_slavemode_end_event);
-//      passthrough_cmd_switch_cnt++;
-//    end
-//    #1ns;
-//    if(error_cnt ==0) begin
-//      $display("EXAMPLE TEST DONE : Test Completed Successfully");
-//    end else begin  
-//      $display("EXAMPLE TEST DONE ",$sformatf("Test Failed: %d Comparison Failed", error_cnt));
-//    end 
-//    $finish;
   end
-
-  /*****************************************************************************************************************
-  * Task slv_gen_tready shows how slave VIP agent generates one customerized tready signal. 
-  * Declare axi4stream_ready_gen  ready_gen
-  * Call create_ready from agent's driver to create a new class of axi4stream_ready_gen 
-  * Set the poicy of ready generation in this example, it select XIL_AXI4STREAM_READY_GEN_OSC 
-  * Set low time 
-  * Set high time
-  * Agent's driver send_tready out
-  * Ready generation policy are listed below:
-  *  XIL_AXI4STREAM_READY_GEN_NO_BACKPRESSURE     - Ready stays asserted and will not change. The driver
-                                                 will still check for policy changes.
-  *   XIL_AXI4STREAM_READY_GEN_SINGLE             - Ready stays low for low_time,goes high and stay high till one 
-  *                                         ready/valid handshake occurs, it then goes to low repeats this pattern. 
-  *   XIL_AXI4STREAM_READY_GEN_EVENTS             - Ready stays low for low_time,goes high and stay high till one
-  *                                          a certain amount of ready/valid handshake occurs, it then goes to 
-  *                                          low and repeats this pattern.  
-  *   XIL_AXI4STREAM_READY_GEN_OSC                - Ready stays low for low_time and then goes to high and stays 
-  *                                          high for high_time, it then goes to low and repeat the same pattern
-  *   XIL_AXI4STREAM_READY_GEN_RANDOM             - Ready generates randomly 
-  *   XIL_AXI4STREAM_READY_GEN_AFTER_VALID_SINGLE - Ready stays low, once valid goes high, ready stays low for
-  *                                          low_time, then it goes high and stay high till one ready/valid handshake 
-  *                                          occurs. it then goes low and repeate the same pattern.
-  *   XIL_AXI4STREAM_READY_GEN_AFTER_VALID_EVENTS - Ready stays low, once valid goes high, ready stays low for low_time,
-  *                                          then it goes high and stay high till some amount of ready/valid handshake
-  *                                          event occurs. it then goes low and repeate the same pattern.
-  *   XIL_AXI4STREAM_READY_GEN_AFTER_VALID_OSC    - Ready stays low, once valid goes high, ready stays low for low_time, 
-  *                                          then it goes high and stay high for high_time. it then goes low 
-  *                                          and repeate the same pattern.
-  *****************************************************************************************************************/
+  
   task slv_gen_tready();
     axi4stream_ready_gen                           ready_gen;
     ready_gen = slv_agent.driver.create_ready("ready_gen");
@@ -354,14 +206,7 @@ module AxiChecker_exdes_tb(
     ready_gen.set_high_time(6);
     slv_agent.driver.send_tready(ready_gen);
   endtask :slv_gen_tready
-
-
-  /*************************************************************************************************************
-  * Master VIP generates transaction:
-  * Driver in master agent creates transaction
-  * Randomized the transaction
-  * Driver in master agent sends the transaction
-  *************************************************************************************************************/
+  
   task mst_gen_transaction();
     axi4stream_transaction                         wr_transaction; 
     wr_transaction = mst_agent.driver.create_transaction("Master VIP write transaction");
@@ -369,113 +214,6 @@ module AxiChecker_exdes_tb(
     WR_TRANSACTION_FAIL: assert(wr_transaction.randomize());
     mst_agent.driver.send(wr_transaction);
   endtask
-
-  /*************************************************************************************************************
-  * Passthrough VIP generates transaction:
-  * Master driver in passthrough agent creates transaction
-  * Randomized the transaction
-  * Master driver in passthrough agent sends the transaction
-  *************************************************************************************************************/
-//  task passthrough_gen_transaction();
-//    axi4stream_transaction                        pss_transaction;
-//    pss_transaction = passthrough_agent.mst_driver.create_transaction("Passthrough VIP in runtime master mode: create  transaction");
-//    PSS_TRANSACTION_FAIL: assert(pss_transaction.randomize());
-//    passthrough_agent.mst_driver.send(pss_transaction);
-//  endtask  
-
-  /*****************************************************************************************************************
-  * Task passthrough_gen_tready shows how passthrough VIP agent in run time slave mode generates one 
-  * customerized tready signal. 
-  * Declare axi4stream_ready_gen  ready_gen2
-  * Call create_ready from agent's driver to create a new class of axi4stream_ready_gen 
-  * Set the poicy of ready generation in this example, it select XIL_AXI4STREAM_READY_GEN_OSC 
-  * Set low time 
-  * Set high time
-  * Agent's slv_driver send_tready out
-  * Ready generation policy are listed below:
-  *   XIL_AXI4STREAM_READY_GEN_SINGLE             - Ready stays low for low_time,goes high and stay high till one 
-  *                                         ready/valid handshake occurs, it then goes to low repeats this pattern. 
-  *   XIL_AXI4STREAM_READY_GEN_EVENTS             - Ready stays low for low_time,goes high and stay high till one
-  *                                          a certain amount of ready/valid handshake occurs, it then goes to 
-  *                                          low and repeats this pattern.  
-  *   XIL_AXI4STREAM_READY_GEN_OSC                - Ready stays low for low_time and then goes to high and stays 
-  *                                          high for high_time, it then goes to low and repeat the same pattern
-  *   XIL_AXI4STREAM_READY_GEN_RANDOM             - Ready generates randomly 
-  *   XIL_AXI4STREAM_READY_GEN_AFTER_VALID_SINGLE - Ready stays low, once valid goes high, ready stays low for
-  *                                          low_time, then it goes high and stay high till one ready/valid handshake 
-  *                                          occurs. it then goes low and repeate the same pattern.
-  *   XIL_AXI4STREAM_READY_GEN_AFTER_VALID_EVENTS - Ready stays low, once valid goes high, ready stays low for low_time,
-  *                                          then it goes high and stay high till some amount of ready/valid handshake
-  *                                          event occurs. it then goes low and repeate the same pattern.
-  *   XIL_AXI4STREAM_READY_GEN_AFTER_VALID_OSC    - Ready stays low, once valid goes high, ready stays low for low_time, 
-  *                                          then it goes high and stay high for high_time. it then goes low 
-  *                                          and repeate the same pattern.
-  *****************************************************************************************************************/
-//  task passthrough_gen_tready();
-//    axi4stream_ready_gen                           ready_gen2;
-//    ready_gen2 = passthrough_agent.slv_driver.create_ready("ready_gen2");
-//    ready_gen2.set_ready_policy(XIL_AXI4STREAM_READY_GEN_OSC);
-//    ready_gen2.set_low_time(1);
-//    ready_gen2.set_high_time(2);
-//    passthrough_agent.slv_driver.send_tready(ready_gen2);
-//  endtask
-
-/****************************************************************************************************************
- Task send_a_packet shows how to send a packet with a certain number of words and the first 32-bit word is 0,
- the second 32-bit word is 1, and the last 32-bit word is num_words. The final beat has Tlast is 1
-
- This task is just being used in AXI4STREAM VIP when it is being configured to have TLAST and TDATA
- WIDTH >0
-
-***************************************************************************************************************/
-task automatic send_a_packet(xil_axi4stream_uint num_words);
-  xil_axi4stream_uint                     total_transfer;
-  bit[64*8-1:0]              data_beat;
-  bit[64-1:0]            keep_beat;
-  bit[31:0]                               payload; 
-  bit [7:0]                               byte_mem[xil_axi4stream_ulong];
-  axi4stream_transaction                  wr_transaction; 
-  axi4stream_transaction                  wr_transactionc;    
-
-  
-  if((num_words*4)%(64 ) !=0) begin
-    $display("Warning, stream VIP TDATA_WIDTH is %d byte, the number of words you wants to pass in a whole packet is %d, the last transfer will be filled with 0",64,num_words );
-  end
-  
-  for(xil_axi4stream_uint word_cnt=0; word_cnt<num_words; word_cnt++) begin
-    payload = word_cnt;
-    for(xil_axi4stream_uint byte_cnt=0; byte_cnt<4; byte_cnt++) begin
-      byte_mem[word_cnt*4+byte_cnt] = payload[byte_cnt*8+:8];
-    end  
-  end  
- 
-  if( (num_words*4)%(64 ) !=0) begin
-    total_transfer = (num_words*4)/(64 ) +1;
-  end else begin
-    total_transfer = (num_words*4)/(64 ) ;
-  end
-
-  for(xil_axi4stream_uint i=0; i<total_transfer; i++) begin
-    for(xil_axi4stream_uint byte_cnt=0; byte_cnt<(64); byte_cnt++) begin
-      data_beat[byte_cnt*8+:8] = byte_mem[byte_cnt+i*(64)];
-    end  
-    wr_transaction = mst_agent.driver.create_transaction("Master VIP write transaction");
-    wr_transactionc = mst_agent.driver.create_transaction("Master VIP write transactionc");
-//    wr_transaction.set_driver_return_item_policy(XIL_AXI4STREAM_AT_ACCEPT_RETURN );
-    wr_transaction.set_driver_return_item_policy(XIL_AXI4STREAM_AT_ASSERT_RETURN );
-    SEND_PACKET_FAILURE: assert(wr_transaction.randomize());
-    wr_transaction.set_data_beat(data_beat);
-    
-    $display("Index %d == %d", i, total_transfer-1);
-    wr_transaction.set_last(0);
-    if(i == total_transfer-1) begin
-      wr_transaction.set_last(1);  
-    end     
-    mst_agent.driver.send(wr_transaction);
-    $display("Test!");
-    mst_agent.driver.seq_item_port.get_next_rsp(wr_transactionc);
-  end
-endtask  :send_a_packet
 
 task SendStream();
     reg [7 : 0] data;
@@ -500,6 +238,8 @@ task SendStream();
     $display("Finished SendStream()");
 endtask
 
+
+  // MASTER
   /***************************************************************************************************
   * Get monitor transaction from master VIP monitor analysis port
   * Put the transactin into master monitor transaction queue 
@@ -512,6 +252,7 @@ endtask
     end  
   end 
 
+  // SLAVE
   /***************************************************************************************************
   * Get monitor transaction from slave VIP monitor analysis port
   * Put the transactin into slave monitor transaction queue 
@@ -523,86 +264,5 @@ endtask
       slave_moniter_transaction_queue_size++;
     end
   end
-
-  /***************************************************************************************************
-  * Get monitor transaction from passthrough VIP monitor analysis port
-  * Put the transactin into transaction queues of master side or slave side according to exdes_state
-  ***************************************************************************************************/
-//  initial begin
-//    forever begin
-//      passthrough_agent.monitor.item_collected_port.get(passthrough_monitor_transaction);
-//      if (exdes_state != EXDES_PASSTHROUGH_SLAVE) begin
-//        passthrough_master_moniter_transaction_queue.push_back(passthrough_monitor_transaction);
-//        passthrough_master_moniter_transaction_queue_size++;
-//      end
-//      if (exdes_state != EXDES_PASSTHROUGH_MASTER) begin
-//        passthrough_slave_moniter_transaction_queue.push_back(passthrough_monitor_transaction);
-//        passthrough_slave_moniter_transaction_queue_size++;
-//      end
-//    end  
-//  end 
-
-//   // event to trigger passthrough vip switch to runtime master/slave mode
-//  always @(comparison_cnt) begin
-//      if(comparison_cnt == 330) begin
-//        -> passthrough_mastermode_start_event;
-//      end 
-//      if(comparison_cnt == 332) begin
-//        -> passthrough_mastermode_end_event;
-//      end 
-//      if(comparison_cnt == 334) begin
-//        -> passthrough_slavemode_end_event;
-//      end 
-//  end
-
-  /***************************************************************************************************
-  * Simple scoreboard doing self checking 
-  * Comparing transaction from master VIP monitor with transaction from passsthrough VIP in slave side
-  * if they are match, SUCCESS. else, ERROR
-  ***************************************************************************************************/
-//  initial begin
-//   forever begin
-//      wait (master_moniter_transaction_queue_size>0 ) begin
-//        mst_scb_transaction = master_moniter_transaction_queue.pop_front;
-//        master_moniter_transaction_queue_size--;
-//        wait( passthrough_slave_moniter_transaction_queue_size>0) begin
-//          passthrough_slv_scb_transaction = passthrough_slave_moniter_transaction_queue.pop_front;
-//          passthrough_slave_moniter_transaction_queue_size--;
-//          if (passthrough_slv_scb_transaction.do_compare(mst_scb_transaction) == 0) begin
-//            $display("ERROR:  Master VIP against passthrough VIP scoreboard Compare failed");
-//            error_cnt++;
-//          end else begin
-//            $display("SUCCESS: Master VIP against passthrough VIP scoreboard Compare passed");
-//          end
-//          comparison_cnt++;
-//        end  
-//      end 
-//    end
-//  end
- 
-  /***************************************************************************************************
-  * Simple scoreboard doing self checking 
-  * Comparing transaction from passthrough VIP in master side with transaction from Slave VIP 
-  * if they are match, SUCCESS. else, ERROR
-  ***************************************************************************************************/
-//  initial begin
-//    forever begin
-//      wait (slave_moniter_transaction_queue_size>0 ) begin
-//        slv_scb_transaction = slave_moniter_transaction_queue.pop_front;
-//        slave_moniter_transaction_queue_size--;
-//        wait( passthrough_master_moniter_transaction_queue_size>0) begin
-//          passthrough_mst_scb_transaction = passthrough_master_moniter_transaction_queue.pop_front;
-//          passthrough_master_moniter_transaction_queue_size--;
-//          if (slv_scb_transaction.do_compare(passthrough_mst_scb_transaction) == 0) begin
-//            $display("ERROR: Slave VIP against passthrough VIP scoreboard Compare failed");
-//            error_cnt++;
-//          end else begin
-//            $display("SUCCESS: Slave VIP against passthrough VIP scoreboard Compare passed");
-//          end
-//          comparison_cnt++;
-//        end  
-//      end 
-//    end
-//  end
 
 endmodule
