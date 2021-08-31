@@ -221,7 +221,7 @@ task SendStream();
     axi4stream_transaction wr_transaction = mst_agent.driver.create_transaction("Master VIP write transaction");
     
     for (data = 0; data < 8; data++) begin 
-        InputData = '{
+        InputData = {
             data, 8'h00, 8'h00, 8'h00, 
             8'h00, 8'h00, 8'h00, 8'h00
         };
