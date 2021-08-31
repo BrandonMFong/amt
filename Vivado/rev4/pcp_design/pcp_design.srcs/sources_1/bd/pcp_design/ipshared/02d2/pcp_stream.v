@@ -111,6 +111,7 @@ reg read;
 reg store_output;
 
 reg inputValid;
+reg [C_AXIS_TDATA_WIDTH+2-1:0] inputData = {C_AXIS_TDATA_WIDTH+2{1'b0}};
 wire [C_AXIS_TDATA_WIDTH+2-1:0] pcpOutput;
 
 assign s00_axis_tready = ~full & ~s00_rst_sync3_reg;
@@ -177,7 +178,13 @@ always @(posedge s00_axis_aclk) begin
 
     if (write) begin
         mem[wr_addr_reg[ADDR_WIDTH-1:0]] <= mem_write_data;
-    end
+        
+        inputValid <= 1'b1;
+        inputData <= mem_write_data;
+    end else begin 
+        inputValid <= 1'b0;
+        inputData <= {C_AXIS_TDATA_WIDTH+2{1'b0}};
+    end 
 end
 
 // pointer synchronization
@@ -264,9 +271,6 @@ always @(posedge m00_axis_aclk) begin
 
     if (store_output) begin
         m00_data_reg <= mem_read_data_reg;
-        inputValid <= 1'b1;
-    end else begin
-        inputValid <= 1'b0;
     end 
 end
 
@@ -274,8 +278,8 @@ PCP #(
     .ADDR_WIDTH         (ADDR_WIDTH),
     .C_AXIS_TDATA_WIDTH (C_AXIS_TDATA_WIDTH)
 ) mod0 (
-    .clk            (m00_axis_aclk),
-    .inputValue     (m00_data_reg),
+    .clk            (s00_axis_aclk),
+    .inputValue     (inputData),
     .inputValid     (inputValid),
     .reset          (),
     .outputValue    (pcpOutput),

@@ -104,13 +104,6 @@ module DataStream #(
                 freqBuffer      <= dataStream;
                 ready           <= FALSE;
                 
-//                // If we get a signal that in this frequency state this data
-//                // is the last of the stream (which is not supposed to happen),
-//                // then we need to force assert the lastDataFlag to keep that value
-//                if (lastDataBit | !lastDataFlag) begin 
-//                    lastDataFlag <= lastDataBit;
-//                end 
-                
                 if (lastDataBit) begin 
                     state <= IDLE;
                 end else begin 
@@ -150,7 +143,6 @@ module DataStream #(
         .outputValue    (profileNumber)
     );
     
-//    assign {lastDataBit, dataStream} = inputStream;
     assign magnitudeValue = magBuffer;
     assign frequencyValue = freqBuffer;
     
