@@ -82,14 +82,6 @@ module AxiChecker_exdes_tb(
   xil_axi4stream_uint                            error_cnt = 0; 
   // Comparison count to check how many comparsion happened
   xil_axi4stream_uint                            comparison_cnt = 0;
-  // Counts of passthrough VIP switch to runtime master or slave mode 
-  xil_axi4stream_uint                            passthrough_cmd_switch_cnt = 0;
-  // Event when passthrough VIP in runtime Master mode start
-  event                                          passthrough_mastermode_start_event;
-  // Event when passthrough VIP in runtime master mode finish
-  event                                          passthrough_mastermode_end_event;
-  // Event when passthrough VIP in runtime slave mode finish
-  event                                          passthrough_slavemode_end_event;
 
   /***************************************************************************************************
   * The following monitor transactions are for simple scoreboards doing self-checking
@@ -106,20 +98,7 @@ module AxiChecker_exdes_tb(
   xil_axi4stream_uint                           master_moniter_transaction_queue_size =0;
   // Scoreboard transaction from master monitor transaction queue
   axi4stream_monitor_transaction                 mst_scb_transaction;
-  // Monitor transaction from passthrough VIP
-  axi4stream_monitor_transaction                 passthrough_monitor_transaction;
-  // Monitor transaction queue for passthrough VIP for scoreboard 1
-  axi4stream_monitor_transaction                 passthrough_master_moniter_transaction_queue[$];
-  // Size of passthrough_master_moniter_transaction_queue;
-  xil_axi4stream_uint                            passthrough_master_moniter_transaction_queue_size =0;
-  // Scoreboard transaction from passthrough VIP monitor transaction queue 
-  axi4stream_monitor_transaction                 passthrough_mst_scb_transaction;
-  // Monitor transaction queue for passthrough VIP for scoreboard 2 
-  axi4stream_monitor_transaction                 passthrough_slave_moniter_transaction_queue[$];
-  // Size of passthrough_slave_moniter_transaction_queue;
-  xil_axi4stream_uint                            passthrough_slave_moniter_transaction_queue_size =0;
-  // Scoreboard transaction from Passthrough VIP monitor transaction queue
-  axi4stream_monitor_transaction                 passthrough_slv_scb_transaction;
+  
   // Monitor transaction for slave VIP
   axi4stream_monitor_transaction                 slv_monitor_transaction;
   // Monitor transaction queue for slave VIP
@@ -137,8 +116,6 @@ module AxiChecker_exdes_tb(
   xil_axi4stream_uint                           mst_agent_verbosity = 0;
   // Slave VIP agent verbosity level
   xil_axi4stream_uint                           slv_agent_verbosity = 0;
-  // Passthrough VIP agent verbosity level
-  xil_axi4stream_uint                           passthrough_agent_verbosity = 0;
   /***************************************************************************************************
   * Parameterized agents which customer needs to declare according to AXI4STREAM VIP configuration
   * If AXI4STREAM VIP is being configured in master mode, "component_name"_mst_t has to declared 
@@ -188,7 +165,7 @@ module AxiChecker_exdes_tb(
     
     mst_agent.start_master();
     slv_agent.start_slave();
-
+    
     $display("Sending data");
     fork begin
         SendStream();
