@@ -48,11 +48,11 @@
 
 
 // IP VLNV: xilinx.com:user:axis_fifo_v1_0:1.0
-// IP Revision: 25
+// IP Revision: 26
 
 (* X_CORE_INFO = "axis_fifo_v1_0,Vivado 2018.3" *)
 (* CHECK_LICENSE_TYPE = "pcp_design_axis_fifo_v1_0_0_0,axis_fifo_v1_0,{}" *)
-(* CORE_GENERATION_INFO = "pcp_design_axis_fifo_v1_0_0_0,axis_fifo_v1_0,{x_ipProduct=Vivado 2018.3,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=axis_fifo_v1_0,x_ipVersion=1.0,x_ipCoreRevision=25,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,ADDR_WIDTH=32,C_AXIS_TDATA_WIDTH=64}" *)
+(* CORE_GENERATION_INFO = "pcp_design_axis_fifo_v1_0_0_0,axis_fifo_v1_0,{x_ipProduct=Vivado 2018.3,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=axis_fifo_v1_0,x_ipVersion=1.0,x_ipCoreRevision=26,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,ADDR_WIDTH=32,C_AXIS_TDATA_WIDTH=64}" *)
 (* IP_DEFINITION_SOURCE = "package_project" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module pcp_design_axis_fifo_v1_0_0_0 (
