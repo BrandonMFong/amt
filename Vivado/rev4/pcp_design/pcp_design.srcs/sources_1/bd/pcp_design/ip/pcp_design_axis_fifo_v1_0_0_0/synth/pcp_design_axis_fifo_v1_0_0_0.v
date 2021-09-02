@@ -48,11 +48,11 @@
 
 
 // IP VLNV: xilinx.com:user:axis_fifo_v1_0:1.0
-// IP Revision: 23
+// IP Revision: 25
 
 (* X_CORE_INFO = "axis_fifo_v1_0,Vivado 2018.3" *)
 (* CHECK_LICENSE_TYPE = "pcp_design_axis_fifo_v1_0_0_0,axis_fifo_v1_0,{}" *)
-(* CORE_GENERATION_INFO = "pcp_design_axis_fifo_v1_0_0_0,axis_fifo_v1_0,{x_ipProduct=Vivado 2018.3,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=axis_fifo_v1_0,x_ipVersion=1.0,x_ipCoreRevision=23,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,ADDR_WIDTH=12,C_AXIS_TDATA_WIDTH=32}" *)
+(* CORE_GENERATION_INFO = "pcp_design_axis_fifo_v1_0_0_0,axis_fifo_v1_0,{x_ipProduct=Vivado 2018.3,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=axis_fifo_v1_0,x_ipVersion=1.0,x_ipCoreRevision=25,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,ADDR_WIDTH=32,C_AXIS_TDATA_WIDTH=64}" *)
 (* IP_DEFINITION_SOURCE = "package_project" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module pcp_design_axis_fifo_v1_0_0_0 (
@@ -79,14 +79,14 @@ input wire s00_axis_aclk;
 (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 s00_axis_aresetn RST" *)
 input wire s00_axis_aresetn;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s00_axis TDATA" *)
-input wire [31 : 0] s00_axis_tdata;
+input wire [63 : 0] s00_axis_tdata;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s00_axis TSTRB" *)
-input wire [3 : 0] s00_axis_tstrb;
+input wire [7 : 0] s00_axis_tstrb;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s00_axis TVALID" *)
 input wire s00_axis_tvalid;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s00_axis TREADY" *)
 output wire s00_axis_tready;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME s00_axis, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 1, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.000, CLK_DOMAIN pcp_design_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef, INSERT_VIP 0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME s00_axis, TDATA_NUM_BYTES 8, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 1, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.000, CLK_DOMAIN pcp_design_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 s00_axis TLAST" *)
 input wire s00_axis_tlast;
 (* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME m00_axis_aclk, ASSOCIATED_BUSIF m00_axis, ASSOCIATED_RESET m00_axis_aresetn, FREQ_HZ 100000000, PHASE 0.000, CLK_DOMAIN pcp_design_processing_system7_0_0_FCLK_CLK0, INSERT_VIP 0" *)
@@ -96,20 +96,20 @@ input wire m00_axis_aclk;
 (* X_INTERFACE_INFO = "xilinx.com:signal:reset:1.0 m00_axis_aresetn RST" *)
 input wire m00_axis_aresetn;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m00_axis TDATA" *)
-output wire [31 : 0] m00_axis_tdata;
+output wire [63 : 0] m00_axis_tdata;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m00_axis TSTRB" *)
-output wire [3 : 0] m00_axis_tstrb;
+output wire [7 : 0] m00_axis_tstrb;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m00_axis TVALID" *)
 output wire m00_axis_tvalid;
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m00_axis TREADY" *)
 input wire m00_axis_tready;
-(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME m00_axis, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 1, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.000, CLK_DOMAIN pcp_design_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef, INSERT_VIP 0" *)
+(* X_INTERFACE_PARAMETER = "XIL_INTERFACENAME m00_axis, TDATA_NUM_BYTES 8, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 1, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.000, CLK_DOMAIN pcp_design_processing_system7_0_0_FCLK_CLK0, LAYERED_METADATA undef, INSERT_VIP 0" *)
 (* X_INTERFACE_INFO = "xilinx.com:interface:axis:1.0 m00_axis TLAST" *)
 output wire m00_axis_tlast;
 
   axis_fifo_v1_0 #(
-    .ADDR_WIDTH(12),
-    .C_AXIS_TDATA_WIDTH(32)
+    .ADDR_WIDTH(32),
+    .C_AXIS_TDATA_WIDTH(64)
   ) inst (
     .s00_axis_aclk(s00_axis_aclk),
     .s00_axis_aresetn(s00_axis_aresetn),

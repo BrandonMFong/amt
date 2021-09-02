@@ -126,11 +126,13 @@ module PCP #(
             // As stated here: https://developer.arm.com/documentation/ihi0051/a/Interface-Signals/Transfer-signaling/Handshake-process
             // I must wait until slave is ready
             READY: begin 
-                outputValidBuffer <= 1'b1; // Signal that we are ready to send data 
                 
                 // Wait until the axis ready before writing to output 
                 if (axiReady) begin 
                     state <= WRITE;
+                end else begin 
+                    // Signal that we are ready to send data if the axi was ready yet
+                    outputValidBuffer <= 1'b1; 
                 end 
             end 
             

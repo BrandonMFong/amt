@@ -168,8 +168,12 @@ proc create_hier_cell_stream { parentCell nameHier } {
   # Create instance: dma, and set properties
   set dma [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_dma:7.1 dma ]
   set_property -dict [ list \
-   CONFIG.c_addr_width {64} \
+   CONFIG.c_addr_width {32} \
    CONFIG.c_include_sg {0} \
+   CONFIG.c_m_axi_mm2s_data_width {64} \
+   CONFIG.c_m_axis_mm2s_tdata_width {64} \
+   CONFIG.c_mm2s_burst_size {64} \
+   CONFIG.c_s2mm_burst_size {64} \
    CONFIG.c_sg_include_stscntrl_strm {0} \
    CONFIG.c_sg_length_width {26} \
  ] $dma
@@ -177,7 +181,8 @@ proc create_hier_cell_stream { parentCell nameHier } {
   # Create instance: pcp, and set properties
   set pcp [ create_bd_cell -type ip -vlnv xilinx.com:user:axis_fifo_v1_0:1.0 pcp ]
   set_property -dict [ list \
-   CONFIG.C_AXIS_TDATA_WIDTH {32} \
+   CONFIG.ADDR_WIDTH {32} \
+   CONFIG.C_AXIS_TDATA_WIDTH {64} \
  ] $pcp
 
   # Create interface connections
