@@ -1939,10 +1939,22 @@
             "xci_name": "pcp_design_axi_dma_0_0",
             "parameters": {
               "c_addr_width": {
-                "value": "64"
+                "value": "32"
               },
               "c_include_sg": {
                 "value": "0"
+              },
+              "c_m_axi_mm2s_data_width": {
+                "value": "64"
+              },
+              "c_m_axis_mm2s_tdata_width": {
+                "value": "64"
+              },
+              "c_mm2s_burst_size": {
+                "value": "64"
+              },
+              "c_s2mm_burst_size": {
+                "value": "64"
               },
               "c_sg_length_width": {
                 "value": "26"
@@ -1953,8 +1965,11 @@
             "vlnv": "xilinx.com:user:axis_fifo_v1_0:1.0",
             "xci_name": "pcp_design_axis_fifo_v1_0_0_0",
             "parameters": {
-              "C_AXIS_TDATA_WIDTH": {
+              "ADDR_WIDTH": {
                 "value": "32"
+              },
+              "C_AXIS_TDATA_WIDTH": {
+                "value": "64"
               }
             }
           }
@@ -1964,12 +1979,6 @@
             "interface_ports": [
               "pcp/m00_axis",
               "dma/S_AXIS_S2MM"
-            ]
-          },
-          "axi_dma_0_M_AXI_MM2S": {
-            "interface_ports": [
-              "M_AXI_MM2S",
-              "dma/M_AXI_MM2S"
             ]
           },
           "axi_dma_0_M_AXIS_MM2S": {
@@ -1982,6 +1991,12 @@
             "interface_ports": [
               "M_AXI_S2MM",
               "dma/M_AXI_S2MM"
+            ]
+          },
+          "axi_dma_0_M_AXI_MM2S": {
+            "interface_ports": [
+              "M_AXI_MM2S",
+              "dma/M_AXI_MM2S"
             ]
           },
           "ps7_0_axi_periph_M00_AXI": {
@@ -2020,10 +2035,16 @@
           "processing_system7_0/DDR"
         ]
       },
-      "processing_system7_0_FIXED_IO": {
+      "axi_smc_M00_AXI": {
         "interface_ports": [
-          "FIXED_IO",
-          "processing_system7_0/FIXED_IO"
+          "axi_smc/M00_AXI",
+          "processing_system7_0/S_AXI_HP0"
+        ]
+      },
+      "axi_dma_0_M_AXI_MM2S": {
+        "interface_ports": [
+          "stream/M_AXI_MM2S",
+          "axi_smc/S00_AXI"
         ]
       },
       "stream_M_AXI_S2MM": {
@@ -2032,28 +2053,22 @@
           "stream/M_AXI_S2MM"
         ]
       },
-      "processing_system7_0_M_AXI_GP0": {
-        "interface_ports": [
-          "processing_system7_0/M_AXI_GP0",
-          "ps7_0_axi_periph/S00_AXI"
-        ]
-      },
-      "axi_smc_M00_AXI": {
-        "interface_ports": [
-          "axi_smc/M00_AXI",
-          "processing_system7_0/S_AXI_HP0"
-        ]
-      },
       "ps7_0_axi_periph_M00_AXI": {
         "interface_ports": [
           "ps7_0_axi_periph/M00_AXI",
           "stream/S_AXI_LITE"
         ]
       },
-      "axi_dma_0_M_AXI_MM2S": {
+      "processing_system7_0_M_AXI_GP0": {
         "interface_ports": [
-          "stream/M_AXI_MM2S",
-          "axi_smc/S00_AXI"
+          "processing_system7_0/M_AXI_GP0",
+          "ps7_0_axi_periph/S00_AXI"
+        ]
+      },
+      "processing_system7_0_FIXED_IO": {
+        "interface_ports": [
+          "FIXED_IO",
+          "processing_system7_0/FIXED_IO"
         ]
       }
     },
@@ -2107,23 +2122,23 @@
       "/stream/dma": {
         "address_spaces": {
           "Data_MM2S": {
-            "range": "16E",
+            "range": "4G",
             "width": "32",
             "segments": {
               "SEG_processing_system7_0_HP0_DDR_LOWOCM": {
                 "address_block": "/processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM",
-                "offset": "0x0000000000000000",
+                "offset": "0x00000000",
                 "range": "512M"
               }
             }
           },
           "Data_S2MM": {
-            "range": "16E",
+            "range": "4G",
             "width": "32",
             "segments": {
               "SEG_processing_system7_0_HP0_DDR_LOWOCM": {
                 "address_block": "/processing_system7_0/S_AXI_HP0/HP0_DDR_LOWOCM",
-                "offset": "0x0000000000000000",
+                "offset": "0x00000000",
                 "range": "512M"
               }
             }

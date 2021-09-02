@@ -20,6 +20,7 @@
 // Refs:
 //  https://dsp.stackexchange.com/questions/13722/pitch-class-profiling
 //  https://dsp.stackexchange.com/questions/26927/what-is-a-frequency-bin
+//
 //////////////////////////////////////////////////////////////////////////////////
 
 
@@ -73,10 +74,11 @@ module PCP #(
                 WRITE                   = 2;
     localparam  kPCPVectorLength        = 12;
     localparam  kPCPVectorAddrLength    = $clog2(kPCPVectorLength);
+    localparam  kWaitCounterLimit       = 1000000;
+    localparam  kWaitRegisterLength     = $clog2(kWaitCounterLimit);
     
     integer i;
-
-//    wire [C_AXIS_TDATA_WIDTH - 1 : 0]   dataStream;
+    
     wire                                lastDataFlag;
     wire                                recordPCPValue; // If Datastream has finished parsing current data
     wire [PCP_ADDR_WIDTH - 1 : 0]       profileNumber;
@@ -89,6 +91,7 @@ module PCP #(
     reg [C_AXIS_TDATA_WIDTH - 1 : 0]    pcpIntensityValue; // Will hold each value inside the pcp vector
     reg                                 pcpLastDataFlag;    // Will hold the value that indicates we are done transmitting the pcp values
     reg [C_AXIS_TDATA_WIDTH - 1 : 0]    pcpVector [0 : kPCPVectorLength - 1];
+    reg [kWaitRegisterLength - 1 : 0]   waitCounter;
     
     initial begin 
         state               = IDLE;
@@ -96,6 +99,7 @@ module PCP #(
         pcpIntensityValue   = {C_AXIS_TDATA_WIDTH{1'b0}};
         pcpLastDataFlag     = 1'b0;
         outputValidBuffer   = 1'b0;
+        waitCounter         = {kWaitRegisterLength{1'b0}};
         
         for (i = 0; i < 2**PCP_ADDR_WIDTH; i = i + 1) begin 
             pcpVector[i] = {PCP_ADDR_WIDTH{1'b0}};
@@ -122,34 +126,47 @@ module PCP #(
             // As stated here: https://developer.arm.com/documentation/ihi0051/a/Interface-Signals/Transfer-signaling/Handshake-process
             // I must wait until slave is ready
             READY: begin 
-                outputValidBuffer <= 1'b1; // Signal that we are ready to send data 
                 
                 // Wait until the axis ready before writing to output 
                 if (axiReady) begin 
                     state <= WRITE;
+                end else begin 
+                    // Signal that we are ready to send data if the axi was ready yet
+                    outputValidBuffer <= 1'b1; 
                 end 
             end 
             
             WRITE: begin
-                // Check if we still have things to send 
-                if (vecAddr < kPCPVectorLength) begin
-                    pcpIntensityValue   <= pcpVector[vecAddr]; // Write to output 
-                    outputValidBuffer   <= 1'b1;
-                    vecAddr             <= vecAddr + 1;
+                // Will only do something only if slave is ready
+                if (axiReady) begin
+                    waitCounter <= {kWaitRegisterLength{1'b0}}; // Reset the waitCounter
                     
-                    // See if this was the last of the vector data 
-                    if (vecAddr + 1 == kPCPVectorLength) begin 
-                        pcpLastDataFlag <= 1'b1; // We are done
-                    end else begin 
-                        pcpLastDataFlag <= 1'b0; // We still have more 
+                    // Check if we still have things to send 
+                    if (vecAddr < kPCPVectorLength) begin
+                        pcpIntensityValue   <= pcpVector[vecAddr]; // Write to output 
+                        outputValidBuffer   <= 1'b1;
+                        vecAddr             <= vecAddr + 1;
+                        
+                        // See if this was the last of the vector data 
+                        if (vecAddr + 1 == kPCPVectorLength) begin 
+                            pcpLastDataFlag <= 1'b1; // We are done
+                        end else begin 
+                            pcpLastDataFlag <= 1'b0; // We still have more 
+                        end 
+                    end else begin
+                        pcpLastDataFlag     <= 1'b0; // reset this flag
+                        pcpIntensityValue   <= {C_AXIS_TDATA_WIDTH{1'b0}}; 
+                        vecAddr             <= {kPCPVectorAddrLength{1'b0}};
+                        outputValidBuffer   <= 1'b0;
+                        state               <= IDLE;
                     end 
-                end else begin
-                    pcpLastDataFlag     <= 1'b0; // reset this flag
-                    pcpIntensityValue   <= {C_AXIS_TDATA_WIDTH{1'b0}}; 
-                    vecAddr             <= {kPCPVectorAddrLength{1'b0}};
-                    outputValidBuffer   <= 1'b0;
-                    state               <= IDLE;
-                end 
+                end else begin 
+                    if (waitCounter < kWaitCounterLimit) begin 
+                        waitCounter <= waitCounter + 1;
+                    end else begin 
+                        state <= IDLE;
+                    end 
+                end
             end 
             
             IDLE: begin 
@@ -175,6 +192,6 @@ module PCP #(
     );
     
     assign outputValue  = {pcpLastDataFlag, pcpIntensityValue};
-    assign outputValid  = outputValidBuffer;
+    assign outputValid  = outputValidBuffer; // pcp stream has active low valid flag
     
 endmodule

@@ -4,22 +4,32 @@
 #  -string -flagsOSRD
 preplace port DDR -pg 1 -y -380 -defaultsOSRD
 preplace port FIXED_IO -pg 1 -y -360 -defaultsOSRD
+preplace inst stream|dma -pg 1 -lvl 2 -y -60 -defaultsOSRD
 preplace inst axi_smc -pg 1 -lvl 5 -y -280 -defaultsOSRD
-preplace inst stream -pg 1 -lvl 6 -y -132 -defaultsOSRD
+preplace inst stream -pg 1 -lvl 6 -y 30 -defaultsOSRD
+preplace inst stream|pcp -pg 1 -lvl 1 -y 60 -defaultsOSRD
 preplace inst ps7_0_axi_periph -pg 1 -lvl 5 -y -30 -defaultsOSRD
 preplace inst rst_ps7_0_100M -pg 1 -lvl 4 -y -260 -defaultsOSRD
 preplace inst processing_system7_0 -pg 1 -lvl 3 -y -330 -defaultsOSRD
-preplace netloc processing_system7_0_DDR 1 3 4 560J -390 N -390 1270 -380 N
-preplace netloc processing_system7_0_M_AXI_GP0 1 3 2 580 -360 920J
-preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 4 2 940 90 1290
-preplace netloc axi_smc_M00_AXI 1 2 4 100 -440 NJ -440 NJ -440 1260
-preplace netloc stream_M_AXI_S2MM 1 4 3 960 -160 1270J -62 1700
+preplace netloc processing_system7_0_DDR 1 3 4 NJ -380 N -380 N -380 N
+preplace netloc stream|axis_fifo_v1_0_0_m00_axis 1 1 1 1780
+preplace netloc stream|axi_dma_0_M_AXI_MM2S 1 2 1 N
+preplace netloc processing_system7_0_M_AXI_GP0 1 3 2 590 -360 930J
+preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 4 2 960 90 1270
+preplace netloc stream|axi_dma_0_M_AXIS_MM2S 1 0 3 1460 -90 1760J 60 2130
+preplace netloc stream_M_AXI_S2MM 1 4 3 950 -400 NJ -400 2280
+preplace netloc axi_smc_M00_AXI 1 2 4 100 -450 NJ -450 NJ -450 1270
 preplace netloc processing_system7_0_FCLK_RESET0_N 1 3 1 N
-preplace netloc axi_dma_0_M_AXI_MM2S 1 4 3 950 -190 1270 -212 1700
-preplace netloc processing_system7_0_FIXED_IO 1 3 4 560J -370 N -370 N -370 1700
-preplace netloc processing_system7_0_FCLK_CLK0 1 2 4 100 -220 570 -380 930 -150 1260
-preplace netloc ps7_0_axi_periph_M00_AXI 1 5 1 1280
-levelinfo -pg 1 0 30 80 330 750 1110 1550 2250 -top -1230 -bot 200
+preplace netloc stream|ps7_0_axi_periph_M00_AXI 1 0 2 NJ -110 N
+preplace netloc stream|rst_ps7_0_100M_peripheral_aresetn 1 0 2 1450 -100 1770
+preplace netloc stream|Conn1 1 2 1 N
+preplace netloc axi_dma_0_M_AXI_MM2S 1 4 3 960 -390 N -390 2270
+preplace netloc processing_system7_0_FIXED_IO 1 3 4 570J -370 N -370 N -370 2290
+preplace netloc processing_system7_0_FCLK_CLK0 1 2 4 110 -440 580 -390 940 -150 1270
+preplace netloc stream|processing_system7_0_FCLK_CLK0 1 0 2 1440 -120 1790
+preplace netloc ps7_0_axi_periph_M00_AXI 1 5 1 1260
+levelinfo -pg 1 0 30 80 340 760 1110 1570 2310 -top -1230 -bot 300
+levelinfo -hier stream * 1610 1960 *
 "
 }
 {
