@@ -74,9 +74,6 @@ module DataStream #(
     
     localparam  TRUE = 1'b1, 
                 FALSE = 1'b0;
-                
-    reg                                lastDataBit; // Holds last data bit value from inputstream
-    reg [C_AXIS_TDATA_WIDTH - 1 : 0]   dataStream;
     
     reg                             lastDataFlagBuffer; // Buffers last data bit value
     reg [1 : 0]                     state;
@@ -85,7 +82,7 @@ module DataStream #(
     
     initial begin 
         ready       = FALSE;
-        state       = IDLE; 
+        state       = FREQSTATE; 
         freqBuffer  = {C_AXIS_TDATA_WIDTH{1'b0}};
         magBuffer   = {C_AXIS_TDATA_WIDTH{1'b0}};
     end 
@@ -96,36 +93,31 @@ module DataStream #(
     *   and the magnitude value to calculate the pcp class value
     */
     always @(posedge clk) begin 
-        {lastDataBit, dataStream} <= inputStream;
+//        {lastDataBit, dataStream} <= inputStream;
         
         case (state)
             FREQSTATE : begin
-                lastDataFlag    <= lastDataBit;
-                freqBuffer      <= dataStream;
-                ready           <= FALSE;
-                
-                if (lastDataBit) begin 
-                    state <= IDLE;
-                end else begin 
-                    state <= MAGSTATE;
-                end 
-            end 
-            
-            MAGSTATE : begin 
-                lastDataFlag    <= lastDataBit;
-                magBuffer       <= dataStream;
-                ready           <= TRUE;
-                
-                if (lastDataBit) begin 
-                    state <= IDLE;
-                end else begin 
-                    state <= FREQSTATE;
-                end 
-            end 
-            
-            IDLE : begin 
                 if (startReading) begin 
-                    state <= FREQSTATE;
+                    {lastDataFlag, freqBuffer} <= inputStream;
+                    ready           <= FALSE;
+                    
+                    if (lastDataFlag) begin 
+                        state <= FREQSTATE;
+                    end else begin 
+                        state <= MAGSTATE;
+                    end 
+                end
+            end 
+            MAGSTATE : begin
+                if (startReading) begin 
+                    {lastDataFlag, magBuffer} <= inputStream;
+                    ready <= TRUE;
+                    
+                    if (lastDataFlag) begin 
+                        state <= FREQSTATE;
+                    end else begin 
+                        state <= FREQSTATE;
+                    end 
                 end 
             end 
         endcase 

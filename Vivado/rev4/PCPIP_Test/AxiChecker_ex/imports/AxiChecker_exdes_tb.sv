@@ -195,7 +195,7 @@ module AxiChecker_exdes_tb(
 task SendStream();
     localparam size = 12;
     reg [7 : 0] data;
-    xil_axi4stream_data_byte InputData [63:0];
+    xil_axi4stream_data_byte InputData [64];
     axi4stream_transaction wr_transaction = mst_agent.driver.create_transaction("Master VIP write transaction");
     
     for (data = 0; data < size; data++) begin 
