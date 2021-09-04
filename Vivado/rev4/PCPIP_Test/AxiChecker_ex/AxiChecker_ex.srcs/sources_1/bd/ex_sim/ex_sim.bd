@@ -115,16 +115,16 @@
       }
     },
     "interface_nets": {
-      "axis_fifo_v1_0_0_m00_axis": {
-        "interface_ports": [
-          "axi4stream_vip_slv/S_AXIS",
-          "axis_fifo_v1_0_0/m00_axis"
-        ]
-      },
       "axi4stream_vip_mst_M_AXIS": {
         "interface_ports": [
           "axi4stream_vip_mst/M_AXIS",
           "axis_fifo_v1_0_0/s00_axis"
+        ]
+      },
+      "axis_fifo_v1_0_0_m00_axis": {
+        "interface_ports": [
+          "axi4stream_vip_slv/S_AXIS",
+          "axis_fifo_v1_0_0/m00_axis"
         ]
       }
     },
