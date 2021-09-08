@@ -168,11 +168,15 @@ module AxiChecker_exdes_tb(
     
     $display("Sending data 1");
     slv_gen_tready();
+    
     SendStream();
     $display("Finished sending data 1");
     
     SendStream();
     $display("Finished sending data 2");
+    
+    SendStream();
+    $display("Finished sending data 3");
   end
   
   task slv_gen_tready();
@@ -249,8 +253,8 @@ endtask
       slave_moniter_transaction_queue.push_back(slv_monitor_transaction);
       slave_moniter_transaction_queue_size++;
       
-      if (slave_moniter_transaction_queue_size == 12) begin
-        $display("Queue is 12");
+      if ((slave_moniter_transaction_queue_size % 12) == 0) begin
+        $display("Received a pcp vector");
       end 
     end
   end
