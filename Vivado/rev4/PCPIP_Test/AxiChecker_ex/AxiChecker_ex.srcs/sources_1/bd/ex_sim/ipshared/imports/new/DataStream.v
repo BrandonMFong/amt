@@ -41,6 +41,11 @@ module DataStream #(
     input wire startReading,
     
     /**
+    *   Reset flag
+    */
+    input wire reset,
+    
+    /**
     *   The data stream output is good to be recorded to pcp vector
     */
     output reg ready,
@@ -74,9 +79,6 @@ module DataStream #(
     
     localparam  TRUE = 1'b1, 
                 FALSE = 1'b0;
-                
-    wire                                lastDataBit; // Holds last data bit value from inputstream
-    wire [C_AXIS_TDATA_WIDTH - 1 : 0]   dataStream;
     
     reg                             lastDataFlagBuffer; // Buffers last data bit value
     reg [1 : 0]                     state;
@@ -85,7 +87,7 @@ module DataStream #(
     
     initial begin 
         ready       = FALSE;
-        state       = IDLE; 
+        state       = FREQSTATE; 
         freqBuffer  = {C_AXIS_TDATA_WIDTH{1'b0}};
         magBuffer   = {C_AXIS_TDATA_WIDTH{1'b0}};
     end 
@@ -96,47 +98,36 @@ module DataStream #(
     *   and the magnitude value to calculate the pcp class value
     */
     always @(posedge clk) begin 
-        case (state)
-            FREQSTATE : begin
-                lastDataFlag    <= lastDataBit;
-                freqBuffer      <= dataStream;
-                ready           <= FALSE;
-                
-//                // If we get a signal that in this frequency state this data
-//                // is the last of the stream (which is not supposed to happen),
-//                // then we need to force assert the lastDataFlag to keep that value
-//                if (lastDataBit | !lastDataFlag) begin 
-//                    lastDataFlag <= lastDataBit;
-//                end 
-                
-                if (!startReading) begin 
-                    state <= IDLE;
-                end else begin 
-                    state <= MAGSTATE;
+        if (reset) begin 
+            state <= FREQSTATE; // Set to frequency state 
+        end else begin 
+            case (state)
+                FREQSTATE : begin
+                    if (startReading) begin 
+                        {lastDataFlag, freqBuffer} <= inputStream;
+                        ready           <= FALSE;
+                        
+                        if (lastDataFlag) begin 
+                            state <= FREQSTATE;
+                        end else begin 
+                            state <= MAGSTATE;
+                        end 
+                    end
                 end 
-            end 
-            
-            MAGSTATE : begin 
-                lastDataFlag    <= lastDataBit;
-                magBuffer       <= dataStream;
-                ready           <= TRUE;
-                
-                // If the data we currently have is the last one of the stream
-                // we need to assert the idle state to make sure we don't waste
-                // time doing something while the PCP module is writing to output 
-                if (lastDataBit | !startReading) begin
-                    state <= IDLE;
-                end else begin 
-                    state <= FREQSTATE;
+                MAGSTATE : begin
+                    if (startReading) begin 
+                        {lastDataFlag, magBuffer} <= inputStream;
+                        ready <= TRUE;
+                        
+                        if (lastDataFlag) begin 
+                            state <= FREQSTATE;
+                        end else begin 
+                            state <= FREQSTATE;
+                        end 
+                    end 
                 end 
-            end 
-            
-            IDLE : begin 
-                if (startReading) begin 
-                    state <= FREQSTATE;
-                end 
-            end 
-        endcase 
+            endcase 
+        end
     end 
     
     /**
@@ -151,7 +142,6 @@ module DataStream #(
         .outputValue    (profileNumber)
     );
     
-    assign {lastDataBit, dataStream} = inputStream;
     assign magnitudeValue = magBuffer;
     assign frequencyValue = freqBuffer;
     

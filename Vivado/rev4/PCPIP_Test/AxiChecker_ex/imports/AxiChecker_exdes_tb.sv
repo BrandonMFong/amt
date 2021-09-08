@@ -166,13 +166,13 @@ module AxiChecker_exdes_tb(
     mst_agent.start_master();
     slv_agent.start_slave();
     
-    $display("Sending data");
-    fork begin
-        SendStream();
-    end begin
-        slv_gen_tready();
-    end
-    join_any
+    $display("Sending data 1");
+    slv_gen_tready();
+    SendStream();
+    $display("Finished sending data 1");
+    
+    SendStream();
+    $display("Finished sending data 2");
   end
   
   task slv_gen_tready();
@@ -221,7 +221,7 @@ task SendStream();
         mst_agent.driver.send(wr_transaction);
     end
     
-    $display("Finished SendStream()");
+    $display("Finished SendStream");
 endtask
 
 
@@ -248,6 +248,10 @@ endtask
       slv_agent.monitor.item_collected_port.get(slv_monitor_transaction);
       slave_moniter_transaction_queue.push_back(slv_monitor_transaction);
       slave_moniter_transaction_queue_size++;
+      
+      if (slave_moniter_transaction_queue_size == 12) begin
+        $display("Queue is 12");
+      end 
     end
   end
 

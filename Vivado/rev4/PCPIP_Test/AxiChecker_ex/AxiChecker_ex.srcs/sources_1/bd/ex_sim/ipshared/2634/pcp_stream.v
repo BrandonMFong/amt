@@ -281,7 +281,8 @@ PCP #(
     .clk            (s00_axis_aclk),
     .inputValue     (inputData),
     .inputValid     (inputValid),
-    .reset          (),
+    .sreset         (s00_rst_sync3_reg),
+    .mreset         (m00_rst_sync3_reg),
     .outputValue    (pcpOutput),
     .axiReady       (m00_axis_tready),
     .outputValid    (m00_axis_tvalid)

@@ -41,6 +41,11 @@ module DataStream #(
     input wire startReading,
     
     /**
+    *   Reset flag
+    */
+    input wire reset,
+    
+    /**
     *   The data stream output is good to be recorded to pcp vector
     */
     output reg ready,
@@ -93,34 +98,36 @@ module DataStream #(
     *   and the magnitude value to calculate the pcp class value
     */
     always @(posedge clk) begin 
-//        {lastDataBit, dataStream} <= inputStream;
-        
-        case (state)
-            FREQSTATE : begin
-                if (startReading) begin 
-                    {lastDataFlag, freqBuffer} <= inputStream;
-                    ready           <= FALSE;
-                    
-                    if (lastDataFlag) begin 
-                        state <= FREQSTATE;
-                    end else begin 
-                        state <= MAGSTATE;
-                    end 
-                end
-            end 
-            MAGSTATE : begin
-                if (startReading) begin 
-                    {lastDataFlag, magBuffer} <= inputStream;
-                    ready <= TRUE;
-                    
-                    if (lastDataFlag) begin 
-                        state <= FREQSTATE;
-                    end else begin 
-                        state <= FREQSTATE;
+        if (reset) begin 
+            state <= FREQSTATE; // Set to frequency state 
+        end else begin 
+            case (state)
+                FREQSTATE : begin
+                    if (startReading) begin 
+                        {lastDataFlag, freqBuffer} <= inputStream;
+                        ready           <= FALSE;
+                        
+                        if (lastDataFlag) begin 
+                            state <= FREQSTATE;
+                        end else begin 
+                            state <= MAGSTATE;
+                        end 
+                    end
+                end 
+                MAGSTATE : begin
+                    if (startReading) begin 
+                        {lastDataFlag, magBuffer} <= inputStream;
+                        ready <= TRUE;
+                        
+                        if (lastDataFlag) begin 
+                            state <= FREQSTATE;
+                        end else begin 
+                            state <= FREQSTATE;
+                        end 
                     end 
                 end 
-            end 
-        endcase 
+            endcase 
+        end
     end 
     
     /**
