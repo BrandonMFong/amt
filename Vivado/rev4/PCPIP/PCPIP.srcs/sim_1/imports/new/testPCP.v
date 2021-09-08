@@ -18,6 +18,15 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
+`ifndef assert
+    `define assert(signal, value) \
+        if (signal !== value) begin \
+            $display("ASSERTION FAILED in %m: %0d != %0d", signal, value); \
+            $finish; \
+        end else begin \
+            $display("PASSED: %0d == %0d", signal, value); \
+        end
+`endif
 
 `ifndef assertFalse
     `define assertFalse(signal, value) \
@@ -32,120 +41,111 @@
 module testPCP #(
     parameter ADDR_WIDTH            = 12,
     parameter C_AXIS_TDATA_WIDTH    = 64,
-    parameter OUTPUT_DATA_WIDTH     = 4
+    parameter PCP_ADDR_WIDTH        = 4
 );
-    localparam kMaxLoop = 1000;
-    localparam FREQ = 1, MAG = 0;
-    
-    integer i;
-    
-    reg                             clk;
-    reg                             inputValid;
-    reg                             reset;
-    reg                             inData;
-    reg                             lastData;
-    reg                             tready;
-    reg                             passedReadyFlag;
-    reg [C_AXIS_TDATA_WIDTH+2-1:0]  inputStream;
-    reg [C_AXIS_TDATA_WIDTH-1:0]    magnitudeInput;
-    reg [C_AXIS_TDATA_WIDTH-1:0]    frequencyInput;
-    
-    wire [C_AXIS_TDATA_WIDTH+2-1:0]     outputValue;
-    wire                                outputValid;
-    wire [C_AXIS_TDATA_WIDTH - 1 : 0]   outputDataValue;
-    wire                                outputBitValue;
 
+    localparam IDLE = 0, SENDDATA = 1, READDATA = 2;
+    localparam counterLength = 16;
+    localparam dataStreamLimit = 24;
+    localparam pcpVectorSize = 12;
+    localparam indexLength = $clog2(pcpVectorSize);
+    
+    reg [indexLength - 1 : 0] index;    
+    reg clk;
+    reg [C_AXIS_TDATA_WIDTH+2-1:0] inputValue;
+    reg inputValid;
+    reg axiReady;
+    reg sreset;
+    reg mreset;
+    reg [3 : 0] state;
+    reg [counterLength - 1 : 0] counter;
+    reg [C_AXIS_TDATA_WIDTH - 1 : 0] inputData;
+    reg inputBit;
+    reg [C_AXIS_TDATA_WIDTH - 1 : 0] expectedResults [0 : pcpVectorSize - 1];
+    
+    reg [C_AXIS_TDATA_WIDTH - 1 : 0] outputData;
+    reg outputBit;
+    wire [C_AXIS_TDATA_WIDTH+2-1:0] outputValue;
+    wire outputValid;
+    wire inputReady;
+    
     PCP uut (
         .clk            (clk),
-        .inputValue     (inputStream),
+        .inputValue     (inputValue),
         .inputValid     (inputValid),
-        .reset          (reset),
+        .axiReady       (axiReady),
+        .sreset         (sreset),
+        .mreset         (mreset),
         .outputValue    (outputValue),
-        .axiReady       (tready),
-        .outputValid    (outputValid)
+        .outputValid    (outputValid),
+        .inputReady     (inputReady)
     );
     
+    always #5 clk <= ~clk;
+    
     initial begin
-        clk             = 1;
-        inputValid      = 1'b0;
-        inData          = FREQ; // First is frequency
-        inputStream     = {C_AXIS_TDATA_WIDTH{1'b0}};
-        magnitudeInput  = {C_AXIS_TDATA_WIDTH{1'b0}};
-        frequencyInput  = {C_AXIS_TDATA_WIDTH{1'b0}};
-        reset           = 1'b1;
-        lastData        = 1'b0;
-        tready          = 1'b0;
-        passedReadyFlag = 1'b0;
+        index = 0;
+        expectedResults[0] = 123;
+        expectedResults[1] = 2337;
+        expectedResults[2] = 0;
+        expectedResults[3] = 3936;
+        expectedResults[4] = 0;
+        expectedResults[5] = 2829;
+        expectedResults[6] = 2460;
+        expectedResults[7] = 0;
+        expectedResults[8] = 0;
+        expectedResults[9] = 1845;
+        expectedResults[10] = 0;
+        expectedResults[11] = 4182;
         
-        for (i = 0; i < 20; i = i + 1) begin 
-            #5
-            clk = ~clk;
-        end 
+        clk = 0;
+        counter = 0;
+        state = IDLE;
+        sreset = 1'b1; 
+        mreset = 1'b1;
         
-        inputValid  = 1'b1;
-        reset       = 1'b0;
-        for (i = 0; i < kMaxLoop; i = i + 1) begin 
-            #5
-            clk = ~clk;
-        end 
+        #20;
         
-        lastData = 1'b1;
-        for (i = 0; i < 5; i = i + 1) begin 
-            #5
-            clk = ~clk;
-        end 
+        sreset = 1'b0; 
+        mreset = 1'b0;
         
-        for (i = 0; i < kMaxLoop; i = i + 1) begin 
-            #5
-            clk = ~clk;
-        end 
+        #10;
+        
+        state = SENDDATA;
+    end 
+    
+    always @(*) begin
+        inputValue = {inputBit, inputData};
+        {outputBit, outputData} = outputValue;
     end 
     
     always @(posedge clk) begin 
-        if (inputValid) begin // TODO: drive the inputValid flag 
-            if (inData == FREQ) begin 
-                inputStream     <= {1'b0, frequencyInput};
-                frequencyInput  <= frequencyInput + 1;
-                inData          <= MAG;
-            end else begin 
-                inputStream     <= {lastData, magnitudeInput};
-                magnitudeInput  <= magnitudeInput + 1;
-                inData          <= FREQ;
-                
-                if (lastData) begin
-                    inputValid <= 1'b0;
+        case (state)
+            SENDDATA: begin 
+                inputValid <= 1'b1;
+                if (counter < dataStreamLimit - 1) begin
+                    inputBit <= 1'b0;
+                end else begin 
+                    axiReady <= 1'b1;
+                    inputBit <= 1'b1; // Last bit
+                    state <= READDATA;
                 end 
+                inputData <= counter * 123; // Just use the counter value
+                counter <= counter + 1;
             end 
-        end
+            READDATA: begin 
+                axiReady <= 1'b1;
+                inputValid <= 1'b0;
+                if (outputValid) begin 
+                    `assert(outputData, expectedResults[index]);
+                    index = index + 1;
+                    
+                    if (index == pcpVectorSize) begin 
+                        `assert(outputBit, 1);
+                    end        
+                end
+            end 
+        endcase
     end 
-    
-    /**
-    *   Only assert the tready flag for one clock period 
-    */
-    always @(posedge clk) begin 
-        if (outputValid) begin
-            if (!passedReadyFlag) begin 
-                tready          <= 1'b1;
-                passedReadyFlag <= 1'b1;
-            end else begin 
-                tready <= 1'b0;
-            end
-        end
-    end 
-    
-//    always @(posedge clk) begin
-//        if (lastData & outputValid & passedReadyFlag) begin 
-//            `assertFalse(outputValue, 0);
-//        end 
-//    end 
-
-    always @(outputValue) begin 
-        if (outputValid) begin 
-            `assertFalse(outputValue, 0);
-        end 
-        
-    end 
-    
-    assign {outputBitValue, outputDataValue} = outputValue;
 
 endmodule
