@@ -73,15 +73,14 @@ module DataStream #(
     */
     output reg lastDataFlag
 );
-    localparam  IDLE        = 2'b00, // Do nothing
-                FREQSTATE   = 2'b01, // First in stream is frequency
-                MAGSTATE    = 2'b10; // then after is magnitude
+    localparam  FREQSTATE   = 1'b0, // First in stream is frequency
+                MAGSTATE    = 1'b1; // then after is magnitude
     
-    localparam  TRUE = 1'b1, 
-                FALSE = 1'b0;
+    localparam  TRUE    = 1'b1, 
+                FALSE   = 1'b0;
     
     reg                             lastDataFlagBuffer; // Buffers last data bit value
-    reg [1 : 0]                     state;
+    reg                             state;
     reg [C_AXIS_TDATA_WIDTH-1:0]    freqBuffer, 
                                     magBuffer;
     
@@ -98,15 +97,14 @@ module DataStream #(
     *   and the magnitude value to calculate the pcp class value
     */
     always @(posedge clk) begin 
-        {lastDataFlag, freqBuffer} <= inputStream;
         if (reset) begin 
             state <= FREQSTATE; // Set to frequency state 
         end else begin 
             case (state)
                 FREQSTATE : begin
                     if (startReading) begin 
-//                        {lastDataFlag, freqBuffer}  <= inputStream;
-                        ready                       <= FALSE;
+                        {lastDataFlag, freqBuffer} <= inputStream;
+                        ready <= FALSE;
                         
                         if (lastDataFlag) begin 
                             state <= FREQSTATE;
@@ -117,9 +115,9 @@ module DataStream #(
                 end 
                 MAGSTATE : begin
                     if (startReading) begin 
-//                        {lastDataFlag, magBuffer}   <= inputStream;
-                        ready                       <= TRUE;
-                        state                       <= FREQSTATE;
+                        {lastDataFlag, magBuffer} <= inputStream;
+                        ready <= TRUE;
+                        state <= FREQSTATE;
                     end 
                 end 
             endcase 

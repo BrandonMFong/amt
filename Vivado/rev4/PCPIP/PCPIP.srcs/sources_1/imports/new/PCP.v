@@ -132,6 +132,15 @@ module PCP #(
             end 
         end else begin 
             case (state)  
+                IDLE: begin 
+                    readyForInput       <= 1'b1;
+                    outputValidBuffer   <= 1'b0;
+                    pcpLastDataFlag     <= 1'b0; // Making sure we don't mislead the axi stream
+                    
+                    if (inputValid) begin 
+                        state <= READ;
+                    end 
+                end
                 READ: begin 
                     readyForInput       <= 1'b1;
                     outputValidBuffer   <= 1'b0;
@@ -195,16 +204,6 @@ module PCP #(
                             state <= IDLE;
                         end 
                     end
-                end 
-                
-                IDLE: begin 
-                    readyForInput       <= 1'b1;
-                    outputValidBuffer   <= 1'b0;
-                    pcpLastDataFlag     <= 1'b0; // Making sure we don't mislead the axi stream
-                    
-                    if (inputValid) begin 
-                        state <= READ;
-                    end 
                 end
             endcase 
         end

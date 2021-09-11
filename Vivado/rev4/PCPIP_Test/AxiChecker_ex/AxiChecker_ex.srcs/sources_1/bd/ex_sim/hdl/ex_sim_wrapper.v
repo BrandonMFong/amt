@@ -1,7 +1,7 @@
 //Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 //--------------------------------------------------------------------------------
 //Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-//Date        : Sat Sep 11 13:34:22 2021
+//Date        : Sat Sep 11 15:13:53 2021
 //Host        : KAMANTA running 64-bit major release  (build 9200)
 //Command     : generate_target ex_sim_wrapper.bd
 //Design      : ex_sim_wrapper
