@@ -110,11 +110,13 @@ reg write;
 reg read;
 reg store_output;
 
-reg inputValid;
-reg [C_AXIS_TDATA_WIDTH+2-1:0] inputData = {C_AXIS_TDATA_WIDTH+2{1'b0}};
+reg                             inputValid;
+reg [C_AXIS_TDATA_WIDTH+2-1:0]  inputData = {C_AXIS_TDATA_WIDTH+2{1'b0}};
+
+wire                            pcpReadyForInput;
 wire [C_AXIS_TDATA_WIDTH+2-1:0] pcpOutput;
 
-assign s00_axis_tready = ~full & ~s00_rst_sync3_reg;
+assign s00_axis_tready = ~full & ~s00_rst_sync3_reg & pcpReadyForInput;
 
 //assign m00_axis_tvalid = m00_axis_tvalid_reg; // TODO: assign to outputValid of PCP module
 
@@ -179,11 +181,11 @@ always @(posedge s00_axis_aclk) begin
     if (write) begin
         mem[wr_addr_reg[ADDR_WIDTH-1:0]] <= mem_write_data;
         
-        inputValid <= 1'b1;
-        inputData <= mem_write_data;
+        inputValid  <= 1'b1;
+        inputData   <= mem_write_data;
     end else begin 
-        inputValid <= 1'b0;
-        inputData <= {C_AXIS_TDATA_WIDTH+2{1'b0}};
+        inputValid  <= 1'b0;
+        inputData   <= {C_AXIS_TDATA_WIDTH+2{1'b0}};
     end 
 end
 
@@ -285,7 +287,8 @@ PCP #(
     .mreset         (m00_rst_sync3_reg),
     .outputValue    (pcpOutput),
     .axiReady       (m00_axis_tready),
-    .outputValid    (m00_axis_tvalid)
+    .outputValid    (m00_axis_tvalid),
+    .inputReady     (pcpReadyForInput)
 );
 
 endmodule

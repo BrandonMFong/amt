@@ -157,7 +157,7 @@ module PCP #(
                     if (axiReady) begin 
                         state <= WRITE;
                     end else begin 
-                        // Signal that we are ready to send data if the axi was ready yet
+                        // Signal that we are ready to send data if the axi wasn't ready yet
                         outputValidBuffer <= 1'b1; 
                     end 
                 end 
@@ -226,4 +226,5 @@ module PCP #(
     assign outputValid  = outputValidBuffer; // pcp stream has active low valid flag
     assign reset        = (mreset | sreset);
     assign inputReady   = readyForInput;
+    
 endmodule

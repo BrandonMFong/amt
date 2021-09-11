@@ -85,21 +85,21 @@ module testPCP #(
     
     initial begin
         index = 0;
-        expectedResults[0] = 123;
-        expectedResults[1] = 2337;
-        expectedResults[2] = 0;
-        expectedResults[3] = 3936;
-        expectedResults[4] = 0;
-        expectedResults[5] = 2829;
-        expectedResults[6] = 2460;
-        expectedResults[7] = 0;
-        expectedResults[8] = 0;
-        expectedResults[9] = 1845;
-        expectedResults[10] = 0;
-        expectedResults[11] = 4182;
+        expectedResults[0] = 2718 * 4;
+        expectedResults[1] = 2718 * 0;
+        expectedResults[2] = 2718 * 1;
+        expectedResults[3] = 2718 * 0;
+        expectedResults[4] = 2718 * 2;
+        expectedResults[5] = 2718 * 0;
+        expectedResults[6] = 2718 * 1;
+        expectedResults[7] = 2718 * 3;
+        expectedResults[8] = 2718 * 0;
+        expectedResults[9] = 2718 * 0;
+        expectedResults[10] = 2718 * 1;
+        expectedResults[11] = 2718 * 0;
         
         clk = 0;
-        counter = 0;
+        counter = 1;
         state = IDLE;
         sreset = 1'b1; 
         mreset = 1'b1;
@@ -123,14 +123,19 @@ module testPCP #(
         case (state)
             SENDDATA: begin 
                 inputValid <= 1'b1;
-                if (counter < dataStreamLimit - 1) begin
+                if (counter < dataStreamLimit) begin
                     inputBit <= 1'b0;
                 end else begin 
                     axiReady <= 1'b1;
                     inputBit <= 1'b1; // Last bit
                     state <= READDATA;
                 end 
-                inputData <= counter * 123; // Just use the counter value
+                
+                if (((counter + 1) % 2) == 0) begin 
+                    inputData <= (counter + 1) / 2;
+                end else begin 
+                    inputData <= 2718;
+                end 
                 counter <= counter + 1;
             end 
             READDATA: begin 

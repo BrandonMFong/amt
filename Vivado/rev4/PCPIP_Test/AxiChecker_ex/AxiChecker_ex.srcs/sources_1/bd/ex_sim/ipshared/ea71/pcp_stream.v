@@ -181,11 +181,11 @@ always @(posedge s00_axis_aclk) begin
     if (write) begin
         mem[wr_addr_reg[ADDR_WIDTH-1:0]] <= mem_write_data;
         
-        inputValid  <= 1'b1;
-        inputData   <= mem_write_data;
+        inputValid <= 1'b1;
+        inputData <= mem_write_data;
     end else begin 
-        inputValid  <= 1'b0;
-        inputData   <= {C_AXIS_TDATA_WIDTH+2{1'b0}};
+        inputValid <= 1'b0;
+        inputData <= {C_AXIS_TDATA_WIDTH+2{1'b0}};
     end 
 end
 

@@ -73,15 +73,14 @@ module DataStream #(
     */
     output reg lastDataFlag
 );
-    localparam  IDLE        = 2'b00, // Do nothing
-                FREQSTATE   = 2'b01, // First in stream is frequency
-                MAGSTATE    = 2'b10; // then after is magnitude
+    localparam  FREQSTATE   = 1'b0, // First in stream is frequency
+                MAGSTATE    = 1'b1; // then after is magnitude
     
-    localparam  TRUE = 1'b1, 
-                FALSE = 1'b0;
+    localparam  TRUE    = 1'b1, 
+                FALSE   = 1'b0;
     
     reg                             lastDataFlagBuffer; // Buffers last data bit value
-    reg [1 : 0]                     state;
+    reg                             state;
     reg [C_AXIS_TDATA_WIDTH-1:0]    freqBuffer, 
                                     magBuffer;
     
@@ -105,7 +104,7 @@ module DataStream #(
                 FREQSTATE : begin
                     if (startReading) begin 
                         {lastDataFlag, freqBuffer} <= inputStream;
-                        ready           <= FALSE;
+                        ready <= FALSE;
                         
                         if (lastDataFlag) begin 
                             state <= FREQSTATE;
@@ -118,12 +117,7 @@ module DataStream #(
                     if (startReading) begin 
                         {lastDataFlag, magBuffer} <= inputStream;
                         ready <= TRUE;
-                        
-                        if (lastDataFlag) begin 
-                            state <= FREQSTATE;
-                        end else begin 
-                            state <= FREQSTATE;
-                        end 
+                        state <= FREQSTATE;
                     end 
                 end 
             endcase 

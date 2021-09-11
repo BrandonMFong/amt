@@ -132,6 +132,8 @@ module AxiChecker_exdes_tb(
   bit                                     clock;
   // Reset signal
   bit                                     reset;
+  
+//  integer streamIndex;
 
   // instantiate bd
   chip DUT(
@@ -171,12 +173,13 @@ module AxiChecker_exdes_tb(
     
     SendStream();
     $display("Finished sending data 1");
+//    CheckStream();
     
-    SendStream();
-    $display("Finished sending data 2");
+//    SendStream();
+//    $display("Finished sending data 2");
     
-    SendStream();
-    $display("Finished sending data 3");
+//    SendStream();
+//    $display("Finished sending data 3");
   end
   
   task slv_gen_tready();
@@ -202,7 +205,7 @@ task SendStream();
     xil_axi4stream_data_byte InputData [64];
     axi4stream_transaction wr_transaction = mst_agent.driver.create_transaction("Master VIP write transaction");
     
-    for (data = 0; data < size; data++) begin 
+    for (data = 1; data <= size; data++) begin 
         InputData[0] = data;
         for (int i = 1; i < 64; i++) begin 
             InputData[i] = 8'h00;
@@ -217,7 +220,7 @@ task SendStream();
         end 
         wr_transaction.set_data(InputData);
         
-        if (data == (size - 1)) begin 
+        if (data == size) begin 
             wr_transaction.set_last(1);
         end else begin 
             wr_transaction.set_last(0);
@@ -228,6 +231,12 @@ task SendStream();
     $display("Finished SendStream");
 endtask
 
+task CheckStream();
+    localparam dataWidth = 64;
+    reg [dataWidth - 1 : 0] dataValue;
+    
+//    $display("%d", slave_moniter_transaction_queue[0].data[0]);
+endtask
 
   // MASTER
   /***************************************************************************************************

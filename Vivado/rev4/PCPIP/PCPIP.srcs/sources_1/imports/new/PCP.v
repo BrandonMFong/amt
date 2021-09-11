@@ -224,7 +224,8 @@ module PCP #(
     
     assign outputValue  = {pcpLastDataFlag, pcpIntensityValue};
     assign outputValid  = outputValidBuffer; // pcp stream has active low valid flag
-    assign reset        = (mreset | sreset);
+//    assign reset        = (mreset | sreset);
+    assign reset = 0;
     assign inputReady   = readyForInput;
     
 endmodule

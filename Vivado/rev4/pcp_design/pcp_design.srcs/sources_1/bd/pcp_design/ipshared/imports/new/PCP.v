@@ -54,7 +54,12 @@ module PCP #(
     /**
     *   Initiates a reset. This shoud be driven by the axi slave's reset
     */
-    input wire reset, 
+    input wire sreset, 
+    
+    /**
+    *   Reset driven by the master 
+    */
+    input wire mreset,
     
     /* OUTPUT */
     
@@ -66,7 +71,12 @@ module PCP #(
     /**
     *   If the data in outputValue is valid
     */
-    output wire outputValid
+    output wire outputValid,
+    
+    /**
+    *   If we are ready to receive input
+    */
+    output wire inputReady
 );
     localparam  IDLE                    = 0, 
                 READ                    = 1,
@@ -79,12 +89,14 @@ module PCP #(
     
     integer i;
     
+    wire                                reset;
     wire                                lastDataFlag;
     wire                                recordPCPValue; // If Datastream has finished parsing current data
     wire [PCP_ADDR_WIDTH - 1 : 0]       profileNumber;
     wire [C_AXIS_TDATA_WIDTH-1:0]       magnitudeOutput;
     wire [C_AXIS_TDATA_WIDTH-1:0]       frequencyOutput;
     
+    reg                                 readyForInput;
     reg                                 outputValidBuffer;
     reg [1 : 0]                         state;
     reg [kPCPVectorAddrLength - 1 : 0]  vecAddr;
@@ -100,6 +112,7 @@ module PCP #(
         pcpLastDataFlag     = 1'b0;
         outputValidBuffer   = 1'b0;
         waitCounter         = {kWaitRegisterLength{1'b0}};
+        readyForInput       = 1'b0;
         
         for (i = 0; i < 2**PCP_ADDR_WIDTH; i = i + 1) begin 
             pcpVector[i] = {PCP_ADDR_WIDTH{1'b0}};
@@ -107,77 +120,94 @@ module PCP #(
     end 
     
     always @(posedge clk) begin 
-        case (state)  
-            READ: begin 
-                outputValidBuffer   <= 1'b0;
-                pcpLastDataFlag     <= 1'b0; // Making sure we don't mislead the axi stream
+        if (reset) begin 
+            // Only do this if we are not already in an idle state 
+            if (state != IDLE) begin 
+                state <= IDLE; // Set to idle state
                 
-                if (recordPCPValue) begin 
-                    pcpVector[profileNumber] <= pcpVector[profileNumber] + magnitudeOutput; // TODO: get mean 
-                end 
-                
-                // Catch when the last piece of data is streamed
-                if (lastDataFlag) begin 
-                    state   <= READY; // change states
-                    vecAddr <= {kPCPVectorAddrLength{1'b0}}; // Set the addr to zero
-                end 
-            end 
-            
-            // As stated here: https://developer.arm.com/documentation/ihi0051/a/Interface-Signals/Transfer-signaling/Handshake-process
-            // I must wait until slave is ready
-            READY: begin 
-                
-                // Wait until the axis ready before writing to output 
-                if (axiReady) begin 
-                    state <= WRITE;
-                end else begin 
-                    // Signal that we are ready to send data if the axi was ready yet
-                    outputValidBuffer <= 1'b1; 
-                end 
-            end 
-            
-            WRITE: begin
-                // Will only do something only if slave is ready
-                if (axiReady) begin
-                    waitCounter <= {kWaitRegisterLength{1'b0}}; // Reset the waitCounter
-                    
-                    // Check if we still have things to send 
-                    if (vecAddr < kPCPVectorLength) begin
-                        pcpIntensityValue   <= pcpVector[vecAddr]; // Write to output 
-                        outputValidBuffer   <= 1'b1;
-                        vecAddr             <= vecAddr + 1;
-                        
-                        // See if this was the last of the vector data 
-                        if (vecAddr + 1 == kPCPVectorLength) begin 
-                            pcpLastDataFlag <= 1'b1; // We are done
-                        end else begin 
-                            pcpLastDataFlag <= 1'b0; // We still have more 
-                        end 
-                    end else begin
-                        pcpLastDataFlag     <= 1'b0; // reset this flag
-                        pcpIntensityValue   <= {C_AXIS_TDATA_WIDTH{1'b0}}; 
-                        vecAddr             <= {kPCPVectorAddrLength{1'b0}};
-                        outputValidBuffer   <= 1'b0;
-                        state               <= IDLE;
-                    end 
-                end else begin 
-                    if (waitCounter < kWaitCounterLimit) begin 
-                        waitCounter <= waitCounter + 1;
-                    end else begin 
-                        state <= IDLE;
-                    end 
+                // Zero out the vector
+                for (i = 0; i < 2**PCP_ADDR_WIDTH; i = i + 1) begin 
+                    pcpVector[i] = {PCP_ADDR_WIDTH{1'b0}};
                 end
             end 
-            
-            IDLE: begin 
-                outputValidBuffer   <= 1'b0;
-                pcpLastDataFlag     <= 1'b0; // Making sure we don't mislead the axi stream
-                
-                if (inputValid) begin 
-                    state <= READ;
+        end else begin 
+            case (state)  
+                READ: begin 
+                    readyForInput       <= 1'b1;
+                    outputValidBuffer   <= 1'b0;
+                    pcpLastDataFlag     <= 1'b0; // Making sure we don't mislead the axi stream
+                    
+                    if (recordPCPValue) begin 
+                        pcpVector[profileNumber] <= pcpVector[profileNumber] + magnitudeOutput; // TODO: get mean 
+                    end 
+                    
+                    // Catch when the last piece of data is streamed
+                    if (lastDataFlag) begin 
+                        state   <= READY; // change states
+                        vecAddr <= {kPCPVectorAddrLength{1'b0}}; // Set the addr to zero
+                    end 
                 end 
-            end
-        endcase 
+                
+                // As stated here: https://developer.arm.com/documentation/ihi0051/a/Interface-Signals/Transfer-signaling/Handshake-process
+                // I must wait until slave is ready
+                READY: begin 
+                    readyForInput <= 1'b0;
+                    
+                    // Wait until the axis ready before writing to output 
+                    if (axiReady) begin 
+                        state <= WRITE;
+                    end else begin 
+                        // Signal that we are ready to send data if the axi wasn't ready yet
+                        outputValidBuffer <= 1'b1; 
+                    end 
+                end 
+                
+                WRITE: begin
+                    readyForInput <= 1'b0;
+                    
+                    // Will only do something only if slave is ready
+                    if (axiReady) begin
+                        waitCounter <= {kWaitRegisterLength{1'b0}}; // Reset the waitCounter
+                        
+                        // Check if we still have things to send 
+                        if (vecAddr < kPCPVectorLength) begin
+                            pcpIntensityValue   <= pcpVector[vecAddr]; // Write to output 
+                            outputValidBuffer   <= 1'b1;
+                            vecAddr             <= vecAddr + 1;
+                            
+                            // See if this was the last of the vector data 
+                            if (vecAddr + 1 == kPCPVectorLength) begin 
+                                pcpLastDataFlag <= 1'b1; // We are done
+                            end else begin 
+                                pcpLastDataFlag <= 1'b0; // We still have more 
+                            end 
+                        end else begin
+                            pcpLastDataFlag     <= 1'b0;
+                            pcpIntensityValue   <= {C_AXIS_TDATA_WIDTH{1'b0}}; 
+                            vecAddr             <= {kPCPVectorAddrLength{1'b0}};
+                            outputValidBuffer   <= 1'b0;
+                            state               <= IDLE;
+                        end 
+                    end else begin 
+                        if (waitCounter < kWaitCounterLimit) begin 
+                            waitCounter <= waitCounter + 1;
+                        end else begin 
+                            state <= IDLE;
+                        end 
+                    end
+                end 
+                
+                IDLE: begin 
+                    readyForInput       <= 1'b1;
+                    outputValidBuffer   <= 1'b0;
+                    pcpLastDataFlag     <= 1'b0; // Making sure we don't mislead the axi stream
+                    
+                    if (inputValid) begin 
+                        state <= READ;
+                    end 
+                end
+            endcase 
+        end
     end 
     
     DataStream mod0 (
@@ -188,10 +218,14 @@ module PCP #(
         .profileNumber  (profileNumber),
         .magnitudeValue (magnitudeOutput),
         .frequencyValue (frequencyOutput),
-        .lastDataFlag   (lastDataFlag)
+        .lastDataFlag   (lastDataFlag),
+        .reset          (reset)
     );
     
     assign outputValue  = {pcpLastDataFlag, pcpIntensityValue};
     assign outputValid  = outputValidBuffer; // pcp stream has active low valid flag
+//    assign reset        = (mreset | sreset);
+    assign reset = 0;
+    assign inputReady   = readyForInput;
     
 endmodule
