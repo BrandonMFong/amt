@@ -3,8 +3,8 @@
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
 -- Date        : Mon Jul 19 19:00:31 2021
 -- Host        : KAMANTA running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode synth_stub
---               b:/COLLEGE/Thesis/Source/Vivado/rev4/pcp_design/pcp_design.srcs/sources_1/bd/pcp_design/ip/pcp_design_rst_ps7_0_100M_0/pcp_design_rst_ps7_0_100M_0_stub.vhdl
+-- Command     : write_vhdl -force -mode synth_stub -rename_top pcp_design_rst_ps7_0_100M_0 -prefix
+--               pcp_design_rst_ps7_0_100M_0_ pcp_design_rst_ps7_0_100M_0_stub.vhdl
 -- Design      : pcp_design_rst_ps7_0_100M_0
 -- Purpose     : Stub declaration of top-level module interface
 -- Device      : xc7z020clg400-1
