@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sun Sep 12 11:59:43 2021" VIVADOVERSION="2018.3">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sun Sep 12 13:33:43 2021" VIVADOVERSION="2018.3">
 
   <SYSTEMINFO ARCH="zynq" BOARD="tul.com.tw:pynq-z2:part0:1.0" DEVICE="7z020" NAME="pcp_design" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -4466,7 +4466,7 @@
         <PERIPHERAL INSTANCE="stream_pcp"/>
       </PERIPHERALS>
     </MODULE>
-    <MODULE COREREVISION="52" FULLNAME="/stream/pcp" HWVERSION="1.0" INSTANCE="stream_pcp" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_fifo_v1_0" VLNV="xilinx.com:user:axis_fifo_v1_0:1.0">
+    <MODULE COREREVISION="53" FULLNAME="/stream/pcp" HWVERSION="1.0" INSTANCE="stream_pcp" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_fifo_v1_0" VLNV="xilinx.com:user:axis_fifo_v1_0:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
         <PARAMETER NAME="ADDR_WIDTH" VALUE="32"/>

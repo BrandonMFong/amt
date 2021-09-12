@@ -175,11 +175,11 @@ module AxiChecker_exdes_tb(
     $display("Finished sending data 1");
 //    CheckStream();
     
-//    SendStream();
-//    $display("Finished sending data 2");
+    SendStream();
+    $display("Finished sending data 2");
     
-//    SendStream();
-//    $display("Finished sending data 3");
+    SendStream();
+    $display("Finished sending data 3");
   end
   
   task slv_gen_tready();
