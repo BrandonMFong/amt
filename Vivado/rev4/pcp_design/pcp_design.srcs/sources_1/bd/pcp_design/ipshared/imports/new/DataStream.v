@@ -79,13 +79,13 @@ module DataStream #(
     localparam  TRUE    = 1'b1, 
                 FALSE   = 1'b0;
     
-    reg                             lastDataFlagBuffer; // Buffers last data bit value
+//    reg                             lastDataFlagBuffer; // Buffers last data bit value
     reg                             state;
     reg [C_AXIS_TDATA_WIDTH-1:0]    freqBuffer, 
                                     magBuffer;
     
-    wire lastBit;  // Holds last bit flag 
-    wire [C_AXIS_TDATA_WIDTH-1:0] streamBuffer; // Holds the data part
+    wire                            lastBit;  // Holds last bit flag 
+    wire [C_AXIS_TDATA_WIDTH-1:0]   streamBuffer; // Holds the data part
     
     initial begin 
         ready       = FALSE;

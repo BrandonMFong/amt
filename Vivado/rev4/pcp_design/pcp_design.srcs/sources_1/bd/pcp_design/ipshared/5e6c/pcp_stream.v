@@ -42,8 +42,8 @@ Modified by Jeff Johnson http://www.fpgadeveloper.com
  */
 module axis_fifo_v1_0 #
 (
-    parameter ADDR_WIDTH = 12,
-    parameter C_AXIS_TDATA_WIDTH = 64
+    parameter ADDR_WIDTH            = 12,
+    parameter C_AXIS_TDATA_WIDTH    = 64
 )
 (
     /*

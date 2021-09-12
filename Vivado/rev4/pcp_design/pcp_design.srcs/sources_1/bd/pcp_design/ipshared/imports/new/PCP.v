@@ -114,8 +114,8 @@ module PCP #(
         waitCounter         = {kWaitRegisterLength{1'b0}};
         readyForInput       = 1'b0;
         
-        for (i = 0; i < 2**PCP_ADDR_WIDTH; i = i + 1) begin 
-            pcpVector[i] = {PCP_ADDR_WIDTH{1'b0}};
+        for (i = 0; i < kPCPVectorLength; i = i + 1) begin 
+            pcpVector[i] = {C_AXIS_TDATA_WIDTH{1'b0}};
         end 
     end 
     
@@ -126,9 +126,9 @@ module PCP #(
                 state <= IDLE; // Set to idle state
                 
                 // Zero out the vector
-                for (i = 0; i < 2**PCP_ADDR_WIDTH; i = i + 1) begin 
-                    pcpVector[i] = {PCP_ADDR_WIDTH{1'b0}};
-                end
+                for (i = 0; i < kPCPVectorLength; i = i + 1) begin 
+                    pcpVector[i] = {C_AXIS_TDATA_WIDTH{1'b0}};
+                end 
             end 
         end else begin 
             case (state)  
@@ -139,6 +139,11 @@ module PCP #(
                     
                     if (inputValid) begin 
                         state <= READ;
+                        
+                        // Zero out the vector
+                        for (i = 0; i < kPCPVectorLength; i = i + 1) begin 
+                            pcpVector[i] = {C_AXIS_TDATA_WIDTH{1'b0}};
+                        end 
                     end 
                 end
                 READ: begin 
@@ -223,8 +228,7 @@ module PCP #(
     
     assign outputValue  = {pcpLastDataFlag, pcpIntensityValue};
     assign outputValid  = outputValidBuffer; // pcp stream has active low valid flag
-//    assign reset        = (mreset | sreset);
-    assign reset = 0;
+    assign reset        = (mreset | sreset);
     assign inputReady   = 1'b1;
 //    assign inputReady   = readyForInput;
     
