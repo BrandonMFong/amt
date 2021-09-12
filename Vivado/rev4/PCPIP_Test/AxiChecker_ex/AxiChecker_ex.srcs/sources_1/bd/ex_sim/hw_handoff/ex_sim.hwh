@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sat Sep 11 15:13:54 2021" VIVADOVERSION="2018.3">
+<EDKSYSTEM EDWVERSION="1.2" TIMESTAMP="Sun Sep 12 10:49:11 2021" VIVADOVERSION="2018.3">
 
   <SYSTEMINFO ARCH="zynq" BOARD="tul.com.tw:pynq-z2:part0:1.0" DEVICE="7z020" NAME="ex_sim" PACKAGE="clg400" SPEEDGRADE="-1"/>
 
@@ -201,7 +201,7 @@
         </BUSINTERFACE>
       </BUSINTERFACES>
     </MODULE>
-    <MODULE COREREVISION="43" FULLNAME="/axis_fifo_v1_0_0" HWVERSION="1.0" INSTANCE="axis_fifo_v1_0_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_fifo_v1_0" VLNV="xilinx.com:user:axis_fifo_v1_0:1.0">
+    <MODULE COREREVISION="50" FULLNAME="/axis_fifo_v1_0_0" HWVERSION="1.0" INSTANCE="axis_fifo_v1_0_0" IPTYPE="PERIPHERAL" IS_ENABLE="1" MODCLASS="PERIPHERAL" MODTYPE="axis_fifo_v1_0" VLNV="xilinx.com:user:axis_fifo_v1_0:1.0">
       <DOCUMENTS/>
       <PARAMETERS>
         <PARAMETER NAME="ADDR_WIDTH" VALUE="12"/>
