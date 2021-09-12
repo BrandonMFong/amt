@@ -34,8 +34,6 @@ module DataStream_Tests #(
     parameter C_AXIS_TDATA_WIDTH = 64,
     parameter OUTPUT_DATA_WIDTH = 4
 );
-//    localparam freqValue = 17094;
-//    localparam magValue = 174711591;
     localparam kMaxClockPeriods = 200;
     
     integer i;
@@ -71,7 +69,8 @@ module DataStream_Tests #(
         #20;
         
         startReading = 1;
-        #20;
+        #kMaxClockPeriods;
+        $finish;
     end
     
     always @(ready) begin 

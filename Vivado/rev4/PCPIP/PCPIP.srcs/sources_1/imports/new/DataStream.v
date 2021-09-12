@@ -85,7 +85,7 @@ module DataStream #(
                                     magBuffer;
     
     wire lastBit;  // Holds last bit flag 
-    wire streamBuffer; // Holds the data part
+    wire [C_AXIS_TDATA_WIDTH-1:0] streamBuffer; // Holds the data part
     
     initial begin 
         ready       = FALSE;
@@ -100,13 +100,15 @@ module DataStream #(
     *   and the magnitude value to calculate the pcp class value
     */
     always @(posedge clk) begin 
+        lastDataFlag <= lastBit;
         if (reset) begin 
             state <= FREQSTATE; // Set to frequency state 
         end else begin 
             case (state)
                 FREQSTATE : begin
                     if (startReading) begin 
-                        {lastDataFlag, freqBuffer} <= inputStream;
+//                        {lastDataFlag, freqBuffer} <= inputStream;
+                        freqBuffer <= streamBuffer;
                         ready <= FALSE;
                         
                         if (lastDataFlag) begin 
@@ -118,7 +120,8 @@ module DataStream #(
                 end 
                 MAGSTATE : begin
                     if (startReading) begin 
-                        {lastDataFlag, magBuffer} <= inputStream;
+//                        {lastDataFlag, magBuffer} <= inputStream;
+                        magBuffer <= streamBuffer;
                         ready <= TRUE;
                         state <= FREQSTATE;
                     end 
