@@ -48,7 +48,7 @@
 
 
 // IP VLNV: xilinx.com:user:axis_fifo_v1_0:1.0
-// IP Revision: 46
+// IP Revision: 48
 
 `timescale 1ns/1ps
 

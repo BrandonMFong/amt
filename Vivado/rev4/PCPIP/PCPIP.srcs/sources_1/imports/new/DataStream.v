@@ -107,9 +107,8 @@ module DataStream #(
             case (state)
                 FREQSTATE : begin
                     if (startReading) begin 
-//                        {lastDataFlag, freqBuffer} <= inputStream;
-                        freqBuffer <= streamBuffer;
-                        ready <= FALSE;
+                        freqBuffer  <= streamBuffer;
+                        ready       <= FALSE;
                         
                         if (lastDataFlag) begin 
                             state <= FREQSTATE;
@@ -120,10 +119,9 @@ module DataStream #(
                 end 
                 MAGSTATE : begin
                     if (startReading) begin 
-//                        {lastDataFlag, magBuffer} <= inputStream;
-                        magBuffer <= streamBuffer;
-                        ready <= TRUE;
-                        state <= FREQSTATE;
+                        magBuffer   <= streamBuffer;
+                        ready       <= TRUE;
+                        state       <= FREQSTATE;
                     end 
                 end 
             endcase 
@@ -142,7 +140,8 @@ module DataStream #(
         .outputValue    (profileNumber)
     );
     
-    assign magnitudeValue = magBuffer;
-    assign frequencyValue = freqBuffer;
-    assign {lastBit, streamBuffer} = inputStream;
+    assign magnitudeValue           = magBuffer;
+    assign frequencyValue           = freqBuffer;
+    assign {lastBit, streamBuffer}  = inputStream;
+    
 endmodule
