@@ -49,8 +49,6 @@ module DataStream_Tests #(
     wire [C_AXIS_TDATA_WIDTH-1:0] magnitudeOutput;
     wire [C_AXIS_TDATA_WIDTH-1:0] frequencyOutput;
     
-    reg inData;
-    
     DataStream mod0 (
         .clk            (clk),
         .inputStream    (inputStream),
@@ -61,49 +59,37 @@ module DataStream_Tests #(
         .frequencyValue (frequencyOutput)
     );
     
+    always #5 clk <= ~clk;
+    
     initial begin
         clk             = 1;
-        inData          = 0;
         startReading    = 0;
-        magnitudeInput  = 0;
+        magnitudeInput  = 1;
         frequencyInput  = 0;
+        inputStream     = {1'b0, frequencyInput + 1};
         
-        #5 
-        clk = ~clk;
+        #20;
         
-        #5
-        clk = ~clk;
-        
-        #5 
-        clk = ~clk;
-        
-        #5
-        clk = ~clk;
-        
-        for (i = 0; i < kMaxClockPeriods; i = i + 1) begin 
-            #5
-            clk = ~clk;
-            startReading = 1;
-        end 
+        startReading = 1;
+        #20;
     end
     
     always @(ready) begin 
         if (ready) begin 
-            `assert(magnitudeOutput, magnitudeInput - 1); // One behind 
-            `assert(frequencyOutput, frequencyInput - 2); // Two behind
+            `assert(magnitudeOutput, magnitudeInput);
+            `assert(frequencyOutput, frequencyInput - 1);
         end 
     end 
     
     always @(posedge clk) begin 
-        if (startReading) begin 
-            if (!inData) begin 
-                inputStream <= {1'b0, frequencyInput};
-                frequencyInput <= frequencyInput + 1;
-            end else begin 
-                inputStream <= {1'b0, magnitudeInput};
-                magnitudeInput <= magnitudeInput + 1;
-            end 
-            inData <= ~inData;
+        if (startReading) begin
+            if (ready) begin // Setup for mag
+                magnitudeInput  <= magnitudeInput + 1;
+                inputStream     <= {1'b0, magnitudeInput + 1};
+            end else begin // Setup for freq
+                frequencyInput  <= frequencyInput + 1;
+                inputStream     <= {1'b0, frequencyInput + 1};
+            end
         end
     end 
 endmodule

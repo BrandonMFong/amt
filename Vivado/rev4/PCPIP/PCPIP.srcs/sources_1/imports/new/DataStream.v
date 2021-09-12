@@ -84,6 +84,9 @@ module DataStream #(
     reg [C_AXIS_TDATA_WIDTH-1:0]    freqBuffer, 
                                     magBuffer;
     
+    wire lastBit;  // Holds last bit flag 
+    wire streamBuffer; // Holds the data part
+    
     initial begin 
         ready       = FALSE;
         state       = FREQSTATE; 
@@ -138,5 +141,5 @@ module DataStream #(
     
     assign magnitudeValue = magBuffer;
     assign frequencyValue = freqBuffer;
-    
+    assign {lastBit, streamBuffer} = inputStream;
 endmodule
