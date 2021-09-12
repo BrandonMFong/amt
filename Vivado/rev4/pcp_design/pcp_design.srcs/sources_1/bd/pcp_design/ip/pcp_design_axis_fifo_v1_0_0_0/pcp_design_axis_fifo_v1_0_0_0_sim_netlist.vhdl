@@ -1,7 +1,7 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Sat Sep 11 21:38:16 2021
+-- Date        : Sun Sep 12 00:16:07 2021
 -- Host        : KAMANTA running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
 --               B:/COLLEGE/Thesis/Source/Vivado/rev4/pcp_design/pcp_design.srcs/sources_1/bd/pcp_design/ip/pcp_design_axis_fifo_v1_0_0_0/pcp_design_axis_fifo_v1_0_0_0_sim_netlist.vhdl
@@ -79,6 +79,7 @@ architecture STRUCTURE of pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0 is
   signal m00_rst_sync2_reg_i_1_n_0 : STD_LOGIC;
   signal m00_rst_sync3_reg : STD_LOGIC;
   signal m00_rst_sync3_reg_i_1_n_0 : STD_LOGIC;
+  signal p_0_in : STD_LOGIC;
   signal p_0_in0_in : STD_LOGIC;
   signal p_1_in : STD_LOGIC;
   signal p_1_in1_in : STD_LOGIC;
@@ -141,7 +142,6 @@ architecture STRUCTURE of pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0 is
   signal \rd_ptr_gray_sync2_reg_reg_n_0_[29]\ : STD_LOGIC;
   signal \rd_ptr_gray_sync2_reg_reg_n_0_[2]\ : STD_LOGIC;
   signal \rd_ptr_gray_sync2_reg_reg_n_0_[30]\ : STD_LOGIC;
-  signal \rd_ptr_gray_sync2_reg_reg_n_0_[31]\ : STD_LOGIC;
   signal \rd_ptr_gray_sync2_reg_reg_n_0_[3]\ : STD_LOGIC;
   signal \rd_ptr_gray_sync2_reg_reg_n_0_[4]\ : STD_LOGIC;
   signal \rd_ptr_gray_sync2_reg_reg_n_0_[5]\ : STD_LOGIC;
@@ -2254,7 +2254,7 @@ m00_rst_sync3_reg_reg: unisim.vcomponents.FDRE
       C => s00_axis_aclk,
       CE => '1',
       D => rd_ptr_gray_sync1_reg(31),
-      Q => \rd_ptr_gray_sync2_reg_reg_n_0_[31]\,
+      Q => p_0_in,
       R => s00_rst_sync3_reg
     );
 \rd_ptr_gray_sync2_reg_reg[32]\: unisim.vcomponents.FDRE
@@ -2855,7 +2855,7 @@ s00_axis_tready_INST_0: unisim.vcomponents.LUT6
         port map (
       I0 => full0,
       I1 => p_1_in,
-      I2 => \rd_ptr_gray_sync2_reg_reg_n_0_[31]\,
+      I2 => p_0_in,
       I3 => p_0_in0_in,
       I4 => p_1_in1_in,
       I5 => s00_rst_sync3_reg,
@@ -3154,7 +3154,7 @@ s00_rst_sync3_reg_reg: unisim.vcomponents.FDRE
       I0 => s00_axis_tvalid,
       I1 => full0,
       I2 => p_1_in,
-      I3 => \rd_ptr_gray_sync2_reg_reg_n_0_[31]\,
+      I3 => p_0_in,
       I4 => p_0_in0_in,
       I5 => p_1_in1_in,
       O => wr_ptr_next

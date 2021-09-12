@@ -1,7 +1,7 @@
 // Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
-// Date        : Sat Sep 11 21:38:16 2021
+// Date        : Sun Sep 12 00:16:07 2021
 // Host        : KAMANTA running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               B:/COLLEGE/Thesis/Source/Vivado/rev4/pcp_design/pcp_design.srcs/sources_1/bd/pcp_design/ip/pcp_design_axis_fifo_v1_0_0_0/pcp_design_axis_fifo_v1_0_0_0_sim_netlist.v
@@ -198,6 +198,7 @@ module pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0
   wire m00_rst_sync2_reg_i_1_n_0;
   wire m00_rst_sync3_reg;
   wire m00_rst_sync3_reg_i_1_n_0;
+  wire p_0_in;
   wire p_0_in0_in;
   wire p_1_in;
   wire p_1_in1_in;
@@ -260,7 +261,6 @@ module pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0
   wire \rd_ptr_gray_sync2_reg_reg_n_0_[29] ;
   wire \rd_ptr_gray_sync2_reg_reg_n_0_[2] ;
   wire \rd_ptr_gray_sync2_reg_reg_n_0_[30] ;
-  wire \rd_ptr_gray_sync2_reg_reg_n_0_[31] ;
   wire \rd_ptr_gray_sync2_reg_reg_n_0_[3] ;
   wire \rd_ptr_gray_sync2_reg_reg_n_0_[4] ;
   wire \rd_ptr_gray_sync2_reg_reg_n_0_[5] ;
@@ -1802,7 +1802,7 @@ module pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0
        (.C(s00_axis_aclk),
         .CE(1'b1),
         .D(rd_ptr_gray_sync1_reg[31]),
-        .Q(\rd_ptr_gray_sync2_reg_reg_n_0_[31] ),
+        .Q(p_0_in),
         .R(s00_rst_sync3_reg));
   FDRE #(
     .INIT(1'b0)) 
@@ -2205,7 +2205,7 @@ module pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0
     s00_axis_tready_INST_0
        (.I0(full0),
         .I1(p_1_in),
-        .I2(\rd_ptr_gray_sync2_reg_reg_n_0_[31] ),
+        .I2(p_0_in),
         .I3(p_0_in0_in),
         .I4(p_1_in1_in),
         .I5(s00_rst_sync3_reg),
@@ -2433,7 +2433,7 @@ module pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0
        (.I0(s00_axis_tvalid),
         .I1(full0),
         .I2(p_1_in),
-        .I3(\rd_ptr_gray_sync2_reg_reg_n_0_[31] ),
+        .I3(p_0_in),
         .I4(p_0_in0_in),
         .I5(p_1_in1_in),
         .O(wr_ptr_next));
