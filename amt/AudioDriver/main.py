@@ -11,6 +11,7 @@ except ModuleNotFoundError:
     from .Debug.BaseOverlay import BaseOverlay
     isDebug = True 
 
+from numpy.testing._private.utils import tempdir
 from pynq           import Overlay
 from pynq           import GPIO
 from pynq           import Xlnk
@@ -67,6 +68,7 @@ class AudioDriver:
 
     # Pcp vector
     # Going to use this variable to write into file for webserver to read
+    # first index is C 
     _pcpVector = None 
 
     # Destination file for saving chords
@@ -76,7 +78,7 @@ class AudioDriver:
     _pauseInterval = 10
 
     # Values to print
-    _printValue = None
+    _printValue = ""
 
     _spectrumMax = None
 
@@ -330,14 +332,48 @@ class AudioDriver:
         result  = pd.DataFrame({self._notes : notes, self._frequency : freq})
         return result
 
+    def determineChord(self):
+        okayToContinue = True 
+        numNotesPerChord = 3
+        tempDict = None 
+        sortedList = None
+        indices = None 
+
+        if okayToContinue:
+            tempDict = dict([(i, j) for i, j in enumerate(self._pcpVector)])
+
+            if tempDict is None:
+                okayToContinue = False
+
+        if okayToContinue:
+            sortedList = dict(sorted(tempDict.items(), key = lambda kv:kv[1], reverse=True))
+
+            if sortedList is None:
+                okayToContinue = False
+
+        if okayToContinue:
+            indices = list(sortedList.keys())[:numNotesPerChord]
+
+        if okayToContinue is False:
+            print("Error in getting indices")
+
+        if okayToContinue:
+            if len(indices) == 0:
+                self._printValue    = "No chord"
+                okayToContinue      = False
+
+        if okayToContinue:
+            for index in indices:
+                self._printValue += "{} ".format(self._noteLabels[index])
+
     def WriteIntoFile(self):
         """
         Writes into file the PCP vector
 
         TODO write chord 
         """
-        okayToContinue = True 
-        result = ""
+        okayToContinue  = True 
+        result          = ""
 
         # Checks if dft has been computed 
         # Will not pause since I am assuming that this case
