@@ -231,6 +231,8 @@ class AudioDriver:
             # Analyze spectrum 
             self.PCP()
 
+            self.determineChord()
+
             # Write into file 
             self.WriteIntoFile()
 
@@ -333,11 +335,11 @@ class AudioDriver:
         return result
 
     def determineChord(self):
-        okayToContinue = True 
-        numNotesPerChord = 3
-        tempDict = None 
-        sortedList = None
-        indices = None 
+        okayToContinue      = True 
+        numNotesPerChord    = 3
+        tempDict            = None 
+        sortedList          = None
+        indices             = None 
 
         if okayToContinue:
             tempDict = dict([(i, j) for i, j in enumerate(self._pcpVector)])
@@ -367,13 +369,7 @@ class AudioDriver:
                 self._printValue += "{} ".format(self._noteLabels[index])
 
     def WriteIntoFile(self):
-        """
-        Writes into file the PCP vector
-
-        TODO write chord 
-        """
-        okayToContinue  = True 
-        result          = ""
+        okayToContinue = True 
 
         # Checks if dft has been computed 
         # Will not pause since I am assuming that this case
@@ -381,31 +377,15 @@ class AudioDriver:
         okayToContinue = True if self._dft.shape[0] != 0 else False  
 
         if okayToContinue:
-            okayToContinue = True if self._printValue.shape[0] != 0 else False
-
-            # Will pause because we don't want to keep printing out empty results 
-            if okayToContinue is False:
-                time.sleep(self._pauseInterval / 2)
-
-        if okayToContinue:
             fileHandler = open(self._webServerFile, "a")
             okayToContinue = True if fileHandler is not None else False 
-
-        if okayToContinue:
-            # for val in tempData:
-            for val in self._printValue:
-                result += "{} ".format(val)
-
-            if len(result) == 0:
-                okayToContinue = False 
-                print("Error in result length")
 
         if okayToContinue:
             fileHandler.truncate(0) # empty file 
             # Since this is going to be parsed by a web server, adding 
             # html break cmd 
-            print("Output:", result)
-            fileHandler.write(result)
+            print("Output: ", self._printValue)
+            fileHandler.write(self._printValue)
 
         if okayToContinue:
             fileHandler.close()
