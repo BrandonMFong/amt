@@ -15,7 +15,7 @@ if isDebug:
 def main():
     audioReader = AudioDriver(
         usePynqAudioCodec   = False,
-        analysisMethod      = AudioDriver.pcp2, 
+        # analysisMethod      = AudioDriver.pcp2, 
         thresholdValue      = 0.50, 
         spectrumMax         = 2000
     )

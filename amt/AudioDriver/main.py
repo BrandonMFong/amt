@@ -50,10 +50,10 @@ class AudioDriver:
     _notes      = "Notes"       # for notestable
     _result     = "Result"      # for pcp vector
 
-    # Analysis methods 
-    pcp2    = 0
-    pcp     = 1
-    pcp3    = 2
+    # # Analysis methods 
+    # pcp2    = 0
+    # pcp     = 1
+    # pcp3    = 2
     
     # Max magnitude to consider 
     _maximumMagnitude = 1 * pow(10,8)
@@ -84,8 +84,7 @@ class AudioDriver:
 
     _PathToSiteDirectory = "/var/www/html"
 
-    def __init__(self,baseBitFile=None,inputPort=None,
-        analysisMethod=None,thresholdValue=None,
+    def __init__(self,baseBitFile=None,inputPort=None,thresholdValue=None,
         usePynqAudioCodec=True,spectrumMax=None):
         """ 
         Initializer
@@ -115,15 +114,14 @@ class AudioDriver:
         ------
         - Standard Exception
         """
-        okayToContinue = True
-        fsSeparator = "\\" if platform == "win32" else "/"
-
-        # empty dataframe for dft 
-        self._dft           = pd.DataFrame()
+        okayToContinue      = True
+        fsSeparator         = "\\" if platform == "win32" else "/"
+        self._dft           = pd.DataFrame() # empty dataframe for dft 
         self._startTime     = datetime.now()
         self._endTime       = datetime.now()
         self._cmaMemReader  = Xlnk()
         self._serialDft     = None
+        self._spectrum      = None
 
         if okayToContinue:
             if spectrumMax is not None:
@@ -198,12 +196,12 @@ class AudioDriver:
             else:
                 self._outlet.select_line_in()
 
-        # Select analysis method 
-        if okayToContinue:
-            if analysisMethod is None:
-                self._analysisMethod = self.pcp2
-            else:
-                self._analysisMethod = analysisMethod
+        # # Select analysis method 
+        # if okayToContinue:
+        #     if analysisMethod is None:
+        #         self._analysisMethod = self.pcp2
+        #     else:
+        #         self._analysisMethod = analysisMethod
 
         # Select threshold value
         # Print results flag
@@ -231,12 +229,7 @@ class AudioDriver:
             raise ValueError("Recording time has to be in (0,60].")
 
         while True:
-            # Record and save into file using pynq audio codec 
-            # self.record(recordInterval)
-
-            # Get spectrum from wavFile
-            # self.getSpectrum()
-            self.getSpectrum2()
+            self.getSpectrum()
 
             # Analyze spectrum 
             self.analyze()
@@ -259,12 +252,12 @@ class AudioDriver:
         if okayToContinue:
             pass
 
-    def getSpectrum2(self):
+    def getSpectrum(self):
         """
         Gets spectrum from wav file sent by client 
         """
-        okayToContinue = True 
-        result = list()
+        okayToContinue  = True 
+        result          = list()
 
         okayToContinue = path.exists(self._wavFile)
 
@@ -299,43 +292,93 @@ class AudioDriver:
             # We need to send this to the pynq board like this
             self._serialDft = np.array(result)
             self._serialDft = self._serialDft.astype(int)
-
-    def getSpectrum(self):
-        """
-        Gets spectrum from wav file sent by client 
-        """
-        okayToContinue = True 
-
-        okayToContinue = path.exists(self._wavFile)
-
+        
         if okayToContinue:
-            # Get the wavefile
+            okayToContinue = path.exists(self._wavFile)
+        
+        if okayToContinue:
             with wave.open(self._wavFile, 'r') as wav_file:
                 raw_frames      = wav_file.readframes(-1)
                 num_frames      = wav_file.getnframes()
                 num_channels    = wav_file.getnchannels()
                 sample_rate     = wav_file.getframerate()
                 sample_width    = wav_file.getsampwidth()
-                
-            temp_buffer                         = np.empty((num_frames, num_channels, 4), dtype=np.uint8)
-            raw_bytes                           = np.frombuffer(raw_frames, dtype=np.uint8)
-            temp_buffer[:, :, :sample_width]    = raw_bytes.reshape(-1, num_channels, sample_width)
-            temp_buffer[:, :, sample_width:]    = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
-            frames                              = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
+            
+            temp_buffer = np.empty((num_frames, num_channels, 4), dtype=np.uint8)
+            raw_bytes   = np.frombuffer(raw_frames, dtype=np.uint8)
 
-            self._numFrames = num_frames
+            temp_buffer[:, :, :sample_width] = raw_bytes.reshape(
+                -1,
+                num_channels, 
+                sample_width
+            )
 
-            # Calculate the frequency spectrum 
+            temp_buffer[:, :, sample_width:] = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
+
+            frames = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
+
+            if frames is None: 
+                okayToContinue = False
+        
+        if okayToContinue:
             for channel_index in range(num_channels):
-                temp = fft(x=frames[:, channel_index])
-                yf = temp[1:len(temp)//2]
-                xf = np.linspace(0.0, sample_rate/2, len(yf))
+                temp    = fft(frames[:, channel_index])
+                yf      = temp[1:len(temp)//2]
+                xf      = np.linspace(0.0, sample_rate/2, len(yf))
+                
+                index = 0
+                count = len(xf)
+                while index < count:
+                    result.append(xf[index])
+                    result.append(abs(yf[index]))
+                    index += 1
+                                
+                break # Just go through the first one 
 
-            # Save into dataframe
-            self._dft = pd.DataFrame({self._frequency : np.array(xf), self._magnitude : np.array(abs(yf))})
+            self._spectrum = np.array(result)
+            
+            if self._spectrum is None:
+                okayToContinue = False
+        
+        if okayToContinue:
+            self._spectrum = self._spectrum.astype(np.uint64)
 
-            # Recalculate threshold for maximum  magnitude 
-            self._maximumMagnitude = self._dft[self._magnitude].max() * self._threshold
+    # def getSpectrum(self):
+    #     """
+    #     Gets spectrum from wav file sent by client 
+    #     """
+    #     okayToContinue = True 
+
+    #     okayToContinue = path.exists(self._wavFile)
+
+    #     if okayToContinue:
+    #         # Get the wavefile
+    #         with wave.open(self._wavFile, 'r') as wav_file:
+    #             raw_frames      = wav_file.readframes(-1)
+    #             num_frames      = wav_file.getnframes()
+    #             num_channels    = wav_file.getnchannels()
+    #             sample_rate     = wav_file.getframerate()
+    #             sample_width    = wav_file.getsampwidth()
+                
+    #         temp_buffer                         = np.empty((num_frames, num_channels, 4), dtype=np.uint8)
+    #         raw_bytes                           = np.frombuffer(raw_frames, dtype=np.uint8)
+    #         temp_buffer[:, :, :sample_width]    = raw_bytes.reshape(-1, num_channels, sample_width)
+    #         temp_buffer[:, :, sample_width:]    = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
+    #         frames                              = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
+
+    #         self._numFrames = num_frames
+
+    #         # Calculate the frequency spectrum 
+    #         for channel_index in range(num_channels):
+    #             temp = fft(x=frames[:, channel_index])
+    #             yf = temp[1:len(temp)//2]
+    #             xf = np.linspace(0.0, sample_rate/2, len(yf))
+
+    #         # Save into dataframe
+    #         self._dft = pd.DataFrame({self._frequency : np.array(xf), self._magnitude : np.array(abs(yf))})
+
+    #         # Recalculate threshold for maximum  magnitude 
+    #         self._maximumMagnitude = self._dft[self._magnitude].max() * self._threshold
 
     def analyze(self):
         """
@@ -351,21 +394,13 @@ class AudioDriver:
             okayToContinue = False
         
         if okayToContinue:
-            if self._analysisMethod == self.pcp2:
-                self._pcpVector = self.PCP2()
-            elif self._analysisMethod == self.pcp:
-                self._pcpVector = self.PCP()
-            elif self._analysisMethod == self.pcp3:
-                self._pcpVector = self.PCP3()
-            else:
-                self._pcpVector = self.PCP()
+            self._pcpVector = self.PCP()
 
             if self._pcpVector is None:
                 okayToContinue = False
 
         # Only print values on the vector that is not zero 
         if okayToContinue:
-            
             self._printValue = self._pcpVector[self._pcpVector[self._result] != 0].loc[:, self._notes]
 
     # PCP
@@ -398,76 +433,76 @@ class AudioDriver:
 
         return results
 
-    def PCP2(self):
-        """
-        PCP 2:
-            - Find all local maximum magnitudes
-            - iterate through those points 
-            - if the magnitude at those points are over a threshold, 
-                - YES: find the closes note value and record that into the pcp vector 
-        """
-        # Construct the pcp vector
-        temp = np.zeros(self._noteLabels.size)
-        results = pd.DataFrame({self._notes: self._noteLabels, self._result: temp})
+    # def PCP2(self):
+    #     """
+    #     PCP 2:
+    #         - Find all local maximum magnitudes
+    #         - iterate through those points 
+    #         - if the magnitude at those points are over a threshold, 
+    #             - YES: find the closes note value and record that into the pcp vector 
+    #     """
+    #     # Construct the pcp vector
+    #     temp = np.zeros(self._noteLabels.size)
+    #     results = pd.DataFrame({self._notes: self._noteLabels, self._result: temp})
 
-        # Get the frequencies in the notes table
-        freqArray = np.array(self._notesTableData[self._frequency])
+    #     # Get the frequencies in the notes table
+    #     freqArray = np.array(self._notesTableData[self._frequency])
 
-        # Get all the local maximum 
-        peakRowValues = self._dft[(self._dft[self._magnitude].shift(1) < self._dft[self._magnitude]) & (self._dft[self._magnitude].shift(-1) < self._dft[self._magnitude])]
-        print(len(peakRowValues))
-        print(len(self._dft))
+    #     # Get all the local maximum 
+    #     peakRowValues = self._dft[(self._dft[self._magnitude].shift(1) < self._dft[self._magnitude]) & (self._dft[self._magnitude].shift(-1) < self._dft[self._magnitude])]
+    #     print(len(peakRowValues))
+    #     print(len(self._dft))
 
-        # Trim if user wants it
-        if self._spectrumMax is not None:
-            peakRowValues = peakRowValues.iloc[:self._spectrumMax]
+    #     # Trim if user wants it
+    #     if self._spectrumMax is not None:
+    #         peakRowValues = peakRowValues.iloc[:self._spectrumMax]
 
-        for _, row in peakRowValues.iterrows():
-            # Get the frequency and magnitude of that row
-            frequency = row[self._frequency]
-            magnitude = row[self._magnitude]
+    #     for _, row in peakRowValues.iterrows():
+    #         # Get the frequency and magnitude of that row
+    #         frequency = row[self._frequency]
+    #         magnitude = row[self._magnitude]
 
-            if magnitude > self._maximumMagnitude:
-                # Determine the closest value by subtracting the frequency of the 
-                # highest magnitude with all the frequencies in our notestable.
-                # The smallest value is the candidate
-                absFreqArray = np.abs(freqArray - frequency)
-                smallestDiffIndex = absFreqArray.argmin()
+    #         if magnitude > self._maximumMagnitude:
+    #             # Determine the closest value by subtracting the frequency of the 
+    #             # highest magnitude with all the frequencies in our notestable.
+    #             # The smallest value is the candidate
+    #             absFreqArray = np.abs(freqArray - frequency)
+    #             smallestDiffIndex = absFreqArray.argmin()
 
-                # Record the value in the pcp vector 
-                note = self._notesTableData.loc[smallestDiffIndex, self._notes]
-                results.loc[results[results[self._notes] == note][self._result].index, self._result] += 1
-        return results
+    #             # Record the value in the pcp vector 
+    #             note = self._notesTableData.loc[smallestDiffIndex, self._notes]
+    #             results.loc[results[results[self._notes] == note][self._result].index, self._result] += 1
+    #     return results
 
-    def PCP3(self):
-        """
-        3rd iteration that utilizes hardware acceleration 
-        """
-        result          = None
-        inBuffer        = None 
-        outBuffer       = None
-        okayToContinue  = True 
+    # def PCP3(self):
+    #     """
+    #     3rd iteration that utilizes hardware acceleration 
+    #     """
+    #     result          = None
+    #     inBuffer        = None 
+    #     outBuffer       = None
+    #     okayToContinue  = True 
 
-        if okayToContinue:
-            if self._numFrames is None or self._numFrames == 0:
-                okayToContinue = False 
+    #     if okayToContinue:
+    #         if self._numFrames is None or self._numFrames == 0:
+    #             okayToContinue = False 
 
-        if okayToContinue:
-            inBuffer = self._cmaMemReader.cma_array(shape=(self._numFrames,), dtype=np.int32)
+    #     if okayToContinue:
+    #         inBuffer = self._cmaMemReader.cma_array(shape=(self._numFrames,), dtype=np.int32)
 
-            if inBuffer is None: 
-                okayToContinue = False 
+    #         if inBuffer is None: 
+    #             okayToContinue = False 
 
-        if okayToContinue:
-            outBuffer = self._cmaMemReader.cma_array(shape=(self._numFrames,), dtype=np.int32)
+    #     if okayToContinue:
+    #         outBuffer = self._cmaMemReader.cma_array(shape=(self._numFrames,), dtype=np.int32)
             
-            if outBuffer is None:
-                okayToContinue = False 
+    #         if outBuffer is None:
+    #             okayToContinue = False 
         
-        if okayToContinue:
-            pass 
+    #     if okayToContinue:
+    #         pass 
 
-        return result 
+    #     return result 
 
     def GenerateNotesTable(self):
         """
