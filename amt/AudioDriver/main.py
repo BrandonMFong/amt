@@ -259,39 +259,39 @@ class AudioDriver:
         okayToContinue  = True 
         result          = list()
 
-        okayToContinue = path.exists(self._wavFile)
+        # okayToContinue = path.exists(self._wavFile)
 
-        if okayToContinue:
-            # Get the wavefile
-            with wave.open(self._wavFile, 'r') as wav_file:
-                raw_frames      = wav_file.readframes(-1)
-                num_frames      = wav_file.getnframes()
-                num_channels    = wav_file.getnchannels()
-                sample_rate     = wav_file.getframerate()
-                sample_width    = wav_file.getsampwidth()
+        # if okayToContinue:
+        #     # Get the wavefile
+        #     with wave.open(self._wavFile, 'r') as wav_file:
+        #         raw_frames      = wav_file.readframes(-1)
+        #         num_frames      = wav_file.getnframes()
+        #         num_channels    = wav_file.getnchannels()
+        #         sample_rate     = wav_file.getframerate()
+        #         sample_width    = wav_file.getsampwidth()
                 
-            temp_buffer                         = np.empty((num_frames, num_channels, 4), dtype=np.uint8)
-            raw_bytes                           = np.frombuffer(raw_frames, dtype=np.uint8)
-            temp_buffer[:, :, :sample_width]    = raw_bytes.reshape(-1, num_channels, sample_width)
-            temp_buffer[:, :, sample_width:]    = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
-            frames                              = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
+        #     temp_buffer                         = np.empty((num_frames, num_channels, 4), dtype=np.uint8)
+        #     raw_bytes                           = np.frombuffer(raw_frames, dtype=np.uint8)
+        #     temp_buffer[:, :, :sample_width]    = raw_bytes.reshape(-1, num_channels, sample_width)
+        #     temp_buffer[:, :, sample_width:]    = (temp_buffer[:, :, sample_width-1:sample_width] >> 7) * 255
+        #     frames                              = temp_buffer.view('<i4').reshape(temp_buffer.shape[:-1])
 
-            self._numFrames = num_frames
+        #     self._numFrames = num_frames
 
-            # Calculate the frequency spectrum 
-            for channel_index in range(num_channels):
-                temp = fft(x=frames[:, channel_index])
-                yf = temp[1:len(temp)//2]
-                xf = np.linspace(0.0, sample_rate/2, len(yf))
+        #     # Calculate the frequency spectrum 
+        #     for channel_index in range(num_channels):
+        #         temp = fft(x=frames[:, channel_index])
+        #         yf = temp[1:len(temp)//2]
+        #         xf = np.linspace(0.0, sample_rate/2, len(yf))
 
-            # Make serial data.  First freq, second magnitude 
-            for i in range(len(xf)):
-                result.append(xf[i])
-                result.append(abs(yf[i]))
+        #     # Make serial data.  First freq, second magnitude 
+        #     for i in range(len(xf)):
+        #         result.append(xf[i])
+        #         result.append(abs(yf[i]))
 
-            # We need to send this to the pynq board like this
-            self._serialDft = np.array(result)
-            self._serialDft = self._serialDft.astype(int)
+        #     # We need to send this to the pynq board like this
+        #     self._serialDft = np.array(result)
+        #     self._serialDft = self._serialDft.astype(int)
         
         if okayToContinue:
             okayToContinue = path.exists(self._wavFile)
