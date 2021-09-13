@@ -346,10 +346,14 @@ class AudioDriver:
         indices             = None 
 
         if okayToContinue:
-            if len(self._pcpVector) == 0 or self._pcpVector is None:
+            if self._pcpVector is None:
                 okayToContinue = False
-                time.sleep(self._pauseInterval)
+            elif len(self._pcpVector) == 0:
+                okayToContinue = False
 
+            if okayToContinue is False:
+                time.sleep(self._pauseInterval)
+                
         if okayToContinue:
             tempDict = dict([(i, j) for i, j in enumerate(self._pcpVector)])
 
