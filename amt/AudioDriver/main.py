@@ -69,7 +69,7 @@ class AudioDriver:
     # Pcp vector
     # Going to use this variable to write into file for webserver to read
     # first index is C 
-    _pcpVector = None 
+    _pcpVector = np.array([]) 
 
     # Destination file for saving chords
     _webServerFile = "results.txt"
@@ -125,7 +125,7 @@ class AudioDriver:
         self._endTime       = datetime.now()
         self._cmaMemReader  = Xlnk()
         self._serialDft     = None
-        self._spectrum      = np.array()
+        self._spectrum      = np.array([])
         self._dma           = None 
 
         if okayToContinue:
@@ -327,7 +327,7 @@ class AudioDriver:
             inputBuffer.close()
             outputBuffer.close()
 
-            self._pcpVector = outputBuffer
+        self._pcpVector = outputBuffer
 
     def GenerateNotesTable(self):
         """
@@ -346,6 +346,11 @@ class AudioDriver:
         indices             = None 
 
         if okayToContinue:
+            if len(self._pcpVector) == 0 or self._pcpVector is None:
+                okayToContinue = False
+                time.sleep(self._pauseInterval)
+
+        if okayToContinue:
             tempDict = dict([(i, j) for i, j in enumerate(self._pcpVector)])
 
             if tempDict is None:
@@ -360,8 +365,8 @@ class AudioDriver:
         if okayToContinue:
             indices = list(sortedList.keys())[:numNotesPerChord]
 
-        if okayToContinue is False:
-            print("Error in getting indices")
+            if okayToContinue is False:
+                print("Error in getting indices")
 
         if okayToContinue:
             if len(indices) == 0:
