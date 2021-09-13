@@ -125,7 +125,7 @@ class AudioDriver:
         self._endTime       = datetime.now()
         self._cmaMemReader  = Xlnk()
         self._serialDft     = None
-        self._spectrum      = None
+        self._spectrum      = np.array()
         self._dma           = None 
 
         if okayToContinue:
@@ -299,6 +299,10 @@ class AudioDriver:
         inputBuffer     = None 
         outputBuffer    = None 
         datatype        = np.uint64
+
+        if okayToContinue:
+            if len(self._spectrum) == 0:
+                okayToContinue = False
 
         if okayToContinue:
             inputBuffer = xlnk.cma_array(shape=(len(self._spectrum),), dtype=datatype)
