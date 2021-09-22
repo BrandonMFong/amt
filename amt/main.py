@@ -3,7 +3,7 @@
 from AudioDriver import AudioDriver, isDebug
 import sys 
 
-bitFile = "/home/xilinx/pynq/overlays/base/base.bit"
+bitFile = "/home/xilinx/brando/sources/repo/hardware/myIP/pcp.bit"
 
 if isDebug:
     if sys.platform == "win32":

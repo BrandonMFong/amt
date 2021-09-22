@@ -87,8 +87,12 @@ class AudioDriver:
 
     _PathToSiteDirectory = "/var/www/html"
 
-    def __init__(self,baseBitFile=None,inputPort=None,thresholdValue=None,
-        usePynqAudioCodec=True,spectrumMax=None):
+    def __init__(self,
+        baseBitFile         = None,
+        inputPort           = None,
+        thresholdValue      = None,
+        usePynqAudioCodec   = True,
+        spectrumMax         = None):
         """ 
         Initializer
         ==========
@@ -226,6 +230,8 @@ class AudioDriver:
             raise ValueError("Recording time has to be in (0,60].")
 
         while True:
+            print()
+
             self.getSpectrum()
 
             # Analyze spectrum 
@@ -352,6 +358,7 @@ class AudioDriver:
                 okayToContinue = False
 
             if okayToContinue is False:
+                print("Sleeping...")
                 time.sleep(self._pauseInterval)
                 
         if okayToContinue:
