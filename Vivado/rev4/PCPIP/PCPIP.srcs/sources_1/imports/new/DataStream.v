@@ -79,7 +79,6 @@ module DataStream #(
     localparam  TRUE    = 1'b1, 
                 FALSE   = 1'b0;
     
-//    reg                             lastDataFlagBuffer; // Buffers last data bit value
     reg                             state;
     reg [C_AXIS_TDATA_WIDTH-1:0]    freqBuffer, 
                                     magBuffer;
