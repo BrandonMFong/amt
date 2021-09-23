@@ -14,10 +14,9 @@ if isDebug:
 
 def main():
     audioReader = AudioDriver(
-        usePynqAudioCodec   = False,
-        # analysisMethod      = AudioDriver.pcp2, 
-        thresholdValue      = 0.50, 
-        spectrumMax         = 2000
+        thresholdValue  = 0.50, 
+        spectrumMax     = 2000,
+        baseBitFile     = bitFile
     )
 
     audioReader.run(recordInterval=0.5)

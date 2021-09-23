@@ -11,6 +11,7 @@ except ModuleNotFoundError:
     from .Debug.BaseOverlay import BaseOverlay
     isDebug = True 
 
+from typing import overload
 from numpy.testing._private.utils import tempdir
 from pynq           import Overlay
 from pynq           import GPIO
@@ -88,11 +89,10 @@ class AudioDriver:
     _PathToSiteDirectory = "/var/www/html"
 
     def __init__(self,
-        baseBitFile         = None,
-        inputPort           = None,
-        thresholdValue      = None,
-        usePynqAudioCodec   = True,
-        spectrumMax         = None):
+        baseBitFile     = None,
+        inputPort       = None,
+        thresholdValue  = None,
+        spectrumMax     = None):
         """ 
         Initializer
         ==========
@@ -110,9 +110,6 @@ class AudioDriver:
 
         thresholdValue : float, optional 
             percentage value of threshold to consider (i.e. pass in 0.60 for 60%)
-
-        usePynqAudioCodec : boolean, optional 
-            Flag to use the Audio code overlay
 
         spectrumMax : int, optional 
             The highest frequency index to consider in the spectrum 
@@ -136,7 +133,7 @@ class AudioDriver:
             if spectrumMax is not None:
                 self._spectrumMax = spectrumMax
 
-        if okayToContinue and usePynqAudioCodec:
+        if okayToContinue:
             if baseBitFile is None:
                 okayToContinue = False 
                 print("Bit file was not passed")
@@ -144,10 +141,18 @@ class AudioDriver:
                 okayToContinue = False 
                 print("Bit file", baseBitFile, "does not exist")
         
-        if okayToContinue and usePynqAudioCodec:
+        if okayToContinue:
             if baseBitFile.endswith('.bit') == False:
                 okayToContinue = False
                 print(baseBitFile, "must be .bit file")
+
+        # load bit file
+        if okayToContinue:
+            overlay     = Overlay(baseBitFile)
+            self._dma   = overlay.stream.dma
+
+            if self._dma is None:
+                okayToContinue = False
         
         if okayToContinue:
             basePath = sys.path[0]
@@ -172,37 +177,6 @@ class AudioDriver:
             if self._notesTableData is None:
                 okayToContinue = False 
                 print("Error in generating the notes table")
-
-        # Bit file
-        if okayToContinue and usePynqAudioCodec:
-            # the if case is covered since the baseBitFile is
-            # "required" but including just in case
-            if baseBitFile is None:
-                self._baseBitFile   = None
-                self._base          = None
-                okayToContinue      = False
-                print("Base.bit was not passed")
-            else: 
-                overlay         = Overlay(baseBitFile)
-                self._dma       = overlay.stream.dma
-
-        # Audio settings
-        if okayToContinue and usePynqAudioCodec:
-            self._outlet = self._base.audio
-            self._outlet.set_volume(50)
-            self._outlet.bypass(seconds=5)  
-        
-            # Sample rate
-            self._sampling_rate = self._outlet.sample_rate
-
-            # Select input port 
-            # The default is line_in
-            if inputPort == "select_line_in":
-                self._outlet.select_line_in()
-            elif inputPort == "select_microphone":
-                self._outlet.select_microphone()
-            else:
-                self._outlet.select_line_in()
 
         # Select threshold value
         # Print results flag
