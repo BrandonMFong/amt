@@ -121,7 +121,6 @@ class AudioDriver:
         okayToContinue      = True
         fsSeparator         = "\\" if platform == "win32" else "/"
         overlay             = None
-        self._dft           = pd.DataFrame() # empty dataframe for dft 
         self._startTime     = datetime.now()
         self._endTime       = datetime.now()
         self._cmaMemReader  = Xlnk()
@@ -328,8 +327,10 @@ class AudioDriver:
         if okayToContinue:
             if self._pcpVector is None:
                 okayToContinue = False
+                print("pcp vector is none type")
             elif len(self._pcpVector) == 0:
                 okayToContinue = False
+                print("received a 0 length pcp vector")
 
             if okayToContinue is False:
                 print("Sleeping...")
@@ -357,6 +358,7 @@ class AudioDriver:
             if len(indices) == 0:
                 self._printValue    = "No chord"
                 okayToContinue      = False
+                print("No chord")
 
         if okayToContinue:
             for index in indices:
@@ -364,11 +366,6 @@ class AudioDriver:
 
     def WriteIntoFile(self):
         okayToContinue = True 
-
-        # Checks if dft has been computed 
-        # Will not pause since I am assuming that this case
-        # was already handled by the analysis method 
-        okayToContinue = True if self._dft.shape[0] != 0 else False  
 
         if okayToContinue:
             fileHandler = open(self._webServerFile, "a")
@@ -382,4 +379,5 @@ class AudioDriver:
             fileHandler.write(self._printValue)
 
         if okayToContinue:
+            self._printValue = "" # reset
             fileHandler.close()
