@@ -86,7 +86,7 @@ async function streamRecording() {
 			rec.record();
 	
 			// Wait 5 seconds before stopping the recording 
-			await sleep(5000);
+			await sleep(3000);
 
 			rec.stop(); 
 			gumStream.getAudioTracks()[0].stop();
