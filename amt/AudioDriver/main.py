@@ -76,7 +76,7 @@ class AudioDriver:
     _webServerFile = "results.txt"
 
     # Amount of time to wait if DFT was not successful 
-    _pauseInterval = 10
+    _pauseInterval = 2
 
     # Values to print
     _printValue = ""
@@ -90,7 +90,6 @@ class AudioDriver:
 
     def __init__(self,
         baseBitFile     = None,
-        inputPort       = None,
         thresholdValue  = None,
         spectrumMax     = None):
         """ 
@@ -197,7 +196,7 @@ class AudioDriver:
             raise ValueError("Recording time has to be in (0,60].")
 
         while True:
-            print()
+            print("\n=====================================")
 
             self.getSpectrum()
 
@@ -208,6 +207,9 @@ class AudioDriver:
 
             # Write into file 
             self.WriteIntoFile()
+
+            # Pause for awhile
+            time.sleep(self._pauseInterval)
 
     def getSpectrum(self):
         """
@@ -327,11 +329,8 @@ class AudioDriver:
                 okayToContinue = False
                 print("received a 0 length pcp vector")
 
-            if okayToContinue is False:
-                print("Sleeping...")
-                time.sleep(self._pauseInterval)
-                
         if okayToContinue:
+            print(self._pcpVector)
             tempDict = dict([(i, j) for i, j in enumerate(self._pcpVector)])
 
             if tempDict is None:
@@ -356,8 +355,10 @@ class AudioDriver:
                 print("No chord")
 
         if okayToContinue:
+            print(sortedList)
             for index in indices:
-                self._printValue += "{} ".format(self._noteLabels[index])
+                if sortedList[index] > 2000000000:
+                    self._printValue += "{} ".format(self._noteLabels[index])
 
     def WriteIntoFile(self):
         okayToContinue = True 
