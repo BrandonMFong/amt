@@ -21,3 +21,7 @@ site/*/node_modules/*
 
 # Chord File
 results.txt
+Vivado
+IP
+*.jou
+*.str
