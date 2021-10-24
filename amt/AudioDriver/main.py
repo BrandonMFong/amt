@@ -309,7 +309,7 @@ class AudioDriver:
 
             if startTime is not None and endTime is not None:
                 elapsedTime = endTime - startTime 
-                print("Took", elapsedTime, "minutes")
+                print("PCP Time:", elapsedTime)
             else:
                 print("Error trying to get time")
 
