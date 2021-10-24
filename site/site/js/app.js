@@ -14,8 +14,11 @@ var AudioContext;		// shim for AudioContext when it's not avb.
 var streamButton;		// Button for Streaming audio to fpga 
 var stopStreamButton;	// Button to stop streaming 
 var chordOutput;		// html element that will show chord output 
+var elapsedTime;		// Displays how long it took run transcription
 var constraints;		// Contraints for audio recording 
 var stream;				// Audio Media object
+var startTime;			// Start time when we finished recording
+var endTime;			// When we received the pcp vector
 
 // Initialize audio context
 AudioContext = window.AudioContext || window.webkitAudioContext; 
@@ -24,6 +27,7 @@ AudioContext = window.AudioContext || window.webkitAudioContext;
 streamButton 		= document.getElementById("streamButton");
 stopStreamButton 	= document.getElementById("stopStreamButton");
 chordOutput 		= document.getElementById("chordOutput");
+elapsedTime 		= document.getElementById("elapsedTime");
 
 // Add events to those 2 buttons
 streamButton.addEventListener("click", streamRecording);
@@ -91,6 +95,9 @@ async function streamRecording() {
 			rec.stop(); 
 			gumStream.getAudioTracks()[0].stop();
 	
+			// Get time stamp right when we finished recording. We want to see how long it will
+			// take to process the recording 
+			startTime = new Date();
 			rec.exportWAV( function(blob) {
 				var xhr = new XMLHttpRequest();
 				var filename = "temp.wav";
@@ -127,6 +134,11 @@ function getChord() {
 		if(this.readyState === 4) {
 			console.log(e.target.responseText);
 			chordOutput.innerHTML = e.target.responseText;
+
+			// Get time difference as elapsed time
+			endTime = new Date();
+			timeDiff = (endTime.getTime() - startTime.getTime()) / 1000;  // Get elpased time in seconds
+			elapsedTime.innerHTML = timeDiff + 's';
 
 			// Continue looping through calls 
 			streamRecording();
