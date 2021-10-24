@@ -14,8 +14,11 @@ var AudioContext;		// shim for AudioContext when it's not avb.
 var streamButton;		// Button for Streaming audio to fpga 
 var stopStreamButton;	// Button to stop streaming 
 var chordOutput;		// html element that will show chord output 
+var elapsedTime;		// Displays how long it took run transcription
 var constraints;		// Contraints for audio recording 
 var stream;				// Audio Media object
+var startTime;			// Start time when we started recording
+var endTime;			// When we received the pcp vector
 
 // Initialize audio context
 AudioContext = window.AudioContext || window.webkitAudioContext; 
@@ -24,6 +27,7 @@ AudioContext = window.AudioContext || window.webkitAudioContext;
 streamButton = document.getElementById("streamButton");
 stopStreamButton = document.getElementById("stopStreamButton");
 chordOutput = document.getElementById("chordOutput");
+elapsedTime = document.getElementById("elapsedTime");
 
 // Add events to those 2 buttons
 streamButton.addEventListener("click", streamRecording);
