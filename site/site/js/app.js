@@ -66,6 +66,8 @@ async function streamRecording() {
 
 	if (!stopStreamingFlag) {
 		if(success) {
+			startTime = new Date();
+
 			stopStreamButton.disabled = false;
 
 			// create an audio context after getUserMedia is called
@@ -131,6 +133,11 @@ function getChord() {
 		if(this.readyState === 4) {
 			console.log(e.target.responseText);
 			chordOutput.innerHTML = e.target.responseText;
+
+			// Get time difference as elapsed time
+			endTime = new Date();
+			timeDiff = (endTime.getTime() - startTime.getTime()) / 1000;  // Get elpased time in seconds
+			elapsedTime.innerHTML = timeDiff + 's';
 
 			// Continue looping through calls 
 			// This is probably a really poor way of doing this
