@@ -8,6 +8,7 @@ except ModuleNotFoundError:
     from Debug.BaseOverlay import BaseOverlay
     isDebug = True 
 
+from datetime import datetime
 import numpy as np
 from numpy.core.fromnumeric import size 
 import pandas as pd 
@@ -386,6 +387,7 @@ class xAudioHandler:
                 - YES: find the closes note value and record that into the pcp vector 
         """
         # Construct the pcp vector
+        startTime = datetime.now()
         temp = np.zeros(self._noteLabels.size)
         results = pd.DataFrame({self._notes: self._noteLabels, self._result: temp})
 
@@ -414,6 +416,12 @@ class xAudioHandler:
                 # Record the value in the pcp vector 
                 note = self._notesTableData.loc[smallestDiffIndex, self._notes]
                 results.loc[results[results[self._notes] == note][self._result].index, self._result] += 1
+
+        endTime = datetime.now()
+
+        elapsedTime = endTime - startTime
+        print("PCP time:", elapsedTime)
+
         return results
 
     def GenerateNotesTable(self):
