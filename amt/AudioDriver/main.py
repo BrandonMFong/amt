@@ -280,6 +280,7 @@ class AudioDriver:
         if okayToContinue:
             if len(self._spectrum) == 0:
                 okayToContinue = False
+                print("No spectrum to analyze")
 
         if okayToContinue:
             inputBuffer = xlnk.cma_array(shape=(len(self._spectrum),), dtype=datatype)
@@ -312,7 +313,10 @@ class AudioDriver:
             else:
                 print("Error trying to get time")
 
-        self._pcpVector = outputBuffer
+        if okayToContinue:
+            self._pcpVector = outputBuffer
+        else:
+            print("No PCP")
 
     def determineChord(self):
         okayToContinue      = True 
@@ -354,6 +358,7 @@ class AudioDriver:
                 okayToContinue      = False
                 print("No chord")
 
+        # Print but also save the indices 
         if okayToContinue:
             print(sortedList)
             for index in indices:
