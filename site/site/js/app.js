@@ -17,7 +17,7 @@ var chordOutput;		// html element that will show chord output
 var elapsedTime;		// Displays how long it took run transcription
 var constraints;		// Contraints for audio recording 
 var stream;				// Audio Media object
-var startTime;			// Start time when we started recording
+var startTime;			// Start time when we finished recording
 var endTime;			// When we received the pcp vector
 
 // Initialize audio context
@@ -66,8 +66,6 @@ async function streamRecording() {
 
 	if (!stopStreamingFlag) {
 		if(success) {
-			startTime = new Date();
-
 			stopStreamButton.disabled = false;
 
 			// create an audio context after getUserMedia is called
@@ -97,6 +95,9 @@ async function streamRecording() {
 			rec.stop(); 
 			gumStream.getAudioTracks()[0].stop();
 	
+			// Get time stamp right when we finished recording. We want to see how long it will
+			// take to process the recording 
+			startTime = new Date();
 			rec.exportWAV( function(blob) {
 				var xhr = new XMLHttpRequest();
 				var filename = "temp.wav";
