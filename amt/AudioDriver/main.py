@@ -324,6 +324,7 @@ class AudioDriver:
         tempDict            = None 
         sortedList          = None
         indices             = None 
+        noteList            = list()
 
         if okayToContinue:
             if self._pcpVector is None:
@@ -345,6 +346,8 @@ class AudioDriver:
 
             if sortedList is None:
                 okayToContinue = False
+            else:
+                print("Sorted list:", sortedList)
 
         if okayToContinue:
             indices = list(sortedList.keys())[:numNotesPerChord]
@@ -360,10 +363,12 @@ class AudioDriver:
 
         # Print but also save the indices 
         if okayToContinue:
-            print(sortedList)
             for index in indices:
-                if sortedList[index] > 2000000000:
-                    self._printValue += "{} ".format(self._noteLabels[index])
+                # if sortedList[index] > 2000000000:
+                self._printValue += "{} ".format(self._noteLabels[index])
+                noteList.append(self._noteLabels[index])
+            
+            print("Note list:", noteList)
 
     def WriteIntoFile(self):
         okayToContinue = True 
