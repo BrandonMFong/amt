@@ -376,8 +376,6 @@ class AudioDriver:
         # Print but also save the indices 
         if okayToContinue:
             for index in indices:
-                # if sortedList[index] > 2000000000:
-                self._printValue += "{} ".format(self._noteLabels[index])
                 noteList.append(self._noteLabels[index])
             
             print("Note list:", noteList)
@@ -396,10 +394,14 @@ class AudioDriver:
                 okayToContinue = False
         
         if okayToContinue:
+            chord = "no chord detected"
             try: 
-                print("Chord:", mode(chordCandidates))
+                chord = mode(chordCandidates)
             except StatisticsError:
-                print("Chord: none")
+                pass 
+                
+            print("Chord:", chord)
+            self._printValue = chord
 
     def WriteIntoFile(self):
         okayToContinue = True 
