@@ -20,6 +20,7 @@ from scipy.fftpack  import fft
 from sys            import platform
 from os             import path
 from datetime       import datetime
+from statistics     import mode, StatisticsError
 import numpy    as np
 import pandas   as pd 
 import wave
@@ -53,11 +54,6 @@ class AudioDriver:
     _notes      = "Notes"       # for notestable
     _result     = "Result"      # for pcp vector
 
-    # # Analysis methods 
-    # pcp2    = 0
-    # pcp     = 1
-    # pcp3    = 2
-    
     # Max magnitude to consider 
     _maximumMagnitude = 1 * pow(10,8)
 
@@ -85,6 +81,21 @@ class AudioDriver:
 
     _start  = 0
     _end    = 1
+
+    _knownChords = {
+        "C Major Chord" : ["C", "E", "G"],
+        "C# Major Chord" : ["C#/Db#", "F", "G#/Ab"],
+        "D Major Chord" : ["D", "F#/Gb", "A"],
+        "D# Major Chord" : ["D#/Eb", "G", "A#/Bb"],
+        "E Major Chord" : ["E", "G#/Ab", "B"],
+        "F Major Chord" : ["F", "A", "C"],
+        "F# Major Chord" : ["F#/Gb", "A#/Bb", "C#/Db"],
+        "G Major Chord" : ["G", "B", "D"],
+        "G# Major Chord" : ["G#/Ab", "C", "D#/Eb"],
+        "A Major Chord" : ["A", "C#/Db", "E"],
+        "A# Major Chord" : ["A#/Bb", "D", "F"],
+        "B Major Chord" : ["B", "D#/Eb", "F#/Gb"]
+    }
 
     _PathToSiteDirectory = "/var/www/html"
 
@@ -280,6 +291,7 @@ class AudioDriver:
         if okayToContinue:
             if len(self._spectrum) == 0:
                 okayToContinue = False
+                print("No spectrum to analyze")
 
         if okayToContinue:
             inputBuffer = xlnk.cma_array(shape=(len(self._spectrum),), dtype=datatype)
@@ -308,11 +320,14 @@ class AudioDriver:
 
             if startTime is not None and endTime is not None:
                 elapsedTime = endTime - startTime 
-                print("Took", elapsedTime, "minutes")
+                print("PCP Time:", elapsedTime)
             else:
                 print("Error trying to get time")
 
-        self._pcpVector = outputBuffer
+        if okayToContinue:
+            self._pcpVector = outputBuffer
+        else:
+            print("No PCP")
 
     def determineChord(self):
         okayToContinue      = True 
@@ -320,6 +335,8 @@ class AudioDriver:
         tempDict            = None 
         sortedList          = None
         indices             = None 
+        noteList            = list()
+        chordCandidates     = list()
 
         if okayToContinue:
             if self._pcpVector is None:
@@ -341,6 +358,8 @@ class AudioDriver:
 
             if sortedList is None:
                 okayToContinue = False
+            else:
+                print("Sorted list:", sortedList)
 
         if okayToContinue:
             indices = list(sortedList.keys())[:numNotesPerChord]
@@ -354,11 +373,35 @@ class AudioDriver:
                 okayToContinue      = False
                 print("No chord")
 
+        # Print but also save the indices 
         if okayToContinue:
-            print(sortedList)
             for index in indices:
-                if sortedList[index] > 2000000000:
-                    self._printValue += "{} ".format(self._noteLabels[index])
+                noteList.append(self._noteLabels[index])
+            
+            print("Note list:", noteList)
+
+            if len(noteList) == 0:
+                okayToContinue = False
+
+        if okayToContinue:
+            for note in noteList:
+                for nameKey in self._knownChords:
+                    chordNotes: list = self._knownChords[nameKey]
+                    if note in chordNotes:
+                        chordCandidates.append(nameKey) 
+
+            if len(chordCandidates) == 0:
+                okayToContinue = False
+        
+        if okayToContinue:
+            chord = "no chord detected"
+            try: 
+                chord = mode(chordCandidates)
+            except StatisticsError:
+                pass 
+                
+            print("Chord:", chord)
+            self._printValue = chord
 
     def WriteIntoFile(self):
         okayToContinue = True 
