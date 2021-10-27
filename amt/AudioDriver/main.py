@@ -58,7 +58,7 @@ class AudioDriver:
     _maximumMagnitude = 1 * pow(10,8)
 
     # The threshold percentage
-    _threshold = 0.60
+    _threshold = 0.50
 
     # Note Labels
     _noteLabels = np.array(["C","C#/Db","D","D#/Eb","E","F","F#/Gb","G","G#/Ab","A","A#/Bb","B"])
@@ -72,7 +72,7 @@ class AudioDriver:
     _webServerFile = "results.txt"
 
     # Amount of time to wait if DFT was not successful 
-    _pauseInterval = 2
+    _pauseInterval = 0.3
 
     # Values to print
     _printValue = ""
@@ -347,7 +347,6 @@ class AudioDriver:
                 print("received a 0 length pcp vector")
 
         if okayToContinue:
-            print(self._pcpVector)
             tempDict = dict([(i, j) for i, j in enumerate(self._pcpVector)])
 
             if tempDict is None:
@@ -358,8 +357,6 @@ class AudioDriver:
 
             if sortedList is None:
                 okayToContinue = False
-            else:
-                print("Sorted list:", sortedList)
 
         if okayToContinue:
             indices = list(sortedList.keys())[:numNotesPerChord]
@@ -378,8 +375,6 @@ class AudioDriver:
             for index in indices:
                 noteList.append(self._noteLabels[index])
             
-            print("Note list:", noteList)
-
             if len(noteList) == 0:
                 okayToContinue = False
 
@@ -400,6 +395,7 @@ class AudioDriver:
             except StatisticsError:
                 pass 
                 
+            print(noteList)
             print("Chord:", chord)
             self._printValue = chord
 
@@ -414,7 +410,6 @@ class AudioDriver:
             fileHandler.truncate(0) # empty file 
             # Since this is going to be parsed by a web server, adding 
             # html break cmd 
-            print("Output: ", self._printValue)
             fileHandler.write(self._printValue)
 
         if okayToContinue:

@@ -19,6 +19,9 @@ var constraints;		// Contraints for audio recording
 var stream;				// Audio Media object
 var startTime;			// Start time when we finished recording
 var endTime;			// When we received the pcp vector
+var recordTime;			// Recording time in milliseconds
+
+recordTime = 100;
 
 // Initialize audio context
 AudioContext = window.AudioContext || window.webkitAudioContext; 
@@ -89,8 +92,8 @@ async function streamRecording() {
 			//start the recording process
 			rec.record();
 	
-			// Wait 5 seconds before stopping the recording 
-			await sleep(3000);
+			// Wait x seconds before stopping the recording 
+			await sleep(recordTime);
 
 			rec.stop(); 
 			gumStream.getAudioTracks()[0].stop();
