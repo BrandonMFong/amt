@@ -20,6 +20,7 @@ from scipy.fftpack  import fft
 from sys            import platform
 from os             import path
 from datetime       import datetime
+from statistics     import mode, StatisticsError
 import numpy    as np
 import pandas   as pd 
 import wave
@@ -53,11 +54,6 @@ class AudioDriver:
     _notes      = "Notes"       # for notestable
     _result     = "Result"      # for pcp vector
 
-    # # Analysis methods 
-    # pcp2    = 0
-    # pcp     = 1
-    # pcp3    = 2
-    
     # Max magnitude to consider 
     _maximumMagnitude = 1 * pow(10,8)
 
@@ -85,6 +81,21 @@ class AudioDriver:
 
     _start  = 0
     _end    = 1
+
+    _knownChords = {
+        "C Major Chord" : ["C", "E", "G"],
+        "C# Major Chord" : ["C#/Db#", "F", "G#/Ab"],
+        "D Major Chord" : ["D", "F#/Gb", "A"],
+        "D# Major Chord" : ["D#/Eb", "G", "A#/Bb"],
+        "E Major Chord" : ["E", "G#/Ab", "B"],
+        "F Major Chord" : ["F", "A", "C"],
+        "F# Major Chord" : ["F#/Gb", "A#/Bb", "C#/Db"],
+        "G Major Chord" : ["G", "B", "D"],
+        "G# Major Chord" : ["G#/Ab", "C", "D#/Eb"],
+        "A Major Chord" : ["A", "C#/Db", "E"],
+        "A# Major Chord" : ["A#/Bb", "D", "F"],
+        "B Major Chord" : ["B", "D#/Eb", "F#/Gb"]
+    }
 
     _PathToSiteDirectory = "/var/www/html"
 
@@ -325,6 +336,7 @@ class AudioDriver:
         sortedList          = None
         indices             = None 
         noteList            = list()
+        chordCandidates     = list()
 
         if okayToContinue:
             if self._pcpVector is None:
@@ -369,6 +381,25 @@ class AudioDriver:
                 noteList.append(self._noteLabels[index])
             
             print("Note list:", noteList)
+
+            if len(noteList) == 0:
+                okayToContinue = False
+
+        if okayToContinue:
+            for note in noteList:
+                for nameKey in self._knownChords:
+                    chordNotes: list = self._knownChords[nameKey]
+                    if note in chordNotes:
+                        chordCandidates.append(nameKey) 
+
+            if len(chordCandidates) == 0:
+                okayToContinue = False
+        
+        if okayToContinue:
+            try: 
+                print("Chord:", mode(chordCandidates))
+            except StatisticsError:
+                print("Chord: none")
 
     def WriteIntoFile(self):
         okayToContinue = True 
