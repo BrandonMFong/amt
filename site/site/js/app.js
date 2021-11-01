@@ -21,7 +21,7 @@ var startTime;			// Start time when we finished recording
 var endTime;			// When we received the pcp vector
 var recordTime;			// Recording time in milliseconds
 
-recordTime = 100;
+recordTime = 500;
 
 // Initialize audio context
 AudioContext = window.AudioContext || window.webkitAudioContext; 

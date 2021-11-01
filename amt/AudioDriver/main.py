@@ -72,7 +72,7 @@ class AudioDriver:
     _webServerFile = "results.txt"
 
     # Amount of time to wait if DFT was not successful 
-    _pauseInterval = 0.3
+    _pauseInterval = 0.25
 
     # Values to print
     _printValue = ""
@@ -208,6 +208,7 @@ class AudioDriver:
 
         while True:
             print("\n=====================================")
+            startTime = datetime.now()
 
             self.getSpectrum()
 
@@ -218,6 +219,11 @@ class AudioDriver:
 
             # Write into file 
             self.WriteIntoFile()
+
+            endTime = datetime.now()
+
+            elapsedTime = endTime - startTime
+            print("Total time:", elapsedTime)
 
             # Pause for awhile
             time.sleep(self._pauseInterval)
