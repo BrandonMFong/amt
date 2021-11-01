@@ -142,7 +142,7 @@ function getChord() {
 			endTime = new Date();
 			timeDiff = (endTime.getTime() - startTime.getTime()) / 1000;  // Get elpased time in seconds
 			elapsedTime.innerHTML = timeDiff + 's';
-			console.log("Transcription time", timeDiff, "s");
+			console.log("Transmission time", timeDiff, "s");
 
 			// Continue looping through calls 
 			streamRecording();
