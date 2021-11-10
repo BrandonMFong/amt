@@ -21,6 +21,5 @@ def main():
 
     audioReader.run(recordInterval=0.5)
 
-
 if __name__ == "__main__":
     main()
