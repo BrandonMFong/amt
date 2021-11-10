@@ -264,6 +264,7 @@ class xAudioHandler:
         while True:
             # Record and save into file using pynq audio codec 
             # self.record(recordInterval)
+            startTime = datetime.now()
 
             # Get spectrum from wavFile
             self.getSpectrum()
@@ -273,6 +274,11 @@ class xAudioHandler:
 
             # Write into file 
             self.WriteIntoFile()
+            
+            endTime = datetime.now()
+
+            elapsedTime = endTime - startTime
+            print("Total time:", elapsedTime)
 
     def record(self, seconds):
         # Default state to 0.5 seconds
