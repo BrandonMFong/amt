@@ -83,6 +83,7 @@ class AudioDriver:
     _end    = 1
 
     _knownChords = {
+        # Major chords 
         "C Major Chord" : ["C", "E", "G"],
         "C# Major Chord" : ["C#/Db#", "F", "G#/Ab"],
         "D Major Chord" : ["D", "F#/Gb", "A"],
@@ -94,7 +95,21 @@ class AudioDriver:
         "G# Major Chord" : ["G#/Ab", "C", "D#/Eb"],
         "A Major Chord" : ["A", "C#/Db", "E"],
         "A# Major Chord" : ["A#/Bb", "D", "F"],
-        "B Major Chord" : ["B", "D#/Eb", "F#/Gb"]
+        "B Major Chord" : ["B", "D#/Eb", "F#/Gb"],
+
+        # Minor Chords
+        "C Minor Chord" : ["C", "D#/Eb", "G"],
+        "C# Minor Chord" : ["C#/Db#", "E", "G#/Ab"],
+        "D Minor Chord" : ["D", "F", "A"],
+        "D# Minor Chord" : ["D#/Eb", "F#/Gb", "A#/Bb"],
+        "E Minor Chord" : ["E", "G", "B"],
+        "F Minor Chord" : ["F", "G#/Ab", "C"],
+        "F# Minor Chord" : ["F#/Gb", "A", "C#/Db"],
+        "G Minor Chord" : ["G", "A#/Bb", "D"],
+        "G# Minor Chord" : ["G#/Ab", "B", "D#/Eb"],
+        "A Minor Chord" : ["A", "C", "E"],
+        "A# Minor Chord" : ["A#/Bb", "C#/Db", "F"],
+        "B Minor Chord" : ["B", "D", "F#/Gb"]
     }
 
     _PathToSiteDirectory = "/var/www/html"
