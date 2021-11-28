@@ -14,9 +14,9 @@ preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 0 2 20 290 310J
 preplace netloc axi_dma_0_M_AXI_MM2S 1 2 1 NJ
 preplace netloc axis_fifo_v1_0_0_m00_axis 1 1 1 300
 preplace netloc processing_system7_0_FCLK_CLK0 1 0 2 30 90 310
-preplace netloc axi_dma_0_M_AXIS_MM2S 1 0 3 40 10 NJ 10 650
 preplace netloc ps7_0_axi_periph_M00_AXI 1 0 2 NJ 80 NJ
+preplace netloc axi_dma_0_M_AXIS_MM2S 1 0 3 40 10 NJ 10 650
 levelinfo -pg 1 0 170 480 670 -top 0 -bot 300
 "
 }
-
+0

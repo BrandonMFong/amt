@@ -1966,7 +1966,7 @@
                 "value": "64"
               },
               "c_s2mm_burst_size": {
-                "value": "64"
+                "value": "32"
               },
               "c_sg_length_width": {
                 "value": "26"
