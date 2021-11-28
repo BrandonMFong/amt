@@ -84,6 +84,8 @@ module testPCP #(
     always #5 clk <= ~clk;
     
     initial begin
+        inputBit = 0;
+        inputData = 0;
         index = 0;
         expectedResults[0] = 2718 * 4;
         expectedResults[1] = 2718 * 0;
@@ -146,6 +148,7 @@ module testPCP #(
                     index = index + 1;
                     
                     if (index == pcpVectorSize) begin 
+                        $display("\nCheck for last bit flag");
                         `assert(outputBit, 1);
                     end        
                 end
