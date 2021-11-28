@@ -2,24 +2,24 @@
    "ExpandedHierarchyInLayout":"",
    "guistr":"# # String gsaved with Nlview 6.8.11  2018-08-07 bk=1.4403 VDI=40 GEI=35 GUI=JA:9.0 non-TLS
 #  -string -flagsOSRD
-preplace port DDR -pg 1 -y -380 -defaultsOSRD
-preplace port FIXED_IO -pg 1 -y -360 -defaultsOSRD
-preplace inst axi_smc -pg 1 -lvl 5 -y -280 -defaultsOSRD
-preplace inst stream -pg 1 -lvl 6 -y 102 -defaultsOSRD
-preplace inst ps7_0_axi_periph -pg 1 -lvl 5 -y -30 -defaultsOSRD
-preplace inst rst_ps7_0_100M -pg 1 -lvl 4 -y -260 -defaultsOSRD
-preplace inst processing_system7_0 -pg 1 -lvl 3 -y -330 -defaultsOSRD
-preplace netloc processing_system7_0_DDR 1 3 4 NJ -380 960 -390 1290 -380 N
-preplace netloc processing_system7_0_M_AXI_GP0 1 3 2 600 -360 940J
-preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 4 2 960 122 N
-preplace netloc stream_M_AXI_S2MM 1 4 3 980 172 NJ 172 1720
-preplace netloc axi_smc_M00_AXI 1 2 4 100 -220 590J -370 970J -380 1280
-preplace netloc processing_system7_0_FCLK_RESET0_N 1 3 1 N
-preplace netloc axi_dma_0_M_AXI_MM2S 1 4 3 980 -370 N -370 1720
-preplace netloc processing_system7_0_FIXED_IO 1 3 4 570J -400 N -400 N -400 1730
-preplace netloc processing_system7_0_FCLK_CLK0 1 2 4 110 -210 580 -390 950 102 N
-preplace netloc ps7_0_axi_periph_M00_AXI 1 5 1 1290
-levelinfo -pg 1 0 30 80 340 770 1130 1570 2290 -top -1230 -bot 400
+preplace port DDR -pg 1 -y -520 -defaultsOSRD -left
+preplace port FIXED_IO -pg 1 -y -540 -defaultsOSRD -left
+preplace inst axi_smc -pg 1 -lvl 2 -y -340 -defaultsOSRD
+preplace inst stream -pg 1 -lvl 3 -y -140 -defaultsOSRD
+preplace inst ps7_0_axi_periph -pg 1 -lvl 2 -y -120 -defaultsOSRD
+preplace inst rst_ps7_0_100M -pg 1 -lvl 1 -y -130 -defaultsOSRD
+preplace inst processing_system7_0 -pg 1 -lvl 1 -y -370 -defaultsOSRD
+preplace netloc processing_system7_0_DDR 1 0 2 N -520 520
+preplace netloc processing_system7_0_M_AXI_GP0 1 1 1 550
+preplace netloc rst_ps7_0_100M_peripheral_aresetn 1 1 2 540 10 930
+preplace netloc axi_smc_M00_AXI 1 0 3 20 -480 NJ -480 910J
+preplace netloc stream_M_AXI_S2MM 1 1 3 560 -240 N -240 1240
+preplace netloc processing_system7_0_FCLK_RESET0_N 1 0 2 30 -230 520
+preplace netloc axi_dma_0_M_AXI_MM2S 1 1 3 550 -430 N -430 1250
+preplace netloc processing_system7_0_FIXED_IO 1 0 2 N -540 530
+preplace netloc processing_system7_0_FCLK_CLK0 1 0 3 20 -240 530 0 920
+preplace netloc ps7_0_axi_periph_M00_AXI 1 2 1 910
+levelinfo -pg 1 0 290 760 1090 1740 -top -1230 -bot 510
 "
 }
 {
