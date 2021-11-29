@@ -1,10 +1,10 @@
 -- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2018.3 (win64) Build 2405991 Thu Dec  6 23:38:27 MST 2018
--- Date        : Sun Nov 28 13:15:40 2021
+-- Date        : Sun Nov 28 13:15:39 2021
 -- Host        : KAMANTA running 64-bit major release  (build 9200)
--- Command     : write_vhdl -force -mode funcsim
---               B:/COLLEGE/Thesis/Source/Vivado/rev4/pcp_design/pcp_design.srcs/sources_1/bd/pcp_design/ip/pcp_design_axis_fifo_v1_0_0_0/pcp_design_axis_fifo_v1_0_0_0_sim_netlist.vhdl
+-- Command     : write_vhdl -force -mode funcsim -rename_top pcp_design_axis_fifo_v1_0_0_0 -prefix
+--               pcp_design_axis_fifo_v1_0_0_0_ pcp_design_axis_fifo_v1_0_0_0_sim_netlist.vhdl
 -- Design      : pcp_design_axis_fifo_v1_0_0_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -19,8 +19,6 @@ entity pcp_design_axis_fifo_v1_0_0_0_Profiler is
     profileNumber : out STD_LOGIC_VECTOR ( 3 downto 0 );
     Q : in STD_LOGIC_VECTOR ( 15 downto 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of pcp_design_axis_fifo_v1_0_0_0_Profiler : entity is "Profiler";
 end pcp_design_axis_fifo_v1_0_0_0_Profiler;
 
 architecture STRUCTURE of pcp_design_axis_fifo_v1_0_0_0_Profiler is
@@ -3186,8 +3184,6 @@ entity pcp_design_axis_fifo_v1_0_0_0_DataStream is
     \FSM_sequential_state_reg[0]_7\ : in STD_LOGIC;
     \FSM_sequential_state[1]_i_2_0\ : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of pcp_design_axis_fifo_v1_0_0_0_DataStream : entity is "DataStream";
 end pcp_design_axis_fifo_v1_0_0_0_DataStream;
 
 architecture STRUCTURE of pcp_design_axis_fifo_v1_0_0_0_DataStream is
@@ -8610,8 +8606,6 @@ entity pcp_design_axis_fifo_v1_0_0_0_PCP is
     mem_read_data_valid_reg : in STD_LOGIC;
     O : in STD_LOGIC_VECTOR ( 0 to 0 )
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of pcp_design_axis_fifo_v1_0_0_0_PCP : entity is "PCP";
 end pcp_design_axis_fifo_v1_0_0_0_PCP;
 
 architecture STRUCTURE of pcp_design_axis_fifo_v1_0_0_0_PCP is
@@ -23184,8 +23178,6 @@ entity pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0 is
     s00_axis_aresetn : in STD_LOGIC;
     m00_axis_aresetn : in STD_LOGIC
   );
-  attribute ORIG_REF_NAME : string;
-  attribute ORIG_REF_NAME of pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0 : entity is "axis_fifo_v1_0";
 end pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0;
 
 architecture STRUCTURE of pcp_design_axis_fifo_v1_0_0_0_axis_fifo_v1_0 is

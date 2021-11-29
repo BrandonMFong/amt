@@ -200,6 +200,7 @@ class AudioDriver:
         The program that analyzes the wav file for chords and sends
         output to web server that relays the output to client 
         """
+        counter = 0
         print("Running program...")
         
         # This is present in the audio.py, but I will catch it here as well 
@@ -224,9 +225,14 @@ class AudioDriver:
 
             elapsedTime = endTime - startTime
             print("Total time:", elapsedTime)
-
+                
             # Pause for awhile
             time.sleep(self._pauseInterval)
+
+            if counter < 100:
+                counter += 1
+            else:
+                break
 
     def getSpectrum(self):
         """
