@@ -108,7 +108,7 @@ async function streamRecording() {
 
 				xhr.onload=function(e) {
 					if(this.readyState === 4) {
-						console.log(e.target.responseText);
+						// console.log(e.target.responseText);
 						getChord();
 					}
 				};
@@ -135,14 +135,22 @@ function getChord() {
 
 	oReq.onload = function(e) {
 		if(this.readyState === 4) {
-			console.log(e.target.responseText);
+			// console.log(e.target.responseText);
 			chordOutput.innerHTML = e.target.responseText;
 
 			// Get time difference as elapsed time
 			endTime = new Date();
 			timeDiff = (endTime.getTime() - startTime.getTime()) / 1000;  // Get elpased time in seconds
 			elapsedTime.innerHTML = timeDiff + 's';
-			console.log("Transmission time", timeDiff, "s");
+			// console.log("Transmission time", timeDiff, "s");
+			console.log(timeDiff);
+
+			// const fs = require('fs')
+			// fs.writeFile("B:\\trans.txt", timeDiff, function(err) {
+			// 	if (err) {
+			// 		return console.log(err)
+			// 	}
+			// })
 
 			// Continue looping through calls 
 			streamRecording();
